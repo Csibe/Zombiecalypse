@@ -1,0 +1,98 @@
+﻿@model WebApplication1.Models.Inventory
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Inventory</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Character.CharacterName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Character.CharacterName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Item.ItemName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Item.ItemName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ItemPieces)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ItemPieces)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Building.BuildingBuildingMaterials)
+        </dt>
+        <dd>
+            Character Items
+            <table class="table">
+                <tr>
+                    <th>InvID</th>
+                    <th>CharacterID</th>
+                    <th>ItemName</th>
+                    <th>Level</th>
+                    <th>Pieces</th>
+                </tr>
+                @foreach (var inv in Model.Character.Inventory)
+                {
+                    <tr>
+                        <td>
+                            @inv.InventoryID
+                        </td>
+                        <td>
+                            @inv.CharacterID
+                        </td>
+                        <td>
+                            @inv.Item.ItemName
+                        </td>
+                        <td>
+                            @inv.ItemPieces
+                        </td>
+                    </tr>
+                }
+            </table>
+        </dd>
+        <dd>
+           
+            <table class="table">
+                <tr>
+                    <th>ItemName</th>
+                    <th>BuildingID</th>
+                    <th>MaterialID</th>
+                    <th>ItemPieces</th>
+                </tr>
+                @foreach (var material in Model.Building.BuildingBuildingMaterials)
+                {
+                    <tr>
+                        <td>@material.ItemName</td>
+                        <td>@material.BuildingID</td>
+                        <td>@material.BuildingMaterialID</td>
+                        <td>@material.MaterialPieces</td>
+                    </tr>
+                }
+
+            </table>
+        </dd>
+                    </dl>
+
+    
+
+</div>
+<p>
+    @Html.ActionLink("LevelUpBuilding", "LevelUpBuilding", new { id = Model.InventoryID }) |
+    @Html.ActionLink("Edit", "Edit", new { id = Model.InventoryID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
