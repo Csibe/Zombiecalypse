@@ -1,0 +1,27 @@
+﻿@model Zombiecalypse.Models.FileUploader
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>FileUploader</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        @if (Model.Files.Any(f => f.FileType == Zombiecalypse.Models.FileType.Avatar))
+        {
+            <dt>
+                Avatar
+            </dt>
+            <dd>
+                <img src="~/File?id=@Model.Files.First(f => f.FileType ==  Zombiecalypse.Models.FileType.Avatar).FileId" alt="avatar" />
+            </dd>
+        }
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.FileUploaderID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -1,0 +1,198 @@
+﻿@model Zombiecalypse.Models.Inventory
+
+@{
+    ViewBag.Title = "LevelUpBuilding";
+
+}
+
+<h2>LevelUpBuilding</h2>
+
+<div>
+    <h4>Inventory</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Building.ItemName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Building.ItemName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BuildingBuildingMaterial.ItemName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BuildingBuildingMaterial.ItemName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BuildingMaterial.ItemName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BuildingMaterial.ItemName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Character.CharacterName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Character.CharacterName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Item.ItemName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Item.ItemName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ItemPieces)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ItemPieces)
+        </dd>
+        NewBuilding attributes:
+        <dd>
+           Building ID: @ViewBag.newBuilding.ItemID
+        </dd>
+        <dd>
+           Building level: @ViewBag.newBuilding.BuildingLevel
+        </dd>
+        <dd>
+            A feljesztéshez szükséges alapanyagok:
+            <table>
+                <tr>
+                    <th>ItemID</th>
+                    <th>MaterialID</th>
+                    <th>Name</th>
+                    <th>Pieces</th>
+                </tr>
+                @foreach (var mat in ViewBag.newBuilding.BuildingBuildingMaterials)
+            {
+                    <tr>
+                        <td>
+                            @mat.ItemID
+                        </td>
+                        <td>
+                            @mat.BuildingMaterialID
+                        </td>
+                        <td>
+                            @mat.ItemName
+                        </td>
+                        <td>
+                            @mat.MaterialPieces
+                        </td>
+                </tr>
+                }
+            </table>
+        </dd>
+        </br>
+        <dd>
+            A karakternél levő eszközök/épületek
+            <table>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Pieces</th>
+                </tr>
+                @foreach (var mat in ViewBag.characterInventory)
+            {
+                    <tr>
+                        <td>
+                            @mat.ItemID
+                        </td>
+                        <td>
+                            @mat.Item.ItemName
+                        </td>
+                        <td>
+                            @mat.ItemPieces
+                        </td>
+                    </tr>
+                }
+            </table>
+        </dd>
+
+        <dd>
+            </br></br>
+            A karakternél levő eszközök/épületek: @ViewBag.mat db
+            <table>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Pieces</th>
+                </tr>
+                @foreach (var mat in ViewBag.invMatList)
+                {
+                    <tr>
+                        <td>
+                            @mat.ItemID
+                        </td>
+                        <td>
+                            @mat.Item.ItemName
+                        </td>
+                        <td>
+                            @mat.ItemPieces
+                        </td>
+                    </tr>
+                }
+            </table>
+            </br></br>
+            A feljesztéshez szükséges alapanyagok: @ViewBag.mat2 db
+            <table>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Pieces</th>
+                </tr>
+                @foreach (var mat in ViewBag.buldMatList)
+            {
+                    <tr>
+                        <td>
+                            @mat.BuildingMaterialID
+                        </td>
+                        <td>
+                            @mat.ItemName
+                        </td>
+                        <td>
+                            @mat.MaterialPieces
+                        </td>
+                    </tr>
+                }
+            </table>
+            </br></br>
+        </dd>
+        </br></br>
+        A két listában egyező anyagok: @ViewBag.mat3 db
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Pieces</th>
+            </tr>
+            @foreach (var mat in ViewBag.whatNeedList)
+            {
+                <tr>
+                    <td>
+                        @mat.BuildingMaterialID
+                    </td>
+                    <td>
+                        @mat.ItemName
+                    </td>
+                    <td>
+                        @mat.MaterialPieces
+                    </td>
+                </tr>
+            }
+        </table>
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.InventoryID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

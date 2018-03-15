@@ -1,0 +1,88 @@
+﻿@model IEnumerable<Zombiecalypse.Models.Character>
+
+@{
+    ViewBag.Title = "Index";
+
+}
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.User.UserID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CharacterID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.User.UserName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CharacterName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CharacterType)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MaxEnergy)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CurrentEnergy)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CharacterXP)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CharacterLevel)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var character in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => character.CharacterID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => character.User.UserID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => character.User.UserName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => character.CharacterName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => character.CharacterType)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => character.MaxEnergy)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => character.CurrentEnergy)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => character.CharacterXP)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => character.CharacterLevel)
+        </td>
+        <td>
+
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id= character.CharacterID }) |
+            @Html.ActionLink("Details", "Details", new { id= character.CharacterID }) |
+            @Html.ActionLink("Delete", "Delete", new { id= character.CharacterID }) |
+            @Html.ActionLink("AddToEnergy", "AddToEnergy", new { id = character.CharacterID })
+            @Html.ActionLink("CharacterDetails", "CharacterDetails", "CharacterViewModels", new { id = character.CharacterID }, null)
+            @Html.ActionLink("AddToXP", "AddToXP", new { id = character.CharacterID, add = 6 }, null)
+            
+          </td>
+    </tr>
+}
+
+</table>

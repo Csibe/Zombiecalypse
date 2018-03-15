@@ -1,0 +1,58 @@
+﻿@model Zombiecalypse.Models.BuildingBuildingMaterial
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>BuildingBuildingMaterial</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ItemName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ItemName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ItemType)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ItemType)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BuildingID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BuildingID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BuildingMaterialID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BuildingMaterialID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MaterialPieces)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MaterialPieces)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ItemID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
