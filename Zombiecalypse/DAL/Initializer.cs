@@ -33,7 +33,7 @@ namespace Zombiecalypse.DAL
 
 
                 var items = new List<Item> {
-                    new Models.Item {ItemName="Csakegyitem", ItemType="item"}
+                    new Models.Item {ItemName="Csakegyitem", ItemType="item", ItemPicture="~/Content/Pictures/Items/battery.png"}
                 };
 
                 items.ForEach(s => context.Items.Add(s));

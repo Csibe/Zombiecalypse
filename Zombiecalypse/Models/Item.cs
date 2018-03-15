@@ -12,6 +12,7 @@ namespace Zombiecalypse.Models
         public int ItemID { get; set; }
         public string ItemName { get; set; }
         public string ItemType { get; set; }
+        public string ItemPicture { get; set; }
         public virtual ICollection<Inventory> Inventories { get; set; }
 
     }

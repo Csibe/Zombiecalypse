@@ -12,6 +12,9 @@
 <table class="table">
     <tr>
         <th>
+            @Html.DisplayNameFor(model => model.ItemPicture)
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.ItemID)
         </th>
         <th>
@@ -26,6 +29,10 @@
 @foreach (var item in Model) {
     <tr>
         <td>
+            <img src="@item.ItemPicture" />
+
+        </td>
+        <td>
             @Html.DisplayFor(modelItem => item.ItemID)
         </td>
         <td>
@@ -35,11 +42,19 @@
             @Html.DisplayFor(modelItem => item.ItemType)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ItemID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ItemID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ItemID })
+            @Html.ActionLink("Edit", "Edit", new { id = item.ItemID }) |
+            @Html.ActionLink("Details", "Details", new { id = item.ItemID }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.ItemID })
         </td>
     </tr>
 }
 
 </table>
+
+<button onclick="startCountDown()">Katt</button>
+
+<span  id="demo"></span>
+<script>
+    var countDownDate = @Model.Count();
+</script>
+<script src="~/Scripts/app/countdown.js" type="text/javascript"></script>
