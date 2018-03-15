@@ -55,21 +55,13 @@ namespace Zombiecalypse.Controllers
                 List<Inventory> invMatList = new List<Inventory>();
                 List<BuildingBuildingMaterial> buldMatList = new List<BuildingBuildingMaterial>();
                 List<BuildingBuildingMaterial> whatNeedList = new List<BuildingBuildingMaterial>();
-                int mat = 0;
-                int mat2 = 0;
-                int mat3 = 0;
-              /*  for (int i = 0; i < 5; i++) {
-                    mat++;
-                }
-                */
+
                 foreach (var invMat in characterInventory) {
                     invMatList.Add(invMat);
-                    mat++;
                 }
 
                 foreach (var newMat in newBuildingBuildingMaterials) {
                     buldMatList.Add(newMat);
-                    mat2++;
                 }
 
                 foreach (var invMat in characterInventory)
@@ -80,44 +72,32 @@ namespace Zombiecalypse.Controllers
                         {
                             if (invMat.ItemPieces >= newMat.MaterialPieces)
                                 whatNeedList.Add(newMat);
-                            mat3++;
                         }
                        
                     }
                 }
 
-
-                ViewBag.mat = mat;
-                ViewBag.mat2 = mat2;
-                ViewBag.mat3 = mat3;
                 ViewBag.invMatList = invMatList;
                 ViewBag.buldMatList = buldMatList;
                 ViewBag.whatNeedList = whatNeedList;
 
-                //characterInventory.Contains(newBuildingBuildingMaterials);
+                var item = db.Items.FirstOrDefault(p => p.ItemID == NewBuildingID);
+                inventory.Item = item;
 
-                /*.Where(b => b.BuildingLevel == NewBuildingLevel)
-                .Where(b => b.ItemName == BuildingName)
-                .FirstOrDefault()
-                */
-                //       List<BuildingBuildingMaterial> neededmaterials = newBuilding.ItemID;
+                //ventory.ItemID = NewBuildingID;
 
-                //  List<int> havematerials = inventory.Character.Inventory.Select(x=> x.BuildingBuildingMaterial.BuildingMaterialID).ToList();
+                    //Inventory addInventory = new Inventory { ItemID = newBuilding.ItemID, CharacterID = 1, ItemPieces = 1 };
+                    //db.Inventories.Add(addInventory);
+                    //db.Inventories.Remove(inventory);
 
-                /*if(result == neededmaterials)
-                {
-
-                    Inventory addInventory = new Inventory { ItemID = newBuilding.ItemID, CharacterID = 1, ItemPieces = 1 };
-                    db.Inventories.Add(addInventory);
-                    db.Inventories.Remove(inventory);
-                    db.SaveChanges();
-                    return View("CharacterDetails/Index/1");
-                }*/
-            }
-            return View(inventory);
-            //return RedirectToAction("Index");
-            //  return RedirectToAction("CharacterDetails/Index/1");
+                db.SaveChanges();
+                    
+                }
+            return View("CharacterDetails/Index/1");
         }
+           // return View(inventory);
+            //return RedirectToAction("Index");
+
 
 
 
