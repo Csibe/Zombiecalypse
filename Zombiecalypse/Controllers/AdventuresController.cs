@@ -22,6 +22,8 @@ namespace Zombiecalypse.Controllers
             ViewBag.BeforeCharacterFinishDate = character.FinishAdventure;
 
             character.FinishAdventure = DateTime.Now.AddSeconds(adventure.AdventureTime);
+
+
             var FullDate = character.FinishAdventure;
             int CharID = ChId;
             int? AdvID = AdId;
@@ -57,10 +59,10 @@ namespace Zombiecalypse.Controllers
             Adventure adventure = db.Adventures.Find(AdId);
             Character character = db.Characters.Find(ChId);
 
-
+            character.FinishAdventure = DateTime.MaxValue;
             character.IsOnAdventure = false;
             db.SaveChanges();
-            return View(adventure);
+            return RedirectToAction("Index", "Characters");
         }
 
         // GET: Adventures

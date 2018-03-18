@@ -16,6 +16,15 @@ namespace Zombiecalypse.Controllers
     {
         private DataContext db = new DataContext();
 
+
+        public ActionResult MaxDate(int? id) {
+            Character character = db.Characters.Find(id);
+            character.FinishAdventure = DateTime.MaxValue;
+
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
         public ActionResult AddToXP(int? id, int? add) {
 
             Character character = db.Characters.Find(id);

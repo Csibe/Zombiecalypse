@@ -91,7 +91,8 @@
             @Html.ActionLink("Delete", "Delete", new { id= character.CharacterID }) |
             @Html.ActionLink("AddToEnergy", "AddToEnergy", new { id = character.CharacterID })
             @Html.ActionLink("CharacterDetails", "CharacterDetails", "CharacterViewModels", new { id = character.CharacterID }, null)
-            @Html.ActionLink("AddToXP", "AddToXP", new { id = character.CharacterID, add = 6 }, null)
+            @Html.ActionLink("AddToXP", "AddToXP", new { id = character.CharacterID, add = 6 }, null) |
+            @Html.ActionLink("MaxDate", "MaxDate", new { id = character.CharacterID })
             
           </td>
     </tr>
