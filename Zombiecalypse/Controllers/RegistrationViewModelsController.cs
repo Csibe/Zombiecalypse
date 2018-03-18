@@ -48,7 +48,8 @@ namespace Zombiecalypse.Controllers
                 MaxEnergy = 10,
                 CurrentEnergy = 10,
                 CharacterXP = 0,
-                CharacterLevel = 1
+                CharacterLevel = 1,
+                IsOnAdventure = false
     };
 
             if (ModelState.IsValid)

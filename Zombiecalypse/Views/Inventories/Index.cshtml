@@ -50,8 +50,15 @@
             @Html.ActionLink("Edit", "Edit", new { id=item.InventoryID }) |
             @Html.ActionLink("Details", "Details", new { id=item.InventoryID }) |
             @Html.ActionLink("Delete", "Delete", new { id=item.InventoryID }) |
-            @Html.ActionLink("AddToItem", "AddToItem", new { id = item.InventoryID })
-            @Html.ActionLink("LevelUpBuilding", "LevelUpBuilding", new { id = item.InventoryID })
+            @if (item.Item.ItemType == "buildingmaterial" || item.Item.ItemType == "item")
+            {
+                @Html.ActionLink("AddToItem", "AddToItem", new { id = item.InventoryID })
+            }
+            @if(item.Item.ItemType == "building")
+            {
+                 @Html.ActionLink("LevelUpBuilding", "LevelUpBuilding", new { id = item.InventoryID })
+            }
+            
         </td>
     </tr>
 }

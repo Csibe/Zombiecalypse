@@ -1,0 +1,42 @@
+﻿@model IEnumerable<Zombiecalypse.Models.Adventure>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.AdventureName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AdventureTime)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.AdventureName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AdventureTime)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.AdventureID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.AdventureID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.AdventureID }) |
+            @Html.ActionLink("StartAdventure", "StartAdventure", new { AdId = item.AdventureID, ChId= 1 }) |
+            @Html.ActionLink("StopAdventure", "StopAdventure", new { AdId = item.AdventureID, ChId = 1 }) |
+            
+        </td>
+    </tr>
+}
+
+</table>

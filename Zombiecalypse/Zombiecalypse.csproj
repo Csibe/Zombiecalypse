@@ -171,6 +171,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\AdventuresController.cs" />
     <Compile Include="Controllers\BuildingBuildingMaterialsController.cs" />
     <Compile Include="Controllers\BuildingsController.cs" />
     <Compile Include="Controllers\CharactersController.cs" />
@@ -189,6 +190,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\Adventure.cs" />
     <Compile Include="Models\Building.cs" />
     <Compile Include="Models\BuildingBuildingMaterial.cs" />
     <Compile Include="Models\BuildingMaterial.cs" />
@@ -214,7 +216,17 @@
     <Content Include="Content\Pictures\1.PNG" />
     <Content Include="Content\Pictures\2.PNG" />
     <Content Include="Content\Pictures\banner.png" />
+    <Content Include="Content\Pictures\Buildings\house1.png" />
+    <Content Include="Content\Pictures\Buildings\house2.png" />
+    <Content Include="Content\Pictures\Buildings\house3.png" />
+    <Content Include="Content\Pictures\Buildings\house4.png" />
+    <Content Include="Content\Pictures\header.png" />
+    <Content Include="Content\Pictures\header2.png" />
+    <Content Include="Content\Pictures\header3.png" />
     <Content Include="Content\Pictures\Items\battery.png" />
+    <Content Include="Content\Pictures\Items\blueprint.PNG" />
+    <Content Include="Content\Pictures\Items\header.png" />
+    <Content Include="Content\Pictures\Items\roof_tile.PNG" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -276,7 +288,6 @@
     <Content Include="Views\Characters\Create.cshtml" />
     <Content Include="Views\Characters\Delete.cshtml" />
     <Content Include="Views\Characters\Details.cshtml" />
-    <Content Include="Views\Characters\Edit.cshtml" />
     <Content Include="Views\Characters\Index.cshtml" />
     <Content Include="Views\Inventories\Create.cshtml" />
     <Content Include="Views\Inventories\Delete.cshtml" />
@@ -316,10 +327,18 @@
     <Content Include="Views\Levels\Edit.cshtml" />
     <Content Include="Views\Levels\Index.cshtml" />
     <Content Include="Views\Characters\AddToXP.cshtml" />
+    <Content Include="Views\Shared\NotEnoughtMaterial.cshtml" />
+    <Content Include="Views\Adventures\Create.cshtml" />
+    <Content Include="Views\Adventures\Delete.cshtml" />
+    <Content Include="Views\Adventures\Details.cshtml" />
+    <Content Include="Views\Adventures\Edit.cshtml" />
+    <Content Include="Views\Adventures\Index.cshtml" />
+    <Content Include="Views\Adventures\StartAdventure.cshtml" />
+    <Content Include="Views\Adventures\StopAdventure.cshtml" />
+    <Content Include="Views\Shared\OnAdventure.cshtml" />
+    <Content Include="Views\Characters\Edit.cshtml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Views\Action\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />

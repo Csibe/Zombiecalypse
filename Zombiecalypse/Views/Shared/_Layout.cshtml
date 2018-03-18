@@ -3,10 +3,12 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    @Styles.Render("~/Content/MyStyle.css")
-   <!-- @Styles.Render("~/Content/Style.css") -->
-   <!-- @Styles.Render("~/Content/bootstrap.css") -->
+
+    @Styles.Render("~/Content/Style.css")
+    @Styles.Render("~/Content/bootstrap.css")
     @Scripts.Render("~/bundles/modernizr")
+    @Styles.Render("~/Content/Site.css")
+    @Styles.Render("~/Content/MyStyle.css")
     @RenderPage("_Header.cshtml")
 </head>
 <body>
@@ -24,8 +26,6 @@
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
                     <li>@Html.ActionLink("Registration", "Registration", "RegistrationViewModels")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
                     <li>@Html.ActionLink("Users", "Index", "Users")</li>
                     <li>@Html.ActionLink("Characters", "Index", "Characters")</li>
                     <li>@Html.ActionLink("Inventories", "Index", "Inventories")</li>

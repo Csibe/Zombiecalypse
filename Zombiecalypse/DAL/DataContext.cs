@@ -52,6 +52,8 @@ namespace Zombiecalypse.DAL
         public System.Data.Entity.DbSet<Zombiecalypse.ViewModels.CharacterViewModel> CharacterViewModels { get; set; }
 
         public System.Data.Entity.DbSet<Zombiecalypse.Models.Level> Levels { get; set; }
+
+        public DbSet<Adventure> Adventures { get; set; }
     }
 
 }

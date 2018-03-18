@@ -1,0 +1,72 @@
+﻿@model Zombiecalypse.Models.Adventure
+
+@{
+    ViewBag.Title = "StartAdventure";
+}
+
+
+<h2>StartAdventure</h2>
+
+
+
+<div>
+    <h4>Adventure</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.AdventureName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.AdventureName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.AdventureTime)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AdventureTime)
+        </dd>
+        Adventure datas:</br>
+        Model.AdventureTime: @Model.AdventureTime</br>
+        ViewBag.CharID: @ViewBag.CharID</br>
+        ViewBag.AdvID: @ViewBag.AdvID</br>
+        ViewBag.BeforeCharacterFinishDate: @ViewBag.BeforeCharacterFinishDate</br>
+        DateNow: @DateTime.Now </br>
+        ViewBag.FullDate: @ViewBag.FullDate</br>
+        </br>
+        </br>
+        ViewBag.FinishAdventureYear: @ViewBag.FinishAdventureYear </br>
+        ViewBag.FinisAdventureMonth: @ViewBag.FinishAdventureMonth </br>
+        ViewBag.FinishAdventureDay: @ViewBag.FinishAdventureDay </br>
+        ViewBag.FinishAdventureHour: @ViewBag.FinishAdventureHour </br>
+        ViewBag.FinishAdventureMinute: @ViewBag.FinishAdventureMinute </br>
+        ViewBag.FinishAdventureSecond: @ViewBag.FinishAdventureSecond </br>
+        </br>
+        </br>
+        </br>
+        <button onclick="startCountDown()">Start</button></br>
+        <span id="demo"></span>
+
+        
+        <script>
+
+            var Year = @ViewBag.FinishAdventureYear;
+            var Month = @ViewBag.FinishAdventureMonth;
+            var Day = @ViewBag.FinishAdventureDay;
+            var Hour = @ViewBag.FinishAdventureHour
+            var Second = @ViewBag.FinishAdventureSecond
+
+            var countDownDate = @Model.AdventureTime*1000;
+            var ChId = @ViewBag.CharID;
+            var AdId =  @ViewBag.AdvID;
+            var Finish =  new Date(Year, Month, Day, Hour, Second, 0, 0)
+        </script>
+        <script src="~/Scripts/app/countdown.js" type="text/javascript"></script>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.AdventureID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
+

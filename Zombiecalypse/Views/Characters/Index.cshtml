@@ -38,6 +38,12 @@
         <th>
             @Html.DisplayNameFor(model => model.CharacterLevel)
         </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsOnAdventure)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FinishAdventure)
+        </th>
         <th></th>
     </tr>
 
@@ -69,6 +75,12 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => character.CharacterLevel)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => character.IsOnAdventure)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => character.FinishAdventure)
         </td>
         <td>
 

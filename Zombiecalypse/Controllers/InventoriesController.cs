@@ -27,76 +27,96 @@ namespace Zombiecalypse.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.CharacterID = new SelectList(db.Characters, "CharacterID", "CharacterName", inventory.CharacterID);
-            ViewBag.ItemID = new SelectList(db.Items, "ItemID", "ItemName", inventory.ItemID);
+            //ViewBag.CharacterID = new SelectList(db.Characters, "CharacterID", "CharacterName", inventory.CharacterID);
+            //ViewBag.ItemID = new SelectList(db.Items, "ItemID", "ItemName", inventory.ItemID);
 
-            if (inventory.Building.BuildingLevel < MaxBuildingLevel)
+            if (inventory.Character.IsOnAdventure == false)
             {
-                int charactersID = inventory.CharacterID;
-                ICollection<Inventory>characterInventory = db.Inventories.Where(x=>x.CharacterID == charactersID).ToList();
 
-                int BuildingLevel = inventory.Building.BuildingLevel;
-                int NewBuildingLevel = ++BuildingLevel;
-                string BuildingName = inventory.Building.ItemName;
-                int NewBuildingID = inventory.Building.ItemID;
-                NewBuildingID++;
-
-                Building newBuilding = db.Buildings.Where(b => b.BuildingLevel == NewBuildingLevel).Where(b => b.ItemName == BuildingName).SingleOrDefault();
-                // ICollection<BuildingBuildingMaterial> newBuildingBuildingMaterials = db.BuildingBuildingMaterials.Where(b => b.BuildingID == NewBuildingID).ToList();
-                List<BuildingBuildingMaterial> newBuildingBuildingMaterials = db.BuildingBuildingMaterials.Where(b => b.BuildingID == NewBuildingID).ToList();
-                BuildingBuildingMaterial newSingleBuilding = newBuildingBuildingMaterials.First();
-
-
-
-
-                ViewBag.newBuilding = new Building() {ItemID=newBuilding.ItemID,BuildingLevel=newBuilding.BuildingLevel, BuildingBuildingMaterials = newBuildingBuildingMaterials };
-                ViewBag.characterInventory = characterInventory;
-
-                List<Inventory> invMatList = new List<Inventory>();
-                List<BuildingBuildingMaterial> buldMatList = new List<BuildingBuildingMaterial>();
-                List<BuildingBuildingMaterial> whatNeedList = new List<BuildingBuildingMaterial>();
-
-                foreach (var invMat in characterInventory) {
-                    invMatList.Add(invMat);
-                }
-
-                foreach (var newMat in newBuildingBuildingMaterials) {
-                    buldMatList.Add(newMat);
-                }
-
-                foreach (var invMat in characterInventory)
+                if (inventory.Building.BuildingLevel < MaxBuildingLevel)
                 {
+                    int charactersID = inventory.CharacterID;
+                    ICollection<Inventory> characterInventory = db.Inventories.Where(x => x.CharacterID == charactersID).ToList();
+
+                    int BuildingLevel = inventory.Building.BuildingLevel;
+                    int NewBuildingLevel = ++BuildingLevel;
+                    string BuildingName = inventory.Building.ItemName;
+                    int NewBuildingID = inventory.Building.ItemID;
+                    NewBuildingID++;
+
+                    Building newBuilding = db.Buildings.Where(b => b.BuildingLevel == NewBuildingLevel).Where(b => b.ItemName == BuildingName).SingleOrDefault();
+                    // ICollection<BuildingBuildingMaterial> newBuildingBuildingMaterials = db.BuildingBuildingMaterials.Where(b => b.BuildingID == NewBuildingID).ToList();
+                    List<BuildingBuildingMaterial> newBuildingBuildingMaterials = db.BuildingBuildingMaterials.Where(b => b.BuildingID == NewBuildingID).ToList();
+                    //BuildingBuildingMaterial newSingleBuilding = newBuildingBuildingMaterials.First();
+
+
+                    ViewBag.newBuilding = new Building() { ItemID = newBuilding.ItemID, BuildingLevel = newBuilding.BuildingLevel, BuildingBuildingMaterials = newBuildingBuildingMaterials };
+                    ViewBag.characterInventory = characterInventory;
+
+                    List<Inventory> invMatList = new List<Inventory>();
+                    List<BuildingBuildingMaterial> buldMatList = new List<BuildingBuildingMaterial>();
+                    List<BuildingBuildingMaterial> whatNeedList = new List<BuildingBuildingMaterial>();
+                    int counter = 0;
+                    foreach (var invMat in characterInventory)
+                    {
+                        invMatList.Add(invMat);
+                    }
+
                     foreach (var newMat in newBuildingBuildingMaterials)
                     {
-                        if (invMat.ItemID == newMat.BuildingMaterialID)
-                        {
-                            if (invMat.ItemPieces >= newMat.MaterialPieces)
-                                whatNeedList.Add(newMat);
-                        }
-                       
+                        buldMatList.Add(newMat);
                     }
+
+                    foreach (var invMat in characterInventory)
+                    {
+                        foreach (var newMat in newBuildingBuildingMaterials)
+                        {
+                            if (invMat.ItemID == newMat.BuildingMaterialID)
+                            {
+                                if (invMat.ItemPieces >= newMat.MaterialPieces)
+                                {
+                                    counter++;
+                                    whatNeedList.Add(newMat);
+                                }
+                            }
+
+                        }
+                    }
+                    if (counter == buldMatList.Count())
+                    {
+                        foreach (var invMat in characterInventory)
+                        {
+                            foreach (var newMat in newBuildingBuildingMaterials)
+                            {
+                                if (invMat.ItemID == newMat.BuildingMaterialID)
+                                {
+                                    invMat.ItemPieces = invMat.ItemPieces - newMat.MaterialPieces;
+
+                                }
+                            }
+                        }
+                        var item = db.Items.FirstOrDefault(p => p.ItemID == NewBuildingID);
+                        inventory.Item = item;
+                        db.SaveChanges();
+                        return RedirectToAction("Index");
+                    }
+                    else
+                    {
+                        return View("~/Views/shared/NotEnoughtMaterial.cshtml");
+                    }
+
+                    ViewBag.invMatList = invMatList;
+                    ViewBag.buldMatList = buldMatList;
+                    ViewBag.whatNeedList = whatNeedList;
                 }
-
-                ViewBag.invMatList = invMatList;
-                ViewBag.buldMatList = buldMatList;
-                ViewBag.whatNeedList = whatNeedList;
-
-                var item = db.Items.FirstOrDefault(p => p.ItemID == NewBuildingID);
-                inventory.Item = item;
-
-                //ventory.ItemID = NewBuildingID;
-
-                    //Inventory addInventory = new Inventory { ItemID = newBuilding.ItemID, CharacterID = 1, ItemPieces = 1 };
-                    //db.Inventories.Add(addInventory);
-                    //db.Inventories.Remove(inventory);
-
-                db.SaveChanges();
-                    
-                }
-            return View("CharacterDetails/Index/1");
+               
+            }
+            else {
+                return View("~/Views/shared/OnAdventure.cshtml");
+            }
+            return RedirectToAction("Index");
         }
-           // return View(inventory);
-            //return RedirectToAction("Index");
+
 
 
 

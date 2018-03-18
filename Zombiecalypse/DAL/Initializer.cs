@@ -25,15 +25,15 @@ namespace Zombiecalypse.DAL
 
                  var characters = new List<Character>
                 {
-                new Character{CharacterID=1, CharacterName="Charname1", CharacterType=1, CharacterXP=100},
-                new Character{CharacterID=2, CharacterName="Charname2", CharacterType=1, CharacterXP=100},
+                new Character{CharacterID=1, CharacterName="Charname1", CharacterType=1, CharacterXP=100, CharacterLevel=1, CurrentEnergy=10, IsOnAdventure=false, MaxEnergy=10, FinishAdventure=DateTime.MaxValue },
+                new Character{CharacterID=2, CharacterName="Charname2", CharacterType=1, CharacterXP=100, CharacterLevel=1, CurrentEnergy=10, IsOnAdventure=false, MaxEnergy=10, FinishAdventure=DateTime.MaxValue }
                 };
                     characters.ForEach(s => context.Characters.Add(s));
                     context.SaveChanges();
 
 
                 var items = new List<Item> {
-                    new Models.Item {ItemName="Csakegyitem", ItemType="item", ItemPicture="~/Content/Pictures/Items/battery.png"}
+                    new Models.Item {ItemName="Csakegyitem", ItemType="item", ItemPicture="/Content/Pictures/Items/battery.png"}
                 };
 
                 items.ForEach(s => context.Items.Add(s));
@@ -41,10 +41,10 @@ namespace Zombiecalypse.DAL
 
                     var buildings = new List<Building>
                 {
-                new Building{ItemName="House", BuildingLevel=1, ItemType="building", BuildingEnergyCost=2, BuildingMoneyCost=100},
-                new Building{ItemName="House", BuildingLevel=2, ItemType="building", BuildingEnergyCost=3, BuildingMoneyCost=200},
-                new Building{ItemName="House", BuildingLevel=3, ItemType="building", BuildingEnergyCost=4, BuildingMoneyCost=300},
-                new Building{ItemName="House", BuildingLevel=4, ItemType="building", BuildingEnergyCost=5, BuildingMoneyCost=400},
+                new Building{ItemName="House", BuildingLevel=1, ItemType="building", BuildingEnergyCost=2, BuildingMoneyCost=100, ItemPicture="/Content/Pictures/Buildings/house1.png"},
+                new Building{ItemName="House", BuildingLevel=2, ItemType="building", BuildingEnergyCost=3, BuildingMoneyCost=200, ItemPicture="/Content/Pictures/Buildings/house2.png"},
+                new Building{ItemName="House", BuildingLevel=3, ItemType="building", BuildingEnergyCost=4, BuildingMoneyCost=300, ItemPicture="/Content/Pictures/Buildings/house3.png"},
+                new Building{ItemName="House", BuildingLevel=4, ItemType="building", BuildingEnergyCost=5, BuildingMoneyCost=400, ItemPicture="/Content/Pictures/Buildings/house4.png"},
                 new Building{ItemName="House", BuildingLevel=5, ItemType="building"}
                 };
                     buildings.ForEach(s => context.Buildings.Add(s));
@@ -53,7 +53,7 @@ namespace Zombiecalypse.DAL
 
                 var buildingmaterials = new List<BuildingMaterial>
                 {
-                new BuildingMaterial{ItemName="blueprint", ItemType="buildingmaterial"},
+                new BuildingMaterial{ItemName="blueprint", ItemType="buildingmaterial", ItemPicture="/Content/Pictures/Items/blueprint.PNG"},
                 new BuildingMaterial {ItemName="board", ItemType="buildingmaterial"},
                 new BuildingMaterial {ItemName="metal shed", ItemType="buildingmaterial"},
                 new BuildingMaterial {ItemName="roof tile", ItemType="buildingmaterial"},
@@ -92,15 +92,13 @@ namespace Zombiecalypse.DAL
             levels.ForEach(s => context.Levels.Add(s));
             context.SaveChanges();
 
-/*
-                var buildingbuildingmaterials = new List<BuildingBuildingMaterial>
-            {
-            new BuildingBuildingMaterial{BuildingID=1, BuildingMaterialID=1, MaterialPieces=3},
-            new BuildingBuildingMaterial{BuildingID=1, BuildingMaterialID=2, MaterialPieces=5},
+
+            var adventures = new List<Adventure> {
+                new Adventure { AdventureName="Short Adventure", AdventureTime=10},
+                new Adventure { AdventureName="Middle Adventure", AdventureTime=15}
             };
-                buildingbuildingmaterials.ForEach(s => context.Items.Add(s));
-                context.SaveChanges();
-                */
+            adventures.ForEach(s => context.Adventures.Add(s));
+            context.SaveChanges();
         }
     }
   }
