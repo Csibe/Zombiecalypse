@@ -216,6 +216,10 @@
     <Content Include="Content\Pictures\1.PNG" />
     <Content Include="Content\Pictures\2.PNG" />
     <Content Include="Content\Pictures\banner.png" />
+    <Content Include="Content\Pictures\Base\House1Garage1.png" />
+    <Content Include="Content\Pictures\Base\House2Garage1.png" />
+    <Content Include="Content\Pictures\Buildings\Garage_1.png" />
+    <Content Include="Content\Pictures\Buildings\Garage_2.png" />
     <Content Include="Content\Pictures\Buildings\house1.png" />
     <Content Include="Content\Pictures\Buildings\house2.png" />
     <Content Include="Content\Pictures\Buildings\house3.png" />
@@ -299,7 +303,6 @@
     <Content Include="Views\RegistrationViewModels\Delete.cshtml" />
     <Content Include="Views\RegistrationViewModels\Create.cshtml" />
     <Content Include="Views\RegistrationViewModels\Registration.cshtml" />
-    <Content Include="Views\RegistrationViewModels\Index.cshtml" />
     <Content Include="Views\Items\Create.cshtml" />
     <Content Include="Views\Items\Delete.cshtml" />
     <Content Include="Views\Items\Details.cshtml" />
@@ -337,6 +340,12 @@
     <Content Include="Views\Adventures\StopAdventure.cshtml" />
     <Content Include="Views\Shared\OnAdventure.cshtml" />
     <Content Include="Views\Characters\Edit.cshtml" />
+    <Content Include="Views\Adventures\CheckAdventure.cshtml" />
+    <Content Include="Views\Home\Login.cshtml" />
+    <Content Include="Views\RegistrationViewModels\Login.cshtml" />
+    <Content Include="Views\RegistrationViewModels\NewRegistration.cshtml" />
+    <Content Include="Views\RegistrationViewModels\Index.cshtml" />
+    <Content Include="Views\Home\Index - Copy %282%29.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

@@ -1,12 +1,15 @@
-﻿<!DOCTYPE html>
-<html>
-<head>
-    <title>Main Page</title>
-</head>
-<body>
+﻿@{
+    ViewBag.Title = "Index";
+}
 
-    <h1>Index Page Content</h1>
-    <p>This is the content of the main page.</p>
+<h2>Index</h2>
 
-</body>
-</html>
+    Welcome @HttpContext.Current.User.Identity.Name
+
+    @if (Request.IsAuthenticated)
+    {
+        using (Html.BeginForm("Logout", "RegistrationViewModels", FormMethod.Post, new { id = "logoutForm" }))
+        {
+            <a href="javascript:document.getElementById('logoutForm').submit()">Logout</a>
+        }
+    }

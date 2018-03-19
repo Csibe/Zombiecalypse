@@ -34,7 +34,7 @@
             @Html.ActionLink("Delete", "Delete", new { id=item.AdventureID }) |
             @Html.ActionLink("StartAdventure", "StartAdventure", new { AdId = item.AdventureID, ChId= 1 }) |
             @Html.ActionLink("StopAdventure", "StopAdventure", new { AdId = item.AdventureID, ChId = 1 }) |
-            
+            @Html.ActionLink("CheckAdventure", "CheckAdventure", new { AdId = item.AdventureID, ChId = 1 })
         </td>
     </tr>
 }

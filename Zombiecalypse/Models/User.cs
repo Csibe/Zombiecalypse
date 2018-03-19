@@ -10,18 +10,27 @@ namespace Zombiecalypse.Models
 {
     public class User
     {
+
+        
         public int UserID { get; set; }
 
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Username required")]
         [DisplayName("Name")]
         public string UserName { get; set; }
 
+
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Email is required")]
+        [DataType(DataType.EmailAddress)]
         [DisplayName("Email")]
         public string UserEmail { get; set; }
 
 
-        [DisplayName("Password")]
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Password is required")]
         [DataType(DataType.Password)]
+        [MinLength(6, ErrorMessage = "Minimum 6 characters required")]
         public string UserPassword { get; set; }
+
+
         public virtual Character Character { get; set; }
 
 

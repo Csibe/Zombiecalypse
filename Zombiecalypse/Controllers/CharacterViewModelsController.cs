@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 using Zombiecalypse.DAL;
 using Zombiecalypse.Models;
 using Zombiecalypse.ViewModels;
@@ -17,7 +18,6 @@ namespace Zombiecalypse.Controllers
         private DataContext db = new DataContext();
 
 
-
         public ActionResult CharacterDetails(int? id)
         {
 
@@ -26,15 +26,36 @@ namespace Zombiecalypse.Controllers
             CharacterViewModel viewmodel = new CharacterViewModel();
             viewmodel.Character = character;
 
-
-            var variable = from i in db.Buildings.OfType<Building>() select i;
-            //IQueryable = from i in ctx.ProductItems.Include("Product") select i;
-            //var variable = from s in ctx.Products.OfType() select s;
-
-
+           // string Picture = "/Content/Pictures/Base/" + "House_1_Garage_1" + ".png";
+            //ViewBag.Picture = Picture;
             viewmodel.CharacterName = character.CharacterName;
             viewmodel.CharacterItems = character.Inventory;
             viewmodel.CharacterType = character.CharacterType;
+
+            int HouseID=0;
+            int GarageID=0;
+
+            string Picture = "/Content/Pictures/Base/";
+           ICollection<Inventory> characterInventory = character.Inventory;
+            foreach (var charinv in characterInventory) {
+                if (charinv.Item.ItemType == "building") {
+                    Picture += charinv.Item.ItemName + charinv.Building.BuildingLevel;
+                    if (charinv.Item.ItemName == "House") {
+                        HouseID = charinv.Item.ItemID;
+                    }
+                    if (charinv.Item.ItemName == "Garage") {
+                        GarageID = charinv.Item.ItemID;
+                    }
+                }
+                
+            }
+            Picture += ".png";
+
+            ViewBag.Picture = Picture;
+            ViewBag.HouseID = HouseID;
+            ViewBag.GarageID = GarageID;
+
+
             return View(viewmodel);
         }
 

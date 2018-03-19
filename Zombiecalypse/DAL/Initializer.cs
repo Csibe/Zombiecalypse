@@ -31,7 +31,7 @@ namespace Zombiecalypse.DAL
                     characters.ForEach(s => context.Characters.Add(s));
                     context.SaveChanges();
 
-
+    
                 var items = new List<Item> {
                     new Models.Item {ItemName="Csakegyitem", ItemType="item", ItemPicture="/Content/Pictures/Items/battery.png"}
                 };
@@ -63,16 +63,6 @@ namespace Zombiecalypse.DAL
                     context.SaveChanges();
 
 
-            var inventories = new List<Inventory> {
-                   new Inventory {InventoryID=1, CharacterID=1, ItemID=2, ItemPieces=1},
-                   new Inventory {InventoryID=1, CharacterID=1, ItemID=7, ItemPieces=5},
-                   new Inventory {InventoryID=1, CharacterID=1, ItemID=8, ItemPieces=5},
-                   new Inventory {InventoryID=1, CharacterID=1, ItemID=1, ItemPieces=5},
-                   new Inventory {InventoryID=2, CharacterID=2, ItemID=6, ItemPieces=3},
-                   new Inventory {InventoryID=2, CharacterID=2, ItemID=9, ItemPieces=8},
-            };
-            inventories.ForEach(s => context.Inventories.Add(s));
-            context.SaveChanges();
 
             var buildingbuildingmaterials = new List<BuildingBuildingMaterial> {
                    new BuildingBuildingMaterial { BuildingID=2, BuildingMaterialID=7, MaterialPieces=3, ItemName="blueprint" },
@@ -99,6 +89,30 @@ namespace Zombiecalypse.DAL
             };
             adventures.ForEach(s => context.Adventures.Add(s));
             context.SaveChanges();
+
+
+            var buildings2 = new List<Building>
+                {
+                new Building { ItemName = "Garage", BuildingLevel = 1, ItemType = "building", BuildingEnergyCost = 5, BuildingMoneyCost = 400, ItemPicture = "/Content/Pictures/Buildings/Garage_1.png" },
+                new Building { ItemName = "Garage", BuildingLevel = 2, ItemType = "building", BuildingEnergyCost = 5, BuildingMoneyCost = 400, ItemPicture = "/Content/Pictures/Buildings/Garage_2.png" },
+                };
+            buildings2.ForEach(s => context.Buildings.Add(s));
+            context.SaveChanges();
+
+            var inventories = new List<Inventory> {
+                   new Inventory {InventoryID=1, CharacterID=1, ItemID=2, ItemPieces=1},
+                   new Inventory {InventoryID=1, CharacterID=1, ItemID=16, ItemPieces=1},
+                   new Inventory {InventoryID=1, CharacterID=1, ItemID=7, ItemPieces=5},
+                   new Inventory {InventoryID=1, CharacterID=1, ItemID=8, ItemPieces=5},
+                   new Inventory {InventoryID=1, CharacterID=1, ItemID=1, ItemPieces=5},
+                   new Inventory {InventoryID=2, CharacterID=2, ItemID=6, ItemPieces=3},
+                   new Inventory {InventoryID=2, CharacterID=2, ItemID=9, ItemPieces=8},
+                   new Inventory {InventoryID=1, CharacterID=1, ItemID=11, ItemPieces=8},
+            };
+            inventories.ForEach(s => context.Inventories.Add(s));
+            context.SaveChanges();
+            
+
         }
     }
   }

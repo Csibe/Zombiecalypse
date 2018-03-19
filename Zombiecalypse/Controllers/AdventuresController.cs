@@ -16,6 +16,40 @@ namespace Zombiecalypse.Controllers
         private DataContext db = new DataContext();
 
 
+        public ActionResult CheckAdventure(int? AdId, int ChId)
+        {
+            Adventure adventure = db.Adventures.Find(AdId);
+            Character character = db.Characters.Find(ChId);
+
+
+            var FullDate = character.FinishAdventure;
+            int CharID = ChId;
+            int? AdvID = AdId;
+            var FinishAdventureYear = character.FinishAdventure.Year;
+            var FinishAdventureMonth = character.FinishAdventure.Month;
+            var FinishAdventureDay = character.FinishAdventure.Day;
+            var FinishAdventureHour = character.FinishAdventure.Hour;
+            var FinishAdventureMinute = character.FinishAdventure.Minute;
+            var FinishAdventureSecond = character.FinishAdventure.Second;
+
+
+            ViewBag.CharID = CharID;
+            ViewBag.AdvID = AdvID;
+
+            ViewBag.FullDate = FullDate;
+
+            ViewBag.FinishAdventureYear = FinishAdventureYear;
+            ViewBag.FinishAdventureMonth = FinishAdventureMonth;
+            ViewBag.FinishAdventureDay = FinishAdventureDay;
+            ViewBag.FinishAdventureHour = FinishAdventureHour;
+            ViewBag.FinishAdventureMinute = FinishAdventureMinute;
+            ViewBag.FinishAdventureSecond = FinishAdventureSecond;
+
+
+            return View(adventure);
+        }
+
+
         public ActionResult StartAdventure(int? AdId, int ChId) {
             Adventure adventure = db.Adventures.Find(AdId);
             Character character = db.Characters.Find(ChId);

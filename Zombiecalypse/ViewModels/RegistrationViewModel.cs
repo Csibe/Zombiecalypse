@@ -8,6 +8,7 @@ using Zombiecalypse.Models;
 
 namespace Zombiecalypse.ViewModels
 {
+
     public class RegistrationViewModel
     {
 
@@ -16,26 +17,30 @@ namespace Zombiecalypse.ViewModels
         [DataType(DataType.DateTime)]
         [DisplayFormat(DataFormatString = "{0:yyyy.MM.dd. HH:mm}", ApplyFormatInEditMode = true)]
         public DateTime RegistrationDate { get; set; }
-
+        
         public int UserID { get; set; }
 
-        [DisplayName("Username")]
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Username required")]
+        [DisplayName("Name")]
         public string UserName { get; set; }
 
+
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Email is required")]
+        [DataType(DataType.EmailAddress)]
         [DisplayName("Email")]
         public string UserEmail { get; set; }
 
-        [DisplayName("Password")]
-        [DataType(DataType.Password)]
-        public string UserPassword { get; set; }
 
-        /*
-        [DisplayName("Password again")]
-        [Required(ErrorMessage = "Password doesn't match")]
-        [Compare("UserPassword")]
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Password is required")]
         [DataType(DataType.Password)]
-        public string UserRePassword { get; set; }
-        */
+        public string Password { get; set; }
+
+        [Display(Name = "Confirm Password")]
+        [DataType(DataType.Password)]
+        [Compare("Password", ErrorMessage = "Confirm password and password do not match")]
+        public string ConfirmPassword { get; set; }
+
+        
         public int CharacterID { get; set; }
 
         [DisplayName("Character name")]
