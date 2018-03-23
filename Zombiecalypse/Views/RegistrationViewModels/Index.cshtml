@@ -12,6 +12,9 @@
 <table class="table">
     <tr>
         <th>
+            @Html.DisplayNameFor(model => model.RegistrationViewModelID)
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.RegistrationDate)
         </th>
         <th>
@@ -55,6 +58,9 @@
 
 @foreach (var item in Model) {
     <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.RegistrationViewModelID)
+        </td>
         <td>
             @Html.DisplayFor(modelItem => item.RegistrationDate)
         </td>

@@ -1,9 +1,11 @@
-﻿using System;
+﻿using Microsoft.AspNet.Identity;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using Zombiecalypse.DAL;
@@ -15,6 +17,11 @@ namespace Zombiecalypse.Controllers
     public class CharactersController : Controller
     {
         private DataContext db = new DataContext();
+
+        public ActionResult CreateCharacter()
+        {
+            return View();
+        }
 
 
         public ActionResult MaxDate(int? id) {
@@ -81,11 +88,11 @@ namespace Zombiecalypse.Controllers
 
 
         // GET: Characters
-        public ActionResult Index()
+      /*  public ActionResult Index()
         {
             var characters = db.Characters.Include(c => c.User);
             return View(characters.ToList());
-        }
+        }*/
 
         // GET: Characters/Details/5
         public ActionResult Details(int? id)

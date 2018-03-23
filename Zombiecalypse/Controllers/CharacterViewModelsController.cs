@@ -26,8 +26,6 @@ namespace Zombiecalypse.Controllers
             CharacterViewModel viewmodel = new CharacterViewModel();
             viewmodel.Character = character;
 
-           // string Picture = "/Content/Pictures/Base/" + "House_1_Garage_1" + ".png";
-            //ViewBag.Picture = Picture;
             viewmodel.CharacterName = character.CharacterName;
             viewmodel.CharacterItems = character.Inventory;
             viewmodel.CharacterType = character.CharacterType;

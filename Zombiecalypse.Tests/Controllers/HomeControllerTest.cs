@@ -9,7 +9,7 @@ using Zombiecalypse.Controllers;
 
 namespace Zombiecalypse.Tests.Controllers
 {
-    [TestClass]
+    /*[TestClass]
     public class HomeControllerTest
     {
         [TestMethod]
@@ -50,5 +50,5 @@ namespace Zombiecalypse.Tests.Controllers
             // Assert
             Assert.IsNotNull(result);
         }
-    }
+    }*/
 }

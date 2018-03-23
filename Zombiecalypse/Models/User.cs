@@ -30,9 +30,7 @@ namespace Zombiecalypse.Models
         [MinLength(6, ErrorMessage = "Minimum 6 characters required")]
         public string UserPassword { get; set; }
 
-
-        public virtual Character Character { get; set; }
-
+        public Character Character { get; set; }
 
     }
 }

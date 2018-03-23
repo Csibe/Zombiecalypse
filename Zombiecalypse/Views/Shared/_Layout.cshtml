@@ -3,13 +3,10 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    @Styles.Render("~/Content/Style.css")
-    @Styles.Render("~/Content/bootstrap.css")
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
-    @Styles.Render("~/Content/Site.css")
-    @Styles.Render("~/Content/MyStyle.css")
-    @RenderPage("_Header.cshtml")
+
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -25,16 +22,12 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("Registration", "Registration", "RegistrationViewModels")</li>
-                    <li>@Html.ActionLink("Users", "Index", "Users")</li>
-                    <li>@Html.ActionLink("Characters", "Index", "Characters")</li>
-                    <li>@Html.ActionLink("Inventories", "Index", "Inventories")</li>
-                    <li>@Html.ActionLink("Items", "Index", "Items")</li>
-                    <li>@Html.ActionLink("CharacterDetails", "CharacterDetails/1", "CharacterViewModels")</li>
-                    <li>@Html.ActionLink("Adventures", "Index", "Adventures")</li>
-                    <li>@Html.ActionLink("Login", "Login", "RegistrationViewModels")</li>
-                    
+                    <li>@Html.ActionLink("About", "About", "Home")</li>
+                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                    <li>@Html.ActionLink("Character details", "CharacterDetails", "CharacterViewModels")</li>
+                    <li>@Html.ActionLink("Create character", "CreateCharacter", "Characters")</li>
                 </ul>
+                @Html.Partial("_LoginPartial")
             </div>
         </div>
     </div>

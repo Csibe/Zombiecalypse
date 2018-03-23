@@ -12,7 +12,7 @@ namespace Zombiecalypse.DAL
             {
 
             
-                    var users = new List<User>
+         /*           var users = new List<User>
                 {
 
                 new User{UserID=1, UserEmail="Email1", UserName="Username1", UserPassword="UserPassword1"},
@@ -30,7 +30,7 @@ namespace Zombiecalypse.DAL
                 };
                     characters.ForEach(s => context.Characters.Add(s));
                     context.SaveChanges();
-
+*/
     
                 var items = new List<Item> {
                     new Models.Item {ItemName="Csakegyitem", ItemType="item", ItemPicture="/Content/Pictures/Items/battery.png"}
@@ -98,7 +98,7 @@ namespace Zombiecalypse.DAL
                 };
             buildings2.ForEach(s => context.Buildings.Add(s));
             context.SaveChanges();
-
+/*
             var inventories = new List<Inventory> {
                    new Inventory {InventoryID=1, CharacterID=1, ItemID=2, ItemPieces=1},
                    new Inventory {InventoryID=1, CharacterID=1, ItemID=16, ItemPieces=1},
@@ -111,7 +111,7 @@ namespace Zombiecalypse.DAL
             };
             inventories.ForEach(s => context.Inventories.Add(s));
             context.SaveChanges();
-            
+            */
 
         }
     }

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Activities.Validation;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Data;
@@ -15,98 +14,39 @@ using Zombiecalypse.ViewModels;
 
 namespace Zombiecalypse.Controllers
 {
-    public class RegistrationViewModelsController : Controller
+    public class RegistrationViewModelsController2 : Controller
     {
         private DataContext db = new DataContext();
 
 
-        public ActionResult Registration()
+
+        [Authorize]
+        [HttpPost]
+        public ActionResult Logout()
+        {
+            FormsAuthentication.SignOut();
+            return RedirectToAction("Login", "RegistrationViewModels");
+        }
+
+
+        public ActionResult newRegistration()
         {
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Registration([Bind(Include = "RegistrationViewModelID,RegistrationDate,UserID,UserName,UserEmail,Password,ConfirmPassword,CharacterID,CharacterName,CharacterType,MaxEnergy,CurrentEnergy,CharacterXP,CharacterLevel")] RegistrationViewModel registrationViewModel)
+        public ActionResult newRegistration([Bind(Include = "RegistrationViewModelID,RegistrationDate,UserID,UserName,UserEmail,Password,ConfirmPassword,CharacterID,CharacterName,CharacterType,MaxEnergy,CurrentEnergy,CharacterXP,CharacterLevel")] RegistrationViewModel registrationViewModel)
         {
             if (ModelState.IsValid)
             {
-                try
-                {
-                    var RegID = registrationViewModel.RegistrationViewModelID;
-                    RegID++;
-                    var registration = new RegistrationViewModel()
-                    {
-                        RegistrationDate = DateTime.Now,
-                        UserID = RegID,
-                        CharacterID = RegID,
-                        CharacterName = registrationViewModel.CharacterName,
-                        CharacterLevel = 1,
-                        CharacterType = registrationViewModel.CharacterType,
-                        Password = registrationViewModel.Password,
-                        ConfirmPassword = registrationViewModel.ConfirmPassword,
-                        UserEmail = registrationViewModel.UserEmail,
-                        UserName = registrationViewModel.UserName
-
-                    };
-
-                    var user = new User()
-                    {
-                        UserEmail = registrationViewModel.UserEmail,
-                        UserName = registrationViewModel.UserName,
-                        UserPassword = registrationViewModel.Password,
-
-                    };
-                    
-                    var character = new Character()
-                    {
-                        CharacterLevel = 1,
-                        CharacterName = registrationViewModel.CharacterName,
-                        CharacterType = registrationViewModel.CharacterType,
-                        CharacterXP = 0,
-                        CurrentEnergy = 10,
-                        MaxEnergy = 10,
-                        FinishAdventure = DateTime.MaxValue,
-                        IsOnAdventure = false
-
-                    };
-
-
-
-
-                    db.RegistrationViewModels.Add(registration);
-                    db.Users.Add(user);
-                    db.Characters.Add(character);
-                    db.SaveChanges();
-
-                }
-
-                catch (System.Data.Entity.Validation.DbEntityValidationException dbEx)
-                {
-                    Exception raise = dbEx;
-                    foreach (var validationErrors in dbEx.EntityValidationErrors)
-                    {
-                        foreach (var validationError in validationErrors.ValidationErrors)
-                        {
-                            string message = string.Format("{0}:{1}",
-                                validationErrors.Entry.Entity.ToString(),
-                                validationError.ErrorMessage);
-                            // raise a new exception nesting
-                            // the current instance as InnerException
-                            raise = new InvalidOperationException(message, raise);
-                        }
-                    }
-                    throw raise;
-                }
-
-
+                db.RegistrationViewModels.Add(registrationViewModel);
+                db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
             return View(registrationViewModel);
         }
-
-
 
         [HttpGet]
         public ActionResult Login()
@@ -119,9 +59,9 @@ namespace Zombiecalypse.Controllers
         public ActionResult Login(RegistrationViewModel login, string ReturnUrl = "")
         {
             string message = "";
-            using (DataContext db = new DataContext())
+            using (DataContext dc = new DataContext())
             {
-                var v = db.RegistrationViewModels.Where(a => a.UserEmail == login.UserEmail).FirstOrDefault();
+                var v = dc.RegistrationViewModels.Where(a => a.UserEmail == login.UserEmail).FirstOrDefault();
                 if (v != null)
                 {
                     if (string.Compare(login.Password, v.Password) == 0)
@@ -130,14 +70,10 @@ namespace Zombiecalypse.Controllers
                         var ticket = new FormsAuthenticationTicket(login.UserEmail, true, timeout);
                         string encrypted = FormsAuthentication.Encrypt(ticket);
                         var cookie = new HttpCookie(FormsAuthentication.FormsCookieName, encrypted);
-                        Session["id"] = v.CharacterID;
-                        Session["UserName"] = v.UserName;
-                        Session["CharacterName"] = v.CharacterName;
-                        Session["UserEmail"] = v.UserEmail;
                         cookie.Expires = DateTime.Now.AddMinutes(timeout);
                         cookie.HttpOnly = true;
                         Response.Cookies.Add(cookie);
-                        
+
 
                         if (Url.IsLocalUrl(ReturnUrl))
                         {
@@ -162,18 +98,150 @@ namespace Zombiecalypse.Controllers
             return View();
         }
 
+        /*
 
-        [Authorize]
-        [HttpPost]
-        public ActionResult Logout()
+                [NonAction]
+                public bool IsEmailExist(string emailID)
+                {
+                    using (DataContext db = new DataContext())
+                    {
+                        var v = db.Users.Where(a => a.UserEmail == emailID).FirstOrDefault();
+                        return v != null;
+                    }
+                }
+                */
+        [HttpGet]
+        public ActionResult Registration()
         {
-            FormsAuthentication.SignOut();
-            Session.Remove("id");
-            Session.Remove("UserName");
-            Session.Remove("CharacterName");
-            Session.Remove("UserEmail");
-            return RedirectToAction("Login", "RegistrationViewModels");
+            return View();
         }
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Registration(RegistrationViewModel registrationViewModel)
+        {
+
+            //RegistrationViewModel registrationViewModel = new RegistrationViewModel();
+
+            bool Status = false;
+            string message = "";
+            //
+            // Model Validation 
+            if (ModelState.IsValid)
+            {
+
+            /*    #region //Email is already Exist 
+                var isExist = IsEmailExist(user.UserEmail);
+                if (isExist)
+                {
+                    ModelState.AddModelError("EmailExist", "Email already exist");
+                    return View(user);
+                }
+                #endregion
+                */
+            var registration = new RegistrationViewModel()
+            {
+                UserID = registrationViewModel.RegistrationViewModelID,
+                CharacterID = registrationViewModel.RegistrationViewModelID,
+                RegistrationDate = DateTime.Now
+            };
+
+            var user = new User()
+            {
+                UserID = registration.RegistrationViewModelID,
+                UserName = registrationViewModel.UserName,
+                UserEmail = registrationViewModel.UserEmail,
+                UserPassword = registrationViewModel.Password
+
+            };
+            
+                var character = new Character()
+                {
+                    CharacterID = registration.RegistrationViewModelID,
+                    CharacterName = registrationViewModel.CharacterName,
+                    CharacterType = registrationViewModel.CharacterType,
+                    MaxEnergy = 10,
+                    CurrentEnergy = 10,
+                    CharacterXP = 0,
+                    CharacterLevel = 1,
+                    IsOnAdventure = false
+                };
+
+                db.RegistrationViewModels.Add(registration);
+                db.Users.Add(user);
+                db.Characters.Add(character);
+                db.SaveChanges();
+                return RedirectToAction("Login");
+                }
+            else
+            {
+                message = "Invalid Request";
+            }
+
+            ViewBag.Message = message;
+            ViewBag.Status = Status;
+            return RedirectToAction("Login");
+        }
+
+
+
+
+
+     /*   [HttpPost]
+        public ActionResult Registration([Bind(Exclude = "IsEmailVerified,ActivationCode")] User user)
+        {
+
+            RegistrationViewModel registrationViewModel = new RegistrationViewModel();
+
+            bool Status = false;
+            string message = "";
+            //
+            // Model Validation 
+            if (ModelState.IsValid)
+            {
+
+
+                var registration = new RegistrationViewModel()
+            {
+                UserID = registrationViewModel.RegistrationViewModelID,
+                CharacterID = registrationViewModel.RegistrationViewModelID,
+                RegistrationDate = DateTime.Now
+            };
+
+            var user = new User()
+            {
+                UserID = registration.RegistrationViewModelID,
+                UserName = registrationViewModel.UserName,
+                UserEmail = registrationViewModel.UserEmail,
+                UserPassword = registrationViewModel.UserPassword
+
+            };
+
+            var character = new Character()
+            {
+                CharacterID = registration.RegistrationViewModelID,
+                CharacterName = registrationViewModel.CharacterName,
+                CharacterType = registrationViewModel.CharacterType,
+                MaxEnergy = 10,
+                CurrentEnergy = 10,
+                CharacterXP = 0,
+                CharacterLevel = 1,
+                IsOnAdventure = false
+    };
+
+
+
+                db.RegistrationViewModels.Add(registration);
+                db.Users.Add(user);
+                db.Characters.Add(character);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View();
+        }
+
+    */
 
         // GET: RegistrationViewModels
         public ActionResult Index()

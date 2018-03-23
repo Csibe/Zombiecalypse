@@ -21,7 +21,7 @@ namespace Zombiecalypse.ViewModels
         public int UserID { get; set; }
 
         [Required(AllowEmptyStrings = false, ErrorMessage = "Username required")]
-        [DisplayName("Name")]
+        [DisplayName("Username")]
         public string UserName { get; set; }
 
 
@@ -33,6 +33,7 @@ namespace Zombiecalypse.ViewModels
 
         [Required(AllowEmptyStrings = false, ErrorMessage = "Password is required")]
         [DataType(DataType.Password)]
+        [MinLength(6, ErrorMessage = "Minimum 6 characters required")]
         public string Password { get; set; }
 
         [Display(Name = "Confirm Password")]
