@@ -16,6 +16,78 @@ namespace Zombiecalypse.Controllers
         private DataContext db = new DataContext();
 
 
+        public ActionResult AddToInventory(int ChId, int ItemId, int addPieces)
+        {
+
+            Inventory inventory = db.Inventories.Where(s => s.ItemID == ItemId).Where(s => s.CharacterID == ChId).FirstOrDefault();
+            if (inventory == null)
+            {
+                Inventory newinventory = new Inventory { ItemID = ItemId, ItemPieces = addPieces, CharacterID = ChId };
+                db.Inventories.Add(newinventory);
+            }
+            else
+            {
+                inventory.ItemPieces += addPieces;
+            }
+            db.SaveChanges();
+            return View();
+        }
+
+
+
+        public ActionResult AdventureDropCalculator(int? AdId, int ChId, string returnUrl) {
+
+            AdventureDrop adventureDrop = new AdventureDrop();
+
+            List<AdventureDrop> dropList = db.AdventureDrops.Where(a => a.AdventureID == AdId).ToList();
+            List<double> randList = new List<double>();
+            List<double> randList2 = new List<double>();
+            List<double> drops = new List<double>();
+            List<string> dropsString = new List<string>();
+            List<int> pieces = new List<int>();
+
+            Random rand = new Random();
+            Random rand2 = new Random();
+            foreach (AdventureDrop drop in dropList) {
+
+                double myRand = rand.NextDouble();
+
+                if (myRand > (1-drop.ItemDroprate))
+                {
+                    drops.Add(drop.DropableItemID);
+                    
+                    randList.Add(1-myRand);
+                    randList2.Add(myRand);
+                    int addPieces = rand2.Next(1, drop.ItemMaxDrop);
+                    pieces.Add(addPieces);
+                    dropsString.Add("ItemID: " + drop.DropableItemID + ", ItemName: " + drop.Item.ItemName + ", ItemPieces: " +addPieces);
+                    int dropID = drop.DropableItemID;
+                    // Inventory inventory2 = new Inventory { CharacterID = ChId, ItemID = drop.DropableItemID, ItemPieces = addPieces };
+                    var addItem = new AdventuresController().AddToInventory(ChId, dropID, addPieces);
+                   // db.Inventories.Add(inventory2);
+                   // db.SaveChanges();
+
+                }
+                else {
+                    drops.Add(0);
+                    randList.Add(1-myRand);
+                    randList2.Add(myRand);
+                    pieces.Add(999);
+                    dropsString.Add("semmi");
+                }
+            }
+
+
+
+            ViewBag.RandList = randList;
+            ViewBag.RandList2 = randList2;
+            ViewBag.Drops = drops;
+            ViewBag.Pieces = pieces;
+            ViewBag.DropsString = dropsString;
+            return RedirectToAction(returnUrl);
+        }
+
+
         public ActionResult CheckAdventure(int? AdId, int ChId)
         {
             Adventure adventure = db.Adventures.Find(AdId);
@@ -31,7 +103,7 @@ namespace Zombiecalypse.Controllers
             var FinishAdventureHour = character.FinishAdventure.Hour;
             var FinishAdventureMinute = character.FinishAdventure.Minute;
             var FinishAdventureSecond = character.FinishAdventure.Second;
-
+            
 
             ViewBag.CharID = CharID;
             ViewBag.AdvID = AdvID;
@@ -95,8 +167,10 @@ namespace Zombiecalypse.Controllers
 
             character.FinishAdventure = DateTime.MaxValue;
             character.IsOnAdventure = false;
+            var addXP = new CharactersController().AddToXP(character.CharacterID, adventure.AdventureXPBonus, this.Request.FilePath);
+            var addDrops = new AdventuresController().AdventureDropCalculator(AdId, ChId, this.Request.FilePath);
             db.SaveChanges();
-            return RedirectToAction("Index", "Characters");
+            return RedirectToAction("CharacterDetails", "Characters", new { id = User.Identity.Name });
         }
 
         // GET: Adventures

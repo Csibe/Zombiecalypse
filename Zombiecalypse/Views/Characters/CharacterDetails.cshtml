@@ -1,4 +1,4 @@
-﻿@model Zombiecalypse.ViewModels.CharacterViewModel
+﻿@model Zombiecalypse.Models.CharacterDetailsViewModel
 
 @{
     ViewBag.Title = "CharacterDetails";
@@ -6,17 +6,56 @@
 
 
 
-<h2>Test</h2>
+<h2>@Model.CharacterName</h2>
 
 <div>
     <h4>CharacterDetails</h4>
     <hr />
     <dl class="dl-horizontal">
+
+
         <dt>
             @Html.DisplayNameFor(model => model.CharacterName)
         </dt>
         <dd>
             @Html.DisplayFor(model => model.CharacterName)
+        <dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.CharacterMaxLife)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.CharacterMaxLife)
+        <dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.CharacterCurrentLife)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.CharacterCurrentLife)
+        <dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.CharacterLevel)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.CharacterLevel)
+        <dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.CharacterXP)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.CharacterXP)
+        <dd>
+        <dt>
+            NeededToNextLevel
+        </dt>
+        <dd>
+            @ViewData["NeededXPToNextLevel"]
+        <dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CharacterNextLevelXP)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.CharacterNextLevelXP)
         <dd>
         <dt>
             @Html.DisplayNameFor(model => model.CharacterType)
@@ -53,52 +92,52 @@
         </br>
         </br>
         <dt>
-            @Html.DisplayNameFor(model => model.Character.MaxEnergy)
+            @Html.DisplayNameFor(model => model.MaxEnergy)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Character.MaxEnergy)
+            @Html.DisplayFor(model => model.MaxEnergy)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.Character.CurrentEnergy)
+            @Html.DisplayNameFor(model => model.CurrentEnergy)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Character.CurrentEnergy)
+            @Html.DisplayFor(model => model.CurrentEnergy)
         <dd>
-        <dd>
-            <table class="table">
-                <tr>
-                    <th>InventoryID</th>
-                    <th>ItemID</th>
-                    <th>ItemName</th>
-                    <th>ItemPieces</th>
-                </tr>
-                @foreach (var item in Model.CharacterItems)
-                {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.InventoryID)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Item.ItemID)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Item.ItemName)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.ItemPieces)
-                        </td>
-                        <td>
-                            @Html.ActionLink("AddToItem", "AddToItem", "Inventories", new { id = item.InventoryID }, null)
-                        </td>
-                        <td>
-                            @Html.ActionLink("LevelUpBuilding", "LevelUpBuilding", "Inventories", new { id = item.InventoryID }, null)
-                        </td>
-                    </tr>
-                }
+            @*<dd>
+                    <table class="table">
+                        <tr>
+                            <th>InventoryID</th>
+                            <th>ItemID</th>
+                            <th>ItemName</th>
+                            <th>ItemPieces</th>
+                        </tr>
+                        @foreach (var item in Model.CharacterItems)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.InventoryID)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Item.ItemID)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Item.ItemName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ItemPieces)
+                                </td>
+                                <td>
+                                    @Html.ActionLink("AddToItem", "AddToItem", "Inventories", new { id = item.InventoryID }, null)
+                                </td>
+                                <td>
+                                    @Html.ActionLink("LevelUpBuilding", "LevelUpBuilding", "Inventories", new { id = item.InventoryID }, null)
+                                </td>
+                            </tr>
+                        }
 
-            </table>
-        </dd>
-        <h4>Items</h4>
+                    </table>
+                </dd>*@
+            <h4>Items</h4>
         <dd>
             <table class="table">
                 <tr>
@@ -147,7 +186,7 @@
                 @foreach (var inventory in Model.CharacterItems)
                 {
 
-                    if (@inventory.Item.ItemType.Equals("building"))
+                    if (@inventory.Item.ItemType.Equals("building") && (@inventory.Building.BuildingLevel != 0))
                     {
                         <tr>
                             <td>
@@ -169,6 +208,10 @@
                                 <img src="@inventory.Item.ItemPicture" />
 
                             </td>
+                            <td>
+                                @Html.ActionLink("Level up building", "LevelUpBuilding", "Inventories", new { id = inventory.InventoryID }, null)
+
+                            </td>
                             @foreach (var item in inventory.Building.BuildingMaterials)
                             {
                             <tr>
@@ -185,7 +228,8 @@
 
             </table>
         </dd>
-
+        <br />
+        <br />
         <h4>Building materials</h4>
         <dd>
             <table class="table">
@@ -218,9 +262,40 @@
                 }
             </table>
         </dd>
+        <br />
+        <br />
+
+
+        <h4>Adventures</h4>
+        <dd>
+            <table class="table">
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Pieces</th>
+                    <th>Type</th>
+                </tr>
+                @foreach (var adv in Model.Adventures)
+                {
+                    <tr>
+                        <td>
+                            @adv.AdventureID
+                        </td>
+                        <td>
+                            @adv.AdventureName
+                        </td>
+                        <td>
+                            @adv.AdventureTime
+                        </td>
+                        <td>
+                            @Html.ActionLink("Start Adventure", "StartAdventure", "Adventures", new { AdId = @adv.AdventureID, ChId = Model.CharacterID }, null)
+                        </td>
+                    </tr>
+                }
+            </table>
+        </dd>
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.CharacterViewModelID }) |
     @Html.ActionLink("Back to List", "Index")
 </p>

@@ -8,9 +8,9 @@ using System.Net;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 using Zombiecalypse.DAL;
 using Zombiecalypse.Models;
-using Zombiecalypse.ViewModels;
 
 namespace Zombiecalypse.Controllers
 {
@@ -18,21 +18,79 @@ namespace Zombiecalypse.Controllers
     {
         private DataContext db = new DataContext();
 
-        public ActionResult CreateCharacter()
-        {
-            return View();
-        }
 
+        [Authorize]
+        public ActionResult CharacterDetails(string id)
+        {
+            if (id == null)
+            {
+                return View("Index", "Home");
+            }
+            else
+            {
+                Character character = db.Characters.Where(c => c.ApplicationUserID == id).FirstOrDefault();
+
+                CharacterDetailsViewModel characterDetails = new CharacterDetailsViewModel();
+
+                characterDetails.CharacterID = character.CharacterID;
+                characterDetails.CharacterName = character.CharacterName;
+                characterDetails.CharacterItems = character.Inventory;
+                characterDetails.CharacterType = character.CharacterType;
+                characterDetails.CharacterMaxLife = character.CharacterMaxLife;
+                characterDetails.CharacterCurrentLife = character.CharacterCurrentLife;
+                characterDetails.CharacterXP = character.CharacterXP;
+                characterDetails.CharacterLevel = character.CharacterLevel;
+                characterDetails.Adventures = db.Adventures.ToList();
+                characterDetails.Levels = db.Levels.ToList();
+
+                characterDetails.CharacterNextLevelXP = characterDetails.Levels.Where(l => l.LevelID == characterDetails.CharacterLevel).FirstOrDefault().LevelMaxXP;
+                var NeededXPToNextLevel = characterDetails.CharacterNextLevelXP - characterDetails.CharacterXP;
+                ViewData["NeededXPToNextLevel"] = NeededXPToNextLevel;
+                int HouseID = 0;
+                int GarageID = 0;
+
+                string Picture = "/Content/Pictures/Base/";
+                ICollection<Inventory> characterInventory = character.Inventory;
+                foreach (var charinv in characterInventory)
+                {
+                    if (charinv.Item.ItemType == "building")
+                    {
+                        Picture += charinv.Item.ItemName + charinv.Building.BuildingLevel;
+                        if (charinv.Item.ItemName == "House")
+                        {
+                            HouseID = charinv.Item.ItemID;
+                        }
+                        if (charinv.Item.ItemName == "Garage")
+                        {
+                            GarageID = charinv.Item.ItemID;
+                        }
+                    }
+
+                }
+                Picture += ".png";
+
+                ViewBag.Picture = Picture;
+                ViewBag.HouseID = HouseID;
+                ViewBag.GarageID = GarageID;
+
+
+                return View(characterDetails);
+
+
+            }
+
+            
+        }
 
         public ActionResult MaxDate(int? id) {
             Character character = db.Characters.Find(id);
-            character.FinishAdventure = DateTime.MaxValue;
+         //   character.FinishAdventure = DateTime.MaxValue;
 
             db.SaveChanges();
             return RedirectToAction("Index");
         }
 
-        public ActionResult AddToXP(int? id, int? add) {
+        public ActionResult AddToXP(int? id, int? add, string returnUrl) {
 
             Character character = db.Characters.Find(id);
             int CharLevel = character.CharacterLevel;
@@ -50,23 +108,12 @@ namespace Zombiecalypse.Controllers
             ViewBag.Add = add;
            
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction(returnUrl);
         }
 
-        public Character GetCharacter(int? id) {
-            Character character = db.Characters.Find(id);
-            return character;
-        }
-
-        public ActionResult GetCharacterVM(int? id)
-        {
-            CharacterViewModel chvm = new CharacterViewModel();
-            chvm.Character = GetCharacter(id);
-            return View(chvm);
-        }
 
         public ActionResult AddToEnergy(int? id)
-        {
+        {/*
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -81,7 +128,7 @@ namespace Zombiecalypse.Controllers
             {
                 character.CurrentEnergy++;
                 db.SaveChanges();
-            }
+            }*/
             return RedirectToAction("Index");
         }
 
@@ -112,7 +159,7 @@ namespace Zombiecalypse.Controllers
         // GET: Characters/Create
         public ActionResult Create()
         {
-            ViewBag.CharacterID = new SelectList(db.Users, "UserID", "UserName");
+          //  ViewBag.CharacterID = new SelectList(db.Users, "UserID", "UserName");
             return View();
         }
 
@@ -121,17 +168,37 @@ namespace Zombiecalypse.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "CharacterID,CharacterName,CharacterType,MaxEnergy,CurrentEnergy,UserID")] Character character)
+
+        public ActionResult Create([Bind(Include = "ApplicationUserID, CharacterID,CharacterName,CharacterType,MaxEnergy,CurrentEnergy, CharacterXP, CharacterLevel, IsOnAdventure")] Character character)
         {
             if (ModelState.IsValid)
             {
+                string id = User.Identity.Name;
+                character.ApplicationUserID = id;
+                character.CharacterLevel = 1;
+                character.CharacterType = 1;
+                character.CharacterXP = 0;
+                character.CurrentEnergy = 10;
+                character.MaxEnergy = 10;
+                character.IsOnAdventure = false;
+                character.FinishAdventure = DateTime.MaxValue;
+                    
                 db.Characters.Add(character);
+
+                var buildings = new List<Inventory>
+                {
+                new Inventory{ CharacterID=character.CharacterID, ItemID=2, ItemPieces=1},
+                new Inventory{ CharacterID=character.CharacterID, ItemID=16, ItemPieces=1},
+                new Inventory{ CharacterID=character.CharacterID, ItemID=22, ItemPieces=1},
+                new Inventory{ CharacterID=character.CharacterID, ItemID=28, ItemPieces=1},
+                };
+                buildings.ForEach(s => db.Inventories.Add(s));
+
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("CharacterDetails", "Characters", new { id = User.Identity.Name });
             }
 
-            ViewBag.CharacterID = new SelectList(db.Users, "UserID", "UserName", character.CharacterID);
-            return View(character);
+            return RedirectToAction("Index", "Home", null);
         }
 
         // GET: Characters/Edit/5
@@ -146,7 +213,7 @@ namespace Zombiecalypse.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.CharacterID = new SelectList(db.Users, "UserID", "UserName", character.CharacterID);
+         //   ViewBag.CharacterID = new SelectList(db.Users, "UserID", "UserName", character.CharacterID);
             return View(character);
         }
 
@@ -163,7 +230,7 @@ namespace Zombiecalypse.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.CharacterID = new SelectList(db.Users, "UserID", "UserName", character.CharacterID);
+         //   ViewBag.CharacterID = new SelectList(db.Users, "UserID", "UserName", character.CharacterID);
             return View(character);
         }
 

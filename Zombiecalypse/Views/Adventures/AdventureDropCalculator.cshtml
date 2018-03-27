@@ -1,0 +1,150 @@
+﻿@model Zombiecalypse.Models.AdventureDrop
+
+@{
+    ViewBag.Title = "AdventureDropCalculator";
+}
+
+<h2>AdventureDropCalculator</h2>
+
+<div>
+    <h4>AdventureDrop</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.AdventureID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AdventureID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DropableItemID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DropableItemID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ItemDroprate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ItemDroprate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ItemMaxDrop)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ItemMaxDrop)
+        </dd>
+        <dt>
+            Drop details:
+        </dt>
+        <dd>
+            <table class="table">
+                <tr>
+                    @*<th>InventoryID</th>
+                    <th>ItemID</th>
+                    <th>ItemName</th>
+                    <th>ItemPieces</th>*@
+                </tr>
+                @foreach (var text in ViewBag.DropsString)
+            {
+                    <tr>
+                        <td>
+                            @text
+                        </td>
+                    </tr>
+                }
+
+            </table>
+        </dd>
+
+
+        <dd>
+            <table class="table">
+                <tr>
+                    <th>InventoryID</th>
+                    <th>ItemID</th>
+                    <th>ItemName</th>
+                    <th>ItemPieces</th>
+                </tr>
+                @foreach (var adv in ViewBag.Drops)
+            {
+                    <tr>
+                        <td>
+                            @adv
+                        </td>
+                    </tr>
+                }
+
+            </table>
+        </dd>
+        <dd>
+            <table class="table">
+                <tr>
+                    <th>InventoryID</th>
+                    <th>ItemID</th>
+                    <th>ItemName</th>
+                    <th>ItemPieces</th>
+                </tr>
+                @foreach (var rand in ViewBag.randList)
+            {
+                    <tr>
+                        <td>
+                            @String.Format("{0:0.00}", rand)
+                        </td>
+                    </tr>
+                }
+
+            </table>
+        </dd>
+        @*<dd>
+            <table class="table">
+                <tr>
+                    <th>InventoryID</th>
+                    <th>ItemID</th>
+                    <th>ItemName</th>
+                    <th>ItemPieces</th>
+                </tr>
+                @foreach (var rand in ViewBag.randList2)
+            {
+                    <tr>
+                        <td>
+                            @String.Format("{0:0.00}", rand)
+                        </td>
+                    </tr>
+                }
+
+            </table>
+        </dd>*@
+        <dd>
+            <table class="table">
+                <tr>
+                    <th>InventoryID</th>
+                    <th>ItemID</th>
+                    <th>ItemName</th>
+                    <th>ItemPieces</th>
+                </tr>
+                @foreach (var pieces in ViewBag.Pieces)
+            {
+                    <tr>
+                        <td>
+                            @pieces
+                        </td>
+                    </tr>
+                }
+
+            </table>
+        </dd>
+
+    </dl>
+            </div>
+            <p>
+                @Html.ActionLink("Edit", "Edit", new { id = Model.AdventureDropID }) |
+                @Html.ActionLink("Back to List", "Index")
+            </p>

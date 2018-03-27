@@ -4,23 +4,9 @@
 
 <h2>Index</h2>
 
-    Welcome @HttpContext.Current.User.Identity.Name <br>
-
-    @if (Session["CharacterID"] != null)
-    {
-        var CharacterID = Session["CharacterID"];
-        var UserEmail = Session["UserEmail"];
-        var UserName = Session["UserName"];
-        var CharacterName = Session["CharacterName"];
-        <div>
-
-            CharacterID: @CharacterID
-            UserEmail: @UserEmail
-            UserName: @UserName
-            CharacterName: @CharacterName
-        </div>
-    
-    }
+    Welcome @HttpContext.Current.User.Identity.Name<br>
+        @User.Identity.Name
+  
 
     @if (Request.IsAuthenticated)
     {

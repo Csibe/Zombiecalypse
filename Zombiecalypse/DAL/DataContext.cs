@@ -1,12 +1,14 @@
-﻿using Microsoft.AspNet.Identity.EntityFramework;
+﻿using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Reflection.Emit;
 using System.Web;
+using System.Web.Security;
 using Zombiecalypse.Models;
-using Zombiecalypse.ViewModels;
+
 
 namespace Zombiecalypse.DAL
 {
@@ -17,14 +19,23 @@ namespace Zombiecalypse.DAL
         {
         }
 
+        public DbSet<Character> Characters { get; set; }
+        public DbSet<BuildingBuildingMaterial> BuildingBuildingMaterials { get; set; }
+        public DbSet<Building> Buildings { get; set; }
+        public DbSet<File> Files { get; set; }
+        public DbSet<Item> Items { get; set; }
+        public DbSet<Inventory> Inventories { get; set; }
+        public DbSet<FileUploader> FileUploaders { get; set; }
+        public DbSet<Level> Levels { get; set; }
+        public DbSet<Zombie> Zombies { get; set; }
+        public DbSet<Material> Materials { get; set; }
+        public DbSet<ZombieDrop> ZombieDrops { get; set; }
+        public DbSet<AdventureDrop> AdventureDrops { get; set; }
+
+        public DbSet<Adventure> Adventures { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-
-            modelBuilder.Entity<ApplicationUser>()
-        .HasOptional(f => f.Character)
-        .WithRequired(s => s.ApplicationUser);
-
             // Configure Student & StudentAddress entity
             /*  modelBuilder.Entity<User>()
                           .HasOptional(s => s.Character) // Mark Character property optional in User entity
@@ -41,10 +52,10 @@ namespace Zombiecalypse.DAL
                .WithRequired(s => s.Foo);
                */
 
-            modelBuilder.Entity<Inventory>()
-            .HasRequired<Item>(s => s.Item)
-            .WithMany(g => g.Inventories)
-            .HasForeignKey<int>(s => s.ItemID);
+            /*    modelBuilder.Entity<Inventory>()
+                .HasRequired<Item>(s => s.Item)
+                .WithMany(g => g.Inventories)
+                .HasForeignKey<int>(s => s.ItemID);*/
 
             /*     modelBuilder.Entity<Item>()
              .Map(u => u.Requires("InheritedType").HasValue(1))
@@ -52,28 +63,8 @@ namespace Zombiecalypse.DAL
              .Map<BuildingMaterial>(f => f.Requires("InheritedType").HasValue(3))
              .Map<BuildingBuildingMaterial>(f => f.Requires("InheritedType").HasValue(4));
              */
+
+            base.OnModelCreating(modelBuilder);
         }
-
-
-        public DbSet<User> Users { get; set; }
-        public DbSet<Character> Characters { get; set; }
-        public DbSet<RegistrationViewModel> RegistrationViewModels { get; set; }
-        public DbSet<BuildingMaterial> BuildingMaterials { get; set; }
-        public DbSet<BuildingBuildingMaterial> BuildingBuildingMaterials { get; set; }
-        public DbSet<Building> Buildings { get; set; }
-        public DbSet<File> Files { get; set; }
-        public DbSet<Item> Items { get; set; }
-        public DbSet<Inventory> Inventories { get; set; }
-        public DbSet<Zombiecalypse.Models.FileUploader> FileUploaders { get; set; }
-
-        public DbSet<ApplicationUser> ApplicationUsers { get; set; }
-
-        public System.Data.Entity.DbSet<Zombiecalypse.ViewModels.CharacterViewModel> CharacterViewModels { get; set; }
-
-        public System.Data.Entity.DbSet<Zombiecalypse.Models.Level> Levels { get; set; }
-
-        public DbSet<Adventure> Adventures { get; set; }
-
     }
-
 }

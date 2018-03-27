@@ -16,6 +16,8 @@ namespace Zombiecalypse.Controllers
         private DataContext db = new DataContext();
         private int MaxBuildingLevel = 5;
 
+
+
         public ActionResult LevelUpBuilding(int? id)
         {
             if (id == null)
@@ -109,16 +111,15 @@ namespace Zombiecalypse.Controllers
                     ViewBag.buldMatList = buldMatList;
                     ViewBag.whatNeedList = whatNeedList;
                 }
-               
+
             }
-            else {
+            else
+            {
                 return View("~/Views/shared/OnAdventure.cshtml");
             }
             return RedirectToAction("Index");
         }
-
-
-
+        
 
 
         public ActionResult AddToItem(int? id)
@@ -164,7 +165,7 @@ namespace Zombiecalypse.Controllers
         // GET: Inventories/Details/5
         public ActionResult Details(int? id)
         {
-            
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -185,8 +186,8 @@ namespace Zombiecalypse.Controllers
             inventory.Building.BuildingBuildingMaterials = db.BuildingBuildingMaterials
                 .Where(b => b.BuildingID == inventory.Building.ItemID).ToList();
 
-          /*  inventory.Building.BuildingBuildingMaterials = db.BuildingBuildingMaterials
-            .Where(b => b.BuildingID == inventory.Building.ItemID).ToList();*/
+            /*  inventory.Building.BuildingBuildingMaterials = db.BuildingBuildingMaterials
+              .Where(b => b.BuildingID == inventory.Building.ItemID).ToList();*/
             if (inventory == null)
             {
                 return HttpNotFound();

@@ -1,8 +1,10 @@
-﻿using System;
+﻿using Microsoft.AspNet.Identity;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Zombiecalypse.DAL;
 
 namespace Zombicalypse.Controllers
 {
@@ -10,6 +12,11 @@ namespace Zombicalypse.Controllers
     {
         public ActionResult Index()
         {
+            DataContext db = new DataContext();
+            var id = User.Identity.GetUserId();
+            
+           // var character = db.Characters.Where(c => c.ApplicationUserID == id).FirstOrDefault().CharacterName;
+            ViewBag.id = id;
             return View();
         }
 

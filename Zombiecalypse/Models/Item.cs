@@ -16,4 +16,7 @@ namespace Zombiecalypse.Models
         public virtual ICollection<Inventory> Inventories { get; set; }
 
     }
+    public class Material : Item
+    {
+    }
 }
