@@ -9,10 +9,13 @@ namespace Zombiecalypse.Models
 {
     public class BuildingBuildingMaterial : Item
     {
+        [Key]
+        [ForeignKey("Building")]
         public int BuildingID { get; set; }
+        [ForeignKey("BuildingMaterial")]
         public int BuildingMaterialID { get; set; }
-        public Item Building { get; set; }
-        public Item BuildingMaterial { get; set; }
+        public Building Building { get; set; }
+        public BuildingMaterial BuildingMaterial { get; set; }
         public int MaterialPieces { get; set; }
     }
 }

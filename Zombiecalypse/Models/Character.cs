@@ -15,6 +15,7 @@ namespace Zombiecalypse.Models
         public string ApplicationUserID { get; set; }
         public string CharacterName { get; set; }
         public int CharacterType { get; set; }
+        public int CharacterMoney { get; set; }
         public int CharacterMaxLife { get; set; }
         public int CharacterCurrentLife { get; set; }
         public int MaxEnergy { get; set; }
@@ -32,6 +33,7 @@ namespace Zombiecalypse.Models
         public int CharacterID { get; set; }
         public string CharacterName { get; set; }
         public int CharacterType { get; set; }
+        public int CharacterMoney { get; set; }
         public int CharacterMaxLife { get; set; }
         public int CharacterCurrentLife { get; set; }
         public int MaxEnergy { get; set; }

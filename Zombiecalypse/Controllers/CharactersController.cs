@@ -177,7 +177,10 @@ namespace Zombiecalypse.Controllers
                 character.ApplicationUserID = id;
                 character.CharacterLevel = 1;
                 character.CharacterType = 1;
+                character.CharacterMaxLife = 10;
+                character.CharacterCurrentLife = 10;
                 character.CharacterXP = 0;
+                character.CharacterMoney = 0;
                 character.CurrentEnergy = 10;
                 character.MaxEnergy = 10;
                 character.IsOnAdventure = false;

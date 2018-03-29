@@ -221,6 +221,7 @@
     <Compile Include="Controllers\ItemsController.cs" />
     <Compile Include="Controllers\LevelsController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\ZombiesController.cs" />
     <Compile Include="DAL\DataContext.cs" />
     <Compile Include="DAL\Initializer.cs" />
     <Compile Include="Global.asax.cs">
@@ -263,6 +264,8 @@
     <Content Include="Content\Pictures\Items\blueprint.PNG" />
     <Content Include="Content\Pictures\Items\header.png" />
     <Content Include="Content\Pictures\Items\roof_tile.PNG" />
+    <Content Include="Content\Pictures\Zombies\SalesmanZombie.png" />
+    <Content Include="Content\Pictures\Zombies\SupermartZombie.png" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -270,6 +273,7 @@
     <Content Include="Scripts\ai.0.22.9-build00167.js" />
     <Content Include="Scripts\ai.0.22.9-build00167.min.js" />
     <Content Include="Scripts\app\countdown.js" />
+    <Content Include="Scripts\app\zombieBaseAttack.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
@@ -381,6 +385,12 @@
     <Content Include="Views\Characters\Create.cshtml" />
     <Content Include="Views\Characters\CharacterDetails.cshtml" />
     <Content Include="Views\Adventures\AdventureDropCalculator.cshtml" />
+    <Content Include="Views\Zombies\Create.cshtml" />
+    <Content Include="Views\Zombies\Delete.cshtml" />
+    <Content Include="Views\Zombies\Details.cshtml" />
+    <Content Include="Views\Zombies\Edit.cshtml" />
+    <Content Include="Views\Zombies\Index.cshtml" />
+    <Content Include="Views\Zombies\ZombieAttackBase.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

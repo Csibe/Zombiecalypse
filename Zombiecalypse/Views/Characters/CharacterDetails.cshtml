@@ -7,13 +7,16 @@
 
 
 <h2>@Model.CharacterName</h2>
-
+<br>
+<br>
+@Html.ActionLink("Start Zombie Attack", "StartAttack", "Zombies", new { ChId = @Model.CharacterID, ZombId = 1 },null)
+<br>
+<br>
 <div>
     <h4>CharacterDetails</h4>
     <hr />
     <dl class="dl-horizontal">
-
-
+      
         <dt>
             @Html.DisplayNameFor(model => model.CharacterName)
         </dt>
@@ -45,6 +48,12 @@
             @Html.DisplayFor(model => model.CharacterXP)
         <dd>
         <dt>
+            @Html.DisplayNameFor(model => model.CharacterMoney)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.CharacterMoney)
+        <dd>
+<dt>
             NeededToNextLevel
         </dt>
         <dd>

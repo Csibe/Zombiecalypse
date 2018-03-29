@@ -26,17 +26,17 @@ namespace Zombiecalypse.DAL
                 new Building{ItemName="House", BuildingLevel=4, ItemType="building", BuildingEnergyCost=5, BuildingMoneyCost=400, ItemPicture="/Content/Pictures/Buildings/House_4.png"},
                 new Building{ItemName="House", BuildingLevel=5, ItemType="building", BuildingEnergyCost=5, BuildingMoneyCost=400, ItemPicture="/Content/Pictures/Buildings/House_5.png"}
                 };
-                    buildings.ForEach(s => context.Buildings.Add(s));
+                    buildings.ForEach(s => context.Items.Add(s));
                     context.SaveChanges();
 
 
                 var buildingmaterials = new List<BuildingMaterial>
                 {
-                new BuildingMaterial{ItemName="blueprint", ItemType="buildingmaterial", ItemPicture="/Content/Pictures/Items/blueprint.PNG"},
-                new BuildingMaterial {ItemName="board", ItemType="buildingmaterial"},
-                new BuildingMaterial {ItemName="metal shed", ItemType="buildingmaterial"},
-                new BuildingMaterial {ItemName="roof tile", ItemType="buildingmaterial"},
-                new BuildingMaterial {ItemName="screw", ItemType="buildingmaterial"},
+                new BuildingMaterial{ItemName="blueprint", ItemType="buildingmaterial", ItemPicture="/Content/Pictures/Items/Blueprint.PNG"},
+                new BuildingMaterial {ItemName="board", ItemType="buildingmaterial", ItemPicture="/Content/Pictures/Items/Board.PNG"},
+                new BuildingMaterial {ItemName="metal shed", ItemType="buildingmaterial", ItemPicture="/Content/Pictures/Items/MetalShed.PNG"},
+                new BuildingMaterial {ItemName="roof tile", ItemType="buildingmaterial", ItemPicture="/Content/Pictures/Items/RoofTile.PNG"},
+                new BuildingMaterial {ItemName="screw", ItemType="buildingmaterial", ItemPicture="/Content/Pictures/Items/Screw.PNG"},
                 };
                 buildingmaterials.ForEach(s => context.Items.Add(s));
                     context.SaveChanges();
@@ -44,10 +44,10 @@ namespace Zombiecalypse.DAL
 
 
             var buildingbuildingmaterials = new List<BuildingBuildingMaterial> {
-                   new BuildingBuildingMaterial { BuildingID=2, BuildingMaterialID=7, MaterialPieces=3, ItemName="blueprint" },
-                   new BuildingBuildingMaterial { BuildingID=2, BuildingMaterialID=8, MaterialPieces=2, ItemName="board" },
-                   new BuildingBuildingMaterial { BuildingID=3, BuildingMaterialID=7, MaterialPieces=5, ItemName="blueprint" },
-                   new BuildingBuildingMaterial { BuildingID=3, BuildingMaterialID=8, MaterialPieces=5, ItemName="board" }
+                   new BuildingBuildingMaterial { BuildingID=2, BuildingMaterialID=7, MaterialPieces=3, ItemType="buildingbuildingmaterial" },
+                   new BuildingBuildingMaterial { BuildingID=2, BuildingMaterialID=8, MaterialPieces=2, ItemType="buildingbuildingmaterial"},
+                   new BuildingBuildingMaterial { BuildingID=3, BuildingMaterialID=7, MaterialPieces=5, ItemType="buildingbuildingmaterial" },
+                   new BuildingBuildingMaterial { BuildingID=3, BuildingMaterialID=8, MaterialPieces=5, ItemType="buildingbuildingmaterial" }
             };
             buildingbuildingmaterials.ForEach(s => context.BuildingBuildingMaterials.Add(s));
             context.SaveChanges();
@@ -93,12 +93,12 @@ namespace Zombiecalypse.DAL
                 new Building { ItemName = "ToolShed", BuildingLevel = 4, ItemType = "building", BuildingEnergyCost = 5, BuildingMoneyCost = 400, ItemPicture = "/Content/Pictures/Buildings/ToolShed_4.png" },
                 new Building { ItemName = "ToolShed", BuildingLevel = 5, ItemType = "building", BuildingEnergyCost = 5, BuildingMoneyCost = 400, ItemPicture = "/Content/Pictures/Buildings/ToolShed_5.png" },
             };
-            buildings2.ForEach(s => context.Buildings.Add(s));
+            buildings2.ForEach(s => context.Items.Add(s));
             context.SaveChanges();
 
             var zombies = new List<Zombie> {
-                new Zombie { ZombieName="Salesman", ZombieLife=10, ZombieType=1, ZombieDamage=2, RewardCoins=3},
-                new Zombie { ZombieName="Supermart", ZombieLife=12, ZombieType=1, ZombieDamage=3, RewardCoins=5}
+                new Zombie { ZombieName="Salesman", ZombieLife=10, ZombieType=1, ZombieDamage=2, RewardCoins=3, RewardXP=3, ZombiePicture="/Content/Pictures/Zombies/SalesmanZombie.png"},
+                new Zombie { ZombieName="Supermart", ZombieLife=12, ZombieType=1, ZombieDamage=3, RewardCoins=5, RewardXP=5, ZombiePicture="/Content/Pictures/Zombies/SupermartZombie.png"}
             };
             zombies.ForEach(s => context.Zombies.Add(s));
             context.SaveChanges();
@@ -108,7 +108,7 @@ namespace Zombiecalypse.DAL
                 new Material { ItemName="Gasoline can", ItemType="material", ItemPicture="/Content/Pictures/Materials/GasolineCan.png" },
                 new Material { ItemName="Duck tape", ItemType="material", ItemPicture="/Content/Pictures/Materials/DuckTape.png" }
             };
-            materials.ForEach(s => context.Materials.Add(s));
+            materials.ForEach(s => context.Items.Add(s));
             context.SaveChanges();
 
 
