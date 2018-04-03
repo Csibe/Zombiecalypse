@@ -42,9 +42,11 @@ namespace Zombiecalypse.Models
 
         [ForeignKey("Zombie")]
         public int ZombieID { get; set; }
+        public int ZombieLife { get; set; }
         public virtual Zombie Zombie { get; set; }
         [ForeignKey("Character")]
         public int CharacterID { get; set; }
         public virtual Character Character { get; set; }
+        public virtual ICollection<Weapon> Weapons { get; set; }
     }
 }

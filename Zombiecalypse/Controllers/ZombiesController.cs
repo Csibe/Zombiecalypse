@@ -19,58 +19,53 @@ namespace Zombiecalypse.Controllers
 
             Zombie zombie = db.Zombies.Find(ZombId);
             Character character = db.Characters.Find(ChId);
-            character.CharacterXP++;
+           
+           
 
-            ZombieAttackBase zombie2 = new ZombieAttackBase {CharacterID=ChId, ZombieAttackStart=DateTime.Now, Zombie = zombie, Character = character, ZombieID=ZombId};
-            db.ZombieAttackBases.Add(zombie2);
+            ZombieAttackBase zab = new ZombieAttackBase { ZombieAttackStart=DateTime.Now, Zombie = zombie,  Character = character, CharacterID = character.CharacterID, ZombieID=zombie.ZombieID, ZombieLife = zombie.ZombieLife};
+            db.ZombieAttackBases.Add(zab);
             db.SaveChanges();
-            int zab = db.ZombieAttackBases.Where(z => z.ZombieAttackBaseID == zombie2.ZombieAttackBaseID).FirstOrDefault().ZombieAttackBaseID;
 
-            return RedirectToAction("ZombieAttackBase", "Zombies", new { ZabID = zab});
+            return RedirectToAction("CharacterDetails", "Characters", new { id = User.Identity.Name, AttackPower = 0 });
         }
 
-        public ActionResult ZombieAttackBase(int ZabID) {
+        public ActionResult ZombieAttackBase(int ZabID, int AttackPower) {
 
-            ZombieAttackBase zombieAttackBase = new ZombieAttackBase();
-
-            ZombieAttackBase zab = db.ZombieAttackBases.Find(ZabID);
-            Zombie zombie = db.ZombieAttackBases.Find(ZabID).Zombie;
-            Character character = db.ZombieAttackBases.Find(ZabID).Character;
-            if (character == null)
-            {
-                ViewBag.Character = "üres" + character.CharacterID;
-            }
-            else {
-                ViewBag.Character = "jo" + character.CharacterID;
-            }
+            ZombieAttackBase zombieAttackBase = db.ZombieAttackBases.Find(ZabID);
+            Character character = zombieAttackBase.Character;
+            ICollection<Inventory> inventory = character.Inventory;
             
-       //     character.CharacterXP++;
-            // character.CharacterMoney++;
-            zombie.ZombieLife--;
+
+            zombieAttackBase.ZombieLife -= AttackPower;
             db.SaveChanges();
 
-            zombieAttackBase.ZombieAttackBaseID = character.CharacterID;
-            zombieAttackBase.ZombieID = zombie.ZombieID;
-            zombieAttackBase.ZombieAttackStart = DateTime.Now;
-            
-            
-
-            zombieAttackBase.Character = character;
-            zombieAttackBase.Zombie = zombie;
-
-            if (zombie.ZombieLife <= 0)
+            foreach (var inv in inventory)
             {
+                if (inv.Item.ItemType.Contains("Weapon")) { 
+                Weapon weapon = db.Weapons.Find(inv.ItemID);
+                    zombieAttackBase.Weapons.Add(weapon);
+                }
+
+            }
+
+
+            //     character.CharacterXP++;
+            // character.CharacterMoney++;
+
+            if (zombieAttackBase.ZombieLife <= 0)
+            {
+            }
               /*  var rewardXP = zombie.RewardXP;
                 var rewardCoin = zombie.RewardCoins;
                 character.CharacterXP += rewardXP;
                 character.CharacterMoney += rewardCoin;*/
-                db.ZombieAttackBases.Remove(zab);
+           /*     db.ZombieAttackBases.Remove(zab);
                 
                 db.SaveChanges();
                 return RedirectToAction("CharacterDetails", "Characters", new { id = User.Identity.Name });
             }
 
-
+    */
             return View(zombieAttackBase);
         }
 

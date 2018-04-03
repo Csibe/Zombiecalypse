@@ -9,5 +9,6 @@ namespace Zombiecalypse.Models
     {
         public int LevelID { get; set; }
         public int LevelMaxXP { get; set; }
+        public int LevelMaxEnergy { get; set; }
     }
 }

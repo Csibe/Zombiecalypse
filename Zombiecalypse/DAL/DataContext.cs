@@ -30,14 +30,20 @@ namespace Zombiecalypse.DAL
         public DbSet<ZombieDrop> ZombieDrops { get; set; }
         public DbSet<AdventureDrop> AdventureDrops { get; set; }
         public DbSet<ZombieAttackBase> ZombieAttackBases { get; set; }
-
+        public DbSet<Weapon> Weapons { get; set; }
+        public DbSet<CraftableWeapon> CraftableWeapons { get; set; }
+        public DbSet<BuyableWeapon> BuyableWeapons { get; set; }
+        public DbSet<CraftableWeaponMaterial> CraftableWeaponsMaterials { get; set; }
         public DbSet<Adventure> Adventures { get; set; }
+
+        public DbSet<BuildingDetails> BuildingDetails { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
 
-            modelBuilder.Entity<BuildingBuildingMaterial>().ToTable("BuildingBuildingMaterials");
-
+           /* modelBuilder.Entity<BuildingBuildingMaterial>().ToTable("BuildingBuildingMaterials");
+            modelBuilder.Entity<CraftableWeaponMaterial>().ToTable("CraftableWeaponMaterials");
+            */
             // Configure Student & StudentAddress entity
             /*  modelBuilder.Entity<User>()
                           .HasOptional(s => s.Character) // Mark Character property optional in User entity

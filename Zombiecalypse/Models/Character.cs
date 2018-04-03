@@ -45,5 +45,7 @@ namespace Zombiecalypse.Models
         public virtual ICollection<Inventory> CharacterItems { get; set; }
         public virtual ICollection<Adventure> Adventures { get; set; }
 
+        public virtual ICollection<ZombieAttackBase> AttackingZombies { get; set; }
+
     }
 }

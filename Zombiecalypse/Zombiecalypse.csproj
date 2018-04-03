@@ -216,11 +216,13 @@
     <Compile Include="Controllers\BuildingBuildingMaterialsController.cs" />
     <Compile Include="Controllers\BuildingsController.cs" />
     <Compile Include="Controllers\CharactersController.cs" />
+    <Compile Include="Controllers\CraftableWeaponsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\InventoriesController.cs" />
     <Compile Include="Controllers\ItemsController.cs" />
     <Compile Include="Controllers\LevelsController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\WeaponsController.cs" />
     <Compile Include="Controllers\ZombiesController.cs" />
     <Compile Include="DAL\DataContext.cs" />
     <Compile Include="DAL\Initializer.cs" />
@@ -238,6 +240,7 @@
     <Compile Include="Models\Item.cs" />
     <Compile Include="Models\Level.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\Weapon.cs" />
     <Compile Include="Models\Zombie.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -257,6 +260,14 @@
     <Content Include="Content\Pictures\Buildings\house2.png" />
     <Content Include="Content\Pictures\Buildings\house3.png" />
     <Content Include="Content\Pictures\Buildings\house4.png" />
+    <Content Include="Content\Pictures\Buildings\House_1.png" />
+    <Content Include="Content\Pictures\Buildings\House_2.png" />
+    <Content Include="Content\Pictures\Buildings\House_3.png" />
+    <Content Include="Content\Pictures\Buildings\House_4.png" />
+    <Content Include="Content\Pictures\BuyableWeapons\Katana.png" />
+    <Content Include="Content\Pictures\BuyableWeapons\Shovel.png" />
+    <Content Include="Content\Pictures\CraftableWeapons\FireMitts.png" />
+    <Content Include="Content\Pictures\CraftableWeapons\Flamethrower.png" />
     <Content Include="Content\Pictures\header.png" />
     <Content Include="Content\Pictures\header2.png" />
     <Content Include="Content\Pictures\header3.png" />
@@ -264,6 +275,15 @@
     <Content Include="Content\Pictures\Items\blueprint.PNG" />
     <Content Include="Content\Pictures\Items\header.png" />
     <Content Include="Content\Pictures\Items\roof_tile.PNG" />
+    <Content Include="Content\Pictures\Materials\AssaultRifle.png" />
+    <Content Include="Content\Pictures\Materials\Bazooka.jpg" />
+    <Content Include="Content\Pictures\Materials\BoxingGloves.png" />
+    <Content Include="Content\Pictures\Materials\Crossbow.jpg" />
+    <Content Include="Content\Pictures\Materials\DuctTape.png" />
+    <Content Include="Content\Pictures\Materials\GasolineCan.png" />
+    <Content Include="Content\Pictures\Materials\MotorOil.png" />
+    <Content Include="Content\Pictures\Materials\Shotgun.jpg" />
+    <Content Include="Content\Pictures\Materials\ToyGun.png" />
     <Content Include="Content\Pictures\Zombies\SalesmanZombie.png" />
     <Content Include="Content\Pictures\Zombies\SupermartZombie.png" />
     <Content Include="favicon.ico" />
@@ -326,7 +346,6 @@
     <Content Include="Views\Buildings\Index.cshtml" />
     <Content Include="Views\Buildings\Create.cshtml" />
     <Content Include="Views\Buildings\Delete.cshtml" />
-    <Content Include="Views\Buildings\Details.cshtml" />
     <Content Include="Views\Buildings\Edit.cshtml" />
     <Content Include="Views\Inventories\AddToItem.cshtml" />
     <Content Include="Views\BuildingBuildingMaterials\Index.cshtml" />
@@ -391,6 +410,10 @@
     <Content Include="Views\Zombies\Edit.cshtml" />
     <Content Include="Views\Zombies\Index.cshtml" />
     <Content Include="Views\Zombies\ZombieAttackBase.cshtml" />
+    <Content Include="Views\Weapons\Index.cshtml" />
+    <Content Include="Views\Weapons\Details.cshtml" />
+    <Content Include="Views\CraftableWeapons\Details.cshtml" />
+    <Content Include="Views\Buildings\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

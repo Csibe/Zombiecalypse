@@ -1,28 +1,15 @@
-﻿@model Zombiecalypse.Models.Building
+﻿@model Zombiecalypse.Models.BuildingDetails
 
 @{
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
+<h2>Details2</h2>
 
 <div>
-    <h4>Building</h4>
+    <h4>BuildingDetails</h4>
     <hr />
     <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.ItemPicture)
-        </dt>
-        <dd>
-            <img  src="@Model.ItemPicture" />
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.ItemID)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ItemID)
-        </dd>
         <dt>
             @Html.DisplayNameFor(model => model.ItemName)
         </dt>
@@ -30,6 +17,31 @@
         <dd>
             @Html.DisplayFor(model => model.ItemName)
         </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ItemType)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ItemType)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ItemPicture)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ItemPicture)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BuildingID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BuildingID)
+        </dd>
+
         <dt>
             @Html.DisplayNameFor(model => model.BuildingLevel)
         </dt>
@@ -37,29 +49,58 @@
         <dd>
             @Html.DisplayFor(model => model.BuildingLevel)
         </dd>
+
         <dt>
-            @Html.DisplayNameFor(model => model.BuildingBuildingMaterials)
+            @Html.DisplayNameFor(model => model.BuildingMoneyCost)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BuildingMoneyCost)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BuildingEnergyCost)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BuildingEnergyCost)
+        </dd>
+        <dt>
+            Craftable Weapons:
         </dt>
         <dd>
-            <table>
-                <th>ItemID</th>
-                <th>ItemName</th>
-                <th>ItemPieces</th>
-                <th></th>
-                @foreach (var material in Model.BuildingBuildingMaterials)
+            <table border="1">
+                <tr>
+                    <td></td>
+                    <td>Weapon ID</td>
+                    <td>Weapon name</td>
+                    <td>Weapon durability</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                @foreach (var weapon in Model.CraftableWeapons)
                 {
                     <tr>
-                    <td>
-                        @material.ItemID
-                    </td>
-                    <td>
-                        @material.ItemName
-                    </td>
-                    <td>
-                        @material.MaterialPieces
-                    </td>
-
-                        </tr>
+                        <td>
+                            <img src=@weapon.Weapon.ItemPicture />
+                        </td>
+                        <td>
+                            @weapon.WeaponID
+                        </td>
+                        <td>
+                            @weapon.Weapon.ItemName
+                        </td>
+                        <td>
+                            @weapon.Weapon.WeaponDurability
+                        </td>
+                        <td>
+                            @weapon.Weapon.ItemID
+                        </td>
+                        <td>
+                            @Html.ActionLink("Materials", "Details", "CraftableWeapons", new {id = @weapon.WeaponID }, null)
+                        </td>
+                    </tr>
                 }
             </table>
         </dd>

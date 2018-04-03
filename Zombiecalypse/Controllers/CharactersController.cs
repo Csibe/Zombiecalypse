@@ -42,6 +42,7 @@ namespace Zombiecalypse.Controllers
                 characterDetails.CharacterLevel = character.CharacterLevel;
                 characterDetails.Adventures = db.Adventures.ToList();
                 characterDetails.Levels = db.Levels.ToList();
+                characterDetails.AttackingZombies = db.ZombieAttackBases.Where(x => x.CharacterID == character.CharacterID).ToList();
 
                 characterDetails.CharacterNextLevelXP = characterDetails.Levels.Where(l => l.LevelID == characterDetails.CharacterLevel).FirstOrDefault().LevelMaxXP;
                 var NeededXPToNextLevel = characterDetails.CharacterNextLevelXP - characterDetails.CharacterXP;
@@ -79,34 +80,37 @@ namespace Zombiecalypse.Controllers
 
             }
 
-            
+
         }
 
-        public ActionResult MaxDate(int? id) {
+        public ActionResult MaxDate(int? id)
+        {
             Character character = db.Characters.Find(id);
-         //   character.FinishAdventure = DateTime.MaxValue;
+            //   character.FinishAdventure = DateTime.MaxValue;
 
             db.SaveChanges();
             return RedirectToAction("Index");
         }
 
-        public ActionResult AddToXP(int? id, int? add, string returnUrl) {
+        public ActionResult AddToXP(int? id, int? add, string returnUrl)
+        {
 
             Character character = db.Characters.Find(id);
             int CharLevel = character.CharacterLevel;
             int CharXP = character.CharacterXP;
-            Level DbLevel = db.Levels.Where(x=> x.LevelID == CharLevel).SingleOrDefault();
+            Level DbLevel = db.Levels.Where(x => x.LevelID == CharLevel).SingleOrDefault();
             int DbLevelLevel = DbLevel.LevelID;
             int DbLevelXP = DbLevel.LevelMaxXP;
             CharXP += (int)add;
 
             character.CharacterXP = CharXP;
-            if (CharXP >= DbLevelXP) {
+            if (CharXP >= DbLevelXP)
+            {
                 CharLevel++;
                 character.CharacterLevel = CharLevel;
             }
             ViewBag.Add = add;
-           
+
             db.SaveChanges();
             return RedirectToAction(returnUrl);
         }
@@ -135,11 +139,11 @@ namespace Zombiecalypse.Controllers
 
 
         // GET: Characters
-      /*  public ActionResult Index()
-        {
-            var characters = db.Characters.Include(c => c.User);
-            return View(characters.ToList());
-        }*/
+        /*  public ActionResult Index()
+          {
+              var characters = db.Characters.Include(c => c.User);
+              return View(characters.ToList());
+          }*/
 
         // GET: Characters/Details/5
         public ActionResult Details(int? id)
@@ -159,7 +163,7 @@ namespace Zombiecalypse.Controllers
         // GET: Characters/Create
         public ActionResult Create()
         {
-          //  ViewBag.CharacterID = new SelectList(db.Users, "UserID", "UserName");
+            //  ViewBag.CharacterID = new SelectList(db.Users, "UserID", "UserName");
             return View();
         }
 
@@ -181,11 +185,11 @@ namespace Zombiecalypse.Controllers
                 character.CharacterCurrentLife = 10;
                 character.CharacterXP = 0;
                 character.CharacterMoney = 0;
-                character.CurrentEnergy = 10;
-                character.MaxEnergy = 10;
+                character.CurrentEnergy = 14;
+                character.MaxEnergy = 14;
                 character.IsOnAdventure = false;
                 character.FinishAdventure = DateTime.MaxValue;
-                    
+
                 db.Characters.Add(character);
 
                 var buildings = new List<Inventory>
@@ -194,6 +198,7 @@ namespace Zombiecalypse.Controllers
                 new Inventory{ CharacterID=character.CharacterID, ItemID=16, ItemPieces=1},
                 new Inventory{ CharacterID=character.CharacterID, ItemID=22, ItemPieces=1},
                 new Inventory{ CharacterID=character.CharacterID, ItemID=28, ItemPieces=1},
+                new Inventory{ CharacterID=character.CharacterID, ItemID=53, ItemPieces=1}
                 };
                 buildings.ForEach(s => db.Inventories.Add(s));
 
@@ -216,7 +221,7 @@ namespace Zombiecalypse.Controllers
             {
                 return HttpNotFound();
             }
-         //   ViewBag.CharacterID = new SelectList(db.Users, "UserID", "UserName", character.CharacterID);
+            //   ViewBag.CharacterID = new SelectList(db.Users, "UserID", "UserName", character.CharacterID);
             return View(character);
         }
 
@@ -233,7 +238,7 @@ namespace Zombiecalypse.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-         //   ViewBag.CharacterID = new SelectList(db.Users, "UserID", "UserName", character.CharacterID);
+            //   ViewBag.CharacterID = new SelectList(db.Users, "UserID", "UserName", character.CharacterID);
             return View(character);
         }
 

@@ -14,7 +14,20 @@ namespace Zombiecalypse.Models
         public int BuildingMoneyCost { get; set; }
         public int BuildingEnergyCost { get; set; }
 
+
         public virtual ICollection<BuildingMaterial> BuildingMaterials { get; set; }
         public virtual ICollection<BuildingBuildingMaterial> BuildingBuildingMaterials { get; set; }
+    }
+
+    public class BuildingDetails : Item {
+        public int BuildingID { get; set; }
+        public int BuildingLevel { get; set; }
+        public int BuildingMoneyCost { get; set; }
+        public int BuildingEnergyCost { get; set; }
+        public virtual ICollection<CraftableWeaponMaterial> CraftableWeapons { get; set; }
+        public virtual ICollection<CraftableWeaponMaterial> ComponentOfCraftableWeapon { get; set; }
+        public virtual ICollection<BuildingMaterial> BuildingMaterials { get; set; }
+        public virtual ICollection<BuildingBuildingMaterial> BuildingBuildingMaterials { get; set; }
+
     }
 }
