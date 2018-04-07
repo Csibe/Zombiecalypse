@@ -117,13 +117,27 @@ namespace Zombiecalypse.DAL
                 new Building { ItemName = "ToolShed", BuildingLevel = 3, ItemType = "building", BuildingEnergyCost = 5, BuildingMoneyCost = 400, ItemPicture = "/Content/Pictures/Buildings/ToolShed_3.png" },
                 new Building { ItemName = "ToolShed", BuildingLevel = 4, ItemType = "building", BuildingEnergyCost = 5, BuildingMoneyCost = 400, ItemPicture = "/Content/Pictures/Buildings/ToolShed_4.png" },
                 new Building { ItemName = "ToolShed", BuildingLevel = 5, ItemType = "building", BuildingEnergyCost = 5, BuildingMoneyCost = 400, ItemPicture = "/Content/Pictures/Buildings/ToolShed_5.png" },
+                 new Building{ItemName="House", BuildingLevel=1, ItemType="building", BuildingEnergyCost=0, BuildingMoneyCost=0, ItemPicture="/Content/Pictures/Buildings/House_1.png"},
             };
             buildings2.ForEach(s => context.Items.Add(s));
             context.SaveChanges();
 
             var zombies = new List<Zombie> {
-                new Zombie { ZombieName="Salesman", ZombieLife=10, ZombieType=1, ZombieDamage=2, RewardCoins=3, RewardXP=3, ZombiePicture="/Content/Pictures/Zombies/SalesmanZombie.png"},
-                new Zombie { ZombieName="Supermart", ZombieLife=12, ZombieType=1, ZombieDamage=3, RewardCoins=5, RewardXP=5, ZombiePicture="/Content/Pictures/Zombies/SupermartZombie.png"}
+                new Zombie { ZombieName="Salesman", ZombieLife=1, ZombieType=1, ZombieDamage=1, RewardCoins=2, RewardXP=1, ZombiePicture="/Content/Pictures/Zombies/SalesmanZombie.png"},
+                new Zombie { ZombieName="Supermart", ZombieLife=1, ZombieType=1, ZombieDamage=1, RewardCoins=2, RewardXP=1, ZombiePicture="/Content/Pictures/Zombies/SupermartZombie.png"},
+                new Zombie { ZombieName="Janitor", ZombieLife=1, ZombieType=1, ZombieDamage=1, RewardCoins=2, RewardXP=1, ZombiePicture="/Content/Pictures/Zombies/JanitorZombie.png"},
+                new Zombie { ZombieName="Gas station", ZombieLife=2, ZombieType=2, ZombieDamage=2, RewardCoins=5, RewardXP=3, ZombiePicture="/Content/Pictures/Zombies/GasStationZombie.png"},
+                new Zombie { ZombieName="Plumber", ZombieLife=2, ZombieType=2, ZombieDamage=2, RewardCoins=5, RewardXP=3, ZombiePicture="/Content/Pictures/Zombies/PlumberZombie.png"},
+                new Zombie { ZombieName="Waitress", ZombieLife=2, ZombieType=2, ZombieDamage=2, RewardCoins=5, RewardXP=4, ZombiePicture="/Content/Pictures/Zombies/WaitressZombie.png"},
+                new Zombie { ZombieName="Miner", ZombieLife=2, ZombieType=2, ZombieDamage=2, RewardCoins=6, RewardXP=6, ZombiePicture="/Content/Pictures/Zombies/MinerZombie.png"},
+                new Zombie { ZombieName="Constructor", ZombieLife=4, ZombieType=3, ZombieDamage=3, RewardCoins=8, RewardXP=10, ZombiePicture="/Content/Pictures/Zombies/ConstructorZombie.png"},
+                new Zombie { ZombieName="Firefighter", ZombieLife=4, ZombieType=3, ZombieDamage=3, RewardCoins=8, RewardXP=10, ZombiePicture="/Content/Pictures/Zombies/FirefighterZombie.png"},
+                new Zombie { ZombieName="Gardener", ZombieLife=4, ZombieType=3, ZombieDamage=3, RewardCoins=8, RewardXP=10, ZombiePicture="/Content/Pictures/Zombies/GardenerZombie.png"},
+                new Zombie { ZombieName="Hazmat", ZombieLife=4, ZombieType=3, ZombieDamage=2, RewardCoins=8, RewardXP=10, ZombiePicture="/Content/Pictures/Zombies/HazmatZombie.png"},
+                new Zombie { ZombieName="Cowboy", ZombieLife=4, ZombieType=3, ZombieDamage=3, RewardCoins=8, RewardXP=10, ZombiePicture="/Content/Pictures/Zombies/CowboyZombie.png"},
+                new Zombie { ZombieName="Sailor", ZombieLife=9, ZombieType=4, ZombieDamage=2, RewardCoins=15, RewardXP=18, ZombiePicture="/Content/Pictures/Zombies/SailorZombie.png"},
+                new Zombie { ZombieName="Riot", ZombieLife=8, ZombieType=5, ZombieDamage=3, RewardCoins=20, RewardXP=20, ZombiePicture="/Content/Pictures/Zombies/RiotZombie.png"},
+                new Zombie { ZombieName="Super soldier", ZombieLife=8, ZombieType=5, ZombieDamage=3, RewardCoins=20, RewardXP=20, ZombiePicture="/Content/Pictures/Zombies/SuperSoldierZombie.png"}
             };
             zombies.ForEach(s => context.Zombies.Add(s));
             context.SaveChanges();
@@ -180,14 +194,14 @@ namespace Zombiecalypse.DAL
 
             var craftableWeapons = new List<CraftableWeapon>
             {
-                new CraftableWeapon { ItemName = "Fire Mitts", ItemType="craftableWeapon", WeaponDamage = 2, WeaponDurability=3, ItemPicture= "/Content/Pictures/CraftableWeapons/FireMitts.png",
+                new CraftableWeapon { ItemName = "Fire Mitts", ItemType="craftableWeapon", WeaponDamage = 2, ItemDurability=2, ItemPicture= "/Content/Pictures/CraftableWeapons/FireMitts.png",
                     WeaponMaterials = new List<CraftableWeaponMaterial> {
                         new CraftableWeaponMaterial { WeaponID=55, MaterialID=37, MaterialPieces=3},
                         new CraftableWeaponMaterial { WeaponID=55, MaterialID=38, MaterialPieces=3 },
                         new CraftableWeaponMaterial { WeaponID=55, MaterialID=2, MaterialPieces=1 }
                     }
                 },
-                new CraftableWeapon { ItemName = "Flamethrower", ItemType="craftableWeapon", WeaponDamage = 2, WeaponDurability=2, ItemPicture= "/Content/Pictures/CraftableWeapons/Flamethrower.png",
+                new CraftableWeapon { ItemName = "Flamethrower", ItemType="craftableWeapon", WeaponDamage = 2, ItemDurability=2, ItemPicture= "/Content/Pictures/CraftableWeapons/Flamethrower.png",
                     WeaponMaterials = new List<CraftableWeaponMaterial> {
                         new CraftableWeaponMaterial { WeaponID=59, MaterialID=34, MaterialPieces=1 },
                         new CraftableWeaponMaterial { WeaponID=59, MaterialID=35, MaterialPieces=1 },
@@ -197,6 +211,20 @@ namespace Zombiecalypse.DAL
                 }
             };
             craftableWeapons.ForEach(s => context.Items.Add(s));
+            context.SaveChanges();
+
+
+            PlantField field = new PlantField { IsFieldEmpty = true, ItemType = "field", ItemName = "Field", ItemPicture = "/Content/Pictures/Fields/FieldEmpty.png" };
+            context.PlantFields.Add(field);
+            context.SaveChanges();
+
+            var plants = new List<Plant> {
+                new Plant { ItemName="hajma", PlantTime=10, PlantCostCoin=5, PlantRewardCoin=8, PlantXP = 10, ItemType="plant" },
+                new Plant { ItemName="paradicsom", PlantTime=10,PlantCostCoin=5, PlantRewardCoin=8,  PlantXP = 10, ItemType="plant"  },
+                new Plant { ItemName="paprika", PlantTime=10,PlantCostCoin=5, PlantRewardCoin=8,  PlantXP = 10, ItemType="plant"  },
+                new Plant { ItemName="uborka", PlantTime=10, PlantCostCoin=5, PlantRewardCoin=8, PlantXP = 10, ItemType="plant"  }
+            };
+            plants.ForEach(s => context.Plants.Add(s));
             context.SaveChanges();
 
         }

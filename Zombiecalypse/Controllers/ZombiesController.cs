@@ -15,58 +15,115 @@ namespace Zombiecalypse.Controllers
     {
         private DataContext db = new DataContext();
 
-        public ActionResult StartAttack(int ChId, int ZombId) {
+        public ActionResult StartAttack(int ChId)
+        {
 
+            Random rand = new Random();
+            int ZombId = rand.Next(1, db.Zombies.Count() + 1);
             Zombie zombie = db.Zombies.Find(ZombId);
             Character character = db.Characters.Find(ChId);
-           
-           
 
-            ZombieAttackBase zab = new ZombieAttackBase { ZombieAttackStart=DateTime.Now, Zombie = zombie,  Character = character, CharacterID = character.CharacterID, ZombieID=zombie.ZombieID, ZombieLife = zombie.ZombieLife};
+            ZombieAttackBase zab = new ZombieAttackBase { ZombieAttackStart = DateTime.Now, Zombie = zombie, Character = character, CharacterID = character.CharacterID, ZombieID = zombie.ZombieID, ZombieLife = zombie.ZombieLife };
             db.ZombieAttackBases.Add(zab);
             db.SaveChanges();
 
             return RedirectToAction("CharacterDetails", "Characters", new { id = User.Identity.Name, AttackPower = 0 });
         }
 
-        public ActionResult ZombieAttackBase(int ZabID, int AttackPower) {
 
+
+        public ActionResult BaseDefenseFromZombie(int ZabID, int AttackPower, int invID)
+        {
             ZombieAttackBase zombieAttackBase = db.ZombieAttackBases.Find(ZabID);
             Character character = zombieAttackBase.Character;
             ICollection<Inventory> inventory = character.Inventory;
-            
+
+            if (invID != 0)
+            {
+                var inv = db.Inventories.Find(invID);
+                if (inv.ItemCurrentDurability > 1 && inv.ItemMaxDurability != 999)
+                {
+                    inv.ItemCurrentDurability--;
+                }
+                else if (inv.ItemCurrentDurability > 1 && inv.ItemMaxDurability == 999)
+                {
+
+                }
+                else
+                {
+                    if (inv.ItemPieces > 0)
+                    {
+                        inv.ItemCurrentDurability = inv.ItemMaxDurability;
+                        inv.ItemPieces--;
+                    }
+                }
+            }
 
             zombieAttackBase.ZombieLife -= AttackPower;
-            db.SaveChanges();
+            zombieAttackBase.Character.CurrentEnergy--;
 
             foreach (var inv in inventory)
             {
-                if (inv.Item.ItemType.Contains("Weapon")) { 
-                Weapon weapon = db.Weapons.Find(inv.ItemID);
+                if (inv.Item.ItemType.Contains("Weapon"))
+                {
+                    Weapon weapon = db.Weapons.Find(inv.ItemID);
+
                     zombieAttackBase.Weapons.Add(weapon);
                 }
 
             }
 
-
-            //     character.CharacterXP++;
-            // character.CharacterMoney++;
-
             if (zombieAttackBase.ZombieLife <= 0)
             {
-            }
-              /*  var rewardXP = zombie.RewardXP;
-                var rewardCoin = zombie.RewardCoins;
-                character.CharacterXP += rewardXP;
-                character.CharacterMoney += rewardCoin;*/
-           /*     db.ZombieAttackBases.Remove(zab);
-                
+
+                character.CharacterXP += zombieAttackBase.Zombie.RewardXP;
+                character.CharacterMoney += zombieAttackBase.Zombie.RewardCoins;
+                db.ZombieAttackBases.Remove(zombieAttackBase);
+
                 db.SaveChanges();
                 return RedirectToAction("CharacterDetails", "Characters", new { id = User.Identity.Name });
             }
 
-    */
+            db.SaveChanges();
+
             return View(zombieAttackBase);
+        }
+
+        public ActionResult ZombieAttackBase(int ZabID)
+        {
+            ZombieAttackBase zombieAttackBase = db.ZombieAttackBases.Find(ZabID);
+            Character character = zombieAttackBase.Character;
+            Zombie zombie = zombieAttackBase.Zombie;
+            ICollection<Inventory> inventory = character.Inventory;
+
+            int counter = 1;
+            foreach (var inv in inventory)
+            {
+                if (inv.Item.ItemType == "building")
+                {
+                    Building building = db.Buildings.Find(inv.Item.ItemID);
+                    if (building.BuildingLevel > 0)
+                    {
+                        building.BuildingID = counter;
+                        zombieAttackBase.Buildings.Add(building);
+                        counter++;
+                    }
+                }
+            }
+
+            Random rand = new Random();
+            int random = rand.Next(1, zombieAttackBase.Buildings.Count() + 1);
+
+            int buildingID = db.ZombieAttackBases.Find(ZabID).Buildings.Where(x => x.BuildingID == random).FirstOrDefault().ItemID;
+
+            foreach (var inv in inventory) {
+                if (inv.ItemID == buildingID) {
+                    inv.ItemCurrentDurability--;
+                }
+            }
+            db.SaveChanges();
+            return View(zombieAttackBase);
+            //  return RedirectToAction("CharacterDetails", "Characters", new { id = User.Identity.Name });
         }
 
 

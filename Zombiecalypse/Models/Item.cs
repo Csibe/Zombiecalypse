@@ -21,4 +21,22 @@ namespace Zombiecalypse.Models
     {
         public int MaterialID { get; set; }
     }
+
+    public class PlantField : Item {
+        public int PlantFieldId { get; set; }
+       // [DataType(DataType.DateTime)]
+        //public DateTime StartPlant {get;set;}
+        public bool IsFieldEmpty { get; set; }
+        public int PlantID { get; set; }
+        public virtual Plant Plant { get; set; }
+        public virtual ICollection<Plant> PlantablePlants { get; set; }
+    }
+
+    public class Plant : Item {
+        public int PlantID { get; set; }
+        public int PlantTime { get; set; }
+        public int PlantXP { get; set; }
+        public int PlantRewardCoin { get; set; }
+        public int PlantCostCoin { get; set; }
+    }
 }

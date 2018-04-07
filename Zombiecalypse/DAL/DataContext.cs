@@ -37,7 +37,9 @@ namespace Zombiecalypse.DAL
         public DbSet<Adventure> Adventures { get; set; }
 
         public DbSet<BuildingDetails> BuildingDetails { get; set; }
+        public DbSet<PlantField> PlantFields { get; set; }
 
+        public DbSet<Plant> Plants { get; set; }
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
 

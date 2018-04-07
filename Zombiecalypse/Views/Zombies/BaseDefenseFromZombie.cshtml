@@ -1,0 +1,186 @@
+﻿@model Zombiecalypse.Models.ZombieAttackBase
+
+@{
+    ViewBag.Title = "ZombieAttackBase";
+}
+
+<h2>ZombieAttackBase</h2>
+
+<div>
+    <h4>ZombieAttackBase</h4>
+    <hr />
+    <dl class="dl-horizontal">
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CharacterID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CharacterID)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Character.CharacterName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Character.CharacterName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ZombieAttackStart)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ZombieAttackStart)
+        </dd>
+        <br />
+        <br />
+        You are attacked by:
+        <dt>
+            @Html.DisplayNameFor(model => model.Zombie.ZombiePicture)
+        </dt>
+
+        <dd>
+            <img src=@Model.Zombie.ZombiePicture />
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Zombie.ZombieName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Zombie.ZombieName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ZombieLife)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ZombieLife)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Zombie.ZombieDamage)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Zombie.ZombieDamage)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Zombie.RewardCoins)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Zombie.RewardCoins)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Zombie.RewardXP)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Zombie.RewardXP)
+        </dd>
+
+        <h4>Items</h4>
+        <dd>
+            <table class="table">
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Type</th>
+                    <th>Damage</th>
+                    <th>ItemPieces</th>
+                    <th>ItemMaxDurability</th>
+                    <th>ItemCurrentDurability</th>
+                    <th>Picture</th>
+                </tr>
+                @foreach (var weap in Model.Weapons)
+                {
+                    foreach (var inv in Model.Character.Inventory)
+                    {
+                        if (@inv.ItemID == @weap.ItemID && @inv.ItemPieces > 0)
+                        {
+                            <tr>
+                                <td>
+                                    @weap.ItemID
+                                </td>
+                                <td>
+                                    @weap.ItemName
+                                </td>
+                                <td>
+                                    @weap.ItemType
+                                </td>
+                                <td>
+                                    @weap.WeaponDamage
+                                </td>
+                                <td>
+                                    @inv.ItemPieces
+                                </td>
+                                <td>
+                                    @if (inv.ItemMaxDurability == 999)
+                                    {
+                                        <html>
+                                        &#8734
+                                    </html>
+                                    }
+                                    else
+                                    {
+                                        @inv.ItemMaxDurability
+                                    }
+                                </td>
+                                <td>
+                                    @if (inv.ItemCurrentDurability == 999)
+                                    {
+                                        <html>
+                                        &#8734
+                                    </html>
+                                    }
+                                    else
+                                    {
+                                        @inv.ItemCurrentDurability
+                                    }
+
+                                </td>
+                                <td>
+                                    <img src=@weap.ItemPicture />
+                                </td>
+                                <td>
+                                    @Html.ActionLink("Attack with " + @weap.ItemName, "BaseDefenseFromZombie", new { ZabID = @Model.ZombieAttackBaseID, AttackPower = @weap.WeaponDamage, InvID = @inv.InventoryID }, null)
+                                </td>
+                            </tr>
+                        }
+                    }
+                }
+
+            </table>
+        </dd>
+
+        <br />
+
+
+        <button onclick="startCountDown()">Start</button></br>
+
+        counter:
+        <span id="demo"></span></br>
+        now:
+        <span id="demo2"></span></br>
+        until:
+        <span id="demo3"></span></br>
+
+
+        @*  <script>
+                var Year = @Model.ZombieAttackStart.Year;
+                var Month = @Model.ZombieAttackStart.Month;
+                var Day = @Model.ZombieAttackStart.Day;
+                var Hour = @Model.ZombieAttackStart.Hour;
+                var Minute = @Model.ZombieAttackStart.Minute;
+                var Second = @Model.ZombieAttackStart.AddSeconds(5).Second;
+
+                var ChId = @Model.CharacterID;
+                var ZombId = 1;
+                var zabID = @Model.ZombieAttackBaseID;
+                var FinishDate =  new Date(Year, Month-1, Day, Hour, Minute, Second, 0);
+
+            </script>
+            <script src="~/Scripts/app/zombieBaseAttack.js" type="text/javascript"></script>*@
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = @Model.CharacterID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

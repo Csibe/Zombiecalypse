@@ -15,11 +15,13 @@ namespace Zombiecalypse.Models
         public virtual Character Character { get; set; }
 
         public int ItemID { get; set; }
-        public int ItemDurability { get; set; }
+        public int ItemMaxDurability { get; set; }
+        public int ItemCurrentDurability { get; set; }
         public virtual Item Item { get; set; }
         public virtual Building Building { get; set; }
         public virtual BuildingMaterial BuildingMaterial { get; set; }
-   //     public virtual BuildingBuildingMaterial BuildingBuildingMaterial { get; set; }
+        public virtual PlantField PlantField { get; set; }
+        //     public virtual BuildingBuildingMaterial BuildingBuildingMaterial { get; set; }
         public int ItemPieces { get; set; }
     }
 }

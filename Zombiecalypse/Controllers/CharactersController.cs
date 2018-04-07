@@ -30,58 +30,47 @@ namespace Zombiecalypse.Controllers
             {
                 Character character = db.Characters.Where(c => c.ApplicationUserID == id).FirstOrDefault();
 
-                CharacterDetailsViewModel characterDetails = new CharacterDetailsViewModel();
-
-                characterDetails.CharacterID = character.CharacterID;
-                characterDetails.CharacterName = character.CharacterName;
-                characterDetails.CharacterItems = character.Inventory;
-                characterDetails.CharacterType = character.CharacterType;
-                characterDetails.CharacterMaxLife = character.CharacterMaxLife;
-                characterDetails.CharacterCurrentLife = character.CharacterCurrentLife;
-                characterDetails.CharacterXP = character.CharacterXP;
-                characterDetails.CharacterLevel = character.CharacterLevel;
-                characterDetails.Adventures = db.Adventures.ToList();
-                characterDetails.Levels = db.Levels.ToList();
-                characterDetails.AttackingZombies = db.ZombieAttackBases.Where(x => x.CharacterID == character.CharacterID).ToList();
-
-                characterDetails.CharacterNextLevelXP = characterDetails.Levels.Where(l => l.LevelID == characterDetails.CharacterLevel).FirstOrDefault().LevelMaxXP;
-                var NeededXPToNextLevel = characterDetails.CharacterNextLevelXP - characterDetails.CharacterXP;
-                ViewData["NeededXPToNextLevel"] = NeededXPToNextLevel;
-                int HouseID = 0;
-                int GarageID = 0;
-
-                string Picture = "/Content/Pictures/Base/";
-                ICollection<Inventory> characterInventory = character.Inventory;
-                foreach (var charinv in characterInventory)
+                if (character != null)
                 {
-                    if (charinv.Item.ItemType == "building")
+
+                    CharacterDetailsViewModel characterDetails = new CharacterDetailsViewModel();
+
+                    characterDetails.CharacterID = character.CharacterID;
+                    characterDetails.CharacterName = character.CharacterName;
+                    characterDetails.CharacterItems = character.Inventory;
+                    characterDetails.CharacterType = character.CharacterType;
+                    characterDetails.CurrentEnergy = character.CurrentEnergy;
+                    characterDetails.MaxEnergy = character.MaxEnergy;
+                    characterDetails.CharacterXP = character.CharacterXP;
+                    characterDetails.CharacterLevel = character.CharacterLevel;
+                    characterDetails.Adventures = db.Adventures.ToList();
+                    characterDetails.Levels = db.Levels.ToList();
+                    characterDetails.AttackingZombies = db.ZombieAttackBases.Where(x => x.CharacterID == character.CharacterID).ToList();
+
+                    characterDetails.CharacterNextLevelXP = characterDetails.Levels.Where(l => l.LevelID == characterDetails.CharacterLevel).FirstOrDefault().LevelMaxXP;
+                    var NeededXPToNextLevel = characterDetails.CharacterNextLevelXP - characterDetails.CharacterXP;
+                    ViewData["NeededXPToNextLevel"] = NeededXPToNextLevel;
+
+                    string Picture = "/Content/Pictures/Base/";
+                    ICollection<Inventory> characterInventory = character.Inventory;
+                    foreach (var charinv in characterInventory)
                     {
-                        Picture += charinv.Item.ItemName + charinv.Building.BuildingLevel;
-                        if (charinv.Item.ItemName == "House")
+                        if (charinv.Item.ItemType == "building")
                         {
-                            HouseID = charinv.Item.ItemID;
+                            Picture += charinv.Item.ItemName + charinv.Building.BuildingLevel;
                         }
-                        if (charinv.Item.ItemName == "Garage")
-                        {
-                            GarageID = charinv.Item.ItemID;
-                        }
+
                     }
+                    Picture += ".png";
 
+                    ViewBag.Picture = Picture;
+
+                    return View(characterDetails);
                 }
-                Picture += ".png";
-
-                ViewBag.Picture = Picture;
-                ViewBag.HouseID = HouseID;
-                ViewBag.GarageID = GarageID;
-
-
-                return View(characterDetails);
-
-
             }
-
-
+            return View("Index", "Home");
         }
+
 
         public ActionResult MaxDate(int? id)
         {
@@ -117,7 +106,7 @@ namespace Zombiecalypse.Controllers
 
 
         public ActionResult AddToEnergy(int? id)
-        {/*
+        {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -127,13 +116,12 @@ namespace Zombiecalypse.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.CharacterID = new SelectList(db.Users, "UserID", "UserName", character.CharacterID);
             if (character.CurrentEnergy < character.MaxEnergy)
             {
                 character.CurrentEnergy++;
                 db.SaveChanges();
-            }*/
-            return RedirectToAction("Index");
+            }
+            return RedirectToAction("CharacterDetails", "Characters", new { id = User.Identity.Name });
         }
 
 
@@ -180,9 +168,7 @@ namespace Zombiecalypse.Controllers
                 string id = User.Identity.Name;
                 character.ApplicationUserID = id;
                 character.CharacterLevel = 1;
-                character.CharacterType = 1;
-                character.CharacterMaxLife = 10;
-                character.CharacterCurrentLife = 10;
+                // character.CharacterType = 1;
                 character.CharacterXP = 0;
                 character.CharacterMoney = 0;
                 character.CurrentEnergy = 14;
@@ -194,11 +180,15 @@ namespace Zombiecalypse.Controllers
 
                 var buildings = new List<Inventory>
                 {
-                new Inventory{ CharacterID=character.CharacterID, ItemID=2, ItemPieces=1},
-                new Inventory{ CharacterID=character.CharacterID, ItemID=16, ItemPieces=1},
-                new Inventory{ CharacterID=character.CharacterID, ItemID=22, ItemPieces=1},
-                new Inventory{ CharacterID=character.CharacterID, ItemID=28, ItemPieces=1},
-                new Inventory{ CharacterID=character.CharacterID, ItemID=53, ItemPieces=1}
+                new Inventory{ CharacterID=character.CharacterID, ItemID=2, ItemPieces=1, ItemMaxDurability=2, ItemCurrentDurability=2},
+                new Inventory{ CharacterID=character.CharacterID, ItemID=16, ItemPieces=1,ItemMaxDurability=0, ItemCurrentDurability=0},
+                new Inventory{ CharacterID=character.CharacterID, ItemID=22, ItemPieces=1, ItemMaxDurability=0, ItemCurrentDurability=0},
+                new Inventory{ CharacterID=character.CharacterID, ItemID=28, ItemPieces=1, ItemMaxDurability=0, ItemCurrentDurability=0},
+                new Inventory{ CharacterID=character.CharacterID, ItemID=53, ItemPieces=1, ItemMaxDurability=999, ItemCurrentDurability=999},
+                new Inventory{ CharacterID=character.CharacterID, ItemID=55, ItemPieces=1, ItemMaxDurability=2, ItemCurrentDurability=2},
+                new Inventory{ CharacterID=character.CharacterID, ItemID=59, ItemPieces=1, ItemMaxDurability=2, ItemCurrentDurability=2},
+                //new Inventory{ CharacterID=character.CharacterID, ItemID=17, ItemPieces=1, ItemMaxDurability=2, ItemCurrentDurability=2},
+                //new Inventory{ CharacterID=character.CharacterID, ItemID=23, ItemPieces=1, ItemMaxDurability=2, ItemCurrentDurability=2}
                 };
                 buildings.ForEach(s => db.Inventories.Add(s));
 

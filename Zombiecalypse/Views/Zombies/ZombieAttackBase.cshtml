@@ -83,38 +83,54 @@
                     <th>ID</th>
                     <th>Name</th>
                     <th>Type</th>
-                    <th>Damage</th>
-                    <th>Durability</th>
+                    <th>BuildingLevel</th>
+                    <th>ItemPieces</th>
+                    <th>ItemMaxDurability</th>
+                    <th>ItemCurrentDurability</th>
                     <th>Picture</th>
                 </tr>
-                @foreach (var weap in Model.Weapons)
+                @foreach (var building in Model.Buildings)
                 {
-                        <tr>
-                            <td>
-                                @weap.ItemID
-                            </td>
-                            <td>
-                                @weap.ItemName
-                            </td>
-                            <td>
-                                @weap.ItemType
-                            </td>
-                            <td>
-                                @weap.WeaponDamage
-                            </td>
-                            <td>
-                                @weap.WeaponDurability
-                            </td>
-                            <td>
-                                @weap.ItemDurability
-                            </td>
-                            <td>
-                                <img src=@weap.ItemPicture />
-                            </td>
-                            <td>
-                                @Html.ActionLink("Attack with " + @weap.ItemName, "ZombieAttackBase", new { ZabID = @Model.ZombieAttackBaseID, AttackPower = @weap.WeaponDamage },null)
-                            </td>
-                        </tr>
+                    foreach (var inv in Model.Character.Inventory)
+                    {
+                        if (inv.ItemID == building.ItemID)
+                        {
+
+                            <tr>
+                                <td>
+                                    @inv.ItemID
+                                </td>
+                                <td>
+                                    @inv.Item.ItemName
+                                </td>
+                                <td>
+                                    @inv.Item.ItemType
+                                </td>
+                                <td>
+                                    @building.BuildingLevel
+                                </td>
+                                <td>
+                                    @inv.ItemPieces
+                                </td>
+                                <td>
+                                    @inv.ItemMaxDurability
+                                </td>
+                                <td>
+                                    @inv.ItemCurrentDurability
+                                </td>
+                                <td>
+                                    <img src=@inv ..ItemPicture />
+                                </td>
+                                @*<td>
+                                        @Html.ActionLink("Attack with " + @weap.ItemName, "ZombieAttackBase", new { ZabID = @Model.ZombieAttackBaseID}, null)
+                                    </td>*@
+                            </tr>
+                        }
+
+
+
+                    }
+
                 }
 
             </table>

@@ -119,8 +119,41 @@ namespace Zombiecalypse.Controllers
             }
             return RedirectToAction("Index");
         }
-        
 
+        public ActionResult PlantOnField(int InvID, int plantID)
+        {
+            Inventory inventory = db.Inventories.Find(InvID);
+            Plant plant = db.Plants.Find(plantID);
+            inventory.PlantField.Plant = plant;
+            inventory.PlantField.IsFieldEmpty = false;
+            db.SaveChanges();
+
+            return RedirectToAction("CharacterDetails", "Characters", new { id = User.Identity.Name });
+        }
+
+
+        public ActionResult ChoosePlantOnField(int id) {
+            Inventory inventory = db.Inventories.Find(id);
+            PlantField plantOnField = new PlantField();
+            plantOnField.PlantFieldId = id;
+            plantOnField.ItemID = inventory.ItemID;
+            plantOnField.ItemName = inventory.Item.ItemName;
+            ICollection<Plant> plants = db.Plants.ToList();
+            plantOnField.PlantablePlants = plants;
+            return View(plantOnField);
+        }
+
+
+        public ActionResult AddField(int? id) {
+            Character character = db.Characters.Find(id);
+            PlantField field = new PlantField();
+            Inventory addField = new Inventory {
+                ItemID = 65, Item = db.Items.Find(65), ItemPieces=1, CharacterID=character.CharacterID, Character = character,
+            };
+            db.Inventories.Add(addField);
+            db.SaveChanges();
+            return RedirectToAction("CharacterDetails", "Characters", new { id = User.Identity.Name });
+        }
 
         public ActionResult AddToItem(int? id)
         {
