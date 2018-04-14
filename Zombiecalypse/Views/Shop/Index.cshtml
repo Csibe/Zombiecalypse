@@ -1,0 +1,152 @@
+﻿@model Zombiecalypse.Models.Shop
+
+@{
+    ViewBag.Title = "Shop";
+}
+
+
+<style>
+    body {
+        font-family: Arial;
+    }
+
+    /* Style the tab */
+    .tab {
+        overflow: hidden;
+        border: 1px solid #ccc;
+        background-color: #f1f1f1;
+    }
+
+        /* Style the buttons inside the tab */
+        .tab button {
+            background-color: inherit;
+            float: left;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            padding: 14px 16px;
+            transition: 0.3s;
+            font-size: 17px;
+        }
+
+            /* Change background color of buttons on hover */
+            .tab button:hover {
+                background-color: #ddd;
+            }
+
+            /* Create an active/current tablink class */
+            .tab button.active {
+                background-color: #ccc;
+            }
+
+    /* Style the tab content */
+    .tabcontent {
+        display: none;
+        padding: 6px 12px;
+        border: 1px solid #ccc;
+        border-top: none;
+    }
+</style>
+
+<h2>Shop</h2>
+
+<div class="tab">
+    <button class="tablinks" onclick="openCity(event, 'Weapons')">Weapons</button>
+    <button class="tablinks" onclick="openCity(event, 'Plants')">Plants</button>
+    <button class="tablinks" onclick="openCity(event, 'Energy')">Energy</button>
+</div>
+
+<!-- Tab content -->
+<div id="Weapons" class="tabcontent">
+    <h3>Weapons</h3>
+    <table border="1" class="table">
+
+        @foreach (var w in Model.Weapons)
+            {
+            <td>
+                <table border="1">
+                    <td><img width="100" height="100" src=@w.ItemPicture /></td>
+                    <tr></tr>
+                    <td>@w.ItemName</td>
+                    <tr></tr>
+                    <td>Durability: @w.ItemDurability</td>
+                    <tr></tr>
+                    <td>Damage: @w.WeaponDamage</td>
+                    <tr></tr>
+                    <td>cost: @w.Cost</td>
+                    <tr></tr>
+                    <td>@Html.ActionLink("Buy", "Buy", "Shop", new { id = User.Identity.Name, ItemID = @w.ItemID }, null)</td>
+                </table>
+            </td>
+        }
+
+    </table>
+</div>
+
+<div id="Plants" class="tabcontent">
+    <h3>Plants</h3>
+    <table border="1" class="table">
+        @Html.ActionLink("Buy field", "BuyField", "Shop", new { id = User.Identity.Name }, null)
+        @foreach (var p in Model.Plants)
+            {
+            <td>
+                <table border="1">
+                    <td><img width="100" height="100" src=@p.ItemPicture /></td>
+                    <tr></tr>
+                    <td>@p.ItemName</td>
+                    <tr></tr>
+                    <td>Cost: @p.PlantCost</td>
+                    <tr></tr>
+                    <td>Grow time: @p.GrowTime</td>
+                    <tr></tr>
+                    <td>Reward coin: @p.PlantRewardCoin</td>
+                    <tr></tr>
+                    <td>Reward food: @p.PlantRewardFood</td>
+                    <tr></tr>
+                    <td>@Html.ActionLink("Buy", "Buy", "Shop", new {id = User.Identity.Name , ItemID = @p.ItemID },null)</td>
+                </table>
+            </td>
+        }
+
+    </table>
+</div>
+
+<div id="Energy" class="tabcontent">
+    <h3>Energy</h3>
+    <table border="1" class="table">
+
+        @foreach (var e in Model.Energies){
+            <td>
+                <table border="1">
+                    <td><img width="100" height="100" src=@e.ItemPicture /></td>
+                    <tr></tr>
+                    <td>@e.ItemName</td>
+                    <tr></tr>
+                    <td>Durability: @e.PlusEnergy</td>
+                    <tr></tr>
+                    <td>Cost: @e.Cost</td>
+                    <tr></tr>
+                    <td>@Html.ActionLink("Buy", "Buy", "Shop", new { id = User.Identity.Name, ItemID = @e.ItemID }, null)</td>
+                </table>
+            </td>
+        }
+
+    </table>
+</div>
+
+
+<script>
+function openCity(evt, cityName) {
+    var i, tabcontent, tablinks;
+    tabcontent = document.getElementsByClassName("tabcontent");
+    for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
+    }
+    tablinks = document.getElementsByClassName("tablinks");
+    for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].className = tablinks[i].className.replace(" active", "");
+    }
+    document.getElementById(cityName).style.display = "block";
+    evt.currentTarget.className += " active";
+}
+</script>

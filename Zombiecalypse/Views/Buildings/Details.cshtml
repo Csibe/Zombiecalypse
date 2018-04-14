@@ -19,19 +19,11 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.ItemType)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ItemType)
-        </dd>
-
-        <dt>
             @Html.DisplayNameFor(model => model.ItemPicture)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.ItemPicture)
+            <img src= @Model.ItemPicture />
         </dd>
 
         <dt>
@@ -73,10 +65,10 @@
                 <tr>
                     <td></td>
                     <td>Weapon ID</td>
-                    <td>Weapon name</td>
-                    <td>Weapon durability</td>
-                    <td></td>
-                    <td></td>
+                    <td>Name</td>
+                    <td>Durability</td>
+                    <td>Item ID</td>
+                    <td>Materials</td>
                     <td></td>
                 </tr>
                 @foreach (var weapon in Model.CraftableWeapons)
@@ -95,10 +87,38 @@
                             @weapon.Weapon.WeaponDurability
                         </td>
                         <td>
-                            @weapon.Weapon.ItemID
-                        </td>
-                        <td>
-                            @Html.ActionLink("Materials", "Details", "CraftableWeapons", new {id = @weapon.WeaponID }, null)
+                            <table border="1">
+                                <tr>
+                                    <td>ID</td>
+                                    <td>Picture</td>
+                                    <td>Name</td>
+                                    <td>Pieces</td>
+                                </tr>
+                                @foreach (var mat in Model.ComponentOfCraftableWeapon)
+                                {
+                                    if (@mat.WeaponID == weapon.WeaponID && @mat.Item.ItemType == "material")
+                                    {
+                                        {
+                                            <tr>
+                                                <td>
+                                                    @mat.MaterialID
+                                                </td>
+                                                <td>
+                                                    <img width="50" height="50" src=@mat.Item.ItemPicture />
+                                                </td>
+                                                <td>
+                                                    @mat.Item.ItemName
+                                                </td>
+                                                <td>
+                                                    @mat.MaterialPieces
+                                                </td>
+                                            </tr>
+                                        }
+                                    }
+                                }
+
+                            </table>
+                        <td>Craft</td>
                         </td>
                     </tr>
                 }

@@ -34,9 +34,16 @@ namespace Zombiecalypse.Models
 
     public class Plant : Item {
         public int PlantID { get; set; }
-        public int PlantTime { get; set; }
-        public int PlantXP { get; set; }
+        public string PlantFinishedPicture { get; set; }
+        public string PlantStartPicture { get; set; }
+        public int PlantCost { get; set; }
+        public int GrowTime { get; set; }
         public int PlantRewardCoin { get; set; }
-        public int PlantCostCoin { get; set; }
+        public int PlantRewardFood { get; set; }
+    }
+    public class Energy : Item {
+        public int EnergyID { get; set; }
+        public int PlusEnergy { get; set; }
+        public int Cost { get; set; }
     }
 }

@@ -2,6 +2,8 @@
 
 @{
     ViewBag.Title = "CharacterDetails";
+    var houseID = @Model.CharacterItems.Where(x => x.Item.ItemName == "House").FirstOrDefault().ItemID;
+    var garageID = @Model.CharacterItems.Where(x => x.Item.ItemName == "Garage").FirstOrDefault().ItemID;
 }
 
 
@@ -10,8 +12,11 @@
 <br>
 <br>
 @Html.ActionLink("Start Zombie Attack", "StartAttack", "Zombies", new { ChId = @Model.CharacterID, ZombId = 1 }, null)
-<br>
-<br>
+<br />
+<br />
+@Html.ActionLink("Shop", "Index", "Shop")
+<br />
+<br />
 <div>
     <h4>CharacterDetails</h4>
     <hr />
@@ -114,11 +119,12 @@
             Base:
 
         </dt>
+        
         <dd>
-            <img width=700 height="450" src=@ViewBag.Picture />
+            <img width=700 usemap="#map" height="450" src=@ViewBag.Picture />
             <map name="map">
-                <area shape="rect" coords="0,0,250,200" alt="House" href="~/Buildings/Details/@ViewBag.HouseID">
-                <area shape="rect" coords="250,0,500,200" alt="Garage" href="~/Buildings/Details/@ViewBag.GarageID">
+                <area shape="rect" coords="0,0,250,200" alt="House" href="~/Buildings/Details/@houseID">
+                <area shape="rect" coords="250,0,500,200" alt="Garage" href="~/Buildings/Details/@garageID">
             </map>
             <div align="center">
                 <img usemap="#map" border="1" />
@@ -228,22 +234,53 @@
         <dd>
             <table class="table">
                 <tr>
+                    <td></td>
+                    <td>PlantID</td>
                     <td>ID</td>
                     <td>Name</td>
                     <td>IsFieldEmpty</td>
+                    <td>IsGrowenUp</td>
                 </tr>
                 @foreach (var field in Model.CharacterItems)
                 {
                     if (field.Item.ItemType == "field")
                     {
-                        <tr>
-                            <td><img src= @field.Item.ItemPicture /></td>
-                            <td>@field.ItemID</td>
-                            <td>@field.Item.ItemName</td>
-                            <td>@field.PlantField.IsFieldEmpty</td>
-                            <td>@field.PlantField.Plant.ItemName</td>
-                            <td>@Html.ActionLink("Plant on field", "ChoosePlantOnField", "Inventories", new { id = @field.InventoryID}, null)</td>
-                        </tr>
+                        if (field.PlantField.IsFieldEmpty == true)
+                        {
+                            <tr>
+                                <td><img src=@field.Item.ItemPicture /></td>
+                                <td>@field.PlantField.PlantID</td>
+                                <td>@field.ItemID</td>
+                                <td>@field.Item.ItemName</td>
+                                <td>@field.PlantField.IsFieldEmpty</td>
+                                <td>@Html.ActionLink("Plant on field", "ChoosePlantOnField", "Inventories", new { id = @field.InventoryID }, null)</td>
+
+
+                            </tr>
+                        }
+                        else if (field.PlantField.IsFieldEmpty == false)
+                        {
+                            <tr>
+                                @if (@field.isFinished == true)
+                                {
+                                    <td><img src=@field.PlantField.Plant.PlantFinishedPicture /></td>
+                                }
+                                else
+                                {
+                                    <td><img src=@field.PlantField.Plant.ItemPicture /></td>
+                                }
+
+                                <td>@field.PlantField.PlantID</td>
+                                <td>@field.ItemID</td>
+                                <td>@field.PlantField.Plant.ItemName</td>
+                                <td>@field.PlantField.IsFieldEmpty</td>
+                                <td>@field.isFinished</td>
+
+                                <td>@Html.ActionLink("Grow up plant", "GrowUpPlant", "Inventories", new { invID = @field.InventoryID }, null)</td>
+                                <td>@Html.ActionLink("Harvest field", "HarvestField", "Inventories", new { invID = @field.InventoryID }, null)</td>
+                            </tr>
+                        }
+
                     }
                 }
 
@@ -264,24 +301,24 @@
 
                     if (@inventory.Item.ItemType == "item")
                     {
-                    <tr>
-                        <td>
-                            @inventory.ItemID
-                        </td>
-                        <td>
-                            @inventory.Item.ItemName
-                        </td>
-                        <td>
-                            @inventory.ItemPieces
-                        </td>
-                        <td>
-                            @inventory.Item.ItemType
-                        </td>
-                        <td>
-                            @inventory.Item.ItemPicture
-                        </td>
-                    </tr>
-                       }
+                        <tr>
+                            <td>
+                                @inventory.ItemID
+                            </td>
+                            <td>
+                                @inventory.Item.ItemName
+                            </td>
+                            <td>
+                                @inventory.ItemPieces
+                            </td>
+                            <td>
+                                @inventory.Item.ItemType
+                            </td>
+                            <td>
+                                @inventory.Item.ItemPicture
+                            </td>
+                        </tr>
+                    }
                 }
 
             </table>
@@ -296,48 +333,48 @@
                     <th>Level</th>
                     <th>Type</th>
                 </tr>
-                @*@foreach (var inventory in Model.CharacterItems)
-                    {
+                @foreach (var inventory in Model.CharacterItems)
+                {
 
-                        if (@inventory.Item.ItemType.Equals("building") && (@inventory.Building.BuildingLevel != 0))
-                        {
+                    if (@inventory.Item.ItemType == "building" && (@inventory.Building.BuildingLevel != 0))
+                    {
+                        <tr>
+                            <td>
+                                @inventory.ItemID
+                            </td>
+                            <td>
+                                @inventory.Item.ItemName
+                            </td>
+                            <td>
+                                @inventory.ItemPieces
+                            </td>
+                            <td>
+                                @inventory.Building.BuildingLevel
+                            </td>
+                            <td>
+                                @inventory.Item.ItemType
+                            </td>
+                            <td>
+                                <img src="@inventory.Item.ItemPicture" />
+
+                            </td>
+                            <td>
+                                @Html.ActionLink("Level up building", "LevelUpBuilding", "Inventories", new { id = inventory.InventoryID }, null)
+
+                            </td>
+                            @foreach (var item in inventory.Building.BuildingMaterials)
+                            {
                             <tr>
                                 <td>
-                                    @inventory.ItemID
-                                </td>
-                                <td>
-                                    @inventory.Item.ItemName
-                                </td>
-                                <td>
-                                    @inventory.ItemPieces
-                                </td>
-                                <td>
-                                    @inventory.Building.BuildingLevel
-                                </td>
-                                <td>
-                                    @inventory.Item.ItemType
-                                </td>
-                                <td>
-                                    <img src="@inventory.Item.ItemPicture" />
 
+                                    @item.BuildingBuildingMaterials
                                 </td>
-                                <td>
-                                    @Html.ActionLink("Level up building", "LevelUpBuilding", "Inventories", new { id = inventory.InventoryID }, null)
+                            </tr>
+                            }
 
-                                </td>
-                                @foreach (var item in inventory.Building.BuildingMaterials)
-                                {
-                                <tr>
-                                    <td>
-
-                                        @item.BuildingBuildingMaterials
-                                    </td>
-                                </tr>
-                                }
-
-                                </tr>
-                        }
-                    }*@
+                            </tr>
+                    }
+                }
 
             </table>
         </dd>
@@ -353,10 +390,10 @@
                     <th>Level</th>
                     <th>Type</th>
                 </tr>
-                @*@foreach (var inventory in Model.CharacterItems)
+                @foreach (var inventory in Model.CharacterItems)
                     {
 
-                        if (@inventory.Item.ItemType.Equals("building") && (@inventory.Building.BuildingLevel == 0))
+                        if (@inventory.Item.ItemType == "building" && (@inventory.Building.BuildingLevel == 0))
                         {
                             <tr>
                                 <td>
@@ -397,7 +434,7 @@
 
                                 </tr>
                         }
-                    }*@
+                    }
 
             </table>
         </dd>
@@ -412,10 +449,10 @@
                     <th>Pieces</th>
                     <th>Type</th>
                 </tr>
-                @*@foreach (var inventory in Model.CharacterItems)
+                @foreach (var inventory in Model.CharacterItems)
                     {
 
-                        if (@inventory.Item.ItemType.Equals("buildingmaterial"))
+                        if (@inventory.Item.ItemType == "buildingmaterial")
                         {
                             <tr>
                                 <td>
@@ -432,7 +469,7 @@
                                 </td>
                             </tr>
                         }
-                    }*@
+                    }
             </table>
         </dd>
 
@@ -446,10 +483,10 @@
                     <th>Type</th>
                     <th>Durability</th>
                 </tr>
-                @*@foreach (var inventory in Model.CharacterItems)
+                @foreach (var inventory in Model.CharacterItems)
                     {
 
-                        if (@inventory.Item.ItemType.Contains("Weapon"))
+                        if (inventory.Item.ItemType == "craftableWeapon" || inventory.Item.ItemType == "buyableWeapon")
                         {
                             <tr>
                                 <td>
@@ -483,7 +520,7 @@
 
                             </tr>
                         }
-                    }*@
+                    }
             </table>
         </dd>
         <br />

@@ -32,8 +32,7 @@ namespace Zombiecalypse.Controllers
             BuildingDetails bd = new BuildingDetails();
             CraftableWeapon cwmodel = new CraftableWeapon();
 
-            bd.BuildingBuildingMaterials = db.BuildingBuildingMaterials
-            .Where(b => b.BuildingID == id).ToList();
+            bd.BuildingBuildingMaterials = db.BuildingBuildingMaterials.ToList();
 
             bd.BuildingID = building.BuildingID;
             bd.ItemID = building.ItemID;
@@ -41,6 +40,7 @@ namespace Zombiecalypse.Controllers
             bd.BuildingLevel = building.BuildingLevel;
             bd.BuildingMoneyCost = building.BuildingMoneyCost;
             bd.ItemPicture = building.ItemPicture;
+            bd.ComponentOfCraftableWeapon = db.CraftableWeaponsMaterials.ToList();
             ICollection<CraftableWeaponMaterial> cw = db.CraftableWeaponsMaterials.Where(s => s.MaterialID == id).ToList();
             bd.CraftableWeapons = cw;
             

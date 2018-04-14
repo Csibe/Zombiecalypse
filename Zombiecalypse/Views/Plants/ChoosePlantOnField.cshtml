@@ -72,10 +72,6 @@
                     <tr>
                         <td>@plant.ItemID</td>
                         <td>@plant.ItemName</td>
-                        <td>@plant.PlantTime</td>
-                        <td>@plant.PlantXP</td>
-                        <td>@plant.PlantRewardCoin</td>
-                        <td>@plant.PlantCostCoin</td>
                         <td>@Html.ActionLink("Plant "+@plant.ItemName, "PlantOnField", "Inventories", new { InvID = Model.PlantFieldId, plantID = @plant.ItemID },null)</td>
                     </tr>
                 }

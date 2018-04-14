@@ -40,6 +40,7 @@ namespace Zombiecalypse.DAL
         public DbSet<PlantField> PlantFields { get; set; }
 
         public DbSet<Plant> Plants { get; set; }
+        public DbSet<Energy> Energies { get; set; }
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
 

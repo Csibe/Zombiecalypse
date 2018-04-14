@@ -187,11 +187,9 @@ namespace Zombiecalypse.Controllers
                 new Inventory{ CharacterID=character.CharacterID, ItemID=53, ItemPieces=1, ItemMaxDurability=999, ItemCurrentDurability=999},
                 new Inventory{ CharacterID=character.CharacterID, ItemID=55, ItemPieces=1, ItemMaxDurability=2, ItemCurrentDurability=2},
                 new Inventory{ CharacterID=character.CharacterID, ItemID=59, ItemPieces=1, ItemMaxDurability=2, ItemCurrentDurability=2},
-                //new Inventory{ CharacterID=character.CharacterID, ItemID=17, ItemPieces=1, ItemMaxDurability=2, ItemCurrentDurability=2},
-                //new Inventory{ CharacterID=character.CharacterID, ItemID=23, ItemPieces=1, ItemMaxDurability=2, ItemCurrentDurability=2}
                 };
                 buildings.ForEach(s => db.Inventories.Add(s));
-
+                
                 db.SaveChanges();
                 return RedirectToAction("CharacterDetails", "Characters", new { id = User.Identity.Name });
             }

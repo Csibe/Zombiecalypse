@@ -21,6 +21,7 @@ namespace Zombiecalypse.Models
         public virtual Building Building { get; set; }
         public virtual BuildingMaterial BuildingMaterial { get; set; }
         public virtual PlantField PlantField { get; set; }
+        public bool isFinished { get; set; }
         //     public virtual BuildingBuildingMaterial BuildingBuildingMaterial { get; set; }
         public int ItemPieces { get; set; }
     }

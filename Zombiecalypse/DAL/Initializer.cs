@@ -45,7 +45,6 @@ namespace Zombiecalypse.DAL
             context.SaveChanges();
 
 
-
             var buildingbuildingmaterials = new List<BuildingBuildingMaterial> {
                    new BuildingBuildingMaterial { BuildingID=2, BuildingMaterialID=7, MaterialPieces=3, ItemType="buildingbuildingmaterial" },
                    new BuildingBuildingMaterial { BuildingID=2, BuildingMaterialID=8, MaterialPieces=2, ItemType="buildingbuildingmaterial"},
@@ -54,6 +53,7 @@ namespace Zombiecalypse.DAL
             };
             buildingbuildingmaterials.ForEach(s => context.Items.Add(s));
             context.SaveChanges();
+
 
             var levels = new List<Level> {
             new Level {LevelMaxXP=25, LevelMaxEnergy=14},
@@ -85,7 +85,6 @@ namespace Zombiecalypse.DAL
 
             levels.ForEach(s => context.Levels.Add(s));
             context.SaveChanges();
-
 
             var adventures = new List<Adventure> {
                 new Adventure { AdventureName="Short Adventure", AdventureTime=10, AdventureXPBonus=6},
@@ -155,16 +154,18 @@ namespace Zombiecalypse.DAL
                 new Material { ItemName="Liquor bottle", ItemType="material", ItemPicture="/Content/Pictures/Materials/LiquorBottle.png" },
                 new Material { ItemName="Matches", ItemType="material", ItemPicture="/Content/Pictures/Materials/Matches.png" },
                 new Material { ItemName="Suspenters", ItemType="material", ItemPicture="/Content/Pictures/Materials/Suspenders.png" },
-                new Material { ItemName="Metal pipes", ItemType="material", ItemPicture="/Content/Pictures/Materials/.png" },
+                new Material { ItemName="Metal pipes", ItemType="material", ItemPicture="/Content/Pictures/Materials/MatalPipes.png" },
                 new Material { ItemName="Garden trimmer", ItemType="material", ItemPicture="/Content/Pictures/Materials/GardenTrimmer.png" },
                 new Material { ItemName="Dinner knife", ItemType="material", ItemPicture="/Content/Pictures/Materials/DinnerKnife.png" },
                 new Material { ItemName="Dry ice", ItemType="material", ItemPicture="/Content/Pictures/Materials/DryIce.png" },
                 new Material { ItemName="Fire extinguisher", ItemType="material", ItemPicture="/Content/Pictures/Materials/FireExtinguisher.png" },
-                new Material { ItemName="Toilet paper", ItemType="material", ItemPicture="/Content/Pictures/Materials/ToiletPaper.png" }
+                new Material { ItemName="Battery", ItemType="material", ItemPicture="/Content/Pictures/Materials/Battery.png" },
+                new Material { ItemName="Rake", ItemType="material", ItemPicture="/Content/Pictures/Materials/Rake.png" },
+                new Material { ItemName="Hose", ItemType="material", ItemPicture="/Content/Pictures/Materials/Hose.png" },
+
             };
             materials.ForEach(s => context.Items.Add(s));
             context.SaveChanges();
-
 
             var zombieDrops = new List<ZombieDrop> {
                 new ZombieDrop {ZombieID= 1, Material = new Material{ ItemID=34 }, MaterialPieces=1},
@@ -173,7 +174,6 @@ namespace Zombiecalypse.DAL
                 new ZombieDrop {ZombieID= 1, MaterialID= 36, MaterialPieces=3},*/
             };
             zombieDrops.ForEach(s => context.ZombieDrops.Add(s));
-            context.SaveChanges();
 
             var adventureDrops = new List<AdventureDrop> {
                 new AdventureDrop { AdventureID=1, DropableItemID=7, ItemDroprate= 0.8, ItemMaxDrop=2 },
@@ -183,50 +183,140 @@ namespace Zombiecalypse.DAL
             adventureDrops.ForEach(s => context.AdventureDrops.Add(s));
             context.SaveChanges();
 
-            var buyableWeapons = new List<BuyableWeapon> {
-                new BuyableWeapon { ItemName="Shovel", ItemDurability=999, ItemType="buyableWeapon", WeaponDamage=1, ItemPicture="/Content/Pictures/BuyableWeapons/Shovel.png"},
-                new BuyableWeapon { ItemName="Katana", ItemDurability=999, ItemType="buyableWeapon", Cost=300, WeaponDamage=2, ItemPicture="/Content/Pictures/BuyableWeapons/Katana.png"},
-            };
-
-            buyableWeapons.ForEach(s => context.Items.Add(s));
+            var weapon = new Weapon { ItemName = "Shovel", ItemDurability = 999, ItemType = "Weapon", WeaponDamage = 1, ItemPicture = "/Content/Pictures/BuyableWeapons/Shovel.png" };
             context.SaveChanges();
 
+            var buyableWeapons = new List<BuyableWeapon> {
+                new BuyableWeapon { ItemName="Katana", ItemDurability=999, ItemType="buyableWeapon", Cost=300, WeaponDamage=2, ItemPicture="/Content/Pictures/BuyableWeapons/Katana.png"},
+            };
+            buyableWeapons.ForEach(s => context.Items.Add(s));
+            context.SaveChanges();
 
             var craftableWeapons = new List<CraftableWeapon>
             {
                 new CraftableWeapon { ItemName = "Fire Mitts", ItemType="craftableWeapon", WeaponDamage = 2, ItemDurability=2, ItemPicture= "/Content/Pictures/CraftableWeapons/FireMitts.png",
                     WeaponMaterials = new List<CraftableWeaponMaterial> {
-                        new CraftableWeaponMaterial { WeaponID=55, MaterialID=37, MaterialPieces=3},
-                        new CraftableWeaponMaterial { WeaponID=55, MaterialID=38, MaterialPieces=3 },
+                        new CraftableWeaponMaterial { WeaponID=55, MaterialID=36, MaterialPieces=1 },
+                        new CraftableWeaponMaterial { WeaponID=55, MaterialID=38, MaterialPieces=1 },
                         new CraftableWeaponMaterial { WeaponID=55, MaterialID=2, MaterialPieces=1 }
                     }
                 },
                 new CraftableWeapon { ItemName = "Flamethrower", ItemType="craftableWeapon", WeaponDamage = 2, ItemDurability=2, ItemPicture= "/Content/Pictures/CraftableWeapons/Flamethrower.png",
                     WeaponMaterials = new List<CraftableWeaponMaterial> {
-                        new CraftableWeaponMaterial { WeaponID=59, MaterialID=34, MaterialPieces=1 },
                         new CraftableWeaponMaterial { WeaponID=59, MaterialID=35, MaterialPieces=1 },
                         new CraftableWeaponMaterial { WeaponID=59, MaterialID=36, MaterialPieces=1 },
-                        new CraftableWeaponMaterial { WeaponID=59, MaterialID=2, MaterialPieces=1 }
+                        new CraftableWeaponMaterial { WeaponID=59, MaterialID=2, MaterialPieces=1 },
+
+                    }
+                },
+                new CraftableWeapon { ItemName = "Electric Rake", ItemType="craftableWeapon", WeaponDamage = 2, ItemDurability=2, ItemPicture= "/Content/Pictures/CraftableWeapons/ElectricRake.png",
+                    WeaponMaterials = new List<CraftableWeaponMaterial> {
+                        new CraftableWeaponMaterial { WeaponID=64, MaterialID=52, MaterialPieces=1 },
+                        new CraftableWeaponMaterial { WeaponID=64, MaterialID=53, MaterialPieces=1 },
+                        new CraftableWeaponMaterial { WeaponID=64, MaterialID=37, MaterialPieces=1 },
+                        new CraftableWeaponMaterial { WeaponID=64, MaterialID=29, MaterialPieces=1 },
                                        }
-                }
+                },
+                new CraftableWeapon { ItemName = "Mega Maul", ItemType="craftableWeapon", WeaponDamage = 2, ItemDurability=2, ItemPicture= "/Content/Pictures/CraftableWeapons/MegaMaul.png",
+                    WeaponMaterials = new List<CraftableWeaponMaterial> {
+                        new CraftableWeaponMaterial { WeaponID=64, MaterialID=40, MaterialPieces=1 },
+                        new CraftableWeaponMaterial { WeaponID=64, MaterialID=41, MaterialPieces=1 },
+                        new CraftableWeaponMaterial { WeaponID=64, MaterialID=29, MaterialPieces=1 },
+                                       }
+                },
+                new CraftableWeapon { ItemName = "Crowd Controller", ItemType="craftableWeapon", WeaponDamage = 2, ItemDurability=2, ItemPicture= "/Content/Pictures/CraftableWeapons/CrowdController.png",
+                    WeaponMaterials = new List<CraftableWeaponMaterial> {
+                        new CraftableWeaponMaterial { WeaponID=64, MaterialID=42, MaterialPieces=1 },
+                        new CraftableWeaponMaterial { WeaponID=64, MaterialID=43, MaterialPieces=1 },
+                        new CraftableWeaponMaterial { WeaponID=64, MaterialID=37, MaterialPieces=1 },
+                        new CraftableWeaponMaterial { WeaponID=64, MaterialID=37, MaterialPieces=1 },
+                                       }
+                },
+                new CraftableWeapon { ItemName = "Fire Bomb", ItemType="craftableWeapon", WeaponDamage = 2, ItemDurability=2, ItemPicture= "/Content/Pictures/CraftableWeapons/FireBomb.png",
+                    WeaponMaterials = new List<CraftableWeaponMaterial> {
+                        new CraftableWeaponMaterial { WeaponID=64, MaterialID=36, MaterialPieces=1 },
+                        new CraftableWeaponMaterial { WeaponID=64, MaterialID=37, MaterialPieces=1 },
+                        new CraftableWeaponMaterial { WeaponID=64, MaterialID=41, MaterialPieces=1 },
+                        new CraftableWeaponMaterial { WeaponID=64, MaterialID=37, MaterialPieces=1 },
+                                       }
+                },
+                new CraftableWeapon { ItemName = "Molotov", ItemType="craftableWeapon", WeaponDamage = 2, ItemDurability=2, ItemPicture= "/Content/Pictures/CraftableWeapons/Molotov.png",
+                    WeaponMaterials = new List<CraftableWeaponMaterial> {
+                        new CraftableWeaponMaterial { WeaponID=64, MaterialID=44, MaterialPieces=1 },
+                        new CraftableWeaponMaterial { WeaponID=64, MaterialID=45, MaterialPieces=1 },
+                        new CraftableWeaponMaterial { WeaponID=64, MaterialID=37, MaterialPieces=1 },
+                        new CraftableWeaponMaterial { WeaponID=64, MaterialID=37, MaterialPieces=1 },
+                                       }
+                },
+                new CraftableWeapon { ItemName = "Slingshot", ItemType="craftableWeapon", WeaponDamage = 2, ItemDurability=2, ItemPicture= "/Content/Pictures/CraftableWeapons/Slingshot.png",
+                    WeaponMaterials = new List<CraftableWeaponMaterial> {
+                        new CraftableWeaponMaterial { WeaponID=64, MaterialID=46, MaterialPieces=1 },
+                        new CraftableWeaponMaterial { WeaponID=64, MaterialID=47, MaterialPieces=1 },
+                        new CraftableWeaponMaterial { WeaponID=64, MaterialID=37, MaterialPieces=1 },
+                        new CraftableWeaponMaterial { WeaponID=64, MaterialID=37, MaterialPieces=1 },
+                                       }
+                },
+                new CraftableWeapon { ItemName = "Zombie Trimmer", ItemType="craftableWeapon", WeaponDamage = 2, ItemDurability=2, ItemPicture= "/Content/Pictures/CraftableWeapons/ZombieTrimmer.png",
+                    WeaponMaterials = new List<CraftableWeaponMaterial> {
+                        new CraftableWeaponMaterial { WeaponID=64, MaterialID=48, MaterialPieces=1 },
+                        new CraftableWeaponMaterial { WeaponID=64, MaterialID=49, MaterialPieces=1 },
+                        new CraftableWeaponMaterial { WeaponID=64, MaterialID=41, MaterialPieces=1 },
+                        new CraftableWeaponMaterial { WeaponID=64, MaterialID=37, MaterialPieces=1 },
+                                       }
+                },
+                new CraftableWeapon { ItemName = "Ice Ice Baby", ItemType="craftableWeapon", WeaponDamage = 2, ItemDurability=2, ItemPicture= "/Content/Pictures/CraftableWeapons/IceIceBaby.png",
+                    WeaponMaterials = new List<CraftableWeaponMaterial> {
+                        new CraftableWeaponMaterial { WeaponID=64, MaterialID=50, MaterialPieces=1 },
+                        new CraftableWeaponMaterial { WeaponID=64, MaterialID=51, MaterialPieces=1 },
+                        new CraftableWeaponMaterial { WeaponID=64, MaterialID=54, MaterialPieces=1 },
+                        new CraftableWeaponMaterial { WeaponID=64, MaterialID=37, MaterialPieces=1 },
+                                       }
+                },
             };
             craftableWeapons.ForEach(s => context.Items.Add(s));
             context.SaveChanges();
 
-
             PlantField field = new PlantField { IsFieldEmpty = true, ItemType = "field", ItemName = "Field", ItemPicture = "/Content/Pictures/Fields/FieldEmpty.png" };
-            context.PlantFields.Add(field);
+            context.Items.Add(field);
             context.SaveChanges();
 
             var plants = new List<Plant> {
-                new Plant { ItemName="hajma", PlantTime=10, PlantCostCoin=5, PlantRewardCoin=8, PlantXP = 10, ItemType="plant" },
-                new Plant { ItemName="paradicsom", PlantTime=10,PlantCostCoin=5, PlantRewardCoin=8,  PlantXP = 10, ItemType="plant"  },
-                new Plant { ItemName="paprika", PlantTime=10,PlantCostCoin=5, PlantRewardCoin=8,  PlantXP = 10, ItemType="plant"  },
-                new Plant { ItemName="uborka", PlantTime=10, PlantCostCoin=5, PlantRewardCoin=8, PlantXP = 10, ItemType="plant"  }
+                new Plant { ItemName="Strawberries",  PlantCost=15, GrowTime=5, PlantRewardCoin=30, PlantRewardFood=1, ItemType="plant", ItemPicture="/Content/Pictures/Fields/Corn.png",  PlantStartPicture= "/Content/Pictures/Fields/GarlicStart.png", PlantFinishedPicture="/Content/Pictures/Fields/GarlicFinished.png" },
+                new Plant { ItemName="Radish", PlantCost=25, GrowTime=15, PlantRewardCoin=45, PlantRewardFood=1, ItemType="plant", ItemPicture="/Content/Pictures/Fields/Corn.png",   PlantStartPicture="/Content/Pictures/Fields/PotatoStart.png", PlantFinishedPicture="/Content/Pictures/Fields/PotatoFinished.png" },
+                new Plant { ItemName="Watermelon", PlantCost=50, GrowTime=60, PlantRewardCoin=70, PlantRewardFood=1, ItemType="plant", ItemPicture="/Content/Pictures/Fields/Corn.png",   PlantStartPicture="/Content/Pictures/Fields/CottonStart.png", PlantFinishedPicture="/Content/Pictures/Fields/CottonFinished.png"},
+                new Plant { ItemName="Corn",  PlantCost=100, GrowTime=120, PlantRewardCoin=150, PlantRewardFood=3, ItemType="plant", ItemPicture="/Content/Pictures/Fields/Corn.png",    PlantStartPicture= "/Content/Pictures/Fields/GarlicStart.png", PlantFinishedPicture="/Content/Pictures/Fields/GarlicFinished.png" },
+                new Plant { ItemName="Onion", PlantCost=110, GrowTime=360, PlantRewardCoin=190, PlantRewardFood=1, ItemType="plant", ItemPicture="/Content/Pictures/Fields/Corn.png",   PlantStartPicture="/Content/Pictures/Fields/PotatoStart.png", PlantFinishedPicture="/Content/Pictures/Fields/PotatoFinished.png" },
+                new Plant { ItemName="Peppers", PlantCost=350, GrowTime=480, PlantRewardCoin=526, PlantRewardFood=2, ItemType="plant", ItemPicture="/Content/Pictures/Fields/Corn.png",   PlantStartPicture="/Content/Pictures/Fields/CottonStart.png", PlantFinishedPicture="/Content/Pictures/Fields/CottonFinished.png"},
+                new Plant { ItemName="Carrot",  PlantCost=220, GrowTime=720, PlantRewardCoin=350, PlantRewardFood=3, ItemType="plant",  ItemPicture="/Content/Pictures/Fields/Corn.png",   PlantStartPicture= "/Content/Pictures/Fields/GarlicStart.png", PlantFinishedPicture="/Content/Pictures/Fields/GarlicFinished.png" },
+                new Plant { ItemName="Pumpkin", PlantCost=370, GrowTime=1440, PlantRewardCoin=585, PlantRewardFood=3, ItemType="plant", ItemPicture="/Content/Pictures/Fields/Corn.png",   PlantStartPicture="/Content/Pictures/Fields/PotatoStart.png", PlantFinishedPicture="/Content/Pictures/Fields/PotatoFinished.png" },
+                new Plant { ItemName="Beans", PlantCost=470, GrowTime=2880, PlantRewardCoin=880, PlantRewardFood=4, ItemType="plant", ItemPicture="/Content/Pictures/Fields/Corn.png",   PlantStartPicture="/Content/Pictures/Fields/CottonStart.png", PlantFinishedPicture="/Content/Pictures/Fields/CottonFinished.png"},
             };
-            plants.ForEach(s => context.Plants.Add(s));
+            plants.ForEach(s => context.Items.Add(s));
             context.SaveChanges();
 
+            var weapons = new List<BuyableWeapon> {
+                   new BuyableWeapon { ItemName="Shotgun", ItemDurability=10, ItemType="buyableWeapon", Cost=200, WeaponDamage=1, ItemPicture="/Content/Pictures/BuyableWeapons/Katana.png"},
+                   new BuyableWeapon { ItemName="Hunting Riffle", ItemDurability=10, ItemType="buyableWeapon", Cost=800, WeaponDamage=2, ItemPicture="/Content/Pictures/BuyableWeapons/Katana.png"},
+                   new BuyableWeapon { ItemName="Assault Riffle", ItemDurability=100, ItemType="buyableWeapon", Cost=7000, WeaponDamage=2, ItemPicture="/Content/Pictures/BuyableWeapons/Katana.png"},
+                   new BuyableWeapon { ItemName="Mini-Gun", ItemDurability=20, ItemType="buyableWeapon", Cost=5000, WeaponDamage=4, ItemPicture="/Content/Pictures/BuyableWeapons/Katana.png"},
+                   new BuyableWeapon { ItemName="Chin a Lake", ItemDurability=2, ItemType="buyableWeapon", Cost=8000, WeaponDamage=10, ItemPicture="/Content/Pictures/BuyableWeapons/Katana.png"},
+                   new BuyableWeapon { ItemName="Bazooka", ItemDurability=1, ItemType="buyableWeapon", Cost=500, WeaponDamage=1, ItemPicture="/Content/Pictures/BuyableWeapons/Katana.png"},
+                   new BuyableWeapon { ItemName="Crossbow", ItemDurability=10, ItemType="buyableWeapon", Cost=100, WeaponDamage=2, ItemPicture="/Content/Pictures/BuyableWeapons/Katana.png"},
+                   new BuyableWeapon { ItemName="Flare Gun", ItemDurability=1, ItemType="buyableWeapon", Cost=2, WeaponDamage=2, ItemPicture="/Content/Pictures/BuyableWeapons/Katana.png"},
+               };
+
+
+            weapons.ForEach(s => context.Items.Add(s));
+            context.SaveChanges();
+
+            var energies = new List<Energy> {
+                new Energy { PlusEnergy = 1, ItemName = "Small energy pack",  Cost=65, ItemType="energy", ItemPicture = "/Content/Pictures/EnergyPacks/SmallEnergyPack.png" },
+                new Energy { PlusEnergy = 3, ItemName = "Medium energy pack", Cost=100, ItemType="energy",ItemPicture = "/Content/Pictures/EnergyPacks/MediumEnergyPack.png" },
+                new Energy { PlusEnergy = 5, ItemName = "Big energy pack", Cost=250, ItemType="energy", ItemPicture = "/Content/Pictures/EnergyPacks/BigEnergyPack.png" },
+            };
+
+            energies.ForEach(s => context.Energies.Add(s));
+            context.SaveChanges();
         }
     }
 }

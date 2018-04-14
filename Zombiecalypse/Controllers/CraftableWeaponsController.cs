@@ -18,7 +18,7 @@ namespace Zombiecalypse.Controllers
         // GET: CraftableWeapons
         public ActionResult Index()
         {
-            return View(db.Items.ToList());
+            return View(db.CraftableWeapons.ToList());
         }
 
         // GET: CraftableWeapons/Details/5
