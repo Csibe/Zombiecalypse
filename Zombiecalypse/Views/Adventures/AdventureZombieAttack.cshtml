@@ -1,0 +1,36 @@
+﻿@model Zombiecalypse.Models.AdventureViewModel
+
+
+@{
+    ViewBag.Title = "AdventureZombieAttack";
+}
+
+<h2>AdventureZombieAttack</h2>
+
+CharacterID: @Model.CharacterID
+
+<table>
+    <tr></tr>
+    @foreach (var zombie in Model.AttackingZomies)
+    {
+        <tr>
+            <td>
+                @zombie.ZombieID
+            </td>
+            <td>
+                @zombie.CharacterID
+            </td>
+            <td>
+                @Html.ActionLink("Choose zombie", "ChosenZombie", "Adventures")
+            </td>
+        </tr>
+    }
+
+       
+</table>
+
+@Html.ActionLink("Stop adventure", "RemoveAdventure", "Adventures", new { ChId = @Model.CharacterID },null)
+
+
+
+

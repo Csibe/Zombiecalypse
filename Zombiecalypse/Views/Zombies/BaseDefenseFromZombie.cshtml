@@ -140,7 +140,7 @@
                                     <img src=@weap.ItemPicture />
                                 </td>
                                 <td>
-                                    @Html.ActionLink("Attack with " + @weap.ItemName, "BaseDefenseFromZombie", new { ZabID = @Model.ZombieAttackBaseID, AttackPower = @weap.WeaponDamage, InvID = @inv.InventoryID }, null)
+                                    @Html.ActionLink("Attack with " + @weap.ItemName, "BaseDefenseFromZombie", new { ZabID = @Model.ZombieAttackBaseID, AttackPower = @weap.WeaponDamage, InvID = @inv.InventoryID }, new { @class = "ActionLinkButton" })
                                 </td>
                             </tr>
                         }

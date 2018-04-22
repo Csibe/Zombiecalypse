@@ -59,7 +59,7 @@
 <!-- Tab content -->
 <div id="Weapons" class="tabcontent">
     <h3>Weapons</h3>
-    <table border="1" class="table">
+    <table border="1" class="table" width="600">
 
         @foreach (var w in Model.Weapons)
             {
@@ -73,7 +73,7 @@
                     <tr></tr>
                     <td>Damage: @w.WeaponDamage</td>
                     <tr></tr>
-                    <td>cost: @w.Cost</td>
+                    <td>cost: @w.ItemCost</td>
                     <tr></tr>
                     <td>@Html.ActionLink("Buy", "Buy", "Shop", new { id = User.Identity.Name, ItemID = @w.ItemID }, null)</td>
                 </table>
@@ -95,7 +95,7 @@
                     <tr></tr>
                     <td>@p.ItemName</td>
                     <tr></tr>
-                    <td>Cost: @p.PlantCost</td>
+                    <td>Cost: @p.ItemCost</td>
                     <tr></tr>
                     <td>Grow time: @p.GrowTime</td>
                     <tr></tr>
@@ -124,7 +124,7 @@
                     <tr></tr>
                     <td>Durability: @e.PlusEnergy</td>
                     <tr></tr>
-                    <td>Cost: @e.Cost</td>
+                    <td>Cost: @e.ItemCost</td>
                     <tr></tr>
                     <td>@Html.ActionLink("Buy", "Buy", "Shop", new { id = User.Identity.Name, ItemID = @e.ItemID }, null)</td>
                 </table>

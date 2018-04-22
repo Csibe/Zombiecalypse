@@ -23,7 +23,7 @@
         </dt>
 
         <dd>
-            <img src= @Model.ItemPicture />
+            <img src=@Model.ItemPicture />
         </dd>
 
         <dt>
@@ -81,45 +81,48 @@
                             @weapon.WeaponID
                         </td>
                         <td>
-                            @weapon.Weapon.ItemName
+                            @weapon.ItemName
                         </td>
                         <td>
                             @weapon.Weapon.WeaponDurability
                         </td>
                         <td>
-                            <table border="1">
-                                <tr>
-                                    <td>ID</td>
-                                    <td>Picture</td>
-                                    <td>Name</td>
-                                    <td>Pieces</td>
-                                </tr>
-                                @foreach (var mat in Model.ComponentOfCraftableWeapon)
-                                {
-                                    if (@mat.WeaponID == weapon.WeaponID && @mat.Item.ItemType == "material")
-                                    {
-                                        {
-                                            <tr>
-                                                <td>
-                                                    @mat.MaterialID
-                                                </td>
-                                                <td>
-                                                    <img width="50" height="50" src=@mat.Item.ItemPicture />
-                                                </td>
-                                                <td>
-                                                    @mat.Item.ItemName
-                                                </td>
-                                                <td>
-                                                    @mat.MaterialPieces
-                                                </td>
-                                            </tr>
-                                        }
-                                    }
-                                }
-
-                            </table>
-                        <td>Craft</td>
+                            @weapon.ItemID
                         </td>
+                        <td>
+                            <table border="1">
+                                        <tr>
+                                            <td>ID</td>
+                                            <td>Picture</td>
+                                            <td>Name</td>
+                                            <td>Pieces</td>
+                                        </tr>
+                                        @foreach (var mat in Model.ComponentOfCraftableWeapon)
+                                        {
+                                            if (@mat.WeaponID == weapon.WeaponID && @mat.Item.ItemType == "material")
+                                            {
+                                                {
+                                                    <tr>
+                                                        <td>
+                                                            @mat.MaterialID
+                                                        </td>
+                                                        <td>
+                                                            <img width="50" height="50" src=@mat.Item.ItemPicture />
+                                                        </td>
+                                                        <td>
+                                                            @mat.Item.ItemName
+                                                        </td>
+                                                        <td>
+                                                            @mat.MaterialPieces
+                                                        </td>
+                                                    </tr>
+                                                }
+                                            }
+                                        }
+
+                                    </table>
+                                <td>Craft</td>
+                                </td>
                     </tr>
                 }
             </table>

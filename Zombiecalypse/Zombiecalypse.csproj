@@ -258,6 +258,7 @@
     <Content Include="Content\Pictures\banner.png" />
     <Content Include="Content\Pictures\Base\House1Garage0GardenShed0ToolShed0.png" />
     <Content Include="Content\Pictures\Base\House1Garage0GardenShed0ToolShed02.png" />
+    <Content Include="Content\Pictures\border.png" />
     <Content Include="Content\Pictures\Buildings\Garage_0.png" />
     <Content Include="Content\Pictures\Buildings\Garage_1.png" />
     <Content Include="Content\Pictures\Buildings\Garage_2.png" />
@@ -282,8 +283,12 @@
     <Content Include="Content\Pictures\Buildings\ToolShed_3.png" />
     <Content Include="Content\Pictures\Buildings\ToolShed_4.png" />
     <Content Include="Content\Pictures\Buildings\ToolShed_5.png" />
+    <Content Include="Content\Pictures\button.png" />
+    <Content Include="Content\Pictures\button2.png" />
+    <Content Include="Content\Pictures\button3.png" />
     <Content Include="Content\Pictures\BuyableWeapons\Katana.png" />
     <Content Include="Content\Pictures\BuyableWeapons\Shovel.png" />
+    <Content Include="Content\Pictures\Coin.png" />
     <Content Include="Content\Pictures\CraftableWeapons\CrowdController.png" />
     <Content Include="Content\Pictures\CraftableWeapons\ElectricRake.png" />
     <Content Include="Content\Pictures\CraftableWeapons\FireBomb.png" />
@@ -294,6 +299,7 @@
     <Content Include="Content\Pictures\CraftableWeapons\Molotov.png" />
     <Content Include="Content\Pictures\CraftableWeapons\Slingshot.png" />
     <Content Include="Content\Pictures\CraftableWeapons\ZombieTrimmer.png" />
+    <Content Include="Content\Pictures\Energy.png" />
     <Content Include="Content\Pictures\EnergyPacks\BigEnergyPack.png" />
     <Content Include="Content\Pictures\EnergyPacks\MediumEnergyPack.png" />
     <Content Include="Content\Pictures\EnergyPacks\SmallEnergyPack.png" />
@@ -308,6 +314,7 @@
     <Content Include="Content\Pictures\Fields\PotatoStart.png" />
     <Content Include="Content\Pictures\Fields\Pumpkin.png" />
     <Content Include="Content\Pictures\Fields\Strawberry.png" />
+    <Content Include="Content\Pictures\Food.png" />
     <Content Include="Content\Pictures\header.png" />
     <Content Include="Content\Pictures\header2.png" />
     <Content Include="Content\Pictures\header3.png" />
@@ -342,6 +349,8 @@
     <Content Include="Content\Pictures\Materials\Slingshot.png" />
     <Content Include="Content\Pictures\Materials\Suspenders.png" />
     <Content Include="Content\Pictures\Materials\ToyGun.png" />
+    <Content Include="Content\Pictures\paper.png" />
+    <Content Include="Content\Pictures\paper2.png" />
     <Content Include="Content\Pictures\Striped_Background_Effect_Transparent_PNG_Clip_Art_Image.png" />
     <Content Include="Content\Pictures\Striped_Background_Effect_Transparent_PNG_Clip_Art_Image2.png" />
     <Content Include="Content\Pictures\Types\Type_1.png" />
@@ -497,6 +506,8 @@
     <Content Include="Views\Plants\ChoosePlantOnField.cshtml" />
     <Content Include="Views\Shop\Index.cshtml" />
     <Content Include="Views\CraftableWeapons\Index.cshtml" />
+    <Content Include="Views\Shared\NotEnoughtEnergy.cshtml" />
+    <Content Include="Views\Adventures\AdventureZombieAttack.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

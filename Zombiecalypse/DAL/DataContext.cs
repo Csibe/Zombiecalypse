@@ -35,6 +35,7 @@ namespace Zombiecalypse.DAL
         public DbSet<BuyableWeapon> BuyableWeapons { get; set; }
         public DbSet<CraftableWeaponMaterial> CraftableWeaponsMaterials { get; set; }
         public DbSet<Adventure> Adventures { get; set; }
+        public DbSet<ZombieAttackAdventurer> ZombieAttackAdventurers { get;set; }
 
         public DbSet<BuildingDetails> BuildingDetails { get; set; }
         public DbSet<PlantField> PlantFields { get; set; }
@@ -44,14 +45,13 @@ namespace Zombiecalypse.DAL
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
 
-           /* modelBuilder.Entity<BuildingBuildingMaterial>().ToTable("BuildingBuildingMaterials");
-            modelBuilder.Entity<CraftableWeaponMaterial>().ToTable("CraftableWeaponMaterials");
-            */
+            /* modelBuilder.Entity<BuildingBuildingMaterial>().ToTable("BuildingBuildingMaterials");
+             modelBuilder.Entity<CraftableWeaponMaterial>().ToTable("CraftableWeaponMaterials");
+             */
             // Configure Student & StudentAddress entity
             /*  modelBuilder.Entity<User>()
                           .HasOptional(s => s.Character) // Mark Character property optional in User entity
                           .WithRequired(ad => ad.User); // mark User property as required in Character entity. Cannot save Character without User
-
             */
             /*      modelBuilder.Entity<ApplicationUser>()
         .HasOptional(m => m.Character)

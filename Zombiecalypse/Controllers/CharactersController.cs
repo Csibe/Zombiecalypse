@@ -36,6 +36,7 @@ namespace Zombiecalypse.Controllers
                     CharacterDetailsViewModel characterDetails = new CharacterDetailsViewModel();
 
                     characterDetails.CharacterID = character.CharacterID;
+                    characterDetails.CharacterMoney = character.CharacterMoney;
                     characterDetails.CharacterName = character.CharacterName;
                     characterDetails.CharacterItems = character.Inventory;
                     characterDetails.CharacterType = character.CharacterType;
@@ -45,6 +46,7 @@ namespace Zombiecalypse.Controllers
                     characterDetails.CharacterLevel = character.CharacterLevel;
                     characterDetails.Adventures = db.Adventures.ToList();
                     characterDetails.Levels = db.Levels.ToList();
+                    characterDetails.CharacterFood = character.CharacterFood;
                     characterDetails.AttackingZombies = db.ZombieAttackBases.Where(x => x.CharacterID == character.CharacterID).ToList();
 
                     characterDetails.CharacterNextLevelXP = characterDetails.Levels.Where(l => l.LevelID == characterDetails.CharacterLevel).FirstOrDefault().LevelMaxXP;
@@ -71,6 +73,16 @@ namespace Zombiecalypse.Controllers
             return View("Index", "Home");
         }
 
+        public bool isEnergyNull(int? id) {
+            Character character = db.Characters.Find(id);
+            if (character.CurrentEnergy > 0)
+            {
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
 
         public ActionResult MaxDate(int? id)
         {
@@ -184,8 +196,7 @@ namespace Zombiecalypse.Controllers
                 new Inventory{ CharacterID=character.CharacterID, ItemID=16, ItemPieces=1,ItemMaxDurability=0, ItemCurrentDurability=0},
                 new Inventory{ CharacterID=character.CharacterID, ItemID=22, ItemPieces=1, ItemMaxDurability=0, ItemCurrentDurability=0},
                 new Inventory{ CharacterID=character.CharacterID, ItemID=28, ItemPieces=1, ItemMaxDurability=0, ItemCurrentDurability=0},
-                new Inventory{ CharacterID=character.CharacterID, ItemID=53, ItemPieces=1, ItemMaxDurability=999, ItemCurrentDurability=999},
-                new Inventory{ CharacterID=character.CharacterID, ItemID=55, ItemPieces=1, ItemMaxDurability=2, ItemCurrentDurability=2},
+                new Inventory{ CharacterID=character.CharacterID, ItemID=56, ItemPieces=1, ItemMaxDurability=999, ItemCurrentDurability=999},
                 new Inventory{ CharacterID=character.CharacterID, ItemID=59, ItemPieces=1, ItemMaxDurability=2, ItemCurrentDurability=2},
                 };
                 buildings.ForEach(s => db.Inventories.Add(s));

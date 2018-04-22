@@ -45,8 +45,16 @@
         </br>
         </br>
         </br>
-        <button onclick="startCountDown()">Start</button></br>
 
+    </dl>
+
+</div>
+
+@Html.ActionLink("Zombie attack", "AdventureZombieAttack", "Adventures")
+
+
+<br />
+<br />
         counter:
         <span id="demo"></span></br>
         now:
@@ -55,28 +63,24 @@
         <span id="demo3"></span></br>
 
 
-        <script>
+    <script>
 
-            var Year = @ViewBag.FinishAdventureYear;
-            var Month = @ViewBag.FinishAdventureMonth;
-            var Day = @ViewBag.FinishAdventureDay;
-            var Hour = @ViewBag.FinishAdventureHour;
-            var Minute = @ViewBag.FinishAdventureMinute;
-            var Second = @ViewBag.FinishAdventureSecond;
+        var Year = @ViewBag.FinishAdventureYear;
+        var Month = @ViewBag.FinishAdventureMonth;
+        var Day = @ViewBag.FinishAdventureDay;
+        var Hour = @ViewBag.FinishAdventureHour;
+        var Minute = @ViewBag.FinishAdventureMinute;
+        var Second = @ViewBag.FinishAdventureSecond;
 
-            var ChId = @ViewBag.CharID;
-            var AdId =  @ViewBag.AdvID;
-
-
-            var FinishDate =  new Date(Year, Month-1, Day, Hour, Minute, Second, 0);
-        </script>
-        <script src="~/Scripts/app/countdown.js" type="text/javascript"></script>
+        var ChId = @ViewBag.CharID;
+        var AdId =  @ViewBag.AdvID;
 
 
+        var FinishDate =  new Date(Year, Month-1, Day, Hour, Minute, Second, 0);
+    </script>
+<script src="~/Scripts/app/countdown.js" type="text/javascript"></script>
 
-    </dl>
-</div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.AdventureID }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+
+
+
+

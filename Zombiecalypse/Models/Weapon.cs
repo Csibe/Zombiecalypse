@@ -21,8 +21,6 @@ namespace Zombiecalypse.Models
 
     public class BuyableWeapon : Weapon
     {
-        public int Cost { get; set; }
-
     }
 
 

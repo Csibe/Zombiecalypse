@@ -25,7 +25,7 @@ var x = setInterval(function () {
         clearInterval(x);
         document.getElementById("demo").innerHTML = "EXPIRED";
 
-        window.location.href = '/Adventures/StopAdventure/' + '?AdId=' + AdId + '&ChId=' + ChId;
+        window.location.href = '/Adventures/AdventureZombieAttack/' + '?AdId=' + AdId + '&ChId=' + ChId;
        // window.location = "/Adventures/Index";
     }
 }, 1000);

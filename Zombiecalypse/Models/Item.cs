@@ -14,6 +14,7 @@ namespace Zombiecalypse.Models
         public string ItemType { get; set; }
         public string ItemPicture { get; set; }
         public int ItemDurability { get; set; }
+        public int ItemCost { get; set; }
         public virtual ICollection<Inventory> Inventories { get; set; }
 
     }
@@ -24,7 +25,7 @@ namespace Zombiecalypse.Models
 
     public class PlantField : Item {
         public int PlantFieldId { get; set; }
-       // [DataType(DataType.DateTime)]
+        // [DataType(DataType.DateTime)]
         //public DateTime StartPlant {get;set;}
         public bool IsFieldEmpty { get; set; }
         public int PlantID { get; set; }
@@ -36,14 +37,19 @@ namespace Zombiecalypse.Models
         public int PlantID { get; set; }
         public string PlantFinishedPicture { get; set; }
         public string PlantStartPicture { get; set; }
-        public int PlantCost { get; set; }
         public int GrowTime { get; set; }
         public int PlantRewardCoin { get; set; }
         public int PlantRewardFood { get; set; }
     }
+
+    public class PlantOnField {
+        public virtual ICollection<Plant> Plants { get; set; }
+        public int FieldID { get; set; }
+        public virtual ICollection <Inventory> Inventory { get; set; }
+    }
+
     public class Energy : Item {
         public int EnergyID { get; set; }
         public int PlusEnergy { get; set; }
-        public int Cost { get; set; }
     }
 }

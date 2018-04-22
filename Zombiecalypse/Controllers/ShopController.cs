@@ -37,6 +37,7 @@ namespace Zombiecalypse.Controllers
                 Inventory inventory = new Inventory { ItemID = ItemID, CharacterID = character.CharacterID, Item = item, ItemPieces = 1, ItemCurrentDurability = item.ItemDurability, ItemMaxDurability = item.ItemDurability, isFinished = false };
                 db.Inventories.Add(inventory);
             }
+            character.CharacterMoney -= item.ItemCost;
             db.SaveChanges();
             return RedirectToAction("CharacterDetails", "Characters", new { id = User.Identity.Name });
         }
@@ -46,7 +47,7 @@ namespace Zombiecalypse.Controllers
         {
 
             Character character = db.Characters.Where(x => x.ApplicationUserID == id).FirstOrDefault();
-            PlantField originalField = db.PlantFields.Find(64);
+            PlantField originalField = db.PlantFields.Where(x => x.ItemName == "Field").FirstOrDefault();
             PlantField field = new PlantField { ItemName = originalField.ItemName, ItemType = originalField.ItemType, ItemPicture = originalField.ItemPicture, IsFieldEmpty = originalField.IsFieldEmpty };
             var item = new Inventory { CharacterID = character.CharacterID, ItemID = field.ItemID, ItemPieces = 1, PlantField = field };
             db.Inventories.Add(item);

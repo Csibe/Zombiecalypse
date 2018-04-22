@@ -29,12 +29,13 @@ namespace Zombiecalypse.Models
         public Zombie Zombie { get; set; }
 
         [ForeignKey("Material")]
-        public int MaterialID { get; set;}
+        public int MaterialID { get; set; }
         public Material Material { get; set; }
         public int MaterialPieces { get; set; }
     }
 
-    public class ZombieAttackBase {
+    public class ZombieAttackBase
+    {
         public int ZombieAttackBaseID { get; set; }
 
         [DataType(DataType.DateTime)]
@@ -51,4 +52,17 @@ namespace Zombiecalypse.Models
         public virtual ICollection<Weapon> Weapons { get; set; }
     }
 
+
+    public class ZombieAttackAdventurer
+    {
+        public int ZombieAttackAdventurerID { get; set; }
+        public int ZombieID { get; set; }
+        public int CharacterID { get; set; }
+    }
+
+
+    public class AdventureViewModel {
+        public virtual ICollection<ZombieAttackAdventurer> AttackingZomies {get;set;}
+        public int CharacterID { get; set; }
+    }
 }

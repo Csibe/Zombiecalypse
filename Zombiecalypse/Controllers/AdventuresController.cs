@@ -16,6 +16,33 @@ namespace Zombiecalypse.Controllers
         private DataContext db = new DataContext();
 
 
+        public ActionResult ChosenZombie() {
+
+
+            return View();
+        }
+
+
+        public ActionResult RemoveAdventure(int ChId) {
+
+            var remove = db.ZombieAttackAdventurers.Where(x => x.CharacterID == ChId).ToList();
+            remove.ForEach(s=> db.ZombieAttackAdventurers.Remove(s));
+            db.SaveChanges();
+
+            return RedirectToAction("CharacterDetails", "Characters", new { id = User.Identity.Name });
+        }
+
+
+        public ActionResult AdventureZombieAttack(int ChId)
+        {
+            AdventureViewModel adventureViewModel = new AdventureViewModel();
+
+            adventureViewModel.AttackingZomies = db.ZombieAttackAdventurers.Where(x => x.CharacterID == ChId).ToList();
+            adventureViewModel.CharacterID = ChId;
+            return View(adventureViewModel);
+        }
+
+
         public ActionResult AddToInventory(int ChId, int ItemId, int addPieces)
         {
 
@@ -35,7 +62,8 @@ namespace Zombiecalypse.Controllers
 
 
 
-        public ActionResult AdventureDropCalculator(int? AdId, int ChId, string returnUrl) {
+        public ActionResult AdventureDropCalculator(int? AdId, int ChId, string returnUrl)
+        {
 
             AdventureDrop adventureDrop = new AdventureDrop();
 
@@ -48,29 +76,31 @@ namespace Zombiecalypse.Controllers
 
             Random rand = new Random();
             Random rand2 = new Random();
-            foreach (AdventureDrop drop in dropList) {
+            foreach (AdventureDrop drop in dropList)
+            {
 
                 double myRand = rand.NextDouble();
 
-                if (myRand > (1-drop.ItemDroprate))
+                if (myRand > (1 - drop.ItemDroprate))
                 {
                     drops.Add(drop.DropableItemID);
-                    
-                    randList.Add(1-myRand);
+
+                    randList.Add(1 - myRand);
                     randList2.Add(myRand);
                     int addPieces = rand2.Next(1, drop.ItemMaxDrop);
                     pieces.Add(addPieces);
-                    dropsString.Add("ItemID: " + drop.DropableItemID + ", ItemName: " + drop.Item.ItemName + ", ItemPieces: " +addPieces);
+                    dropsString.Add("ItemID: " + drop.DropableItemID + ", ItemName: " + drop.Item.ItemName + ", ItemPieces: " + addPieces);
                     int dropID = drop.DropableItemID;
                     // Inventory inventory2 = new Inventory { CharacterID = ChId, ItemID = drop.DropableItemID, ItemPieces = addPieces };
                     var addItem = new AdventuresController().AddToInventory(ChId, dropID, addPieces);
-                   // db.Inventories.Add(inventory2);
-                   // db.SaveChanges();
+                    // db.Inventories.Add(inventory2);
+                    // db.SaveChanges();
 
                 }
-                else {
+                else
+                {
                     drops.Add(0);
-                    randList.Add(1-myRand);
+                    randList.Add(1 - myRand);
                     randList2.Add(myRand);
                     pieces.Add(999);
                     dropsString.Add("semmi");
@@ -103,7 +133,7 @@ namespace Zombiecalypse.Controllers
             var FinishAdventureHour = character.FinishAdventure.Hour;
             var FinishAdventureMinute = character.FinishAdventure.Minute;
             var FinishAdventureSecond = character.FinishAdventure.Second;
-            
+
 
             ViewBag.CharID = CharID;
             ViewBag.AdvID = AdvID;
@@ -122,9 +152,17 @@ namespace Zombiecalypse.Controllers
         }
 
 
-        public ActionResult StartAdventure(int? AdId, int ChId) {
+        public ActionResult StartAdventure(int? AdId, int ChId)
+        {
             Adventure adventure = db.Adventures.Find(AdId);
             Character character = db.Characters.Find(ChId);
+            List<ZombieAttackAdventurer> zombies = new List<ZombieAttackAdventurer> {
+                new ZombieAttackAdventurer {  ZombieID=1, CharacterID=ChId},
+                new ZombieAttackAdventurer { ZombieID=1, CharacterID=ChId}
+            };
+
+            zombies.ForEach(x => db.ZombieAttackAdventurers.Add(x));
+
             ViewBag.BeforeCharacterFinishDate = character.FinishAdventure;
 
             character.FinishAdventure = DateTime.Now.AddSeconds(adventure.AdventureTime);

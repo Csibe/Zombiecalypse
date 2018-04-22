@@ -37,34 +37,43 @@ namespace Zombiecalypse.Controllers
             ZombieAttackBase zombieAttackBase = db.ZombieAttackBases.Find(ZabID);
             Character character = zombieAttackBase.Character;
             ICollection<Inventory> inventory = character.Inventory;
-
-            if (invID != 0)
+            var isEnergyNull = new CharactersController().isEnergyNull(character.CharacterID);
+            if (isEnergyNull)
             {
-                var inv = db.Inventories.Find(invID);
-                if (inv.ItemCurrentDurability > 1 && inv.ItemMaxDurability != 999)
-                {
-                    inv.ItemCurrentDurability--;
-                }
-                else if (inv.ItemCurrentDurability > 1 && inv.ItemMaxDurability == 999)
-                {
 
-                }
-                else
+                if (invID != 0)
                 {
-                    if (inv.ItemPieces > 0)
+                    var inv = db.Inventories.Find(invID);
+                    if (inv.ItemCurrentDurability > 1 && inv.ItemMaxDurability != 999)
                     {
-                        inv.ItemCurrentDurability = inv.ItemMaxDurability;
-                        inv.ItemPieces--;
+                        inv.ItemCurrentDurability--;
+                    }
+                    else if (inv.ItemCurrentDurability > 1 && inv.ItemMaxDurability == 999)
+                    {
+
+                    }
+                    else
+                    {
+                        if (inv.ItemPieces > 0)
+                        {
+                            inv.ItemCurrentDurability = inv.ItemMaxDurability;
+                            inv.ItemPieces--;
+                        }
                     }
                 }
+                if (AttackPower > 0) {
+                    zombieAttackBase.ZombieLife -= AttackPower;
+                    zombieAttackBase.Character.CurrentEnergy--;
+                }
+
             }
-
-            zombieAttackBase.ZombieLife -= AttackPower;
-            zombieAttackBase.Character.CurrentEnergy--;
-
+            else
+            {
+                return View("~/Views/shared/NotEnoughtEnergy.cshtml");
+            }
             foreach (var inv in inventory)
             {
-                if (inv.Item.ItemType.Contains("Weapon"))
+                if (inv.Item.ItemType == "craftableWeapon" || inv.Item.ItemType == "buyableWeapon" || inv.Item.ItemType == "Weapon")
                 {
                     Weapon weapon = db.Weapons.Find(inv.ItemID);
 
@@ -75,8 +84,8 @@ namespace Zombiecalypse.Controllers
 
             if (zombieAttackBase.ZombieLife <= 0)
             {
-
-                character.CharacterXP += zombieAttackBase.Zombie.RewardXP;
+                var result = new CharactersController().AddToXP(character.CharacterID, zombieAttackBase.Zombie.RewardXP, this.Request.FilePath);
+                // character.CharacterXP += zombieAttackBase.Zombie.RewardXP;
                 character.CharacterMoney += zombieAttackBase.Zombie.RewardCoins;
                 db.ZombieAttackBases.Remove(zombieAttackBase);
 
@@ -87,6 +96,7 @@ namespace Zombiecalypse.Controllers
             db.SaveChanges();
 
             return View(zombieAttackBase);
+
         }
 
         public ActionResult ZombieAttackBase(int ZabID)
@@ -116,8 +126,10 @@ namespace Zombiecalypse.Controllers
 
             int buildingID = db.ZombieAttackBases.Find(ZabID).Buildings.Where(x => x.BuildingID == random).FirstOrDefault().ItemID;
 
-            foreach (var inv in inventory) {
-                if (inv.ItemID == buildingID) {
+            foreach (var inv in inventory)
+            {
+                if (inv.ItemID == buildingID)
+                {
                     inv.ItemCurrentDurability--;
                 }
             }

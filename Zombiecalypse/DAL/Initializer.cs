@@ -23,11 +23,11 @@ namespace Zombiecalypse.DAL
 
             var buildings = new List<Building>
                 {
-                new Building{ItemName="House", BuildingLevel=1, ItemType="building", BuildingEnergyCost=0, BuildingMoneyCost=0, ItemPicture="/Content/Pictures/Buildings/House_1.png"},
-                new Building{ItemName="House", BuildingLevel=2, ItemType="building", BuildingEnergyCost=3, BuildingMoneyCost=200, ItemPicture="/Content/Pictures/Buildings/House_2.png"},
-                new Building{ItemName="House", BuildingLevel=3, ItemType="building", BuildingEnergyCost=4, BuildingMoneyCost=300, ItemPicture="/Content/Pictures/Buildings/House_3.png"},
-                new Building{ItemName="House", BuildingLevel=4, ItemType="building", BuildingEnergyCost=5, BuildingMoneyCost=400, ItemPicture="/Content/Pictures/Buildings/House_4.png"},
-                new Building{ItemName="House", BuildingLevel=5, ItemType="building", BuildingEnergyCost=5, BuildingMoneyCost=400, ItemPicture="/Content/Pictures/Buildings/House_5.png"}
+                new Building{ItemName="House", BuildingLevel=1, ItemType="building", BuildingEnergyCost=0, ItemCost=0, ItemPicture="/Content/Pictures/Buildings/House_1.png"},
+                new Building{ItemName="House", BuildingLevel=2, ItemType="building", BuildingEnergyCost=3, ItemCost=200, ItemPicture="/Content/Pictures/Buildings/House_2.png"},
+                new Building{ItemName="House", BuildingLevel=3, ItemType="building", BuildingEnergyCost=4, ItemCost=300, ItemPicture="/Content/Pictures/Buildings/House_3.png"},
+                new Building{ItemName="House", BuildingLevel=4, ItemType="building", BuildingEnergyCost=5, ItemCost=400, ItemPicture="/Content/Pictures/Buildings/House_4.png"},
+                new Building{ItemName="House", BuildingLevel=5, ItemType="building", BuildingEnergyCost=5, ItemCost=400, ItemPicture="/Content/Pictures/Buildings/House_5.png"}
                 };
             buildings.ForEach(s => context.Items.Add(s));
             context.SaveChanges();
@@ -96,27 +96,27 @@ namespace Zombiecalypse.DAL
 
             var buildings2 = new List<Building>
                 {
-                new Building { ItemName = "Garage", BuildingLevel = 0, ItemDurability=0, ItemType = "building", BuildingEnergyCost = 0, BuildingMoneyCost = 0, ItemPicture = "/Content/Pictures/Buildings/Garage_0.png" },
-                new Building { ItemName = "Garage", BuildingLevel = 1, ItemDurability=2, ItemType = "building", BuildingEnergyCost = 5, BuildingMoneyCost = 400, ItemPicture = "/Content/Pictures/Buildings/Garage_1.png" },
-                new Building { ItemName = "Garage", BuildingLevel = 2, ItemDurability=3, ItemType = "building", BuildingEnergyCost = 5, BuildingMoneyCost = 400, ItemPicture = "/Content/Pictures/Buildings/Garage_2.png" },
-                new Building { ItemName = "Garage", BuildingLevel = 3, ItemDurability=4, ItemType = "building", BuildingEnergyCost = 5, BuildingMoneyCost = 400, ItemPicture = "/Content/Pictures/Buildings/Garage_3.png" },
-                new Building { ItemName = "Garage", BuildingLevel = 4, ItemDurability=5, ItemType = "building", BuildingEnergyCost = 5, BuildingMoneyCost = 400, ItemPicture = "/Content/Pictures/Buildings/Garage_4.png" },
-                new Building { ItemName = "Garage", BuildingLevel = 5, ItemDurability=6, ItemType = "building", BuildingEnergyCost = 5, BuildingMoneyCost = 400, ItemPicture = "/Content/Pictures/Buildings/Garage_5.png" },
+                new Building { ItemName = "Garage", BuildingLevel = 0, ItemDurability=0, ItemType = "building", BuildingEnergyCost = 0, ItemCost = 0, ItemPicture = "/Content/Pictures/Buildings/Garage_0.png" },
+                new Building { ItemName = "Garage", BuildingLevel = 1, ItemDurability=2, ItemType = "building", BuildingEnergyCost = 5, ItemCost = 400, ItemPicture = "/Content/Pictures/Buildings/Garage_1.png" },
+                new Building { ItemName = "Garage", BuildingLevel = 2, ItemDurability=3, ItemType = "building", BuildingEnergyCost = 5, ItemCost = 400, ItemPicture = "/Content/Pictures/Buildings/Garage_2.png" },
+                new Building { ItemName = "Garage", BuildingLevel = 3, ItemDurability=4, ItemType = "building", BuildingEnergyCost = 5, ItemCost = 400, ItemPicture = "/Content/Pictures/Buildings/Garage_3.png" },
+                new Building { ItemName = "Garage", BuildingLevel = 4, ItemDurability=5, ItemType = "building", BuildingEnergyCost = 5, ItemCost = 400, ItemPicture = "/Content/Pictures/Buildings/Garage_4.png" },
+                new Building { ItemName = "Garage", BuildingLevel = 5, ItemDurability=6, ItemType = "building", BuildingEnergyCost = 5, ItemCost = 400, ItemPicture = "/Content/Pictures/Buildings/Garage_5.png" },
 
-                new Building { ItemName = "GardenShed", BuildingLevel = 0, ItemDurability=2, ItemType = "building", BuildingEnergyCost = 0, BuildingMoneyCost = 0, ItemPicture = "/Content/Pictures/Buildings/GardenShed_0.png" },
-                new Building { ItemName = "GardenShed", BuildingLevel = 1, ItemDurability=2, ItemType = "building", BuildingEnergyCost = 5, BuildingMoneyCost = 400, ItemPicture = "/Content/Pictures/Buildings/GardenShed_1.png" },
-                new Building { ItemName = "GardenShed", BuildingLevel = 2, ItemDurability=2, ItemType = "building", BuildingEnergyCost = 5, BuildingMoneyCost = 400, ItemPicture = "/Content/Pictures/Buildings/GardenShed_2.png" },
-                new Building { ItemName = "GardenShed", BuildingLevel = 3, ItemDurability=2, ItemType = "building", BuildingEnergyCost = 5, BuildingMoneyCost = 400, ItemPicture = "/Content/Pictures/Buildings/GardenShed_3.png" },
-                new Building { ItemName = "GardenShed", BuildingLevel = 4, ItemDurability=2, ItemType = "building", BuildingEnergyCost = 5, BuildingMoneyCost = 400, ItemPicture = "/Content/Pictures/Buildings/GardenShed_4.png" },
-                new Building { ItemName = "GardenShed", BuildingLevel = 5, ItemDurability=2, ItemType = "building", BuildingEnergyCost = 5, BuildingMoneyCost = 400, ItemPicture = "/Content/Pictures/Buildings/GardenShed_5.png" },
+                new Building { ItemName = "GardenShed", BuildingLevel = 0, ItemDurability=2, ItemType = "building", BuildingEnergyCost = 0, ItemCost = 0, ItemPicture = "/Content/Pictures/Buildings/GardenShed_0.png" },
+                new Building { ItemName = "GardenShed", BuildingLevel = 1, ItemDurability=2, ItemType = "building", BuildingEnergyCost = 5, ItemCost = 400, ItemPicture = "/Content/Pictures/Buildings/GardenShed_1.png" },
+                new Building { ItemName = "GardenShed", BuildingLevel = 2, ItemDurability=2, ItemType = "building", BuildingEnergyCost = 5, ItemCost = 400, ItemPicture = "/Content/Pictures/Buildings/GardenShed_2.png" },
+                new Building { ItemName = "GardenShed", BuildingLevel = 3, ItemDurability=2, ItemType = "building", BuildingEnergyCost = 5, ItemCost = 400, ItemPicture = "/Content/Pictures/Buildings/GardenShed_3.png" },
+                new Building { ItemName = "GardenShed", BuildingLevel = 4, ItemDurability=2, ItemType = "building", BuildingEnergyCost = 5, ItemCost = 400, ItemPicture = "/Content/Pictures/Buildings/GardenShed_4.png" },
+                new Building { ItemName = "GardenShed", BuildingLevel = 5, ItemDurability=2, ItemType = "building", BuildingEnergyCost = 5, ItemCost = 400, ItemPicture = "/Content/Pictures/Buildings/GardenShed_5.png" },
 
-                new Building { ItemName = "ToolShed", BuildingLevel = 0, ItemType = "building", BuildingEnergyCost = 0, BuildingMoneyCost = 0, ItemPicture = "/Content/Pictures/Buildings/ToolShed_0.png" },
-                new Building { ItemName = "ToolShed", BuildingLevel = 1, ItemType = "building", BuildingEnergyCost = 5, BuildingMoneyCost = 400, ItemPicture = "/Content/Pictures/Buildings/ToolShed_1.png" },
-                new Building { ItemName = "ToolShed", BuildingLevel = 2, ItemType = "building", BuildingEnergyCost = 5, BuildingMoneyCost = 400, ItemPicture = "/Content/Pictures/Buildings/ToolShed_2.png" },
-                new Building { ItemName = "ToolShed", BuildingLevel = 3, ItemType = "building", BuildingEnergyCost = 5, BuildingMoneyCost = 400, ItemPicture = "/Content/Pictures/Buildings/ToolShed_3.png" },
-                new Building { ItemName = "ToolShed", BuildingLevel = 4, ItemType = "building", BuildingEnergyCost = 5, BuildingMoneyCost = 400, ItemPicture = "/Content/Pictures/Buildings/ToolShed_4.png" },
-                new Building { ItemName = "ToolShed", BuildingLevel = 5, ItemType = "building", BuildingEnergyCost = 5, BuildingMoneyCost = 400, ItemPicture = "/Content/Pictures/Buildings/ToolShed_5.png" },
-                 new Building{ItemName="House", BuildingLevel=1, ItemType="building", BuildingEnergyCost=0, BuildingMoneyCost=0, ItemPicture="/Content/Pictures/Buildings/House_1.png"},
+                new Building { ItemName = "ToolShed", BuildingLevel = 0, ItemType = "building", BuildingEnergyCost = 0, ItemCost = 0, ItemPicture = "/Content/Pictures/Buildings/ToolShed_0.png" },
+                new Building { ItemName = "ToolShed", BuildingLevel = 1, ItemType = "building", BuildingEnergyCost = 5, ItemCost = 400, ItemPicture = "/Content/Pictures/Buildings/ToolShed_1.png" },
+                new Building { ItemName = "ToolShed", BuildingLevel = 2, ItemType = "building", BuildingEnergyCost = 5, ItemCost = 400, ItemPicture = "/Content/Pictures/Buildings/ToolShed_2.png" },
+                new Building { ItemName = "ToolShed", BuildingLevel = 3, ItemType = "building", BuildingEnergyCost = 5, ItemCost = 400, ItemPicture = "/Content/Pictures/Buildings/ToolShed_3.png" },
+                new Building { ItemName = "ToolShed", BuildingLevel = 4, ItemType = "building", BuildingEnergyCost = 5, ItemCost = 400, ItemPicture = "/Content/Pictures/Buildings/ToolShed_4.png" },
+                new Building { ItemName = "ToolShed", BuildingLevel = 5, ItemType = "building", BuildingEnergyCost = 5, ItemCost = 400, ItemPicture = "/Content/Pictures/Buildings/ToolShed_5.png" },
+                new Building{  ItemName="House", BuildingLevel=1, ItemType="building", BuildingEnergyCost=0, ItemCost=0, ItemPicture="/Content/Pictures/Buildings/House_1.png"},
             };
             buildings2.ForEach(s => context.Items.Add(s));
             context.SaveChanges();
@@ -184,10 +184,11 @@ namespace Zombiecalypse.DAL
             context.SaveChanges();
 
             var weapon = new Weapon { ItemName = "Shovel", ItemDurability = 999, ItemType = "Weapon", WeaponDamage = 1, ItemPicture = "/Content/Pictures/BuyableWeapons/Shovel.png" };
+            context.Weapons.Add(weapon);
             context.SaveChanges();
 
             var buyableWeapons = new List<BuyableWeapon> {
-                new BuyableWeapon { ItemName="Katana", ItemDurability=999, ItemType="buyableWeapon", Cost=300, WeaponDamage=2, ItemPicture="/Content/Pictures/BuyableWeapons/Katana.png"},
+                new BuyableWeapon { ItemName="Katana", ItemDurability=999, ItemType="buyableWeapon", ItemCost=300, WeaponDamage=2, ItemPicture="/Content/Pictures/BuyableWeapons/Katana.png"},
             };
             buyableWeapons.ForEach(s => context.Items.Add(s));
             context.SaveChanges();
@@ -196,16 +197,16 @@ namespace Zombiecalypse.DAL
             {
                 new CraftableWeapon { ItemName = "Fire Mitts", ItemType="craftableWeapon", WeaponDamage = 2, ItemDurability=2, ItemPicture= "/Content/Pictures/CraftableWeapons/FireMitts.png",
                     WeaponMaterials = new List<CraftableWeaponMaterial> {
-                        new CraftableWeaponMaterial { WeaponID=55, MaterialID=36, MaterialPieces=1 },
-                        new CraftableWeaponMaterial { WeaponID=55, MaterialID=38, MaterialPieces=1 },
-                        new CraftableWeaponMaterial { WeaponID=55, MaterialID=2, MaterialPieces=1 }
+                        new CraftableWeaponMaterial { WeaponID=58, MaterialID=36, MaterialPieces=1 },
+                        new CraftableWeaponMaterial { WeaponID=58, MaterialID=38, MaterialPieces=1 },
+                        new CraftableWeaponMaterial { WeaponID=58, MaterialID=2, MaterialPieces=1 }
                     }
                 },
                 new CraftableWeapon { ItemName = "Flamethrower", ItemType="craftableWeapon", WeaponDamage = 2, ItemDurability=2, ItemPicture= "/Content/Pictures/CraftableWeapons/Flamethrower.png",
                     WeaponMaterials = new List<CraftableWeaponMaterial> {
-                        new CraftableWeaponMaterial { WeaponID=59, MaterialID=35, MaterialPieces=1 },
-                        new CraftableWeaponMaterial { WeaponID=59, MaterialID=36, MaterialPieces=1 },
-                        new CraftableWeaponMaterial { WeaponID=59, MaterialID=2, MaterialPieces=1 },
+                        new CraftableWeaponMaterial { WeaponID=62, MaterialID=35, MaterialPieces=1 },
+                        new CraftableWeaponMaterial { WeaponID=62, MaterialID=36, MaterialPieces=1 },
+                        new CraftableWeaponMaterial { WeaponID=62, MaterialID=2, MaterialPieces=1 },
 
                     }
                 },
@@ -281,28 +282,28 @@ namespace Zombiecalypse.DAL
             context.SaveChanges();
 
             var plants = new List<Plant> {
-                new Plant { ItemName="Strawberries",  PlantCost=15, GrowTime=5, PlantRewardCoin=30, PlantRewardFood=1, ItemType="plant", ItemPicture="/Content/Pictures/Fields/Corn.png",  PlantStartPicture= "/Content/Pictures/Fields/GarlicStart.png", PlantFinishedPicture="/Content/Pictures/Fields/GarlicFinished.png" },
-                new Plant { ItemName="Radish", PlantCost=25, GrowTime=15, PlantRewardCoin=45, PlantRewardFood=1, ItemType="plant", ItemPicture="/Content/Pictures/Fields/Corn.png",   PlantStartPicture="/Content/Pictures/Fields/PotatoStart.png", PlantFinishedPicture="/Content/Pictures/Fields/PotatoFinished.png" },
-                new Plant { ItemName="Watermelon", PlantCost=50, GrowTime=60, PlantRewardCoin=70, PlantRewardFood=1, ItemType="plant", ItemPicture="/Content/Pictures/Fields/Corn.png",   PlantStartPicture="/Content/Pictures/Fields/CottonStart.png", PlantFinishedPicture="/Content/Pictures/Fields/CottonFinished.png"},
-                new Plant { ItemName="Corn",  PlantCost=100, GrowTime=120, PlantRewardCoin=150, PlantRewardFood=3, ItemType="plant", ItemPicture="/Content/Pictures/Fields/Corn.png",    PlantStartPicture= "/Content/Pictures/Fields/GarlicStart.png", PlantFinishedPicture="/Content/Pictures/Fields/GarlicFinished.png" },
-                new Plant { ItemName="Onion", PlantCost=110, GrowTime=360, PlantRewardCoin=190, PlantRewardFood=1, ItemType="plant", ItemPicture="/Content/Pictures/Fields/Corn.png",   PlantStartPicture="/Content/Pictures/Fields/PotatoStart.png", PlantFinishedPicture="/Content/Pictures/Fields/PotatoFinished.png" },
-                new Plant { ItemName="Peppers", PlantCost=350, GrowTime=480, PlantRewardCoin=526, PlantRewardFood=2, ItemType="plant", ItemPicture="/Content/Pictures/Fields/Corn.png",   PlantStartPicture="/Content/Pictures/Fields/CottonStart.png", PlantFinishedPicture="/Content/Pictures/Fields/CottonFinished.png"},
-                new Plant { ItemName="Carrot",  PlantCost=220, GrowTime=720, PlantRewardCoin=350, PlantRewardFood=3, ItemType="plant",  ItemPicture="/Content/Pictures/Fields/Corn.png",   PlantStartPicture= "/Content/Pictures/Fields/GarlicStart.png", PlantFinishedPicture="/Content/Pictures/Fields/GarlicFinished.png" },
-                new Plant { ItemName="Pumpkin", PlantCost=370, GrowTime=1440, PlantRewardCoin=585, PlantRewardFood=3, ItemType="plant", ItemPicture="/Content/Pictures/Fields/Corn.png",   PlantStartPicture="/Content/Pictures/Fields/PotatoStart.png", PlantFinishedPicture="/Content/Pictures/Fields/PotatoFinished.png" },
-                new Plant { ItemName="Beans", PlantCost=470, GrowTime=2880, PlantRewardCoin=880, PlantRewardFood=4, ItemType="plant", ItemPicture="/Content/Pictures/Fields/Corn.png",   PlantStartPicture="/Content/Pictures/Fields/CottonStart.png", PlantFinishedPicture="/Content/Pictures/Fields/CottonFinished.png"},
+                new Plant { ItemName="Strawberries",  ItemCost=15, GrowTime=5, PlantRewardCoin=30, PlantRewardFood=1, ItemType="plant", ItemPicture="/Content/Pictures/Fields/Corn.png",  PlantStartPicture= "/Content/Pictures/Fields/GarlicStart.png", PlantFinishedPicture="/Content/Pictures/Fields/GarlicFinished.png" },
+                new Plant { ItemName="Radish", ItemCost=25, GrowTime=15, PlantRewardCoin=45, PlantRewardFood=1, ItemType="plant", ItemPicture="/Content/Pictures/Fields/Corn.png",   PlantStartPicture="/Content/Pictures/Fields/PotatoStart.png", PlantFinishedPicture="/Content/Pictures/Fields/PotatoFinished.png" },
+                new Plant { ItemName="Watermelon", ItemCost=50, GrowTime=60, PlantRewardCoin=70, PlantRewardFood=1, ItemType="plant", ItemPicture="/Content/Pictures/Fields/Corn.png",   PlantStartPicture="/Content/Pictures/Fields/CottonStart.png", PlantFinishedPicture="/Content/Pictures/Fields/CottonFinished.png"},
+                new Plant { ItemName="Corn",  ItemCost=100, GrowTime=120, PlantRewardCoin=150, PlantRewardFood=3, ItemType="plant", ItemPicture="/Content/Pictures/Fields/Corn.png",    PlantStartPicture= "/Content/Pictures/Fields/GarlicStart.png", PlantFinishedPicture="/Content/Pictures/Fields/GarlicFinished.png" },
+                new Plant { ItemName="Onion", ItemCost=110, GrowTime=360, PlantRewardCoin=190, PlantRewardFood=1, ItemType="plant", ItemPicture="/Content/Pictures/Fields/Corn.png",   PlantStartPicture="/Content/Pictures/Fields/PotatoStart.png", PlantFinishedPicture="/Content/Pictures/Fields/PotatoFinished.png" },
+                new Plant { ItemName="Peppers", ItemCost=350, GrowTime=480, PlantRewardCoin=526, PlantRewardFood=2, ItemType="plant", ItemPicture="/Content/Pictures/Fields/Corn.png",   PlantStartPicture="/Content/Pictures/Fields/CottonStart.png", PlantFinishedPicture="/Content/Pictures/Fields/CottonFinished.png"},
+                new Plant { ItemName="Carrot",  ItemCost=220, GrowTime=720, PlantRewardCoin=350, PlantRewardFood=3, ItemType="plant",  ItemPicture="/Content/Pictures/Fields/Corn.png",   PlantStartPicture= "/Content/Pictures/Fields/GarlicStart.png", PlantFinishedPicture="/Content/Pictures/Fields/GarlicFinished.png" },
+                new Plant { ItemName="Pumpkin", ItemCost=370, GrowTime=1440, PlantRewardCoin=585, PlantRewardFood=3, ItemType="plant", ItemPicture="/Content/Pictures/Fields/Corn.png",   PlantStartPicture="/Content/Pictures/Fields/PotatoStart.png", PlantFinishedPicture="/Content/Pictures/Fields/PotatoFinished.png" },
+                new Plant { ItemName="Beans", ItemCost=470, GrowTime=2880, PlantRewardCoin=880, PlantRewardFood=4, ItemType="plant", ItemPicture="/Content/Pictures/Fields/Corn.png",   PlantStartPicture="/Content/Pictures/Fields/CottonStart.png", PlantFinishedPicture="/Content/Pictures/Fields/CottonFinished.png"},
             };
             plants.ForEach(s => context.Items.Add(s));
             context.SaveChanges();
 
             var weapons = new List<BuyableWeapon> {
-                   new BuyableWeapon { ItemName="Shotgun", ItemDurability=10, ItemType="buyableWeapon", Cost=200, WeaponDamage=1, ItemPicture="/Content/Pictures/BuyableWeapons/Katana.png"},
-                   new BuyableWeapon { ItemName="Hunting Riffle", ItemDurability=10, ItemType="buyableWeapon", Cost=800, WeaponDamage=2, ItemPicture="/Content/Pictures/BuyableWeapons/Katana.png"},
-                   new BuyableWeapon { ItemName="Assault Riffle", ItemDurability=100, ItemType="buyableWeapon", Cost=7000, WeaponDamage=2, ItemPicture="/Content/Pictures/BuyableWeapons/Katana.png"},
-                   new BuyableWeapon { ItemName="Mini-Gun", ItemDurability=20, ItemType="buyableWeapon", Cost=5000, WeaponDamage=4, ItemPicture="/Content/Pictures/BuyableWeapons/Katana.png"},
-                   new BuyableWeapon { ItemName="Chin a Lake", ItemDurability=2, ItemType="buyableWeapon", Cost=8000, WeaponDamage=10, ItemPicture="/Content/Pictures/BuyableWeapons/Katana.png"},
-                   new BuyableWeapon { ItemName="Bazooka", ItemDurability=1, ItemType="buyableWeapon", Cost=500, WeaponDamage=1, ItemPicture="/Content/Pictures/BuyableWeapons/Katana.png"},
-                   new BuyableWeapon { ItemName="Crossbow", ItemDurability=10, ItemType="buyableWeapon", Cost=100, WeaponDamage=2, ItemPicture="/Content/Pictures/BuyableWeapons/Katana.png"},
-                   new BuyableWeapon { ItemName="Flare Gun", ItemDurability=1, ItemType="buyableWeapon", Cost=2, WeaponDamage=2, ItemPicture="/Content/Pictures/BuyableWeapons/Katana.png"},
+                   new BuyableWeapon { ItemName="Shotgun", ItemDurability=10, ItemType="buyableWeapon", ItemCost=200, WeaponDamage=1, ItemPicture="/Content/Pictures/BuyableWeapons/Katana.png"},
+                   new BuyableWeapon { ItemName="Hunting Riffle", ItemDurability=10, ItemType="buyableWeapon", ItemCost=800, WeaponDamage=2, ItemPicture="/Content/Pictures/BuyableWeapons/Katana.png"},
+                   new BuyableWeapon { ItemName="Assault Riffle", ItemDurability=100, ItemType="buyableWeapon", ItemCost=7000, WeaponDamage=2, ItemPicture="/Content/Pictures/BuyableWeapons/Katana.png"},
+                   new BuyableWeapon { ItemName="Mini-Gun", ItemDurability=20, ItemType="buyableWeapon", ItemCost=5000, WeaponDamage=4, ItemPicture="/Content/Pictures/BuyableWeapons/Katana.png"},
+                   new BuyableWeapon { ItemName="Chin a Lake", ItemDurability=2, ItemType="buyableWeapon", ItemCost=8000, WeaponDamage=10, ItemPicture="/Content/Pictures/BuyableWeapons/Katana.png"},
+                   new BuyableWeapon { ItemName="Bazooka", ItemDurability=1, ItemType="buyableWeapon", ItemCost=500, WeaponDamage=1, ItemPicture="/Content/Pictures/BuyableWeapons/Katana.png"},
+                   new BuyableWeapon { ItemName="Crossbow", ItemDurability=10, ItemType="buyableWeapon", ItemCost=100, WeaponDamage=2, ItemPicture="/Content/Pictures/BuyableWeapons/Katana.png"},
+                   new BuyableWeapon { ItemName="Flare Gun", ItemDurability=1, ItemType="buyableWeapon", ItemCost=2, WeaponDamage=2, ItemPicture="/Content/Pictures/BuyableWeapons/Katana.png"},
                };
 
 
@@ -310,9 +311,9 @@ namespace Zombiecalypse.DAL
             context.SaveChanges();
 
             var energies = new List<Energy> {
-                new Energy { PlusEnergy = 1, ItemName = "Small energy pack",  Cost=65, ItemType="energy", ItemPicture = "/Content/Pictures/EnergyPacks/SmallEnergyPack.png" },
-                new Energy { PlusEnergy = 3, ItemName = "Medium energy pack", Cost=100, ItemType="energy",ItemPicture = "/Content/Pictures/EnergyPacks/MediumEnergyPack.png" },
-                new Energy { PlusEnergy = 5, ItemName = "Big energy pack", Cost=250, ItemType="energy", ItemPicture = "/Content/Pictures/EnergyPacks/BigEnergyPack.png" },
+                new Energy { PlusEnergy = 1, ItemName = "Small energy pack",  ItemCost=65, ItemType="energy", ItemPicture = "/Content/Pictures/EnergyPacks/SmallEnergyPack.png" },
+                new Energy { PlusEnergy = 3, ItemName = "Medium energy pack", ItemCost=100, ItemType="energy",ItemPicture = "/Content/Pictures/EnergyPacks/MediumEnergyPack.png" },
+                new Energy { PlusEnergy = 5, ItemName = "Big energy pack", ItemCost=250, ItemType="energy", ItemPicture = "/Content/Pictures/EnergyPacks/BigEnergyPack.png" },
             };
 
             energies.ForEach(s => context.Energies.Add(s));
