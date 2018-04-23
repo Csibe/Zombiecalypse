@@ -1,4 +1,147 @@
-﻿h1.FoodCounter {
+﻿.wizard {
+    margin: 20px auto;
+        background-image: url("/Content/Pictures/paper4.png");
+}
+
+    .wizard .nav-tabs {
+        position: relative;
+        margin: 40px auto;
+        margin-bottom: 0;
+        border-bottom-color: #9e8966;
+    }
+
+    .wizard > div.wizard-inner {
+        position: relative;
+    }
+
+.connecting-line {
+    height: 5px;
+    background-color: #9e8966;
+    position: absolute;
+    width: 95%;
+    margin: 0 auto;
+    left: 0;
+    right: 0;
+    top: 50%;
+    z-index: 1;
+}
+
+.wizard .nav-tabs > li.active > a, .wizard .nav-tabs > li.active > a:hover, .wizard .nav-tabs > li.active > a:focus {
+    color: #9e8966;
+    cursor: default;
+    border: 0;
+    border-bottom-color: transparent;
+}
+
+span.round-tab {
+    width: 70px;
+    height: 70px;
+    line-height: 70px;
+    display: inline-block;
+    border-radius: 100px;
+    background-image: url("/Content/Pictures/paper4.png");
+    border: 2px solid #9e8966;
+    z-index: 2;
+    position: absolute;
+    left: 0;
+    text-align: center;
+    font-size: 25px;
+}
+span.round-tab i{
+    color:#555555;
+}
+.wizard li.active span.round-tab {
+    background-image: url("/Content/Pictures/button.png");
+    border: 2px solid antiquewhite ;
+    
+}
+.wizard li.active span.round-tab i{
+    color: antiquewhite;
+}
+
+span.round-tab:hover {
+    color: #333;
+    border: 2px solid #333;
+}
+
+.wizard .nav-tabs > li {
+    width: 25%;
+}
+
+.wizard li:after {
+    content: " ";
+    position: absolute;
+    left: 46%;
+    opacity: 0;
+    margin: 0 auto;
+    bottom: 0px;
+    border: 5px solid transparent;
+    border-bottom-color: #9e8966;
+    transition: 0.1s ease-in-out;
+}
+
+.wizard li.active:after {
+    content: " ";
+    position: absolute;
+    left: 46%;
+    opacity: 1;
+    margin: 0 auto;
+    bottom: 0px;
+    border: 10px solid transparent;
+    border-bottom-color: antiquewhite;
+}
+
+.wizard .nav-tabs > li a {
+    width: 70px;
+    height: 70px;
+    margin: 20px auto;
+    border-radius: 100%;
+    padding: 0;
+}
+
+    .wizard .nav-tabs > li a:hover {
+        background: transparent;
+    }
+
+.wizard .tab-pane {
+    position: relative;
+    padding-top: 50px;
+}
+
+.wizard h3 {
+    margin-top: 0;
+}
+
+@media( max-width : 585px ) {
+
+    .wizard {
+        width: 90%;
+        height: auto !important;
+    }
+
+    span.round-tab {
+        font-size: 16px;
+        width: 50px;
+        height: 50px;
+        line-height: 50px;
+    }
+
+    .wizard .nav-tabs > li a {
+        width: 50px;
+        height: 50px;
+        line-height: 50px;
+    }
+
+    .wizard li.active:after {
+        content: " ";
+        position: absolute;
+        left: 35%;
+    }
+}
+
+
+
+h1.FoodCounter {
     background-image: url("/Content/Pictures/button3.png");
     background-size:cover;
     text-align:left;
@@ -27,7 +170,6 @@ table, tr, td {
 }
 
 .tab-content {
-    /*background-color:blueviolet;*/
 /*background-image:url("/Content/Pictures/paper2.png");*/
   background-repeat: no-repeat;
     background-size: cover;
@@ -44,16 +186,14 @@ div.container.body-content {
     background-image: url("/Content/Pictures/paper3.png");
     background-repeat: no-repeat;
     /*background-size: cover;*/
-/*  background-origin: padding-box;
-    /*background-color: darksalmon;*/
+/*  background-origin: padding-box;*/
 }
 
 div.container > .tab-content {
     /*background-image: url("/Content/Pictures/paper2.png");*/
-    /*background-repeat: no-repeat;
-    background-size: cover;*/
-    /*background-origin: border-box;*/
-    /*background-color: azure;*/
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-origin: border-box;
 }
 
 .nav-tabs > li > a {
@@ -77,15 +217,12 @@ a.ActionLinkButton:hover {
     box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
 }
 
-/* Style the tab */
-
 .tab {
     overflow: hidden;
     border: 1px solid #ccc;
     background-color: #f1f1f1;
 }
 
-    /* Style the buttons that are used to open the tab content */
   .tab button {
         background-color: inherit;
         float: left;
@@ -96,18 +233,13 @@ a.ActionLinkButton:hover {
         transition: 0.3s;
     }
 
-        /* Change background color of buttons on hover */
 .tab button:hover {
             background-color: #ddd;
         }
 
-/* Create an active/current tablink class */
 .tab button.active {
             background-color: #ccc;
         }
-
-/* Style the tab content */
-
 
 .tabcontent {
     display: none;

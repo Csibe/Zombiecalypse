@@ -16,17 +16,55 @@ namespace Zombiecalypse.Controllers
         private DataContext db = new DataContext();
 
 
-        public ActionResult ChosenZombie() {
+        public ActionResult AdventureCounter(int? AdId, int ChId)
+        {
+
+            Adventure adventure = db.Adventures.Find(AdId);
+            Character character = db.Characters.Find(ChId);
+
+            ViewBag.BeforeCharacterFinishDate = character.FinishAdventure;
 
 
-            return View();
+            var FullDate = character.FinishAdventure;
+            int CharID = ChId;
+            int? AdvID = AdId;
+            var FinishAdventureYear = character.FinishAdventure.Year;
+            var FinishAdventureMonth = character.FinishAdventure.Month;
+            var FinishAdventureDay = character.FinishAdventure.Day;
+            var FinishAdventureHour = character.FinishAdventure.Hour;
+            var FinishAdventureMinute = character.FinishAdventure.Minute;
+            var FinishAdventureSecond = character.FinishAdventure.Second;
+
+
+            ViewBag.CharID = CharID;
+            ViewBag.AdvID = AdvID;
+
+            ViewBag.FullDate = FullDate;
+
+            ViewBag.FinishAdventureYear = FinishAdventureYear;
+            ViewBag.FinishAdventureMonth = FinishAdventureMonth;
+            ViewBag.FinishAdventureDay = FinishAdventureDay;
+            ViewBag.FinishAdventureHour = FinishAdventureHour;
+            ViewBag.FinishAdventureMinute = FinishAdventureMinute;
+            ViewBag.FinishAdventureSecond = FinishAdventureSecond;
+
+            db.SaveChanges();
+            return View(adventure);
         }
 
+        public ActionResult AttackZombie(int adventureId, int ChId)
+        {
+            ZombieAttackAdventurer zAA = db.ZombieAttackAdventurers.Find(adventureId);
+            db.ZombieAttackAdventurers.Remove(zAA);
+            db.SaveChanges();
+            return RedirectToAction("AdventureZombieAttack", "Adventures", new { AdId = adventureId, ChId = ChId });
+        }
 
-        public ActionResult RemoveAdventure(int ChId) {
+        public ActionResult RemoveAdventure(int ChId)
+        {
 
             var remove = db.ZombieAttackAdventurers.Where(x => x.CharacterID == ChId).ToList();
-            remove.ForEach(s=> db.ZombieAttackAdventurers.Remove(s));
+            remove.ForEach(s => db.ZombieAttackAdventurers.Remove(s));
             db.SaveChanges();
 
             return RedirectToAction("CharacterDetails", "Characters", new { id = User.Identity.Name });
@@ -36,9 +74,47 @@ namespace Zombiecalypse.Controllers
         public ActionResult AdventureZombieAttack(int ChId)
         {
             AdventureViewModel adventureViewModel = new AdventureViewModel();
-
-            adventureViewModel.AttackingZomies = db.ZombieAttackAdventurers.Where(x => x.CharacterID == ChId).ToList();
+            Character character = db.Characters.Find(ChId);
+            Adventure adventure = db.Adventures.Find(1);
+            adventureViewModel.AttackingZombies = db.ZombieAttackAdventurers.Where(x => x.CharacterID == ChId).ToList();
             adventureViewModel.CharacterID = ChId;
+            adventureViewModel.Character = character;
+
+            int counter1 = adventureViewModel.AttackingZombies.Where(x => x.State == 1).Count();
+            int counter2 = adventureViewModel.AttackingZombies.Where(x => x.State == 2).Count();
+            int counter3 = adventureViewModel.AttackingZombies.Where(x => x.State == 3).Count();
+
+            if (counter3 == 0 && character.AdventureState <= 3)
+            {
+                character.AdventureState = 4;
+                character.FinishAdventure = DateTime.Now.AddSeconds(adventure.AdventureWaitingTime);
+                db.SaveChanges();
+                return RedirectToAction("AdventureCounter", "Adventures", new { AdId = 1, ChId = ChId });
+            }
+            else if (counter3 != 0 && counter2 == 0 && counter1 == 0 && character.AdventureState <= 2)
+            {
+                character.AdventureState = 3;
+                character.FinishAdventure = DateTime.Now.AddSeconds(adventure.AdventureWaitingTime);
+                db.SaveChanges();
+                return RedirectToAction("AdventureCounter", "Adventures", new { AdId = 1, ChId = ChId });
+            }
+
+            else if (counter2 != 0 && counter1 == 0 && character.AdventureState == 1)
+            {
+                character.AdventureState = 2;
+                character.FinishAdventure = DateTime.Now.AddSeconds(adventure.AdventureWaitingTime);
+                db.SaveChanges();
+                return RedirectToAction("AdventureCounter", "Adventures", new { AdId = 1, ChId = ChId });
+            }
+            else if (counter1 != 0)
+            {
+                character.AdventureState = 1;
+            }
+            else
+            {
+                character.AdventureState = 66;
+            }
+
             return View(adventureViewModel);
         }
 
@@ -156,16 +232,22 @@ namespace Zombiecalypse.Controllers
         {
             Adventure adventure = db.Adventures.Find(AdId);
             Character character = db.Characters.Find(ChId);
+            Zombie zombie = db.Zombies.Find(1);
             List<ZombieAttackAdventurer> zombies = new List<ZombieAttackAdventurer> {
-                new ZombieAttackAdventurer {  ZombieID=1, CharacterID=ChId},
-                new ZombieAttackAdventurer { ZombieID=1, CharacterID=ChId}
+                new ZombieAttackAdventurer { ZombieID=1, CharacterID=ChId, State=1, ZombieLife=zombie.ZombieLife},
+                new ZombieAttackAdventurer { ZombieID=1, CharacterID=ChId, State=1, ZombieLife=zombie.ZombieLife},
+                new ZombieAttackAdventurer { ZombieID=1, CharacterID=ChId, State=2, ZombieLife=zombie.ZombieLife},
+                new ZombieAttackAdventurer { ZombieID=1, CharacterID=ChId, State=3, ZombieLife=zombie.ZombieLife},
+                new ZombieAttackAdventurer { ZombieID=1, CharacterID=ChId, State=3, ZombieLife=zombie.ZombieLife},
+                new ZombieAttackAdventurer { ZombieID=1, CharacterID=ChId, State=3, ZombieLife=zombie.ZombieLife}
             };
 
             zombies.ForEach(x => db.ZombieAttackAdventurers.Add(x));
 
             ViewBag.BeforeCharacterFinishDate = character.FinishAdventure;
 
-            character.FinishAdventure = DateTime.Now.AddSeconds(adventure.AdventureTime);
+            character.FinishAdventure = DateTime.Now.AddSeconds(adventure.AdventureWaitingTime);
+            character.AdventureState = 1;
 
 
             var FullDate = character.FinishAdventure;

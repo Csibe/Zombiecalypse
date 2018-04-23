@@ -51,18 +51,4 @@ namespace Zombiecalypse.Models
         public virtual ICollection<Building> Buildings { get; set; }
         public virtual ICollection<Weapon> Weapons { get; set; }
     }
-
-
-    public class ZombieAttackAdventurer
-    {
-        public int ZombieAttackAdventurerID { get; set; }
-        public int ZombieID { get; set; }
-        public int CharacterID { get; set; }
-    }
-
-
-    public class AdventureViewModel {
-        public virtual ICollection<ZombieAttackAdventurer> AttackingZomies {get;set;}
-        public int CharacterID { get; set; }
-    }
 }

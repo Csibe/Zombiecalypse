@@ -10,7 +10,8 @@ namespace Zombiecalypse.Models
     {
         public int AdventureID { get; set; }
         public string AdventureName { get; set; }
-        public int AdventureTime { get; set; }
+        public int  AdventureWaitingTime { get; set; }
+        public int AdventureSteps { get; set; }
         public int AdventureXPBonus { get; set; }
         public virtual Character Character { get; set; }
     }
@@ -24,5 +25,27 @@ namespace Zombiecalypse.Models
         public virtual Item Item { get; set; }
         public double ItemDroprate { get; set; }
         public int ItemMaxDrop { get; set; }
+    }
+
+    public class ZombieAttackAdventurer
+    {
+        public int ZombieAttackAdventurerID { get; set; }
+        public int ZombieID { get; set; }
+        public int ZombieLife { get; set; }
+        public int CharacterID { get; set; }
+        public int State { get; set; }
+    }
+
+
+    public class AdventureViewModel
+    {
+        public virtual ICollection<ZombieAttackAdventurer> AttackingZombies { get; set; }
+        public int CharacterID { get; set; }
+        public virtual Character Character { get; set; }
+    }
+
+
+    public class ChosenZombie {
+        public Zombie Zombie { get; set; }
     }
 }

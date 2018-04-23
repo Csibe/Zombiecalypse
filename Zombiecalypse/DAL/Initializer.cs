@@ -87,8 +87,8 @@ namespace Zombiecalypse.DAL
             context.SaveChanges();
 
             var adventures = new List<Adventure> {
-                new Adventure { AdventureName="Short Adventure", AdventureTime=10, AdventureXPBonus=6},
-                new Adventure { AdventureName="Middle Adventure", AdventureTime=15, AdventureXPBonus=10}
+                new Adventure { AdventureName="Short Adventure", AdventureWaitingTime=10, AdventureXPBonus=6},
+                new Adventure { AdventureName="Middle Adventure", AdventureWaitingTime=15, AdventureXPBonus=10}
             };
             adventures.ForEach(s => context.Adventures.Add(s));
             context.SaveChanges();

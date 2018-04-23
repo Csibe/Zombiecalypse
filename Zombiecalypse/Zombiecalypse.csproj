@@ -508,6 +508,7 @@
     <Content Include="Views\CraftableWeapons\Index.cshtml" />
     <Content Include="Views\Shared\NotEnoughtEnergy.cshtml" />
     <Content Include="Views\Adventures\AdventureZombieAttack.cshtml" />
+    <Content Include="Views\Adventures\AdventureCounter.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

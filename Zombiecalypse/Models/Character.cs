@@ -23,6 +23,7 @@ namespace Zombiecalypse.Models
         public int CharacterXP { get; set; }
         public int CharacterLevel { get; set; }
         public bool IsOnAdventure { get; set; }
+        public int AdventureState { get; set; }
         [DataType(DataType.DateTime)]
         public DateTime FinishAdventure { get; set; }
         public virtual ICollection<Inventory> Inventory { get; set; }
