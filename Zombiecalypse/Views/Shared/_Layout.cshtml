@@ -1,6 +1,6 @@
 ﻿<!DOCTYPE html>
 <html>
-
+       
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,12 +14,11 @@
         body {
             background-image: url('../../Content/Pictures/background2.png');
         }
-
     </style>
 </head>
 <body>
     <header>
-        <img src="~/Content/Pictures/header.png" />
+        @*<img src="~/Content/Pictures/header.png" />*@
     </header>
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
@@ -34,27 +33,53 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                   @if(User.Identity.IsAuthenticated)
-                   {
-                    <li>@Html.ActionLink("Character details", "CharacterDetails", "Characters", new { id = @HttpContext.Current.User.Identity.Name}, null)</li>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <li>@Html.ActionLink("Character page", "Details", "Characters", new { id = @HttpContext.Current.User.Identity.Name }, null)</li>
+                        <li>@Html.ActionLink("Shop", "Index", "Shop")</li>
+                           @*@Html.Action("isCharacter", "Characters", new { id = HttpContext.Current.User.Identity.Name })*@
                     }
-                    <li>@Html.ActionLink("Create character", "Create", "Characters")</li>
+                    @*<li>@Html.Action("PassFinishDate", "Adventures")</li>*@
+
+                  
                 </ul>
                 @Html.Partial("_LoginPartial")
-                
+               
+                </div >
+                </div >
+                <div class="counter">
             </div>
-        </div>
-    </div>
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
+           <p id="demo">
+                </p >
+       
+                </div >
+                <div class="container body-content">
+                @RenderBody()
+                <hr />
+                <footer>
             <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-        </footer>
-    </div>
+            </footer>
+        </div>
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
+        @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/bootstrap")
+        @RenderSection("scripts", required: false)
+
+
+        @*<script type="text/javascript">
+                $(document).ready(function () { // JQuery not loaded here, $ is undefined
+                   // alert("Do something");
+                });
+            </script>*@
+
+        <script>
+            @*var characterEnergy = @Html.Action("CharacterCurrentEnergy", "View", new { id = HttpContext.Current.User.Identity.Name });
+            document.getElementById("demo").innerHTML = characterEnergy*@
+            @*var character =  @Html.Action("getCharacter", "Characters", new { id = @HttpContext.Current.User.Identity.Name })
+            var list = new Array (@Html.Action("getCharacterEnergy", "Characters", new { id = @HttpContext.Current.User.Identity.Name }));
+            document.getElementById("demo").innerHTML = character*@
+            @*var FinishDate = new Date(@Html.Action("PassFinishDate", "Adventures"));*@
+        </script>
+        @*<script src="~/Scripts/app/countdown.js" type="text/javascript"></script>*@
 </body>
 </html>

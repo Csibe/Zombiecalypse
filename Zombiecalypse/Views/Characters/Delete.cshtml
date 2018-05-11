@@ -12,11 +12,11 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.User.UserName)
+            @Html.DisplayNameFor(model => model.ApplicationUserID)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.User.UserName)
+            @Html.DisplayFor(model => model.ApplicationUserID)
         </dd>
 
         <dt>
@@ -36,6 +36,14 @@
         </dd>
 
         <dt>
+            @Html.DisplayNameFor(model => model.CharacterMoney)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CharacterMoney)
+        </dd>
+
+        <dt>
             @Html.DisplayNameFor(model => model.MaxEnergy)
         </dt>
 
@@ -49,6 +57,62 @@
 
         <dd>
             @Html.DisplayFor(model => model.CurrentEnergy)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CharacterFood)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CharacterFood)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CharacterXP)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CharacterXP)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CharacterLevel)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CharacterLevel)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsOnAdventure)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsOnAdventure)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AdventureID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AdventureID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AdventureState)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AdventureState)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FinishAdventure)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FinishAdventure)
         </dd>
 
     </dl>

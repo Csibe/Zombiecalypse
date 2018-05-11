@@ -12,12 +12,6 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.ItemName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ItemType)
-        </th>
-        <th>
             @Html.DisplayNameFor(model => model.BuildingID)
         </th>
         <th>
@@ -32,12 +26,6 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.ItemName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ItemType)
-        </td>
-        <td>
             @Html.DisplayFor(modelItem => item.BuildingID)
         </td>
         <td>
@@ -47,9 +35,9 @@
             @Html.DisplayFor(modelItem => item.MaterialPieces)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ItemID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ItemID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ItemID })
+            @Html.ActionLink("Edit", "Edit", new { id=item.BuildingBuildingMaterialID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.BuildingBuildingMaterialID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.BuildingBuildingMaterialID })
         </td>
     </tr>
 }

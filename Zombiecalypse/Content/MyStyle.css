@@ -1,6 +1,16 @@
-﻿.wizard {
+﻿img.image {
+    align-items: center;
+    text-align:center
+}
+
+span.counter {
+    font: 30px, bold, center;
+    text-align: center;
+}
+
+
+.wizard {
     margin: 20px auto;
-        background-image: url("/Content/Pictures/paper4.png");
 }
 
     .wizard .nav-tabs {
@@ -47,17 +57,19 @@ span.round-tab {
     text-align: center;
     font-size: 25px;
 }
-span.round-tab i{
-    color:#555555;
-}
+
+    span.round-tab i {
+        color: #555555;
+    }
+
 .wizard li.active span.round-tab {
     background-image: url("/Content/Pictures/button.png");
-    border: 2px solid antiquewhite ;
-    
+    border: 2px solid antiquewhite;
 }
-.wizard li.active span.round-tab i{
-    color: antiquewhite;
-}
+
+    .wizard li.active span.round-tab i {
+        color: antiquewhite;
+    }
 
 span.round-tab:hover {
     color: #333;
@@ -73,7 +85,7 @@ span.round-tab:hover {
     position: absolute;
     left: 46%;
     opacity: 0;
-    margin: 0 auto;
+    margin: auto;
     bottom: 0px;
     border: 5px solid transparent;
     border-bottom-color: #9e8966;
@@ -83,7 +95,7 @@ span.round-tab:hover {
 .wizard li.active:after {
     content: " ";
     position: absolute;
-    left: 46%;
+    left: 42%;
     opacity: 1;
     margin: 0 auto;
     bottom: 0px;
@@ -112,7 +124,8 @@ span.round-tab:hover {
     margin-top: 0;
 }
 
-@media( max-width : 585px ) {
+
+
 
     .wizard {
         width: 90%;
@@ -135,29 +148,28 @@ span.round-tab:hover {
     .wizard li.active:after {
         content: " ";
         position: absolute;
-        left: 35%;
     }
-}
+
 
 
 
 h1.FoodCounter {
     background-image: url("/Content/Pictures/button3.png");
-    background-size:cover;
-    text-align:left;
+    background-size: cover;
+    text-align: left;
     position: absolute;
     top: 500px;
-    left:1300px;
+    left: 1300px;
     text-indent: 50px;
-    color:white;
+    color: white;
     background-repeat: no-repeat;
-    background-position:left;
+    background-position: left;
     text-shadow: -3px 3px black;
     padding-right: 100px;
-    padding-top:10px;
-    padding-bottom:10px;
-
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
+
 body {
     text-transform: uppercase;
 }
@@ -166,12 +178,12 @@ table, tr, td {
     border-collapse: collapse;
     border: 1px solid black;
     table-layout: auto;
-    text-align:center;
+    text-align: center;
 }
 
 .tab-content {
-/*background-image:url("/Content/Pictures/paper2.png");*/
-  background-repeat: no-repeat;
+    /*background-image:url("/Content/Pictures/paper2.png");*/
+    background-repeat: no-repeat;
     background-size: cover;
     background-origin: padding-box;
 }
@@ -186,7 +198,7 @@ div.container.body-content {
     background-image: url("/Content/Pictures/paper3.png");
     background-repeat: no-repeat;
     /*background-size: cover;*/
-/*  background-origin: padding-box;*/
+    /*  background-origin: padding-box;*/
 }
 
 div.container > .tab-content {
@@ -198,7 +210,7 @@ div.container > .tab-content {
 
 .nav-tabs > li > a {
     background-color: black;
-    color:black;
+    color: black;
     background-image: url("/Content/Pictures/paper4.png");
 }
 
@@ -223,7 +235,7 @@ a.ActionLinkButton:hover {
     background-color: #f1f1f1;
 }
 
-  .tab button {
+    .tab button {
         background-color: inherit;
         float: left;
         border: none;
@@ -233,11 +245,11 @@ a.ActionLinkButton:hover {
         transition: 0.3s;
     }
 
-.tab button:hover {
+        .tab button:hover {
             background-color: #ddd;
         }
 
-.tab button.active {
+        .tab button.active {
             background-color: #ccc;
         }
 

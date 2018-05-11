@@ -1,136 +1,100 @@
-﻿@model Zombiecalypse.Models.BuildingDetails
+﻿@model Zombiecalypse.Models.BuildingDetailViewModel
 
 @{
     ViewBag.Title = "Details";
 }
 
-<h2>Details2</h2>
+<h2>Details</h2>
 
 <div>
-    <h4>BuildingDetails</h4>
+    <h4>Building</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.ItemName)
+            @Html.DisplayNameFor(model => model.Building.ItemName)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.ItemName)
+            @Html.DisplayFor(model => model.Building.ItemName)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.ItemPicture)
+            @Html.DisplayNameFor(model => model.Building.ItemPicture)
         </dt>
 
         <dd>
-            <img src=@Model.ItemPicture />
+            @Html.DisplayFor(model => model.Building.ItemPicture)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.BuildingID)
+            @Html.DisplayNameFor(model => model.Building.ItemMaxDurability)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.BuildingID)
+            @Html.DisplayFor(model => model.Building.ItemMaxDurability)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.BuildingLevel)
+            @Html.DisplayNameFor(model => model.Building.BuildingLevel)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.BuildingLevel)
+            @Html.DisplayFor(model => model.Building.BuildingLevel)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.BuildingMoneyCost)
+            @Html.DisplayNameFor(model => model.Building.BuildingEnergyCost)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.BuildingMoneyCost)
+            @Html.DisplayFor(model => model.Building.BuildingEnergyCost)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.BuildingEnergyCost)
+            @Html.DisplayNameFor(model => model.Building.BuildingMoneyCost)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.BuildingEnergyCost)
+            @Html.DisplayFor(model => model.Building.BuildingMoneyCost)
         </dd>
-        <dt>
-            Craftable Weapons:
-        </dt>
-        <dd>
-            <table border="1">
-                <tr>
-                    <td></td>
-                    <td>Weapon ID</td>
-                    <td>Name</td>
-                    <td>Durability</td>
-                    <td>Item ID</td>
-                    <td>Materials</td>
-                    <td></td>
-                </tr>
-                @foreach (var weapon in Model.CraftableWeapons)
+        <br />
+        <br />
+
+        <table>
+            @foreach (var bbm in Model.BuildingBuildingMaterials)
+            {
+                foreach (var bm in Model.BuildingMaterials)
                 {
-                    <tr>
-                        <td>
-                            <img src=@weapon.Weapon.ItemPicture />
-                        </td>
-                        <td>
-                            @weapon.WeaponID
-                        </td>
-                        <td>
-                            @weapon.ItemName
-                        </td>
-                        <td>
-                            @weapon.Weapon.WeaponDurability
-                        </td>
-                        <td>
-                            @weapon.ItemID
-                        </td>
-                        <td>
-                            <table border="1">
-                                        <tr>
-                                            <td>ID</td>
-                                            <td>Picture</td>
-                                            <td>Name</td>
-                                            <td>Pieces</td>
-                                        </tr>
-                                        @foreach (var mat in Model.ComponentOfCraftableWeapon)
-                                        {
-                                            if (@mat.WeaponID == weapon.WeaponID && @mat.Item.ItemType == "material")
-                                            {
-                                                {
-                                                    <tr>
-                                                        <td>
-                                                            @mat.MaterialID
-                                                        </td>
-                                                        <td>
-                                                            <img width="50" height="50" src=@mat.Item.ItemPicture />
-                                                        </td>
-                                                        <td>
-                                                            @mat.Item.ItemName
-                                                        </td>
-                                                        <td>
-                                                            @mat.MaterialPieces
-                                                        </td>
-                                                    </tr>
-                                                }
-                                            }
-                                        }
-
-                                    </table>
-                                <td>Craft</td>
-                                </td>
-                    </tr>
+                    if (bbm.BuildingMaterialID == bm.ItemID)
+                    {
+                        <tr>
+                            <td>
+                                @bbm.BuildingID
+                            </td>
+                            <td>
+                                @bm.ItemName
+                            </td>
+                            <td>
+                                @bm.ItemPicture
+                            </td>
+                            <td>
+                                @bbm.BuildingMaterialID
+                            </td>
+                            <td>
+                                @bbm.MaterialPieces
+                            </td>
+                        </tr>
+                    }
                 }
-            </table>
-        </dd>
+            }
+        </table>
+
+
+
 
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.ItemID }) |
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Building.ItemID }) |
     @Html.ActionLink("Back to List", "Index")
 </p>

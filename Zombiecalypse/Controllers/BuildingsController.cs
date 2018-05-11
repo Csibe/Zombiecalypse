@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -22,43 +21,47 @@ namespace Zombiecalypse.Controllers
             return View(db.Buildings.ToList());
         }
 
+        // GET: Buildings/Details/5
         public ActionResult Details(int? id)
         {
+            BuildingDetailViewModel buildingDetailViewModel = new BuildingDetailViewModel();
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
             Building building = db.Buildings.Find(id);
-            BuildingDetails bd = new BuildingDetails();
-            CraftableWeapon cwmodel = new CraftableWeapon();
 
-            bd.BuildingBuildingMaterials = db.BuildingBuildingMaterials.ToList();
-
-            bd.BuildingID = building.BuildingID;
-            bd.ItemID = building.ItemID;
-            bd.ItemName = building.ItemName;
-            bd.BuildingLevel = building.BuildingLevel;
-            bd.BuildingMoneyCost = building.BuildingMoneyCost;
-            bd.ItemPicture = building.ItemPicture;
-            bd.ComponentOfCraftableWeapon = db.CraftableWeaponsMaterials.ToList();
-            ICollection<CraftableWeaponMaterial> cw = db.CraftableWeaponsMaterials.Where(s => s.MaterialID == id).ToList();
-            bd.CraftableWeapons = cw;
-            
             if (building == null)
             {
                 return HttpNotFound();
             }
-            return View(bd);
+            else {
+                buildingDetailViewModel.Building = db.Buildings.Find(id);
+                buildingDetailViewModel.BuildingBuildingMaterials = db.BuildingBuildingMaterials.Where(x => x.BuildingID == id).ToList();
+                buildingDetailViewModel.BuildingMaterials = db.BuildingMaterials.ToList();
+            }
+
+           
+
+
+
+            return View(buildingDetailViewModel);
         }
 
-
+        // GET: Buildings/Create
+        public ActionResult Create()
+        {
+            return View();
+        }
 
         // POST: Buildings/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ItemID,ItemName,ItemImage,ItemURL,BuildingLevel")] Building building)
+        public ActionResult Create([Bind(Include = "ItemID,ItemName,ItemPicture,ItemMaxDurability,BuildingLevel,BuildingEnergyCost,BuildingMoneyCost")] Building building)
         {
             if (ModelState.IsValid)
             {
@@ -90,7 +93,7 @@ namespace Zombiecalypse.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ItemID,ItemName,ItemImage,ItemURL,BuildingLevel")] Building building)
+        public ActionResult Edit([Bind(Include = "ItemID,ItemName,ItemPicture,ItemMaxDurability,BuildingLevel,BuildingEnergyCost,BuildingMoneyCost")] Building building)
         {
             if (ModelState.IsValid)
             {

@@ -1,14 +1,11 @@
-﻿using Microsoft.AspNet.Identity;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
-using System.Web.Security;
 using Zombiecalypse.DAL;
 using Zombiecalypse.Models;
 
@@ -18,9 +15,14 @@ namespace Zombiecalypse.Controllers
     {
         private DataContext db = new DataContext();
 
+        // GET: Characters
+        public ActionResult Index()
+        {
+            return View(db.Characters.ToList());
+        }
 
-        [Authorize]
-        public ActionResult CharacterDetails(string id)
+        // GET: Characters/Details/5
+        public ActionResult Details(string id)
         {
             if (id == null)
             {
@@ -44,23 +46,34 @@ namespace Zombiecalypse.Controllers
                     characterDetails.MaxEnergy = character.MaxEnergy;
                     characterDetails.CharacterXP = character.CharacterXP;
                     characterDetails.CharacterLevel = character.CharacterLevel;
-                    characterDetails.Adventures = db.Adventures.ToList();
-                    characterDetails.Levels = db.Levels.ToList();
-                    characterDetails.CharacterFood = character.CharacterFood;
-                    characterDetails.AttackingZombies = db.ZombieAttackBases.Where(x => x.CharacterID == character.CharacterID).ToList();
+                    characterDetails.CharacterBuildings = new List<Building>();
 
-                    characterDetails.CharacterNextLevelXP = characterDetails.Levels.Where(l => l.LevelID == characterDetails.CharacterLevel).FirstOrDefault().LevelMaxXP;
+                    foreach (var item in characterDetails.CharacterItems)
+                    {
+                        foreach (var build in db.Buildings)
+                        {
+                            if (item.ItemID == build.ItemID)
+                            {
+                                characterDetails.CharacterBuildings.Add(build);
+                            }
+                        }
+                    }
+
+
+                    //characterDetails.Adventures = db.Adventures.ToList();
+                    //characterDetails.Levels = db.Levels.ToList();
+                    characterDetails.CharacterFood = character.CharacterFood;
+                    //characterDetails.AttackingZombies = db.ZombieAttackBases.Where(x => x.CharacterID == character.CharacterID).ToList();
+
+                    //characterDetails.CharacterNextLevelXP = characterDetails.Levels.Where(l => l.LevelID == characterDetails.CharacterLevel).FirstOrDefault().LevelMaxXP;
                     var NeededXPToNextLevel = characterDetails.CharacterNextLevelXP - characterDetails.CharacterXP;
                     ViewData["NeededXPToNextLevel"] = NeededXPToNextLevel;
 
                     string Picture = "/Content/Pictures/Base/";
                     ICollection<Inventory> characterInventory = character.Inventory;
-                    foreach (var charinv in characterInventory)
+                    foreach (var build in characterDetails.CharacterBuildings)
                     {
-                        if (charinv.Item.ItemType == "building")
-                        {
-                            Picture += charinv.Item.ItemName + charinv.Building.BuildingLevel;
-                        }
+                            Picture += build.ItemName + build.BuildingLevel;
 
                     }
                     Picture += ".png";
@@ -73,97 +86,9 @@ namespace Zombiecalypse.Controllers
             return View("Index", "Home");
         }
 
-        public bool isEnergyNull(int? id) {
-            Character character = db.Characters.Find(id);
-            if (character.CurrentEnergy > 0)
-            {
-                return true;
-            }
-            else {
-                return false;
-            }
-        }
-
-        public ActionResult MaxDate(int? id)
-        {
-            Character character = db.Characters.Find(id);
-            //   character.FinishAdventure = DateTime.MaxValue;
-
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
-
-        public ActionResult AddToXP(int? id, int? add, string returnUrl)
-        {
-
-            Character character = db.Characters.Find(id);
-            int CharLevel = character.CharacterLevel;
-            int CharXP = character.CharacterXP;
-            Level DbLevel = db.Levels.Where(x => x.LevelID == CharLevel).SingleOrDefault();
-            int DbLevelLevel = DbLevel.LevelID;
-            int DbLevelXP = DbLevel.LevelMaxXP;
-            CharXP += (int)add;
-
-            character.CharacterXP = CharXP;
-            if (CharXP >= DbLevelXP)
-            {
-                CharLevel++;
-                character.CharacterLevel = CharLevel;
-            }
-            ViewBag.Add = add;
-
-            db.SaveChanges();
-            return RedirectToAction(returnUrl);
-        }
-
-
-        public ActionResult AddToEnergy(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Character character = db.Characters.Find(id);
-            if (character == null)
-            {
-                return HttpNotFound();
-            }
-            if (character.CurrentEnergy < character.MaxEnergy)
-            {
-                character.CurrentEnergy++;
-                db.SaveChanges();
-            }
-            return RedirectToAction("CharacterDetails", "Characters", new { id = User.Identity.Name });
-        }
-
-
-
-        // GET: Characters
-        /*  public ActionResult Index()
-          {
-              var characters = db.Characters.Include(c => c.User);
-              return View(characters.ToList());
-          }*/
-
-        // GET: Characters/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Character character = db.Characters.Find(id);
-            if (character == null)
-            {
-                return HttpNotFound();
-            }
-            return View(character);
-        }
-
         // GET: Characters/Create
         public ActionResult Create()
         {
-            //  ViewBag.CharacterID = new SelectList(db.Users, "UserID", "UserName");
             return View();
         }
 
@@ -172,40 +97,16 @@ namespace Zombiecalypse.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-
-        public ActionResult Create([Bind(Include = "ApplicationUserID, CharacterID,CharacterName,CharacterType,MaxEnergy,CurrentEnergy, CharacterXP, CharacterLevel, IsOnAdventure")] Character character)
+        public ActionResult Create([Bind(Include = "CharacterID,ApplicationUserID,CharacterName,CharacterType,CharacterMoney,MaxEnergy,CurrentEnergy,CharacterFood,CharacterXP,CharacterLevel,IsOnAdventure,AdventureID,AdventureState,FinishAdventure")] Character character)
         {
             if (ModelState.IsValid)
             {
-                string id = User.Identity.Name;
-                character.ApplicationUserID = id;
-                character.CharacterLevel = 1;
-                // character.CharacterType = 1;
-                character.CharacterXP = 0;
-                character.CharacterMoney = 0;
-                character.CurrentEnergy = 14;
-                character.MaxEnergy = 14;
-                character.IsOnAdventure = false;
-                character.FinishAdventure = DateTime.MaxValue;
-
                 db.Characters.Add(character);
-
-                var buildings = new List<Inventory>
-                {
-                new Inventory{ CharacterID=character.CharacterID, ItemID=2, ItemPieces=1, ItemMaxDurability=2, ItemCurrentDurability=2},
-                new Inventory{ CharacterID=character.CharacterID, ItemID=16, ItemPieces=1,ItemMaxDurability=0, ItemCurrentDurability=0},
-                new Inventory{ CharacterID=character.CharacterID, ItemID=22, ItemPieces=1, ItemMaxDurability=0, ItemCurrentDurability=0},
-                new Inventory{ CharacterID=character.CharacterID, ItemID=28, ItemPieces=1, ItemMaxDurability=0, ItemCurrentDurability=0},
-                new Inventory{ CharacterID=character.CharacterID, ItemID=56, ItemPieces=1, ItemMaxDurability=999, ItemCurrentDurability=999},
-                new Inventory{ CharacterID=character.CharacterID, ItemID=59, ItemPieces=1, ItemMaxDurability=2, ItemCurrentDurability=2},
-                };
-                buildings.ForEach(s => db.Inventories.Add(s));
-                
                 db.SaveChanges();
-                return RedirectToAction("CharacterDetails", "Characters", new { id = User.Identity.Name });
+                return RedirectToAction("Index");
             }
 
-            return RedirectToAction("Index", "Home", null);
+            return View(character);
         }
 
         // GET: Characters/Edit/5
@@ -220,7 +121,6 @@ namespace Zombiecalypse.Controllers
             {
                 return HttpNotFound();
             }
-            //   ViewBag.CharacterID = new SelectList(db.Users, "UserID", "UserName", character.CharacterID);
             return View(character);
         }
 
@@ -229,7 +129,7 @@ namespace Zombiecalypse.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "CharacterID,CharacterName,CharacterType,MaxEnergy,CurrentEnergy,UserID")] Character character)
+        public ActionResult Edit([Bind(Include = "CharacterID,ApplicationUserID,CharacterName,CharacterType,CharacterMoney,MaxEnergy,CurrentEnergy,CharacterFood,CharacterXP,CharacterLevel,IsOnAdventure,AdventureID,AdventureState,FinishAdventure")] Character character)
         {
             if (ModelState.IsValid)
             {
@@ -237,7 +137,6 @@ namespace Zombiecalypse.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            //   ViewBag.CharacterID = new SelectList(db.Users, "UserID", "UserName", character.CharacterID);
             return View(character);
         }
 

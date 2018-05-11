@@ -2,8 +2,8 @@
 
 @{
     ViewBag.Title = "Index";
-
 }
+
 <h2>Index</h2>
 
 <p>
@@ -12,13 +12,7 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.User.UserID)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CharacterID)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.User.UserName)
+            @Html.DisplayNameFor(model => model.ApplicationUserID)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.CharacterName)
@@ -27,10 +21,16 @@
             @Html.DisplayNameFor(model => model.CharacterType)
         </th>
         <th>
+            @Html.DisplayNameFor(model => model.CharacterMoney)
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.MaxEnergy)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.CurrentEnergy)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CharacterFood)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.CharacterXP)
@@ -42,59 +42,63 @@
             @Html.DisplayNameFor(model => model.IsOnAdventure)
         </th>
         <th>
+            @Html.DisplayNameFor(model => model.AdventureID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AdventureState)
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.FinishAdventure)
         </th>
         <th></th>
     </tr>
 
-@foreach (var character in Model) {
+@foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => character.CharacterID)
+            @Html.DisplayFor(modelItem => item.ApplicationUserID)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => character.User.UserID)
+            @Html.DisplayFor(modelItem => item.CharacterName)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => character.User.UserName)
+            @Html.DisplayFor(modelItem => item.CharacterType)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => character.CharacterName)
+            @Html.DisplayFor(modelItem => item.CharacterMoney)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => character.CharacterType)
+            @Html.DisplayFor(modelItem => item.MaxEnergy)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => character.MaxEnergy)
+            @Html.DisplayFor(modelItem => item.CurrentEnergy)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => character.CurrentEnergy)
+            @Html.DisplayFor(modelItem => item.CharacterFood)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => character.CharacterXP)
+            @Html.DisplayFor(modelItem => item.CharacterXP)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => character.CharacterLevel)
+            @Html.DisplayFor(modelItem => item.CharacterLevel)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => character.IsOnAdventure)
+            @Html.DisplayFor(modelItem => item.IsOnAdventure)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => character.FinishAdventure)
+            @Html.DisplayFor(modelItem => item.AdventureID)
         </td>
         <td>
-
+            @Html.DisplayFor(modelItem => item.AdventureState)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id= character.CharacterID }) |
-            @Html.ActionLink("Details", "Details", new { id= character.CharacterID }) |
-            @Html.ActionLink("Delete", "Delete", new { id= character.CharacterID }) |
-            @Html.ActionLink("AddToEnergy", "AddToEnergy", new { id = character.CharacterID })
-            @Html.ActionLink("CharacterDetails", "CharacterDetails", "CharacterViewModels", new { id = character.CharacterID }, null)
-            @Html.ActionLink("AddToXP", "AddToXP", new { id = character.CharacterID, add = 6 }, null) |
-            @Html.ActionLink("MaxDate", "MaxDate", new { id = character.CharacterID })
-            
-          </td>
+            @Html.DisplayFor(modelItem => item.FinishAdventure)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.CharacterID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.CharacterID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.CharacterID })
+        </td>
     </tr>
 }
 

@@ -15,75 +15,114 @@ namespace Zombiecalypse.Controllers
     {
         private DataContext db = new DataContext();
 
-
-
-        public ActionResult GrowUpPlant(int InvID)
+        // GET: Plants
+        public ActionResult Index()
         {
-            Inventory inventory = db.Inventories.Find(InvID);
-            inventory.isFinished = true;
-            db.SaveChanges();
-
-            return RedirectToAction("CharacterDetails", "Characters", new { id = User.Identity.Name });
+            return View(db.Plants.ToList());
         }
 
-        public ActionResult HarvestField(int InvID, int plantID)
+        // GET: Plants/Details/5
+        public ActionResult Details(int? id)
         {
-            Inventory inventory = db.Inventories.Find(InvID);
-            Plant plant = db.Plants.Find(plantID);
-            Character character = db.Characters.Where(x => x.CharacterID == inventory.CharacterID).FirstOrDefault();
-
-            inventory.PlantField.PlantID = 0;
-            inventory.PlantField.IsFieldEmpty = true;
-
-            character.CharacterMoney += plant.PlantRewardCoin;
-            character.CharacterFood += plant.PlantRewardFood;
-            db.SaveChanges();
-
-            return RedirectToAction("CharacterDetails", "Characters", new { id = User.Identity.Name });
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Plant plant = db.Plants.Find(id);
+            if (plant == null)
+            {
+                return HttpNotFound();
+            }
+            return View(plant);
         }
 
-        public ActionResult PlantOnField(int InvID, int plantID)
+        // GET: Plants/Create
+        public ActionResult Create()
         {
-            Inventory field = db.Inventories.Find(InvID);
-            Inventory invPlant = db.Inventories.Where(x => x.ItemID == plantID).FirstOrDefault();
-            Character character = db.Characters.Where(x => x.CharacterID == invPlant.CharacterID).FirstOrDefault();
-            Plant plant = db.Plants.Find(plantID);
-
-
-            field.PlantField.PlantID = plantID;
-            field.PlantField.Plant = plant;
-            field.isFinished = false;
-            field.PlantField.IsFieldEmpty = false;
-            invPlant.ItemPieces--;
-
-            db.SaveChanges();
-
-            return RedirectToAction("CharacterDetails", "Characters", new { id = User.Identity.Name });
+            return View();
         }
 
-        public ActionResult ChoosePlantOnField(int id, int charID)
+        // POST: Plants/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create([Bind(Include = "ItemID,ItemName,ItemPicture,ItemMaxDurability,PlantMoneyCost,PlantGrowTime,PlantRewardCoin,PlantRewardFood,PlantStartPicture,PlantFinishedPicture")] Plant plant)
         {
-            Inventory inventory = db.Inventories.Find(id);
-            PlantOnField plantOnField = new PlantOnField();
-
-           // PlantField plantOnField = new PlantField();
-            plantOnField.FieldID = id;
-            Character character = db.Characters.Find(charID);
-            List<Plant> plants = new List<Plant>();
-            List<Inventory> items = new List<Inventory>();
-            foreach (var plant in db.Plants) {
-                foreach (var item in character.Inventory) {
-                    if (plant.ItemID == item.ItemID) {
-                        plants.Add(plant);
-                        items.Add(item);
-                    } 
-                }
+            if (ModelState.IsValid)
+            {
+                db.Items.Add(plant);
+                db.SaveChanges();
+                return RedirectToAction("Index");
             }
 
-            plantOnField.Plants = plants;
-            plantOnField.Inventory = items;
-                 
-            return View(plantOnField);
+            return View(plant);
+        }
+
+        // GET: Plants/Edit/5
+        public ActionResult Edit(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Plant plant = db.Plants.Find(id);
+            if (plant == null)
+            {
+                return HttpNotFound();
+            }
+            return View(plant);
+        }
+
+        // POST: Plants/Edit/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit([Bind(Include = "ItemID,ItemName,ItemPicture,ItemMaxDurability,PlantMoneyCost,PlantGrowTime,PlantRewardCoin,PlantRewardFood,PlantStartPicture,PlantFinishedPicture")] Plant plant)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Entry(plant).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View(plant);
+        }
+
+        // GET: Plants/Delete/5
+        public ActionResult Delete(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Plant plant = db.Plants.Find(id);
+            if (plant == null)
+            {
+                return HttpNotFound();
+            }
+            return View(plant);
+        }
+
+        // POST: Plants/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(int id)
+        {
+            Plant plant = db.Plants.Find(id);
+            db.Items.Remove(plant);
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                db.Dispose();
+            }
+            base.Dispose(disposing);
         }
     }
 }

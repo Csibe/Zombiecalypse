@@ -15,17 +15,31 @@ var x = setInterval(function () {
     var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
     var seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
+    if ($(document.getElementsByClassName("image")) != null) {
+        list = document.getElementsByClassName("image");
 
-    document.getElementById("demo2").innerHTML = now;
-    document.getElementById("demo3").innerHTML = until;
-    document.getElementById("demo").innerHTML = days +" nap "  +hours +" óra " + minutes + " perc " + seconds + " másodperc ";
+        for (i = 0; i < list.length; ++i) {
+            if (seconds % 2 == 0) {
+                list[i].setAttribute("src", "/Content/Pictures/walk1.PNG");
+            }
+            else {
+                list[i].setAttribute("src", "/Content/Pictures/walk2.PNG");
+            }
+        }
+    }
+
+    list = document.getElementsByClassName("counter");
+    for (i = 0; i < list.length; ++i) {
+        list[i].innerHTML = days + " nap " + hours + " óra " + minutes + " perc " + seconds + " másodperc ";
+    }
+   
 
     // If the count down is over, write some text 
     if (distance < 0) {
         clearInterval(x);
-        document.getElementById("demo").innerHTML = "EXPIRED";
+        //document.getElementById("demo").innerHTML = "EXPIRED";
 
-        window.location.href = '/Adventures/AdventureZombieAttack/' + '?AdId=' + AdId + '&ChId=' + ChId;
-       // window.location = "/Adventures/Index";
+        window.location.href = '/Adventures/MainAdventurePage/' + '?AdId=' + AdId + '&ChId=' + ChId;
+        // window.location = "/Adventures/Index";
     }
 }, 1000);

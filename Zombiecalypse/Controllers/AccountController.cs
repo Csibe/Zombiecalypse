@@ -11,10 +11,11 @@ using Microsoft.Owin.Security;
 using Zombiecalypse.Models;
 using Zombiecalypse.DAL;
 using Microsoft.AspNet.Identity.EntityFramework;
+using System.Collections.Generic;
 
 namespace Zombiecalypse.Controllers
 {
-    
+
 
     [Authorize]
     public class AccountController : Controller
@@ -157,11 +158,26 @@ namespace Zombiecalypse.Controllers
             if (ModelState.IsValid)
             {
                 var user = new ApplicationUser { UserName = model.Name, Email = model.Email };
+                var character = new Character { ApplicationUserID = model.Name, CharacterName = model.CharacterName, FinishAdventure = DateTime.MaxValue, IsOnAdventure = false, CurrentEnergy = 14, MaxEnergy = 14, CharacterLevel = 1 };
+
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    
 
+                    db.Characters.Add(character);
+                    db.SaveChanges();
+
+                    var items = new List<Inventory>
+                    {
+                    new Inventory{ CharacterID=character.CharacterID, ItemID=2, ItemPieces=1, ItemMaxDurability=2, ItemCurrentDurability=2, FinishDate=DateTime.MaxValue},
+                    new Inventory{ CharacterID=character.CharacterID, ItemID=7, ItemPieces=1,ItemMaxDurability=0, ItemCurrentDurability=0, FinishDate=DateTime.MaxValue},
+                    new Inventory{ CharacterID=character.CharacterID, ItemID=13, ItemPieces=1, ItemMaxDurability=0, ItemCurrentDurability=0, FinishDate=DateTime.MaxValue},
+                    new Inventory{ CharacterID=character.CharacterID, ItemID=19, ItemPieces=1, ItemMaxDurability=0, ItemCurrentDurability=0, FinishDate=DateTime.MaxValue},
+                    //new Inventory{ CharacterID=character.CharacterID, ItemID=56, ItemPieces=1, ItemMaxDurability=999, ItemCurrentDurability=999},
+                    //new Inventory{ CharacterID=character.CharacterID, ItemID=59, ItemPieces=1, ItemMaxDurability=2, ItemCurrentDurability=2},
+                    };
+                    items.ForEach(s => db.Inventories.Add(s));
+                    db.SaveChanges();
                     await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
 
                     // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771

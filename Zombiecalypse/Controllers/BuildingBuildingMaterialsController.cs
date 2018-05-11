@@ -15,11 +15,6 @@ namespace Zombiecalypse.Controllers
     {
         private DataContext db = new DataContext();
 
-
-        public ActionResult BuildingBuildingMaterials() {
-            return View(db.BuildingBuildingMaterials.ToList());
-        }
-
         // GET: BuildingBuildingMaterials
         public ActionResult Index()
         {
@@ -52,11 +47,11 @@ namespace Zombiecalypse.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ItemID,ItemName,ItemType")] BuildingBuildingMaterial buildingBuildingMaterial)
+        public ActionResult Create([Bind(Include = "BuildingBuildingMaterialID,BuildingID,BuildingMaterialID,MaterialPieces")] BuildingBuildingMaterial buildingBuildingMaterial)
         {
             if (ModelState.IsValid)
             {
-                db.Items.Add(buildingBuildingMaterial);
+                db.BuildingBuildingMaterials.Add(buildingBuildingMaterial);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -84,7 +79,7 @@ namespace Zombiecalypse.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ItemID,ItemName,ItemType")] BuildingBuildingMaterial buildingBuildingMaterial)
+        public ActionResult Edit([Bind(Include = "BuildingBuildingMaterialID,BuildingID,BuildingMaterialID,MaterialPieces")] BuildingBuildingMaterial buildingBuildingMaterial)
         {
             if (ModelState.IsValid)
             {
@@ -116,7 +111,7 @@ namespace Zombiecalypse.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             BuildingBuildingMaterial buildingBuildingMaterial = db.BuildingBuildingMaterials.Find(id);
-            db.Items.Remove(buildingBuildingMaterial);
+            db.BuildingBuildingMaterials.Remove(buildingBuildingMaterial);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
