@@ -1,6 +1,7 @@
-﻿<!DOCTYPE html>
+﻿@model ViewModelBase
+<!DOCTYPE html>
 <html>
-       
+
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,6 +9,7 @@
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     @Styles.Render("~/Content/MyStyle.css")
+    <img src="~/Content/Pictures/header.png" />
 
 
     <style>
@@ -17,9 +19,6 @@
     </style>
 </head>
 <body>
-    <header>
-        @*<img src="~/Content/Pictures/header.png" />*@
-    </header>
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
@@ -37,49 +36,127 @@
                     {
                         <li>@Html.ActionLink("Character page", "Details", "Characters", new { id = @HttpContext.Current.User.Identity.Name }, null)</li>
                         <li>@Html.ActionLink("Shop", "Index", "Shop")</li>
-                           @*@Html.Action("isCharacter", "Characters", new { id = HttpContext.Current.User.Identity.Name })*@
+                        @*@Html.Action("isCharacter", "Characters", new { id = HttpContext.Current.User.Identity.Name })*@
                     }
                     @*<li>@Html.Action("PassFinishDate", "Adventures")</li>*@
 
-                  
+
                 </ul>
                 @Html.Partial("_LoginPartial")
-               
-                </div >
-                </div >
-                <div class="counter">
+
             </div>
-           <p id="demo">
-                </p >
-       
-                </div >
-                <div class="container body-content">
-                @RenderBody()
-                <hr />
-                <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-            </footer>
         </div>
+        <div class="counter">
+        </div>
+        <div class="counter2">
+        </div>
+        demo0:<p id="demo0">
+        </p>
+        demo1:<p id="demo1">
+        </p>
+        <p id="demo2">
+        </p>
+        EnergyCounter:<div class="EnergyCounter"></div>
+        ZombieCounter:<div class="counterZombieAttack">
+         AdventureCounter: <div class ="adventurecounter"></div>                 
+        </div>
+    </div>
+    <div class="container body-content">
 
-        @Scripts.Render("~/bundles/jquery")
-        @Scripts.Render("~/bundles/bootstrap")
-        @RenderSection("scripts", required: false)
+        @RenderBody()
+        <hr />
+        <footer>
+
+            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+
+            @if (User.Identity.IsAuthenticated)
+            {
+                //if (Model.Fields != null && Model.PageName != null && Model.EnergyPlusDate != null && Model.AttackingZombies != null)
+                //{
+                    <div>
+                        Name:@Model.PageName <br />
+                        Energy date: @Model.EnergyPlusDate<br />
+                        Advenure date: @Model.AdventureFinishDate <br />
+                        Fields:
+                        <div>
+                            @foreach (var f in Model.Fields)
+                            {
+                                @f.CharacterFieldID<br />
+                                @f.FinishDate<br />
+                            }
+                        </div>
+                        <br />
+                        Zombies:
+                        <div>
+                            @foreach (var z in Model.AttackingZombies)
+                            {
+                                @z.ZombieAttackBaseID
+                                @z.ZombieID
+                                @z.Zombie.ZombieName
+                                 <br />
+                            }
+                        </div>
+                    </div>
+                    {
+                        if (User.Identity.IsAuthenticated)
+                        {
+                            int i = 0;
+
+                            <script>
+                                var FieldFinishDate = [];
+                                var FieldID = [];
+                                var AttackingZombieFinishDate = [];
+                                var ZombieAttackBaseID = [];
+                            </script>
+                            for (var a = 0; a < Model.Fields.ToArray().Length; a++)
+                            {
+                                <script>
+                                    console.log("i:" + @i);
+                                    var date = new Date(@Model.Fields.ToArray()[i].FinishDate.Year, @Model.Fields.ToArray()[i].FinishDate.AddMonths(-1).Month, @Model.Fields.ToArray()[i].FinishDate.Day, @Model.Fields.ToArray()[i].FinishDate.Hour, @Model.Fields.ToArray()[i].FinishDate.Minute, @Model.Fields.ToArray()[i].FinishDate.Second, 0);
+                                    FieldFinishDate.push(date)
+                                    console.log(date);
+                                    FieldID.push(@Model.Fields.ToArray()[i].CharacterFieldID)
+                                </script>
+                                { i += 1; }
+                            }
+
+                            @*int j = 0;
+
+                            for (var a = 0; a < Model.AttackingZombies.ToArray().Length; a++)
+                            {
+                                <script>
+                                    console.log("j:" + @j);
+                                    var date = new Date(@Model.AttackingZombies.ToArray()[j].ZombieAttackStart.Year, @Model.AttackingZombies.ToArray()[j].ZombieAttackStart.AddMonths(-1).Month, @Model.AttackingZombies.ToArray()[j].ZombieAttackStart.Day, @Model.AttackingZombies.ToArray()[j].ZombieAttackStart.Hour, @Model.AttackingZombies.ToArray()[j].ZombieAttackStart.AddMinutes(2).Minute, @Model.AttackingZombies.ToArray()[j].ZombieAttackStart.Second, 0);
+                                    AttackingZombieFinishDate.push(date)
+                                    ZombieAttackBaseID.push(@Model.AttackingZombies.ToArray()[j].ZombieAttackBaseID)
+                                </script>
+                                { j += 1; }
+                            }*@
+                    }
+                    //}
+                }
+
+            }
+
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
 
 
-        @*<script type="text/javascript">
-                $(document).ready(function () { // JQuery not loaded here, $ is undefined
-                   // alert("Do something");
-                });
-            </script>*@
-
+    @if (User.Identity.IsAuthenticated && Model.Fields != null && Model.PageName != null)
+    {
         <script>
-            @*var characterEnergy = @Html.Action("CharacterCurrentEnergy", "View", new { id = HttpContext.Current.User.Identity.Name });
-            document.getElementById("demo").innerHTML = characterEnergy*@
-            @*var character =  @Html.Action("getCharacter", "Characters", new { id = @HttpContext.Current.User.Identity.Name })
-            var list = new Array (@Html.Action("getCharacterEnergy", "Characters", new { id = @HttpContext.Current.User.Identity.Name }));
-            document.getElementById("demo").innerHTML = character*@
-            @*var FinishDate = new Date(@Html.Action("PassFinishDate", "Adventures"));*@
-        </script>
-        @*<script src="~/Scripts/app/countdown.js" type="text/javascript"></script>*@
+            var UserName = "@Model.PageName";
+            var EnergyPlusDate = new Date(@Model.EnergyPlusDate.Year, @Model.EnergyPlusDate.AddMonths(-1).Month, @Model.EnergyPlusDate.Day, @Model.EnergyPlusDate.Hour, @Model.EnergyPlusDate.Minute, @Model.EnergyPlusDate.Second, 0);
+            var AdventureFinishDate = new Date(@Model.AdventureFinishDate.Year, @Model.AdventureFinishDate.AddMonths(-1).Month, @Model.AdventureFinishDate.Day, @Model.AdventureFinishDate.Hour, @Model.AdventureFinishDate.Minute, @Model.AdventureFinishDate.Second, 0);
+         </script>
+         <script src="~/Scripts/app/AdventureCountdown.js" type="text/javascript"></script>
+        @*<script src="~/Scripts/app/FieldCountDown.js" type="text/javascript"></script>
+        <script src="~/Scripts/app/EnergyCounter.js" type="text/javascript"></script>*@
+      //  <script src="~/Scripts/app/ZombieBaseAttack.js" type="text/javascript"></script>
+    }
 </body>
 </html>

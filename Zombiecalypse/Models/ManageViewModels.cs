@@ -5,7 +5,7 @@ using Microsoft.Owin.Security;
 
 namespace Zombiecalypse.Models
 {
-    public class IndexViewModel
+    public class IndexViewModel : ViewModelBase
     {
         public bool HasPassword { get; set; }
         public IList<UserLoginInfo> Logins { get; set; }
@@ -14,18 +14,18 @@ namespace Zombiecalypse.Models
         public bool BrowserRemembered { get; set; }
     }
 
-    public class ManageLoginsViewModel
+    public class ManageLoginsViewModel : ViewModelBase
     {
         public IList<UserLoginInfo> CurrentLogins { get; set; }
         public IList<AuthenticationDescription> OtherLogins { get; set; }
     }
 
-    public class FactorViewModel
+    public class FactorViewModel : ViewModelBase
     {
         public string Purpose { get; set; }
     }
 
-    public class SetPasswordViewModel
+    public class SetPasswordViewModel : ViewModelBase
     {
         [Required]
         [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
@@ -39,7 +39,7 @@ namespace Zombiecalypse.Models
         public string ConfirmPassword { get; set; }
     }
 
-    public class ChangePasswordViewModel
+    public class ChangePasswordViewModel : ViewModelBase
     {
         [Required]
         [DataType(DataType.Password)]
@@ -58,7 +58,7 @@ namespace Zombiecalypse.Models
         public string ConfirmPassword { get; set; }
     }
 
-    public class AddPhoneNumberViewModel
+    public class AddPhoneNumberViewModel : ViewModelBase
     {
         [Required]
         [Phone]
@@ -66,7 +66,7 @@ namespace Zombiecalypse.Models
         public string Number { get; set; }
     }
 
-    public class VerifyPhoneNumberViewModel
+    public class VerifyPhoneNumberViewModel : ViewModelBase
     {
         [Required]
         [Display(Name = "Code")]
@@ -78,7 +78,7 @@ namespace Zombiecalypse.Models
         public string PhoneNumber { get; set; }
     }
 
-    public class ConfigureTwoFactorViewModel
+    public class ConfigureTwoFactorViewModel : ViewModelBase
     {
         public string SelectedProvider { get; set; }
         public ICollection<System.Web.Mvc.SelectListItem> Providers { get; set; }

@@ -6,19 +6,19 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Zombiecalypse.Models
 {
-    public class ExternalLoginConfirmationViewModel
+    public class ExternalLoginConfirmationViewModel : ViewModelBase
     {
         [Required]
         [Display(Name = "Email")]
         public string Email { get; set; }
     }
 
-    public class ExternalLoginListViewModel
+    public class ExternalLoginListViewModel : ViewModelBase
     {
         public string ReturnUrl { get; set; }
     }
 
-    public class SendCodeViewModel
+    public class SendCodeViewModel : ViewModelBase
     {
         public string SelectedProvider { get; set; }
         public ICollection<System.Web.Mvc.SelectListItem> Providers { get; set; }
@@ -26,7 +26,7 @@ namespace Zombiecalypse.Models
         public bool RememberMe { get; set; }
     }
 
-    public class VerifyCodeViewModel
+    public class VerifyCodeViewModel : ViewModelBase
     {
         [Required]
         public string Provider { get; set; }
@@ -42,14 +42,14 @@ namespace Zombiecalypse.Models
         public bool RememberMe { get; set; }
     }
 
-    public class ForgotViewModel
+    public class ForgotViewModel : ViewModelBase
     {
         [Required]
         [Display(Name = "Email")]
         public string Email { get; set; }
     }
 
-    public class LoginViewModel
+    public class LoginViewModel : ViewModelBase
     {
         [Required]
         [Display(Name = "Username")]
@@ -64,7 +64,7 @@ namespace Zombiecalypse.Models
         public bool RememberMe { get; set; }
     }
 
-    public class RegisterViewModel
+    public class RegisterViewModel : ViewModelBase
     {
         [Required]
         [Display(Name = "Name")]
@@ -92,7 +92,7 @@ namespace Zombiecalypse.Models
 
     }
 
-    public class ResetPasswordViewModel
+    public class ResetPasswordViewModel : ViewModelBase
     {
         [Required]
         [EmailAddress]
@@ -113,7 +113,7 @@ namespace Zombiecalypse.Models
         public string Code { get; set; }
     }
 
-    public class ForgotPasswordViewModel
+    public class ForgotPasswordViewModel : ViewModelBase
     {
         [Required]
         [EmailAddress]

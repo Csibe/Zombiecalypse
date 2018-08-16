@@ -15,6 +15,105 @@ namespace Zombiecalypse.Controllers
     {
         private DataContext db = new DataContext();
 
+
+
+        public ActionResult GrowUpPlant(int fieldID)
+        {
+            CharacterFieldVM characterFieldVM = new CharacterFieldVM();
+
+            characterFieldVM.CharacterField = db.CharacterFields.Find(fieldID);
+            characterFieldVM.CharacterField.isFinished = true;
+            characterFieldVM.CharacterField.FinishDate = DateTime.MaxValue;
+            db.SaveChanges();
+
+
+
+            characterFieldVM.PageName = db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault().ApplicationUserID;
+            characterFieldVM.Fields = db.CharacterFields.Where(x => x.CharacterID == db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault().CharacterID).ToList();
+            characterFieldVM.EnergyPlusDate = db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault().EnergyPlusDate;
+            characterFieldVM.AttackingZombies = db.ZombieAttackBases.Where(x => x.CharacterID == db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault().CharacterID).ToList();
+            characterFieldVM.AdventureFinishDate = db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault().FinishAdventure;
+
+
+            return RedirectToAction("Details", "Characters", new { id = User.Identity.Name });
+        }
+
+        public ActionResult HarvestField(int fieldID, int plantID)
+        {
+            CharacterField field = db.CharacterFields.Find(fieldID);
+            Plant plant = db.Plants.Find(plantID);
+            Character character = db.Characters.Where(x => x.CharacterID == field.CharacterID).FirstOrDefault();
+
+            field.PlantID = 0;
+            field.IsEmpty = true;
+            field.isFinished = false;
+            field.FinishDate = DateTime.MaxValue;
+
+            character.CharacterMoney += plant.PlantRewardCoin;
+            character.CharacterFood += plant.PlantRewardFood;
+            db.SaveChanges();
+
+            return RedirectToAction("Details", "Characters", new { id = User.Identity.Name });
+        }
+
+        public ActionResult PlantOnField(int fieldID, int plantID)
+        {
+            CharacterField field = db.CharacterFields.Find(fieldID);
+            Inventory invPlant = db.Inventories.Where(x => x.ItemID == plantID).FirstOrDefault();
+            Character character = db.Characters.Where(x => x.CharacterID == invPlant.CharacterID).FirstOrDefault();
+            Plant plant = db.Plants.Find(plantID);
+
+
+            field.PlantID = plantID;
+            field.Plant = plant;
+            field.isFinished = false;
+            field.IsEmpty = false;
+            invPlant.ItemPieces--;
+            field.FinishDate = DateTime.Now.AddSeconds(plant.PlantGrowTime);
+
+            db.SaveChanges();
+
+            return RedirectToAction("Details", "Characters", new { id = User.Identity.Name });
+        }
+
+        public ActionResult ChoosePlantOnField(int id, int charID)
+        {
+            Inventory inventory = db.Inventories.Find(id);
+            PlantOnFieldVM plantOnField = new PlantOnFieldVM();
+
+            // PlantField plantOnField = new PlantField();
+            plantOnField.FieldID = id;
+            Character character = db.Characters.Find(charID);
+            List<Plant> plants = new List<Plant>();
+            List<Inventory> items = new List<Inventory>();
+            foreach (var plant in db.Plants)
+            {
+                foreach (var item in character.Inventory)
+                {
+                    if (plant.ItemID == item.ItemID)
+                    {
+                        plants.Add(plant);
+                        items.Add(item);
+                    }
+                }
+            }
+
+            plantOnField.Plants = plants;
+            plantOnField.Inventory = items;
+
+
+            plantOnField.PageName = db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault().ApplicationUserID;
+            plantOnField.Fields = db.CharacterFields.Where(x => x.CharacterID == db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault().CharacterID).ToList();
+            plantOnField.EnergyPlusDate = db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault().EnergyPlusDate;
+            plantOnField.AttackingZombies = db.ZombieAttackBases.Where(x => x.CharacterID == db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault().CharacterID).ToList();
+            plantOnField.AdventureFinishDate = db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault().FinishAdventure;
+
+
+
+            return View(plantOnField);
+        }
+
+
         // GET: Plants
         public ActionResult Index()
         {

@@ -43,8 +43,11 @@ namespace Zombiecalypse.Controllers
                 buildingDetailViewModel.BuildingMaterials = db.BuildingMaterials.ToList();
             }
 
-           
-
+            buildingDetailViewModel.PageName = db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault().ApplicationUserID;
+            buildingDetailViewModel.Fields = db.CharacterFields.Where(x => x.CharacterID == db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault().CharacterID).ToList();
+            buildingDetailViewModel.EnergyPlusDate = db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault().EnergyPlusDate;
+            buildingDetailViewModel.AttackingZombies = db.ZombieAttackBases.Where(x => x.CharacterID == db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault().CharacterID).ToList();
+            buildingDetailViewModel.AdventureFinishDate = db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault().FinishAdventure;
 
 
             return View(buildingDetailViewModel);

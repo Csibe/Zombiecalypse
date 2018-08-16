@@ -18,7 +18,131 @@ namespace Zombiecalypse.Controllers
         // GET: Characters
         public ActionResult Index()
         {
-            return View(db.Characters.ToList());
+            return View();
+        }
+
+        public ActionResult SetLasLoginMinusMinute(string id) {
+            Character character = db.Characters.Where(x => x.ApplicationUserID == id).FirstOrDefault();
+            if (character == null)
+            {
+                return HttpNotFound();
+            }
+            character.LastLogin = character.LastLogin.AddMinutes(-1);
+            db.SaveChanges();
+            return RedirectToAction("Details", "Characters", new { id = User.Identity.Name });
+        }
+
+        public ActionResult SetLasLoginMinusHour(string id)
+        {
+            Character character = db.Characters.Where(x => x.ApplicationUserID == id).FirstOrDefault();
+            if (character == null)
+            {
+                return HttpNotFound();
+            }
+            character.LastLogin = character.LastLogin.AddHours(-1);
+            db.SaveChanges();
+            return RedirectToAction("Details", "Characters", new { id = User.Identity.Name });
+        }
+
+
+        public ActionResult DoSomething(string id, string returnUrl)
+        {
+            Character character = db.Characters.Where(x => x.ApplicationUserID == id).FirstOrDefault();
+            if (character == null)
+            {
+                return HttpNotFound();
+            }
+            character.CurrentEnergy--;
+           
+
+            if (character.CurrentEnergy == character.MaxEnergy && character.EnergyPlusDate.Year == DateTime.MaxValue.Year)
+            {
+            }
+            else if (character.CurrentEnergy < character.MaxEnergy && character.EnergyPlusDate.Year == DateTime.MaxValue.Year)
+            {
+                character.EnergyPlusDate = DateTime.Now.AddSeconds(20);
+            }
+            else if (character.CurrentEnergy == character.MaxEnergy && character.EnergyPlusDate.Year < DateTime.MaxValue.Year)
+            {
+                character.EnergyPlusDate = DateTime.MaxValue;
+            }
+            else if (character.CurrentEnergy < character.MaxEnergy && character.EnergyPlusDate <= DateTime.Now)
+            {
+                character.EnergyPlusDate = DateTime.Now.AddSeconds(20);
+                character.CurrentEnergy++;
+            }
+            else if (character.CurrentEnergy < character.MaxEnergy && character.EnergyPlusDate > DateTime.Now)
+            {
+            }
+            else if (character.CurrentEnergy < character.MaxEnergy && character.EnergyPlusDate < DateTime.Now)
+            {
+
+                character.CurrentEnergy++;
+                character.EnergyPlusDate = DateTime.MaxValue;
+            }
+
+            db.SaveChanges();
+            return RedirectToAction(returnUrl);
+        }
+
+
+
+        public ActionResult CheckEnergyFromJavaScript(string id)
+        {
+            Character character = db.Characters.Where(x => x.ApplicationUserID == id).FirstOrDefault();
+            if (character == null)
+            {
+                return HttpNotFound();
+            }
+
+            if (character.CurrentEnergy == character.MaxEnergy && character.EnergyPlusDate == DateTime.MaxValue)
+            {
+            }
+            else if (character.CurrentEnergy < character.MaxEnergy && character.EnergyPlusDate == DateTime.MaxValue)
+            {
+                character.EnergyPlusDate = DateTime.Now.AddSeconds(20);
+            }
+            else if (character.CurrentEnergy == character.MaxEnergy && character.EnergyPlusDate.Year < DateTime.MaxValue.Year)
+            {
+                character.EnergyPlusDate = DateTime.MaxValue;
+            }
+            else if (character.CurrentEnergy < character.MaxEnergy && character.EnergyPlusDate <= DateTime.Now)
+            {
+                character.EnergyPlusDate = DateTime.Now.AddSeconds(20);
+                character.CurrentEnergy++;
+            }
+            else if (character.CurrentEnergy < character.MaxEnergy && character.EnergyPlusDate > DateTime.Now)
+            {
+            }
+            else if (character.CurrentEnergy < character.MaxEnergy && character.EnergyPlusDate < DateTime.Now)
+            {
+
+                character.CurrentEnergy++;
+                character.EnergyPlusDate = DateTime.MaxValue;
+            }
+
+            db.SaveChanges();
+            return RedirectToAction("Details", "Characters", new { id = User.Identity.Name });
+            //return RedirectToAction(returnUrl);
+        }
+
+
+        public ActionResult ManageXPAndLevelUp(string id, int? add, string returnUrl)
+        {
+
+            Character character = db.Characters.Where(x => x.ApplicationUserID == id).FirstOrDefault(); ;
+            Level DbLevel = db.Levels.Where(x => x.LevelID == character.CharacterLevel).SingleOrDefault();
+            int DbLevelLevel = DbLevel.LevelID;
+            int DbLevelXP = DbLevel.LevelMaxXP;
+            character.CharacterXP += (int)add;
+
+            if (character.CharacterXP >= DbLevelXP)
+            {
+                character.CharacterLevel++;
+            }
+
+            db.SaveChanges();
+            return RedirectToAction(returnUrl);
         }
 
         // GET: Characters/Details/5
@@ -26,153 +150,77 @@ namespace Zombiecalypse.Controllers
         {
             if (id == null)
             {
-                return View("Index", "Home");
+                return View("Index", "Home", null);
             }
-            else
+
+            Character character = db.Characters.Where(c => c.ApplicationUserID == id).FirstOrDefault();
+
+            CharacterDetailsViewModel characterDetails = new CharacterDetailsViewModel();
+
+            characterDetails.CharacterID = character.CharacterID;
+            characterDetails.ApplicationUserID = character.ApplicationUserID;
+            characterDetails.CharacterMoney = character.CharacterMoney;
+            characterDetails.CharacterName = character.CharacterName;
+            characterDetails.CharacterItems = character.Inventory;
+            characterDetails.CharacterType = character.CharacterType;
+            characterDetails.CurrentEnergy = character.CurrentEnergy;
+            characterDetails.MaxEnergy = character.MaxEnergy;
+            characterDetails.CharacterXP = character.CharacterXP;
+            characterDetails.CharacterLevel = character.CharacterLevel;
+            characterDetails.CharacterBuildings = new List<Building>();
+            characterDetails.AdventureID = character.AdventureID;
+            characterDetails.LastLogin = character.LastLogin;
+
+            foreach (var item in characterDetails.CharacterItems)
             {
-                Character character = db.Characters.Where(c => c.ApplicationUserID == id).FirstOrDefault();
-
-                if (character != null)
+                foreach (var build in db.Buildings)
                 {
-
-                    CharacterDetailsViewModel characterDetails = new CharacterDetailsViewModel();
-
-                    characterDetails.CharacterID = character.CharacterID;
-                    characterDetails.CharacterMoney = character.CharacterMoney;
-                    characterDetails.CharacterName = character.CharacterName;
-                    characterDetails.CharacterItems = character.Inventory;
-                    characterDetails.CharacterType = character.CharacterType;
-                    characterDetails.CurrentEnergy = character.CurrentEnergy;
-                    characterDetails.MaxEnergy = character.MaxEnergy;
-                    characterDetails.CharacterXP = character.CharacterXP;
-                    characterDetails.CharacterLevel = character.CharacterLevel;
-                    characterDetails.CharacterBuildings = new List<Building>();
-
-                    foreach (var item in characterDetails.CharacterItems)
+                    if (item.ItemID == build.ItemID)
                     {
-                        foreach (var build in db.Buildings)
-                        {
-                            if (item.ItemID == build.ItemID)
-                            {
-                                characterDetails.CharacterBuildings.Add(build);
-                            }
-                        }
+                        characterDetails.CharacterBuildings.Add(build);
                     }
-
-
-                    //characterDetails.Adventures = db.Adventures.ToList();
-                    //characterDetails.Levels = db.Levels.ToList();
-                    characterDetails.CharacterFood = character.CharacterFood;
-                    //characterDetails.AttackingZombies = db.ZombieAttackBases.Where(x => x.CharacterID == character.CharacterID).ToList();
-
-                    //characterDetails.CharacterNextLevelXP = characterDetails.Levels.Where(l => l.LevelID == characterDetails.CharacterLevel).FirstOrDefault().LevelMaxXP;
-                    var NeededXPToNextLevel = characterDetails.CharacterNextLevelXP - characterDetails.CharacterXP;
-                    ViewData["NeededXPToNextLevel"] = NeededXPToNextLevel;
-
-                    string Picture = "/Content/Pictures/Base/";
-                    ICollection<Inventory> characterInventory = character.Inventory;
-                    foreach (var build in characterDetails.CharacterBuildings)
-                    {
-                            Picture += build.ItemName + build.BuildingLevel;
-
-                    }
-                    Picture += ".png";
-
-                    ViewBag.Picture = Picture;
-
-                    return View(characterDetails);
                 }
             }
-            return View("Index", "Home");
-        }
 
-        // GET: Characters/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
+            characterDetails.CharacterFields = db.CharacterFields.Where(x => x.CharacterID == character.CharacterID).ToList();
 
-        // POST: Characters/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "CharacterID,ApplicationUserID,CharacterName,CharacterType,CharacterMoney,MaxEnergy,CurrentEnergy,CharacterFood,CharacterXP,CharacterLevel,IsOnAdventure,AdventureID,AdventureState,FinishAdventure")] Character character)
-        {
-            if (ModelState.IsValid)
+            characterDetails.Adventures = db.Adventures.ToList();
+            characterDetails.CharacterFood = character.CharacterFood;
+
+
+            characterDetails.CharacterNextLevelXP = db.Levels.Where(l => l.LevelID == characterDetails.CharacterLevel).FirstOrDefault().LevelMaxXP;
+            var NeededXPToNextLevel = characterDetails.CharacterNextLevelXP - characterDetails.CharacterXP;
+            ViewData["NeededXPToNextLevel"] = NeededXPToNextLevel;
+
+            string Picture = "/Content/Pictures/Base/";
+            ICollection<Inventory> characterInventory = character.Inventory;
+            foreach (var build in characterDetails.CharacterBuildings)
             {
-                db.Characters.Add(character);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
+                Picture += build.ItemName + build.BuildingLevel;
 
-            return View(character);
-        }
+            }
+            Picture += ".png";
 
-        // GET: Characters/Edit/5
-        public ActionResult Edit(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Character character = db.Characters.Find(id);
-            if (character == null)
-            {
-                return HttpNotFound();
-            }
-            return View(character);
-        }
+            ViewBag.Picture = Picture;
 
-        // POST: Characters/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "CharacterID,ApplicationUserID,CharacterName,CharacterType,CharacterMoney,MaxEnergy,CurrentEnergy,CharacterFood,CharacterXP,CharacterLevel,IsOnAdventure,AdventureID,AdventureState,FinishAdventure")] Character character)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Entry(character).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            return View(character);
-        }
 
-        // GET: Characters/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Character character = db.Characters.Find(id);
-            if (character == null)
-            {
-                return HttpNotFound();
-            }
-            return View(character);
-        }
+            characterDetails.PageName = db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault().ApplicationUserID;
+            characterDetails.Fields = db.CharacterFields.Where(x => x.CharacterID == db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault().CharacterID).ToList();
+            characterDetails.EnergyPlusDate = db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault().EnergyPlusDate;
+            characterDetails.AttackingZombies = db.ZombieAttackBases.Where(x => x.CharacterID == db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault().CharacterID).ToList();
+            characterDetails.AdventureFinishDate = db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault().FinishAdventure;
 
-        // POST: Characters/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            Character character = db.Characters.Find(id);
-            db.Characters.Remove(character);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
+            return View(characterDetails);
     }
+
+
+    protected override void Dispose(bool disposing)
+    {
+        if (disposing)
+        {
+            db.Dispose();
+        }
+        base.Dispose(disposing);
+    }
+}
 }

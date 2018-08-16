@@ -1,4 +1,9 @@
-﻿<!DOCTYPE html>
+﻿@*@{
+//Layout = "~/Views/Shared/_Layout.cshtml";
+    }*@
+
+
+<!DOCTYPE html>
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
@@ -8,7 +13,7 @@
     <hgroup>
         <h1>Error.</h1>
         <h2>Not enought materials</h2>
-        @Html.ActionLink("Back to character page", "CharacterDetails", "Characters", new { id = User.Identity.Name }, null)
+        @Html.ActionLink("Back to character page", "Details", "Characters", new { id = User.Identity.Name }, null)
     </hgroup>
 </body>
 </html>

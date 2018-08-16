@@ -1,0 +1,99 @@
+﻿@model Zombiecalypse.Models.Shop
+
+@{
+    ViewBag.Title = "Shop";
+}
+
+<h2>Shop</h2>
+
+
+
+<div class="container">
+    <ul class="nav nav-tabs">
+        <li class="active"><a data-toggle="tab" href="#weapons">Weapons</a></li>
+        <li><a data-toggle="tab" href="#plans">Plants</a></li>
+        <li><a data-toggle="tab" href="#energy">Energy</a></li>
+        <li><a data-toggle="tab" href="#fields">Fields</a></li>
+        <li><a data-toggle="tab" href="#items">Items</a></li>
+    </ul>
+
+    <div class="tab-content">
+        <div id="weapons" class="tab-pane fade in active">
+            <h3>Weapons</h3>
+            <table border="1" class="table" width="600">
+
+                @foreach (var w in Model.Weapons)
+            {
+                    <td>
+                        <table border="1">
+                            <td><img width="100" height="100" src=@w.ItemPicture /></td>
+                            <tr></tr>
+                            <td>@w.ItemName</td>
+                            <tr></tr>
+                            <td>Durability: @w.ItemMaxDurability</td>
+                            <tr></tr>
+                            <td>Damage: @w.WeaponDamage</td>
+                            <tr></tr>
+                            <td>cost: @w.Cost</td>
+                            <tr></tr>
+                            <td>@Html.ActionLink("Buy", "Buy", "Shop", new { id = User.Identity.Name, ItemID = @w.ItemID }, null)</td>
+                        </table>
+                    </td>
+                }
+            </table>
+        </div>
+
+
+        <div id="plans" class="tab-pane fade">
+            <h3>Plants</h3>
+            <table border="1" class="table">
+            @Html.ActionLink("Buy field", "BuyField", "Shop", new { id = User.Identity.Name }, null)
+            @foreach (var p in Model.Plants)
+                {
+                <td>
+                    <table border="1">
+                        <td><img width="100" height="100" src=@p.ItemPicture /></td>
+                        <tr></tr>
+                        <td>@p.ItemName</td>
+                        <tr></tr>
+                        <td>Cost: @p.PlantMoneyCost</td>
+                        <tr></tr>
+                        <td>Grow time: @p.PlantGrowTime</td>
+                        <tr></tr>
+                        <td>Reward coin: @p.PlantRewardCoin</td>
+                        <tr></tr>
+                        <td>Reward food: @p.PlantRewardFood</td>
+                        <tr></tr>
+                        <td>@Html.ActionLink("Buy", "Buy", "Shop", new { id = User.Identity.Name, ItemID = @p.ItemID }, null)</td>
+                    </table>
+                </td>
+            }
+
+        </table>
+        </div>
+
+        <div id="energy" class="tab-pane fade">
+            <h3>Energy</h3>
+            <table border="1" class="table">
+
+            @foreach (var e in Model.Energies)
+            {
+                <td>
+                    <table border="1">
+                        <td><img width="100" height="100" src=@e.ItemPicture /></td>
+                        <tr></tr>
+                        <td>@e.ItemName</td>
+                        <tr></tr>
+                        <td>Durability: @e.PlusEnergy</td>
+                        <tr></tr>
+                        <td>Cost: @e.Cost</td>
+                        <tr></tr>
+                        <td>@Html.ActionLink("Buy", "Buy", "Shop", new { id = User.Identity.Name, ItemID = @e.ItemID }, null)</td>
+                    </table>
+                </td>
+            }
+
+        </table>
+        </div>
+    </div>
+</div>

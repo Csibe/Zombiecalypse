@@ -16,7 +16,7 @@ namespace Zombiecalypse.Models
 
     }
 
-    public class Plant : Item
+    public class Plant : Item 
     {
         public int PlantMoneyCost { get; set; }
         public int PlantGrowTime { get; set; }
@@ -24,7 +24,10 @@ namespace Zombiecalypse.Models
         public int PlantRewardFood { get; set; }
         public string PlantStartPicture { get; set; }
         public string PlantFinishedPicture { get; set; }
+    }
 
+    public class Field : Item
+    {
     }
 
     public class Building : Item
@@ -50,10 +53,54 @@ namespace Zombiecalypse.Models
         public int MaterialPieces { get; set; }
     }
 
-    public class BuildingDetailViewModel
+
+
+    public class Weapon : Item
+    {
+        public int WeaponDamage { get; set; }
+    }
+
+    public class Energy : Item
+    {
+        public int PlusEnergy { get; set; }
+        public int Cost { get; set; }
+    }
+
+    public class CraftableWeapon : Weapon
+    {
+        public virtual ICollection<CraftableWeaponMaterial> CraftableWeaponMaterials { get; set; }
+    }
+
+    public class BuyableWeapon : Weapon
+    {
+        public int Cost { get; set; }
+
+    }
+
+
+    public class CraftableWeaponMaterial
+    {
+        public int CraftableWeaponMaterialID { get; set; }
+
+        public int WeaponID { get; set; }
+        public int MaterialID { get; set; }
+
+        public int MaterialPieces { get; set; }
+    }
+
+
+
+    public class BuildingDetailViewModel : ViewModelBase
     {
         public virtual Building Building { get; set; }
         public virtual ICollection<BuildingMaterial> BuildingMaterials { get; set; }
         public virtual ICollection<BuildingBuildingMaterial> BuildingBuildingMaterials { get; set; }
+    }
+
+    public class PlantOnFieldVM : ViewModelBase
+    {
+        public virtual ICollection<Plant> Plants { get; set; }
+        public int FieldID { get; set; }
+        public virtual ICollection<Inventory> Inventory { get; set; }
     }
 }

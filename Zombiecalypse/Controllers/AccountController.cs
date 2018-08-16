@@ -158,7 +158,7 @@ namespace Zombiecalypse.Controllers
             if (ModelState.IsValid)
             {
                 var user = new ApplicationUser { UserName = model.Name, Email = model.Email };
-                var character = new Character { ApplicationUserID = model.Name, CharacterName = model.CharacterName, FinishAdventure = DateTime.MaxValue, IsOnAdventure = false, CurrentEnergy = 14, MaxEnergy = 14, CharacterLevel = 1 };
+                var character = new Character { ApplicationUserID = model.Name, CharacterName = model.CharacterName, FinishAdventure = DateTime.MaxValue, IsOnAdventure = false, CurrentEnergy = 14, MaxEnergy = 14, CharacterLevel = 1, EnergyPlusDate=DateTime.MaxValue, LastLogin = DateTime.MaxValue };
 
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
@@ -169,12 +169,12 @@ namespace Zombiecalypse.Controllers
 
                     var items = new List<Inventory>
                     {
-                    new Inventory{ CharacterID=character.CharacterID, ItemID=2, ItemPieces=1, ItemMaxDurability=2, ItemCurrentDurability=2, FinishDate=DateTime.MaxValue},
-                    new Inventory{ CharacterID=character.CharacterID, ItemID=7, ItemPieces=1,ItemMaxDurability=0, ItemCurrentDurability=0, FinishDate=DateTime.MaxValue},
-                    new Inventory{ CharacterID=character.CharacterID, ItemID=13, ItemPieces=1, ItemMaxDurability=0, ItemCurrentDurability=0, FinishDate=DateTime.MaxValue},
-                    new Inventory{ CharacterID=character.CharacterID, ItemID=19, ItemPieces=1, ItemMaxDurability=0, ItemCurrentDurability=0, FinishDate=DateTime.MaxValue},
-                    //new Inventory{ CharacterID=character.CharacterID, ItemID=56, ItemPieces=1, ItemMaxDurability=999, ItemCurrentDurability=999},
-                    //new Inventory{ CharacterID=character.CharacterID, ItemID=59, ItemPieces=1, ItemMaxDurability=2, ItemCurrentDurability=2},
+                    new Inventory{ CharacterID=character.CharacterID, ItemID=2, ItemPieces=1, ItemMaxDurability=2, ItemCurrentDurability=2},
+                    new Inventory{ CharacterID=character.CharacterID, ItemID=7, ItemPieces=1,ItemMaxDurability=0, ItemCurrentDurability=0},
+                    new Inventory{ CharacterID=character.CharacterID, ItemID=13, ItemPieces=1, ItemMaxDurability=0, ItemCurrentDurability=0},
+                    new Inventory{ CharacterID=character.CharacterID, ItemID=19, ItemPieces=1, ItemMaxDurability=0, ItemCurrentDurability=0},
+                    new Inventory{ CharacterID=character.CharacterID, ItemID=59, ItemPieces=1, ItemMaxDurability=999, ItemCurrentDurability=999},
+                    new Inventory{ CharacterID=character.CharacterID, ItemID=69, ItemPieces=1, ItemMaxDurability=2, ItemCurrentDurability=2},
                     };
                     items.ForEach(s => db.Inventories.Add(s));
                     db.SaveChanges();
@@ -186,12 +186,11 @@ namespace Zombiecalypse.Controllers
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
-
+                    
                     return RedirectToAction("Index", "Home");
                 }
                 AddErrors(result);
             }
-
             // If we got this far, something failed, redisplay form
             return View(model);
         }

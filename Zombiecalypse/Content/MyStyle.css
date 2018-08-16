@@ -170,9 +170,9 @@ h1.FoodCounter {
     padding-bottom: 10px;
 }
 
-body {
+/*body {
     text-transform: uppercase;
-}
+}*/
 
 table, tr, td {
     border-collapse: collapse;

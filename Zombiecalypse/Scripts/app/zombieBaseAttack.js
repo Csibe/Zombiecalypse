@@ -1,9 +1,7 @@
 ﻿
 
-var until = FinishDate;
-var CharID = ChId;
-var ZombieID = ZombId;
-var ZabID = zabID;
+var until = AttackingZombieFinishDate;
+var ZabID = ZombieAttackBaseID;
 
 var x = setInterval(function () {
 
@@ -16,15 +14,18 @@ var x = setInterval(function () {
     var seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
 
-    document.getElementById("demo2").innerHTML = now;
-    document.getElementById("demo3").innerHTML = until;
-    document.getElementById("demo").innerHTML = days + " nap " + hours + " óra " + minutes + " perc " + seconds + " másodperc ";
+
+    list = document.getElementsByClassName("counterZombieAttack");
+    for (i = 0; i < list.length; ++i) {
+        list[i].innerHTML = days + " nap " + hours + " óra " + minutes + " perc " + seconds + " másodperc ";
+    }
 
     if (distance < 0) {
         clearInterval(x);
-        document.getElementById("demo").innerHTML = "EXPIRED";
+        document.getElementById("counterZombieAttack").innerHTML = "EXPIRED";
 
         window.location.href = '/Zombies/ZombieAttackBase/' + '?ZabID=' + ZabID;
         // window.location = "/Adventures/Index";
     }
 }, 1000);
+

@@ -40,15 +40,20 @@ namespace Zombiecalypse.Models
         [DataType(DataType.DateTime)]
         [DisplayName("Finish adventure time")]
         public DateTime FinishAdventure { get; set; }
+        [DataType(DataType.DateTime)]
+        public DateTime EnergyPlusDate { get; set; }
+        [DataType(DataType.DateTime)]
+        public DateTime LastLogin { get; set; }
         public virtual ICollection<Inventory> Inventory { get; set; }
     }
 
-    public class CharacterDetailsViewModel
+    public class CharacterDetailsViewModel : ViewModelBase
     {
         public int CharacterID { get; set; }
 
         [DisplayName("Name")]
         public string CharacterName { get; set; }
+        public string ApplicationUserID { get; set; }
         [DisplayName("Type")]
         public int CharacterType { get; set; }
         [DisplayName("Money")]
@@ -69,11 +74,14 @@ namespace Zombiecalypse.Models
         public int CharacterLevel { get; set; }
         [DisplayName("Food")]
         public int CharacterFood { get; set; }
-        //public virtual ICollection<Level> Levels { get; set; }
+        public int AdventureID { get; set; }
+        [DataType(DataType.DateTime)]
+        public DateTime LastLogin { get; set; }
         public virtual ICollection<Inventory> CharacterItems { get; set; }
         public virtual ICollection<Building> CharacterBuildings { get; set; }
-        //public virtual ICollection<Adventure> Adventures { get; set; }
-        //public virtual ICollection<ZombieAttackBase> AttackingZombies { get; set; }
-
+        public virtual ICollection<CharacterField> CharacterFields { get; set; }
+        public virtual ICollection<Adventure> Adventures { get; set; }
+        public virtual ICollection<ZombieAttackBase> ZombieAttackBase { get; set; }
+       
     }
 }

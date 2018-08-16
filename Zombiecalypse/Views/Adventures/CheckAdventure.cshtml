@@ -1,0 +1,83 @@
+﻿@model Zombiecalypse.Models.Adventure
+
+@{
+    ViewBag.Title = "CheckAdventure";
+}
+
+<h2>CheckAdventure</h2>
+
+<div>
+    <h4>Adventure</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.AdventureName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AdventureName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AdventureWaitingTime)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AdventureWaitingTime)
+        </dd>
+
+
+        Adventure datas:</br>
+        Model.AdventureTime: @Model.AdventureWaitingTime</br>
+        ViewBag.CharID: @ViewBag.CharID</br>
+        ViewBag.AdvID: @ViewBag.AdvID</br>
+        ViewBag.BeforeCharacterFinishDate: @ViewBag.BeforeCharacterFinishDate</br>
+        DateNow: @DateTime.Now </br>
+        ViewBag.FinishFullDate: @ViewBag.FullDate</br>
+        </br>
+        </br>
+        ViewBag.FinishAdventureYear: @ViewBag.FinishAdventureYear </br>
+        ViewBag.FinishAdventureMonth: @ViewBag.FinishAdventureMonth </br>
+        ViewBag.FinishAdventureDay: @ViewBag.FinishAdventureDay </br>
+        ViewBag.FinishAdventureHour: @ViewBag.FinishAdventureHour </br>
+        ViewBag.FinishAdventureMinute: @ViewBag.FinishAdventureMinute </br>
+        ViewBag.FinishAdventureSecond: @ViewBag.FinishAdventureSecond </br>
+        </br>
+        </br>
+        </br>
+
+    </dl>
+
+</div>
+
+@Html.ActionLink("Zombie attack", "AdventureZombieAttack", "Adventures")
+
+
+<br />
+<br />
+        counter:
+<span id="demo"></span></br>
+        now:
+<span id="demo2"></span></br>
+        until:
+<span id="demo3"></span></br>
+
+
+<script>
+
+        var Year = @ViewBag.FinishAdventureYear;
+        var Month = @ViewBag.FinishAdventureMonth;
+        var Day = @ViewBag.FinishAdventureDay;
+        var Hour = @ViewBag.FinishAdventureHour;
+        var Minute = @ViewBag.FinishAdventureMinute;
+        var Second = @ViewBag.FinishAdventureSecond;
+
+        var ChId = @ViewBag.CharID;
+        var AdId =  @ViewBag.AdvID;
+
+
+        var FinishDate =  new Date(Year, Month-1, Day, Hour, Minute, Second, 0);
+</script>
+@*<script src="~/Scripts/app/countdown.js" type="text/javascript"></script>*@
+
+
