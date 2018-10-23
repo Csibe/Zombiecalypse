@@ -8,7 +8,7 @@ namespace Zombiecalypse.Models
 {
     public abstract class ViewModelBase
     {
-        public string PageName { get; set; }
+        public string UserKe { get; set; }
         public ICollection<CharacterField> Fields { get; set; }
         [DataType(DataType.DateTime)]
         public DateTime EnergyPlusDate { get; set; }

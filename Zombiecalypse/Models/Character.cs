@@ -32,6 +32,10 @@ namespace Zombiecalypse.Models
         [DisplayName("Level")]
         public int CharacterLevel { get; set; }
         [DisplayName("Is on adventure")]
+        public int FenceMaxtDurability { get; set; }
+        public int FenceCurrentDurability { get; set; }
+        public int MaxTolerance { get; set; }
+        public int Tolerance { get; set; }
         public bool IsOnAdventure { get; set; }
         [DisplayName("Adventure ID")]
         public int AdventureID { get; set; }
@@ -51,32 +55,13 @@ namespace Zombiecalypse.Models
     {
         public int CharacterID { get; set; }
 
-        [DisplayName("Name")]
-        public string CharacterName { get; set; }
-        public string ApplicationUserID { get; set; }
-        [DisplayName("Type")]
-        public int CharacterType { get; set; }
-        [DisplayName("Money")]
-        public int CharacterMoney { get; set; }
-        [DisplayName("Max life")]
-        public int CharacterMaxLife { get; set; }
-        [DisplayName("Current life")]
-        public int CharacterCurrentLife { get; set; }
-        [DisplayName("Max energy")]
-        public int MaxEnergy { get; set; }
-        [DisplayName("Current energy")]
-        public int CurrentEnergy { get; set; }
-        [DisplayName("XP")]
-        public int CharacterXP { get; set; }
+        public virtual Character Character { get; set; }
+
         [DisplayName("Next level XP")]
         public int CharacterNextLevelXP { get; set; }
-        [DisplayName("Level")]
-        public int CharacterLevel { get; set; }
-        [DisplayName("Food")]
-        public int CharacterFood { get; set; }
-        public int AdventureID { get; set; }
-        [DataType(DataType.DateTime)]
-        public DateTime LastLogin { get; set; }
+        
+        public string BasePicture { get; set; }
+
         public virtual ICollection<Inventory> CharacterItems { get; set; }
         public virtual ICollection<Building> CharacterBuildings { get; set; }
         public virtual ICollection<CharacterField> CharacterFields { get; set; }

@@ -17,7 +17,18 @@ namespace Zombiecalypse.Controllers
         private int MaxBuildingLevel = 5;
 
 
-        public ActionResult LevelUpBuilding(int? id)
+        public ActionResult AddToItem(int itemId)
+        {
+
+            Inventory item = db.Inventories.Where(x => x.InventoryID == itemId).FirstOrDefault();
+            item.ItemPieces++;
+            db.SaveChanges();
+
+            return RedirectToAction("Details", "Characters", new { id = User.Identity.Name });
+        }
+
+
+        public ActionResult LevelUpBuilding(int id)
         {
 
             if (id == null)
@@ -25,8 +36,17 @@ namespace Zombiecalypse.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
+
+            Character character = db.Characters.Where(x => x.ApplicationUserID == User.Identity.Name).FirstOrDefault();
+
+            if (character.IsOnAdventure == true)
+            {
+                return RedirectToAction("Details", "Characters", new { id = User.Identity.Name });
+            }
+
             Inventory item = db.Inventories.Find(id);
             Building building = db.Buildings.Find(item.ItemID);
+
 
             if (item == null)
             {
@@ -36,203 +56,171 @@ namespace Zombiecalypse.Controllers
             if (building == null)
             {
                 return HttpNotFound();
-
+            }
+            if (character.IsOnAdventure == true)
+            {
+                return RedirectToAction("Details", "Characters", new { id = User.Identity.Name });
             }
 
-            if (building.BuildingLevel < MaxBuildingLevel)
+            if (character.CurrentEnergy < building.BuildingEnergyCost)
             {
-                int chID = item.CharacterID;
-                ICollection<Inventory> characterInventory = db.Inventories.Where(x => x.CharacterID == chID).ToList();
+                return RedirectToAction("Details", "Characters", new { id = User.Identity.Name });
+            }
 
-                int buildingLevel = building.BuildingLevel;
-                int newBuildingLevel = ++buildingLevel;
-                string buildingName = building.ItemName;
+            if (character.CharacterMoney < building.BuildingMoneyCost)
+            {
+                return RedirectToAction("Details", "Characters", new { id = User.Identity.Name });
+            }
 
-                Building newBuilding = db.Buildings.Where(x => x.ItemName == buildingName).Where(x => x.BuildingLevel == newBuildingLevel).FirstOrDefault();
-                List<BuildingBuildingMaterial> newBuildingBuildingMaterials = db.BuildingBuildingMaterials.Where(x => x.BuildingID == newBuilding.ItemID).ToList();
+            if (building.BuildingLevel >= MaxBuildingLevel)
+            {
+                return RedirectToAction("Details", "Characters", new { id = User.Identity.Name });
+            }
 
-                int counter = 0;
+            ICollection<Inventory> characterInventory = db.Inventories.Where(x => x.CharacterID == character.CharacterID).ToList();
+
+            int buildingLevel = building.BuildingLevel;
+            int newBuildingLevel = ++buildingLevel;
+            string buildingName = building.ItemName;
+
+            Building newBuilding = db.Buildings.Where(x => x.ItemName == buildingName).Where(x => x.BuildingLevel == newBuildingLevel).FirstOrDefault();
+            List<BuildingBuildingMaterial> newBuildingBuildingMaterials = db.BuildingBuildingMaterials.Where(x => x.BuildingID == newBuilding.ItemID).ToList();
+
+            int counter = 0;
 
 
+            foreach (var invMat in characterInventory)
+            {
+                foreach (var newMat in newBuildingBuildingMaterials)
+                {
+                    if (invMat.ItemID == newMat.BuildingMaterialID)
+                    {
+                        if (invMat.ItemPieces >= newMat.MaterialPieces)
+                        {
+                            counter++;
+                        }
+                    }
+
+                }
+            }
+            if (counter == newBuildingBuildingMaterials.Count())
+            {
                 foreach (var invMat in characterInventory)
                 {
                     foreach (var newMat in newBuildingBuildingMaterials)
                     {
                         if (invMat.ItemID == newMat.BuildingMaterialID)
                         {
-                            if (invMat.ItemPieces >= newMat.MaterialPieces)
-                            {
-                                counter++;
-                            }
-                        }
+                            invMat.ItemPieces = invMat.ItemPieces - newMat.MaterialPieces;
 
-                    }
-                }
-                if (counter == newBuildingBuildingMaterials.Count())
-                {
-                    foreach (var invMat in characterInventory)
-                    {
-                        foreach (var newMat in newBuildingBuildingMaterials)
-                        {
-                            if (invMat.ItemID == newMat.BuildingMaterialID)
-                            {
-                                invMat.ItemPieces = invMat.ItemPieces - newMat.MaterialPieces;
-
-                            }
                         }
                     }
-                    var newitem = db.Buildings.Where(p => p.ItemID == newBuilding.ItemID).FirstOrDefault();
-                    item.Item = db.Items.Find(newitem.ItemID);
-                    item.ItemID = newitem.ItemID;
-                    item.ItemMaxDurability = newitem.ItemMaxDurability;
-                    item.ItemCurrentDurability = newitem.ItemMaxDurability;
-
-                    db.SaveChanges();
-
-                    return RedirectToAction("Details", "Characters", new { id = User.Identity.Name });
-
                 }
-                else {
-                    return View("~/Views/Shared/NotEnoughtEnergy.cshtml");
-                }
-                
+                var newitem = db.Buildings.Where(p => p.ItemID == newBuilding.ItemID).FirstOrDefault();
+                item.Item = db.Items.Find(newitem.ItemID);
+                item.ItemID = newitem.ItemID;
+                item.ItemMaxDurability = newitem.ItemMaxDurability;
+                item.ItemCurrentDurability = newitem.ItemMaxDurability;
+
+                character.CharacterMoney -= building.BuildingMoneyCost;
+                var result = new CharactersController().ManageEnergy(User.Identity.Name,building.BuildingEnergyCost, this.Request.FilePath);
+
+                db.SaveChanges();
+
+                return RedirectToAction("Details", "Characters", new { id = User.Identity.Name });
+
             }
             else
             {
                 return RedirectToAction("Details", "Characters", new { id = User.Identity.Name });
             }
+
         }
 
-
-
-        // GET: Inventories/Details/5
-        public ActionResult Details(int? id)
+        public ActionResult CraftWeapon(int WeaponId, string ChId)
         {
 
-            if (id == null)
+            Character character = db.Characters.Where(x => x.ApplicationUserID == User.Identity.Name).FirstOrDefault();
+
+            if (character.IsOnAdventure == true)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return RedirectToAction("Details", "Characters", new { id = User.Identity.Name });
             }
-            Inventory inventory = db.Inventories.Find(id);
-
-            //int newBuildingLevel = inventory.Building.BuildingLevel;
-            //newBuildingLevel++;
-            //string BuildingName = inventory.Building.ItemName;
-
-            //Building newBuilding = db.Buildings
-            //.Where(b => b.BuildingLevel == newBuildingLevel)
-            //.Where(b => b.ItemName == BuildingName)
-            //.FirstOrDefault();
 
 
-            //inventory.Building = newBuilding;
-            //inventory.Building.BuildingBuildingMaterials = db.BuildingBuildingMaterials
-            //    .Where(b => b.BuildingID == inventory.Building.ItemID).ToList();
 
-            /*  inventory.Building.BuildingBuildingMaterials = db.BuildingBuildingMaterials
-              .Where(b => b.BuildingID == inventory.Building.ItemID).ToList();*/
-            if (inventory == null)
+            if (WeaponId == null)
             {
                 return HttpNotFound();
             }
-            return View(inventory);
-        }
 
-        // GET: Inventories/Create
-        public ActionResult Create()
-        {
-            ViewBag.CharacterID = new SelectList(db.Characters, "CharacterID", "CharacterName");
-            ViewBag.ItemID = new SelectList(db.Items, "ItemID", "ItemName");
-            return View();
-        }
 
-        // POST: Inventories/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "InventoryID,CharacterID,ItemID,ItemPieces")] Inventory inventory)
-        {
-            if (ModelState.IsValid)
+            CraftableWeapon craftableWeapon = db.CraftableWeapons.Find(WeaponId);
+
+            if (craftableWeapon == null)
             {
-                db.Inventories.Add(inventory);
+                return HttpNotFound();
+            }
+
+
+            List<CraftableWeaponMaterial> craftableWeaponMaterials = db.CraftableWeaponMaterials.Where(x => x.WeaponID == WeaponId).ToList();
+
+            int counter = 0;
+
+
+            foreach (var invMat in character.Inventory)
+            {
+                foreach (var weapMat in craftableWeaponMaterials)
+                {
+                    if (invMat.ItemID == weapMat.MaterialID)
+                    {
+                        if (invMat.ItemPieces >= weapMat.MaterialPieces)
+                        {
+                            counter++;
+                        }
+                    }
+
+                }
+            }
+
+
+            if (counter == craftableWeaponMaterials.Count())
+            {
+                foreach (var invMat in character.Inventory)
+                {
+                    foreach (var weapMat in craftableWeaponMaterials)
+                    {
+                        if (invMat.ItemID == weapMat.MaterialID)
+                        {
+                            invMat.ItemPieces = invMat.ItemPieces - weapMat.MaterialPieces;
+
+                        }
+                    }
+                }
+
+
+
+                if (character.Inventory.Where(x => x.ItemID == WeaponId).FirstOrDefault() != null)
+                {
+                    Inventory inventory = character.Inventory.Where(x => x.ItemID == WeaponId).FirstOrDefault();
+                    inventory.ItemPieces++;
+                }
+                else
+                {
+                    Inventory inventory = new Inventory { ItemID = WeaponId, CharacterID = character.CharacterID, ItemPieces = 1, ItemCurrentDurability = craftableWeapon.ItemMaxDurability, ItemMaxDurability = craftableWeapon.ItemMaxDurability };
+                    db.Inventories.Add(inventory);
+                }
+
+
                 db.SaveChanges();
-                return RedirectToAction("Index");
-            }
 
-            ViewBag.CharacterID = new SelectList(db.Characters, "CharacterID", "CharacterName", inventory.CharacterID);
-            ViewBag.ItemID = new SelectList(db.Items, "ItemID", "ItemName", inventory.ItemID);
-            return View(inventory);
-        }
+                return RedirectToAction("Details", "Characters", new { id = User.Identity.Name });
 
-        // GET: Inventories/Edit/5
-        public ActionResult Edit(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Inventory inventory = db.Inventories.Find(id);
-            if (inventory == null)
+            else
             {
-                return HttpNotFound();
+                return RedirectToAction("Details", "Characters", new { id = User.Identity.Name });
             }
-            ViewBag.CharacterID = new SelectList(db.Characters, "CharacterID", "CharacterName", inventory.CharacterID);
-            ViewBag.ItemID = new SelectList(db.Items, "ItemID", "ItemName", inventory.ItemID);
-            return View(inventory);
-        }
-
-        // POST: Inventories/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "InventoryID,CharacterID,ItemID,ItemPieces")] Inventory inventory)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Entry(inventory).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            ViewBag.CharacterID = new SelectList(db.Characters, "CharacterID", "CharacterName", inventory.CharacterID);
-            ViewBag.ItemID = new SelectList(db.Items, "ItemID", "ItemName", inventory.ItemID);
-            return View(inventory);
-        }
-
-        // GET: Inventories/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Inventory inventory = db.Inventories.Find(id);
-            if (inventory == null)
-            {
-                return HttpNotFound();
-            }
-            return View(inventory);
-        }
-
-        // POST: Inventories/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            Inventory inventory = db.Inventories.Find(id);
-            db.Inventories.Remove(inventory);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
         }
     }
 }

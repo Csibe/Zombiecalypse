@@ -5,6 +5,7 @@ var x = setInterval(function () {
 
     var now = new Date();
     var distance = until - now;
+    console.log("energycounter");
 
     // Output the result in an element with id="demo"
     var days = Math.floor(distance / (1000 * 60 * 60 * 24));
@@ -13,13 +14,13 @@ var x = setInterval(function () {
     var seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
 
-    document.getElementsByClassName("EnergyCounter").innerHTML = days + " nap " + hours + " óra " + minutes + " perc " + seconds + " másodperc "
+    //document.getElementsByClassName("EnergyCounter").innerHTML = days + " nap " + hours + " óra " + minutes + " perc " + seconds + " másodperc "
     //console.log(document.getElementsByClassName("EnergyCounter").innerHTML);
 
 
     // If the count down is over, write some text 
     if (distance < 0) {
         clearInterval(x);
-        window.location.href = "/Characters/CheckEnergyFromJavaScript/" + UserName;
+        window.location.href = "/Characters/ManageEnergyFromJavaScript/" + UserName;
     }
 }, 1000);

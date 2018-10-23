@@ -1,0 +1,96 @@
+﻿@model Zombiecalypse.Models.PlantOnFieldVM
+
+@{
+    ViewBag.Title = "ChoosePlantOnField";
+}
+
+<h2>PlantOnField</h2>
+
+<div>
+    <h4>ChoosePlantOnField</h4>
+    <hr />
+    <dl class="dl-horizontal">
+
+
+
+
+        <table border="1" class="table" width="600">
+
+            @foreach (var plant in Model.Plants)
+            {
+                foreach (var item in Model.Inventory)
+                {
+                    if (plant.ItemID == item.ItemID && item.ItemPieces > 0)
+                    {
+                        <td>
+                            <table border="1">
+                                <tr>
+                                    <td>@plant.ItemID</td>
+                                <tr></tr>
+                                <td><img src= @plant.ItemPicture /></td>
+                                <tr></tr>
+                                <td>@plant.ItemName</td>
+                                <tr></tr>
+                                <td>grow time: @plant.PlantGrowTime</td>
+                                <tr></tr>
+                                <td>reward food: @plant.PlantRewardFood</td>
+                                <tr></tr>
+                                <td> werard coin: @plant.PlantRewardCoin</td>
+                                <tr></tr>
+                                <td>pieces: @item.ItemPieces</td>
+                                <tr></tr>
+                                <td>@Html.ActionLink("Plant " + @plant.ItemName, "PlantOnField", "Gathering", new { fieldID = Model.FieldID, plantID = @plant.ItemID }, null)</td>
+                                </tr>
+                            </table>
+                        </td>
+                    }
+                }
+            }
+        </table>
+
+
+
+
+
+
+
+
+
+
+
+        <dd>
+            <table class="table">
+                <tr>
+                    <td>ItemID</td>
+                    <td>ItemName</td>
+                    <td>PlantTime</td>
+                    <td>PlantRewardFood</td>
+                    <td>PlantRewardCoin</td>
+                    <td>PlantCostCoin</td>
+                    <td>Pieces</td>
+                </tr>
+
+                @foreach (var plant in Model.Plants)
+                {
+                    foreach (var item in Model.Inventory)
+                    {
+                        if (plant.ItemID == item.ItemID && item.ItemPieces > 0)
+                        {
+                            <tr>
+                                <td>@plant.ItemID</td>
+                                <td>@plant.ItemName</td>
+                                <td>@plant.PlantGrowTime</td>
+                                <td>@plant.PlantRewardFood</td>
+                                <td>@plant.PlantRewardCoin</td>
+                                <td>@plant.PlantMoneyCost</td>
+                                <td>@item.ItemPieces</td>
+                                <td>@Html.ActionLink("Plant " + @plant.ItemName, "PlantOnField", "Gathering", new { fieldID = Model.FieldID, plantID = @plant.ItemID }, null)</td>
+                            </tr>
+                        }
+                    }
+                }
+            </table>
+        </dd>
+
+    </dl>
+</div>

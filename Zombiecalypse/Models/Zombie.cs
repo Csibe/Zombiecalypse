@@ -11,7 +11,7 @@ namespace Zombiecalypse.Models
     {
         public int ZombieID { get; set; }
         public string ZombieName { get; set; }
-        public int ZombieType { get; set; }
+        public int ZombieRank { get; set; }
         public int ZombieLife { get; set; }
         public int ZombieDamage { get; set; }
         public int RewardCoins { get; set; }

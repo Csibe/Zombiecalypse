@@ -41,6 +41,24 @@
             @Html.TextBoxFor(m => m.CharacterName, new { @class = "form-control" })
         </div>
     </div>
+    <div>
+        <table>
+            <tr align="center">
+                <td><img src="~/Content/Pictures/Types/Type_1.png" /></td>
+                <td><img src="~/Content/Pictures/Types/Type_2.png" /></td>
+                <td><img src="~/Content/Pictures/Types/Type_3.png" /></td>
+                <td><img src="~/Content/Pictures/Types/Type_4.png" /></td>
+                <td><img src="~/Content/Pictures/Types/Type_5.png" /></td>
+            </tr>
+            <tr align="center">
+                <td>@Html.RadioButtonFor(m => m.CharacterType, 1)</td>
+                <td>@Html.RadioButtonFor(m => m.CharacterType, 2)</td>
+                <td>@Html.RadioButtonFor(m => m.CharacterType, 3)</td>
+                <td>@Html.RadioButtonFor(m => m.CharacterType, 4)</td>
+                <td>@Html.RadioButtonFor(m => m.CharacterType, 5)</td>
+            </tr>
+        </table>
+    </div>
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
             <input type="submit" class="btn btn-default" value="Register" />

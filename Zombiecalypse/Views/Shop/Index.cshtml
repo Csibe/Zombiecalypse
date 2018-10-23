@@ -36,7 +36,7 @@
                             <tr></tr>
                             <td>cost: @w.Cost</td>
                             <tr></tr>
-                            <td>@Html.ActionLink("Buy", "Buy", "Shop", new { id = User.Identity.Name, ItemID = @w.ItemID }, null)</td>
+                            <td>@Html.ActionLink("Buy", "Buy", "Shop", new { id = User.Identity.Name, ItemID = @w.ItemID }, new { @class = "ActionLinkButton" })</td>
                         </table>
                     </td>
                 }
@@ -45,9 +45,16 @@
 
 
         <div id="plans" class="tab-pane fade">
-            <h3>Plants</h3>
+            <h3>Gathering</h3>
             <table border="1" class="table">
-            @Html.ActionLink("Buy field", "BuyField", "Shop", new { id = User.Identity.Name }, null)
+                <td>
+                    <img src="~/Content/Pictures/Fields/FieldEmpty.png" />
+                </td>
+                <tr></tr>
+                <td>
+                    @Html.ActionLink("Buy field", "BuyField", "Shop", new { id = User.Identity.Name }, new { @class = "ActionLinkButton" })
+                </td>
+                <tr></tr>
             @foreach (var p in Model.Plants)
                 {
                 <td>
@@ -64,7 +71,7 @@
                         <tr></tr>
                         <td>Reward food: @p.PlantRewardFood</td>
                         <tr></tr>
-                        <td>@Html.ActionLink("Buy", "Buy", "Shop", new { id = User.Identity.Name, ItemID = @p.ItemID }, null)</td>
+                        <td>@Html.ActionLink("Buy", "Buy", "Shop", new { id = User.Identity.Name, ItemID = @p.ItemID }, new { @class = "ActionLinkButton" })</td>
                     </table>
                 </td>
             }
@@ -88,7 +95,7 @@
                         <tr></tr>
                         <td>Cost: @e.Cost</td>
                         <tr></tr>
-                        <td>@Html.ActionLink("Buy", "Buy", "Shop", new { id = User.Identity.Name, ItemID = @e.ItemID }, null)</td>
+                        <td>@Html.ActionLink("Buy", "Buy", "Shop", new { id = User.Identity.Name, ItemID = @e.ItemID }, new { @class = "ActionLinkButton" })</td>
                     </table>
                 </td>
             }

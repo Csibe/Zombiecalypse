@@ -8,6 +8,7 @@ var x = setInterval(function () {
 
         var until = FinishDate[count];
         //console.log("until: " +until);
+        console.log("countdown");
         var fieldID = FieldID[count];
        
         var now = new Date();
@@ -46,7 +47,7 @@ var x = setInterval(function () {
             clearInterval(x);
             //document.getElementById("demo").innerHTML = "EXPIRED";
 
-             window.location.href = '/Plants/GrowUpPlant/' + '?fieldID=' + fieldID;
+             window.location.href = '/Gathering/GrowUpPlant/' + '?fieldID=' + fieldID;
             // window.location = "/Adventures/Index";
         }
     }

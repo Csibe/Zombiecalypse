@@ -14,14 +14,19 @@ namespace Zombiecalypse.Controllers
     public class CharactersController : Controller
     {
         private DataContext db = new DataContext();
+        
 
-        // GET: Characters
-        public ActionResult Index()
+        public ActionResult AddToEnergy()
         {
-            return View();
+            Character character = db.Characters.Where(x => x.ApplicationUserID == User.Identity.Name).FirstOrDefault();
+            character.CurrentEnergy++;
+            db.SaveChanges();
+
+            return RedirectToAction("Details", "Characters", new { id = User.Identity.Name });
         }
 
-        public ActionResult SetLasLoginMinusMinute(string id) {
+        public ActionResult SetLasLoginMinusMinute(string id)
+        {
             Character character = db.Characters.Where(x => x.ApplicationUserID == id).FirstOrDefault();
             if (character == null)
             {
@@ -45,15 +50,16 @@ namespace Zombiecalypse.Controllers
         }
 
 
-        public ActionResult DoSomething(string id, string returnUrl)
+        public ActionResult ManageEnergy(string id, int energyCost, string returnUrl)
         {
             Character character = db.Characters.Where(x => x.ApplicationUserID == id).FirstOrDefault();
+
             if (character == null)
             {
                 return HttpNotFound();
             }
-            character.CurrentEnergy--;
-           
+            character.CurrentEnergy -= energyCost;
+
 
             if (character.CurrentEnergy == character.MaxEnergy && character.EnergyPlusDate.Year == DateTime.MaxValue.Year)
             {
@@ -87,7 +93,7 @@ namespace Zombiecalypse.Controllers
 
 
 
-        public ActionResult CheckEnergyFromJavaScript(string id)
+        public ActionResult ManageEnergyFromJavaScript(string id, string returnUrl)
         {
             Character character = db.Characters.Where(x => x.ApplicationUserID == id).FirstOrDefault();
             if (character == null)
@@ -127,14 +133,14 @@ namespace Zombiecalypse.Controllers
         }
 
 
-        public ActionResult ManageXPAndLevelUp(string id, int? add, string returnUrl)
+        public ActionResult ManageXPAndLevelUp(int add, string returnUrl)
         {
 
-            Character character = db.Characters.Where(x => x.ApplicationUserID == id).FirstOrDefault(); ;
+            Character character = db.Characters.Where(x => x.ApplicationUserID == User.Identity.Name).FirstOrDefault(); ;
             Level DbLevel = db.Levels.Where(x => x.LevelID == character.CharacterLevel).SingleOrDefault();
-            int DbLevelLevel = DbLevel.LevelID;
+            int DbLevelID = DbLevel.LevelID;
             int DbLevelXP = DbLevel.LevelMaxXP;
-            character.CharacterXP += (int)add;
+            character.CharacterXP += add;
 
             if (character.CharacterXP >= DbLevelXP)
             {
@@ -145,7 +151,6 @@ namespace Zombiecalypse.Controllers
             return RedirectToAction(returnUrl);
         }
 
-        // GET: Characters/Details/5
         public ActionResult Details(string id)
         {
             if (id == null)
@@ -153,74 +158,49 @@ namespace Zombiecalypse.Controllers
                 return View("Index", "Home", null);
             }
 
-            Character character = db.Characters.Where(c => c.ApplicationUserID == id).FirstOrDefault();
+            CharacterDetailsViewModel model = new CharacterDetailsViewModel();
 
-            CharacterDetailsViewModel characterDetails = new CharacterDetailsViewModel();
+            model.Character = db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault();
+            model.CharacterBuildings = new List<Building>();
 
-            characterDetails.CharacterID = character.CharacterID;
-            characterDetails.ApplicationUserID = character.ApplicationUserID;
-            characterDetails.CharacterMoney = character.CharacterMoney;
-            characterDetails.CharacterName = character.CharacterName;
-            characterDetails.CharacterItems = character.Inventory;
-            characterDetails.CharacterType = character.CharacterType;
-            characterDetails.CurrentEnergy = character.CurrentEnergy;
-            characterDetails.MaxEnergy = character.MaxEnergy;
-            characterDetails.CharacterXP = character.CharacterXP;
-            characterDetails.CharacterLevel = character.CharacterLevel;
-            characterDetails.CharacterBuildings = new List<Building>();
-            characterDetails.AdventureID = character.AdventureID;
-            characterDetails.LastLogin = character.LastLogin;
-
-            foreach (var item in characterDetails.CharacterItems)
+            foreach (var item in model.Character.Inventory)
             {
                 foreach (var build in db.Buildings)
                 {
                     if (item.ItemID == build.ItemID)
                     {
-                        characterDetails.CharacterBuildings.Add(build);
+                        model.CharacterBuildings.Add(build);
                     }
                 }
             }
 
-            characterDetails.CharacterFields = db.CharacterFields.Where(x => x.CharacterID == character.CharacterID).ToList();
+            model.CharacterFields = db.CharacterFields.Where(x => x.CharacterID == model.Character.CharacterID).ToList();
+            model.Adventures = db.Adventures.ToList();
 
-            characterDetails.Adventures = db.Adventures.ToList();
-            characterDetails.CharacterFood = character.CharacterFood;
-
-
-            characterDetails.CharacterNextLevelXP = db.Levels.Where(l => l.LevelID == characterDetails.CharacterLevel).FirstOrDefault().LevelMaxXP;
-            var NeededXPToNextLevel = characterDetails.CharacterNextLevelXP - characterDetails.CharacterXP;
-            ViewData["NeededXPToNextLevel"] = NeededXPToNextLevel;
+            model.CharacterNextLevelXP = db.Levels.Where(l => l.LevelID == model.Character.CharacterLevel).FirstOrDefault().LevelMaxXP;
 
             string Picture = "/Content/Pictures/Base/";
-            ICollection<Inventory> characterInventory = character.Inventory;
-            foreach (var build in characterDetails.CharacterBuildings)
-            {
-                Picture += build.ItemName + build.BuildingLevel;
+            string[] BaseName;
 
+            foreach (var build in model.CharacterBuildings)
+            {
+                BaseName = build.ItemName.Split(' ');
+                Picture += BaseName[0] + build.BuildingLevel;
             }
+
             Picture += ".png";
 
-            ViewBag.Picture = Picture;
+            model.BasePicture = Picture;
 
 
-            characterDetails.PageName = db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault().ApplicationUserID;
-            characterDetails.Fields = db.CharacterFields.Where(x => x.CharacterID == db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault().CharacterID).ToList();
-            characterDetails.EnergyPlusDate = db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault().EnergyPlusDate;
-            characterDetails.AttackingZombies = db.ZombieAttackBases.Where(x => x.CharacterID == db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault().CharacterID).ToList();
-            characterDetails.AdventureFinishDate = db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault().FinishAdventure;
+            model.UserKe = db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault().ApplicationUserID;
+            model.Fields = db.CharacterFields.Where(x => x.CharacterID == db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault().CharacterID).ToList();
+            model.EnergyPlusDate = db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault().EnergyPlusDate;
+            model.AttackingZombies = db.ZombieAttackBases.Where(x => x.CharacterID == db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault().CharacterID).ToList();
+            model.AdventureFinishDate = db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault().FinishAdventure;
 
-            return View(characterDetails);
-    }
-
-
-    protected override void Dispose(bool disposing)
-    {
-        if (disposing)
-        {
-            db.Dispose();
+            return View(model);
         }
-        base.Dispose(disposing);
+
     }
-}
 }

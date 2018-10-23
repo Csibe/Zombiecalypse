@@ -3,15 +3,25 @@
 
 @{
     ViewBag.Title = "AdventureZombieAttack";
+
     var counter1 = Model.ZombiesAttackAdventurer.Where(x => x.State == 1).Count();
     var counter2 = Model.ZombiesAttackAdventurer.Where(x => x.State == 2).Count();
     var counter3 = Model.ZombiesAttackAdventurer.Where(x => x.State == 3).Count();
+    var counter4 = Model.ZombiesAttackAdventurer.Where(x => x.State == 4).Count();
+    var counter5 = Model.ZombiesAttackAdventurer.Where(x => x.State == 5).Count();
 }
 
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 <!------ Include the above in your HEAD tag ---------->
+
+<h2>On adventure</h2>
+@Html.ActionLink("Finish adventure", "StopAdventure", "Adventures", new { id =User.Identity.Name }, null)
+
+
+@*<span id="adventurecounter">
+    </span>*@
 <div class="container">
     <div class="row">
         <section>
@@ -19,27 +29,17 @@
                 <div class="wizard-inner">
                     <div class="connecting-line"></div>
                     <ul class="nav nav-tabs" role="tablist">
-                        <li id="step1" role="presentation" class="disabled">
-                            <a href="#step1" data-toggle="tab" aria-controls="step1" role="tab" title="Step 1">
-                                <span class="round-tab">
-                                    <i class="glyphicon glyphicon-circle-arrow-right"></i>
-                                </span>
-                            </a>
-                        </li>
-                        <li id="step2" role="presentation" class="disabled">
-                            <a href="#step2" data-toggle="tab" aria-controls="step2" role="tab" title="Step 2">
-                                <span class="round-tab">
-                                    <i class="glyphicon glyphicon-pencil"></i>
-                                </span>
-                            </a>
-                        </li>
-                        <li id="step3" role="presentation" class="disabled">
-                            <a href="#step3" data-toggle="tab" aria-controls="step3" role="tab" title="Step 3">
-                                <span class="round-tab">
-                                    <i class="glyphicon glyphicon-picture"></i>
-                                </span>
-                            </a>
-                        </li>
+                        @for (int counter = 1; counter <= Model.Adventure.AdventureSteps; counter++)
+                        {
+                            string id = "step" + counter;
+                            <li id=@id role="presentation" class="disabled">
+                                <a href="#@id" data-toggle="tab" aria-controls=@id role="tab" title=@id>
+                                    <span class="round-tab">
+                                        <i class="glyphicon glyphicon-circle-arrow-right"></i>
+                                    </span>
+                                </a>
+                            </li>
+                        }
                         <li id="complete" role="presentation" class="disabled">
                             <a href="#complete" data-toggle="tab" aria-controls="complete" role="tab" title="Complete">
                                 <span class="round-tab">
@@ -49,108 +49,46 @@
                         </li>
                     </ul>
                 </div>
+
                 <form role="form">
                     <div class="tab-content">
-                        <div class="tab-pane" role="tabpanel" id="tabpanelstep1">
-                            <h3>Step 1</h3>
-                            <p>This is step 1</p>
 
-                            @Html.ActionLink("AdventureDropCalculator", "AdventureDropCalculator", "Adventures", new { AdId = Model.Adventure.AdventureID, ChId = Model.CharacterID}, null)
+                        @for (int counter = 1; counter <= Model.Adventure.AdventureSteps; counter++)
+                        {
+                            string id = "tabpanelstep" + counter;
+                            <div class="tab-pane" role="tabpanel" id=@id>
+                                <h3>Round @counter</h3>
 
-                            @Html.ActionLink("Finish adventure", "StopAdventure", "Adventures", new { AdId = 1, ChId = Model.CharacterID }, null)
-                            <table>
+                                @Html.ActionLink("AdventureDropCalculator", "AdventureDropCalculator", "Adventures", new { AdId = Model.Adventure.AdventureID, ChId = Model.CharacterID }, null)
 
-                                @foreach (var zombie in Model.ZombiesAttackAdventurer)
-                                {
-                                    if (@zombie.State == 1)
-                                    {
-                                        <td>
-                                            <img src=@zombie.Zombie.ZombiePicture />
-                                            <table cellspacing="100">
-                                                <td>
-                                                    ZombieAttackAdventurerID: @zombie.ZombieAttackAdventurerID
-                                                </td>
-                                                <tr></tr>
-                                                <td>
-                                                    ZombieID:@zombie.ZombieID
-                                                </td>
-                                                <tr></tr>
-                                                <td>
-                                                    State:@zombie.State
-                                                </td>
-                                                <tr></tr>
-                                                <td>
-                                                    ZombieLife:@zombie.ZombieLife
-                                                </td>
-                                                <tr></tr>
-                                                <td>
-                                                    items: @foreach (var item in Model.Character.Inventory)
-                                                    {
-                                                        if (@item.Item.GetType().Name.Contains("Weapon"))
-                                                        {
-                                                            if (@item.ItemPieces > 0)
-                                                            {
-                                                                <table>
-                                                                    <tr>
-                                                                        <td><img src=@item.Item.ItemPicture /></td>
-                                                                        <td>@item.Item.ItemName</td>
-                                                                        <td>durability:@item.ItemCurrentDurability / @item.ItemMaxDurability</td>
-                                                                        <td>@Html.ActionLink("Attack with " + @item.Item.ItemName, "AttackZombie", new { zAAID = zombie.ZombieAttackAdventurerID, InvID = @item.InventoryID }, new { @class = "ActionLinkButton" })</td>
-
-                                                                    </tr>
-                                                                </table>
-                                                                <br />
-                                                            }
-
-                                                        }
-                                                    }
-                                            </td>
-                                            <tr></tr>
-                                        </table>
-
-                                        </td>
-                                        <td></td>
-                                    }
-                                }
-                                </table>
-                                <ul class="list-inline pull-right">
-                                    <li><button type="button" class="btn btn-primary next-step">Save and continue</button></li>
-                                </ul>
-                            </div>
-                            <div class="tab-pane" role="tabpanel" id="tabpanelstep2">
-                                <h3>Step 2</h3>
-                                <p>This is step 2</p>
-                                <table>
+                                @Html.ActionLink("Finish adventure", "StopAdventure", "Adventures", new { AdId = Model.Adventure.AdventureID, ChId = Model.CharacterID }, null)
+                                <table align="center">
 
                                     @foreach (var zombie in Model.ZombiesAttackAdventurer)
                                     {
-                                        if (@zombie.State == 2)
+                                        if (@zombie.State == counter)
                                         {
                                             <td>
-                                                <img src=@zombie.Zombie.ZombiePicture />
+                                                <img onclick="document.getElementById(@zombie.ZombieAttackAdventurerID).style.display = 'inline' " src=@zombie.Zombie.ZombiePicture />
                                                 <table cellspacing="100">
                                                     <td>
-                                                        ZombieAttackAdventurerID: @zombie.ZombieAttackAdventurerID
+                                                        @zombie.Zombie.ZombieName
                                                     </td>
                                                     <tr></tr>
                                                     <td>
-                                                        ZombieID:@zombie.ZombieID
+                                                        Life: @zombie.ZombieLife / @zombie.Zombie.ZombieLife
                                                     </td>
                                                     <tr></tr>
                                                     <td>
-                                                        State:@zombie.State
+                                                        Damage: @zombie.Zombie.ZombieDamage
                                                     </td>
                                                     <tr></tr>
-                                                    <td>
-                                                        ZombieLife:@zombie.ZombieLife
-                                                    </td>
-                                                    <tr></tr>
-                                                    <td>
-                                                        items: @foreach (var item in Model.Character.Inventory)
+                                                    <td id=@zombie.ZombieAttackAdventurerID style="display:none">
+                                                        @foreach (var item in Model.Character.Inventory)
                                                         {
-                                                            if (@item.Item.GetType().Name.Contains("Weapon"))
+                                                            if (item.Item.GetType().Name.Contains("Weapon"))
                                                             {
-                                                                if (@item.ItemPieces > 0)
+                                                                if (item.ItemPieces > 0)
                                                                 {
                                                                     <table>
                                                                         <tr>
@@ -158,7 +96,6 @@
                                                                             <td>@item.Item.ItemName</td>
                                                                             <td>durability:@item.ItemCurrentDurability / @item.ItemMaxDurability</td>
                                                                             <td>@Html.ActionLink("Attack with " + @item.Item.ItemName, "AttackZombie", new { zAAID = zombie.ZombieAttackAdventurerID, InvID = @item.InventoryID }, new { @class = "ActionLinkButton" })</td>
-
                                                                         </tr>
                                                                     </table>
                                                                     <br />
@@ -167,102 +104,40 @@
                                                             }
                                                         }
                                                     </td>
-                                                    <tr></tr>
+                                                    <tr>
+                                                        <td><div class="ActionLinkButton" onclick="document.getElementById(@zombie.ZombieAttackAdventurerID).style.display = 'inline'">Attack this zombie</div></td>
+                                                    </tr>
                                                 </table>
 
                                             </td>
-                                            <td></td>
                                         }
                                     }
                                 </table>
                                 <ul class="list-inline pull-right">
-                                    <li><button type="button" class="btn btn-default prev-step">Previous</button></li>
-                                    <li><button type="button" class="btn btn-primary next-step">Save and continue</button></li>
+                                    @*<li><button type="button" class="btn btn-primary next-step">Save and continue</button></li>*@
                                 </ul>
                             </div>
-                            <div class="tab-pane" role="tabpanel" id="tabpanelstep3">
-                                <h3>Step 3</h3>
-                                <p>This is step 3</p>
-                                <table>
+                        }
 
-                                    @foreach (var zombie in Model.ZombiesAttackAdventurer)
-                                    {
-                                        if (@zombie.State == 3)
-                                        {
-                                            <td>
-                                                <img src=@zombie.Zombie.ZombiePicture />
-                                                <table cellspacing="100">
-                                                    <td>
-                                                        ZombieAttackAdventurerID: @zombie.ZombieAttackAdventurerID
-                                                    </td>
-                                                    <tr></tr>
-                                                    <td>
-                                                        ZombieID:@zombie.ZombieID
-                                                    </td>
-                                                    <tr></tr>
-                                                    <td>
-                                                        State:@zombie.State
-                                                    </td>
-                                                    <tr></tr>
-                                                    <td>
-                                                        ZombieLife:@zombie.ZombieLife
-                                                    </td>
-                                                    <tr></tr>
-                                                    <td>
-                                                        items: @foreach (var item in Model.Character.Inventory)
-                                                        {
-                                                            if (@item.Item.GetType().Name.Contains("Weapon"))
-                                                            {
-                                                                if (@item.ItemPieces > 0)
-                                                                {
-                                                                    <table>
-                                                                        <tr>
-                                                                            <td><img src=@item.Item.ItemPicture /></td>
-                                                                            <td>@item.Item.ItemName</td>
-                                                                            <td>durability:@item.ItemCurrentDurability / @item.ItemMaxDurability</td>
-                                                                            <td>@Html.ActionLink("Attack with " + @item.Item.ItemName, "AttackZombie", new { zAAID = zombie.ZombieAttackAdventurerID, InvID = @item.InventoryID }, new { @class = "ActionLinkButton" })</td>
+                        @*<ul class="list-inline pull-right">
+                                <li><button type="button" class="btn btn-default prev-step">Previous</button></li>
+                                <li><button type="button" class="btn btn-default next-step">Skip</button></li>
+                                <li><button type="button" class="btn btn-primary btn-info-full next-step">Save and continue</button></li>
+                            </ul>*@
+                        <div align="center" class="tab-pane" role="tabpanel" id="tabpanelcomplete">
+                            <h3>Complete</h3>
+                            <p>You have successfully completed all steps.</p>
 
-                                                                        </tr>
-                                                                    </table>
-                                                                    <br />
-                                                                }
-
-                                                            }
-                                                        }
-                                                    </td>
-                                                    <tr></tr>
-                                                </table>
-
-                                            </td>
-                                            <td></td>
-                                        }
-                                    }
-                                </table>
-                                <ul class="list-inline pull-right">
-                                    <li><button type="button" class="btn btn-default prev-step">Previous</button></li>
-                                    <li><button type="button" class="btn btn-default next-step">Skip</button></li>
-                                    <li><button type="button" class="btn btn-primary btn-info-full next-step">Save and continue</button></li>
-                                </ul>
-                            </div>
-                            <div class="tab-pane" role="tabpanel" id="tabpanelcomplete">
-                                <h3>Complete</h3>
-                                <p>You have successfully completed all steps.</p>
-
-                                @Html.ActionLink("Finish adventure", "StopAdventure", "Adventures", new { AdId = 1, ChId = Model.CharacterID }, null)
-                            </div>
-                            <div class="clearfix"></div>
+                            <img src="~/Content/Pictures/Adventures/lada1.png" /><br />
+                            @Html.ActionLink("Collect reward", "CollectReward", "Adventures", new { AdId = 1, ChId = User.Identity.Name }, new { @class = "ActionLinkButton" })
                         </div>
-                    </form>
-                </div>
-            </section>
-        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                </form>
+            </div>
+        </section>
     </div>
-
-
-
-
-    <br />
-    <h2>AdventureZombieAttack</h2>
+</div>
 
     CharacterID: @Model.CharacterID <br />
     Adventure state: @Model.Character.AdventureState <br />
@@ -271,94 +146,96 @@
 
     <br />
 
-    @Html.ActionLink("Stop adventure", "RemoveAdventure", "Adventures", new { ChId = @Model.CharacterID }, null)
+    @Html.ActionLink("Exit adventure", "RemoveAdventure", "Adventures", new { ChId = @Model.CharacterID }, null)
 
     <br />
     Counter1 = @counter1<br />
     Counter2 = @counter2<br />
     Counter3 = @counter3<br />
+    Counter4 = @counter4<br />
+    Counter5 = @counter5<br />
 
 
+    @{ var cc = 1; }
+
+    @for (var i = 1; i <= Model.Adventure.AdventureSteps; i++)
+    {
+        string name = "tabpanelstep" + i;
+        int j = i + 1;
+        string nameplus = "tabpanelstep" + j;
+
+        <script>
+            console.log("Model.Adventure.AdventureSteps: " +@Model.Adventure.AdventureSteps);
+            console.log("counter:" +@i);
 
 
-    <script>
+            $(document).ready(function () {
 
-        $(document).ready(function () {
-
-            var counter1 = @counter1;
-            var counter2 = @counter2;
-            var counter3 = @counter3;
-
-            if(counter3 == 0){
-                $(document.getElementById("tabpanelcomplete")).addClass("active");
-
-                $(document.getElementById("step3")).addClass('disabled');
-                $(document.getElementById("step3")).removeClass('active');
-                $(document.getElementById("complete")).addClass('active');
-                $(document.getElementById("complete")).removeClass('disabled');
-
-            }
-            if(counter3 != 0 && counter2 == 0) {
-                $(document.getElementById("tabpanelstep3")).addClass("active");
-
-                $(document.getElementById("step2")).addClass('disabled');
-                $(document.getElementById("step2")).removeClass('active');
-                $(document.getElementById("step3")).addClass('active');
-                $(document.getElementById("step3")).removeClass('disabled');
-            }
-
-            if(counter2 != 0 && counter1 == 0){
-                $(document.getElementById("tabpanelstep2")).addClass("active");
-
-                $(document.getElementById("step1")).addClass('disabled');
-                $(document.getElementById("step1")).removeClass('active');
-                $(document.getElementById("step2")).addClass('active');
-                $(document.getElementById("step2")).removeClass('disabled');
-            }
-            if(counter1 != 0){
-                $(document.getElementById("tabpanelstep1")).addClass("active");
-                $(document.getElementById("step1")).addClass('active');
-                $(document.getElementById("step1")).removeClass('disabled');
-            }
-
-
-            var $active = $('.wizard .nav-tabs li.active');
-
-            //$active.addClass("disabled");
-
-            //Initialize tooltips
-            $('.nav-tabs > li a[title]').tooltip();
-
-            //Wizard
-            $('a[data-toggle="tab"]').on('show.bs.tab', function (e) {
-
-                var $target = $(e.target);
-
-                if ($target.parent().hasClass('disabled')) {
-                    return false;
+                if (@Model.ZombiesAttackAdventurer.Where(x => x.State == 1).Count() > 0) {
+                    $(document.getElementById("tabpanelstep1")).addClass("active");
+                    $(document.getElementById("step1")).addClass('active');
+                    $(document.getElementById("step1")).removeClass('disabled');
+                    console.log("eleje: step:" +@i);
                 }
-            });
+                if (@Model.ZombiesAttackAdventurer.Where(x => x.State == j).Count() > 0 && @Model.ZombiesAttackAdventurer.Where(x => x.State == i).Count() == 0) {
+                    $(document.getElementById("tabpanelstep"+@j )).addClass("active");
 
-            $(".next-step").click(function (e) {
+                    $(document.getElementById("step"+@i)).addClass('disabled');
+                    $(document.getElementById("step"+@i)).removeClass('active');
+                    $(document.getElementById("step"+@j)).addClass('active');
+                    $(document.getElementById("step"+@j)).removeClass('disabled');
+                    console.log("koztes: step: " +@j);
+                }
+
+                if(@Model.ZombiesAttackAdventurer.Where(x => x.State == Model.Adventure.AdventureSteps).Count() > 0 == 0){
+                    $(document.getElementById("tabpanelcomplete")).addClass("active");
+
+                    $(document.getElementById(@Model.Adventure.AdventureSteps-1)).addClass('disabled');
+                    $(document.getElementById(@Model.Adventure.AdventureSteps-1)).removeClass('active');
+                    $(document.getElementById("complete")).addClass('active');
+                    $(document.getElementById("complete")).removeClass('disabled');
+                    console.log("complte: " +@i)
+
+                }
+
 
                 var $active = $('.wizard .nav-tabs li.active');
+
                 //$active.addClass("disabled");
-                $active.next().removeClass('disabled');
-                nextTab($active);
 
+                //Initialize tooltips
+                $('.nav-tabs > li a[title]').tooltip();
+
+                //Wizard
+                $('a[data-toggle="tab"]').on('show.bs.tab', function (e) {
+
+                    var $target = $(e.target);
+
+                    if ($target.parent().hasClass('disabled')) {
+                        return false;
+                    }
+                });
+
+                $(".next-step").click(function (e) {
+
+                    var $active = $('.wizard .nav-tabs li.active');
+                    //$active.addClass("disabled");
+                    $active.next().removeClass('disabled');
+                    nextTab($active);
+
+                });
+                $(".prev-step").click(function (e) {
+                    var $active = $('.wizard .nav-tabs li.active');
+                    prevTab($active);
+
+                });
             });
-            $(".prev-step").click(function (e) {
-                var $active = $('.wizard .nav-tabs li.active');
-                prevTab($active);
 
-            });
-        });
-
-        function nextTab(elem) {
-            $(elem).next().find('a[data-toggle="tab"]').click();
-        }
-        function prevTab(elem) {
-            $(elem).prev().find('a[data-toggle="tab"]').click();
-        }
-
-    </script>
+            function nextTab(elem) {
+                $(elem).next().find('a[data-toggle="tab"]').click();
+            }
+            function prevTab(elem) {
+                $(elem).prev().find('a[data-toggle="tab"]').click();
+            }
+        </script>
+    }

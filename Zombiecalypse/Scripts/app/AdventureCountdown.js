@@ -5,9 +5,8 @@ var ChId = 1;
 var x = setInterval(function () {
 
     var now = new Date();
-    console.log("now: " + now);
-    console.log("until: " + until);
-    console.log("ChId: " + ChId);
+    console.log("adventureCounter");
+    console.log("until:" +until);
     var distance = until - now;
 
     // Output the result in an element with id="demo"
@@ -31,14 +30,12 @@ var x = setInterval(function () {
         }
     }
 
-    document.getElementById("demo2").innerHTML = now;
-    document.getElementById("demo3").innerHTML = until;
     document.getElementById("adventurecounter").innerHTML = days + " nap " + hours + " óra " + minutes + " perc " + seconds + " másodperc ";
 
     // If the count down is over, write some text 
     if (distance < 0) {
         clearInterval(x);
-        document.getElementById("demo").innerHTML = "EXPIRED";
+        document.getElementById("adventurecounter").innerHTML = "";
 
         window.location.href = '/Adventures/AdventureZombieAttack/' + '?ChId=' + ChId;
         // window.location = "/Adventures/Index";

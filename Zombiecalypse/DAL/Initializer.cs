@@ -272,48 +272,48 @@ namespace Zombiecalypse.DAL
             {
                 new CraftableWeapon {ItemID=69, ItemName = "Fire Mitts", WeaponDamage = 2, ItemMaxDurability=2, ItemPicture= "/Content/Pictures/CraftableWeapons/FireMitts.png",
                           CraftableWeaponMaterials = new List<CraftableWeaponMaterial> {
-                        new CraftableWeaponMaterial { WeaponID=61, MaterialID=36, MaterialPieces=1 },
-                        new CraftableWeaponMaterial { WeaponID=61, MaterialID=38, MaterialPieces=1 },
-                        new CraftableWeaponMaterial { WeaponID=61, MaterialID=2, MaterialPieces=1 }
+                        new CraftableWeaponMaterial { WeaponID=69, MaterialID=36, MaterialPieces=1 },
+                        new CraftableWeaponMaterial { WeaponID=69, MaterialID=38, MaterialPieces=1 },
+                        new CraftableWeaponMaterial { WeaponID=69, MaterialID=2, MaterialPieces=1 }
                     }
                 },
                     new CraftableWeapon {ItemID=70, ItemName = "Flamethrower",  WeaponDamage = 2, ItemMaxDurability=2, ItemPicture= "/Content/Pictures/CraftableWeapons/Flamethrower.png",
                         CraftableWeaponMaterials = new List<CraftableWeaponMaterial> {
-                            new CraftableWeaponMaterial { WeaponID=62, MaterialID=35, MaterialPieces=1 },
-                            new CraftableWeaponMaterial { WeaponID=62, MaterialID=36, MaterialPieces=1 },
-                            new CraftableWeaponMaterial { WeaponID=62, MaterialID=2, MaterialPieces=1 },
+                            new CraftableWeaponMaterial { WeaponID=70, MaterialID=35, MaterialPieces=1 },
+                            new CraftableWeaponMaterial { WeaponID=70, MaterialID=36, MaterialPieces=1 },
+                            new CraftableWeaponMaterial { WeaponID=70, MaterialID=2, MaterialPieces=1 },
 
                         }
                     },
                     new CraftableWeapon {ItemID=71, ItemName = "Electric Rake", WeaponDamage = 2, ItemMaxDurability=2, ItemPicture= "/Content/Pictures/CraftableWeapons/ElectricRake.png",
                         CraftableWeaponMaterials = new List<CraftableWeaponMaterial> {
-                            new CraftableWeaponMaterial { WeaponID=64, MaterialID=52, MaterialPieces=1 },
-                            new CraftableWeaponMaterial { WeaponID=64, MaterialID=53, MaterialPieces=1 },
-                            new CraftableWeaponMaterial { WeaponID=64, MaterialID=37, MaterialPieces=1 },
-                            new CraftableWeaponMaterial { WeaponID=64, MaterialID=29, MaterialPieces=1 },
+                            new CraftableWeaponMaterial { WeaponID=71, MaterialID=52, MaterialPieces=1 },
+                            new CraftableWeaponMaterial { WeaponID=71, MaterialID=53, MaterialPieces=1 },
+                            new CraftableWeaponMaterial { WeaponID=71, MaterialID=37, MaterialPieces=1 },
+                            new CraftableWeaponMaterial { WeaponID=71, MaterialID=29, MaterialPieces=1 },
                                             }
                     },
                     new CraftableWeapon {ItemID=72, ItemName = "Mega Maul",  WeaponDamage = 2, ItemMaxDurability=2, ItemPicture= "/Content/Pictures/CraftableWeapons/MegaMaul.png",
                         CraftableWeaponMaterials = new List<CraftableWeaponMaterial> {
-                            new CraftableWeaponMaterial { WeaponID=64, MaterialID=40, MaterialPieces=1 },
-                            new CraftableWeaponMaterial { WeaponID=64, MaterialID=41, MaterialPieces=1 },
-                            new CraftableWeaponMaterial { WeaponID=64, MaterialID=29, MaterialPieces=1 },
+                            new CraftableWeaponMaterial { WeaponID=72, MaterialID=40, MaterialPieces=1 },
+                            new CraftableWeaponMaterial { WeaponID=72, MaterialID=41, MaterialPieces=1 },
+                            new CraftableWeaponMaterial { WeaponID=72, MaterialID=29, MaterialPieces=1 },
                                             }
                     },
                     new CraftableWeapon {ItemID=73, ItemName = "Crowd Controller", WeaponDamage = 2, ItemMaxDurability=2, ItemPicture= "/Content/Pictures/CraftableWeapons/CrowdController.png",
                         CraftableWeaponMaterials = new List<CraftableWeaponMaterial> {
-                            new CraftableWeaponMaterial { WeaponID=64, MaterialID=42, MaterialPieces=1 },
-                            new CraftableWeaponMaterial { WeaponID=64, MaterialID=43, MaterialPieces=1 },
-                            new CraftableWeaponMaterial { WeaponID=64, MaterialID=37, MaterialPieces=1 },
-                            new CraftableWeaponMaterial { WeaponID=64, MaterialID=37, MaterialPieces=1 },
+                            new CraftableWeaponMaterial { WeaponID=73, MaterialID=42, MaterialPieces=1 },
+                            new CraftableWeaponMaterial { WeaponID=73, MaterialID=43, MaterialPieces=1 },
+                            new CraftableWeaponMaterial { WeaponID=73, MaterialID=37, MaterialPieces=1 },
+                            new CraftableWeaponMaterial { WeaponID=73, MaterialID=37, MaterialPieces=1 },
                                             }
                     },
                     new CraftableWeapon {ItemID=74, ItemName = "Fire Bomb", WeaponDamage = 2, ItemMaxDurability=2, ItemPicture= "/Content/Pictures/CraftableWeapons/FireBomb.png",
                         CraftableWeaponMaterials = new List<CraftableWeaponMaterial> {
-                            new CraftableWeaponMaterial { WeaponID=64, MaterialID=36, MaterialPieces=1 },
-                            new CraftableWeaponMaterial { WeaponID=64, MaterialID=37, MaterialPieces=1 },
-                            new CraftableWeaponMaterial { WeaponID=64, MaterialID=41, MaterialPieces=1 },
-                            new CraftableWeaponMaterial { WeaponID=64, MaterialID=37, MaterialPieces=1 },
+                            new CraftableWeaponMaterial { WeaponID=74, MaterialID=36, MaterialPieces=1 },
+                            new CraftableWeaponMaterial { WeaponID=74, MaterialID=37, MaterialPieces=1 },
+                            new CraftableWeaponMaterial { WeaponID=74, MaterialID=41, MaterialPieces=1 },
+                            new CraftableWeaponMaterial { WeaponID=74, MaterialID=37, MaterialPieces=1 },
                                             }
                     },
                     new CraftableWeapon {ItemID=75, ItemName = "Molotov", WeaponDamage = 2, ItemMaxDurability=2, ItemPicture= "/Content/Pictures/CraftableWeapons/Molotov.png",
@@ -326,26 +326,26 @@ namespace Zombiecalypse.DAL
                     },
                     new CraftableWeapon {ItemID=76, ItemName = "Slingshot", WeaponDamage = 2, ItemMaxDurability=2, ItemPicture= "/Content/Pictures/CraftableWeapons/Slingshot.png",
                         CraftableWeaponMaterials = new List<CraftableWeaponMaterial> {
-                            new CraftableWeaponMaterial { WeaponID=64, MaterialID=46, MaterialPieces=1 },
-                            new CraftableWeaponMaterial { WeaponID=64, MaterialID=47, MaterialPieces=1 },
-                            new CraftableWeaponMaterial { WeaponID=64, MaterialID=37, MaterialPieces=1 },
-                            new CraftableWeaponMaterial { WeaponID=64, MaterialID=37, MaterialPieces=1 },
+                            new CraftableWeaponMaterial { WeaponID=76, MaterialID=46, MaterialPieces=1 },
+                            new CraftableWeaponMaterial { WeaponID=76, MaterialID=47, MaterialPieces=1 },
+                            new CraftableWeaponMaterial { WeaponID=76, MaterialID=37, MaterialPieces=1 },
+                            new CraftableWeaponMaterial { WeaponID=76, MaterialID=37, MaterialPieces=1 },
                                             }
                     },
                     new CraftableWeapon {ItemID=77, ItemName = "Zombie Trimmer", WeaponDamage = 2, ItemMaxDurability=2, ItemPicture= "/Content/Pictures/CraftableWeapons/ZombieTrimmer.png",
                         CraftableWeaponMaterials = new List<CraftableWeaponMaterial> {
-                            new CraftableWeaponMaterial { WeaponID=64, MaterialID=48, MaterialPieces=1 },
-                            new CraftableWeaponMaterial { WeaponID=64, MaterialID=49, MaterialPieces=1 },
-                            new CraftableWeaponMaterial { WeaponID=64, MaterialID=41, MaterialPieces=1 },
-                            new CraftableWeaponMaterial { WeaponID=64, MaterialID=37, MaterialPieces=1 },
+                            new CraftableWeaponMaterial { WeaponID=77, MaterialID=48, MaterialPieces=1 },
+                            new CraftableWeaponMaterial { WeaponID=77, MaterialID=49, MaterialPieces=1 },
+                            new CraftableWeaponMaterial { WeaponID=77, MaterialID=41, MaterialPieces=1 },
+                            new CraftableWeaponMaterial { WeaponID=77, MaterialID=37, MaterialPieces=1 },
                                             }
                     },
                     new CraftableWeapon {ItemID=78, ItemName = "Ice Ice Baby", WeaponDamage = 2, ItemMaxDurability=2, ItemPicture= "/Content/Pictures/CraftableWeapons/IceIceBaby.png",
                         CraftableWeaponMaterials = new List<CraftableWeaponMaterial> {
-                            new CraftableWeaponMaterial { WeaponID=64, MaterialID=50, MaterialPieces=1 },
-                            new CraftableWeaponMaterial { WeaponID=64, MaterialID=51, MaterialPieces=1 },
-                            new CraftableWeaponMaterial { WeaponID=64, MaterialID=54, MaterialPieces=1 },
-                            new CraftableWeaponMaterial { WeaponID=64, MaterialID=37, MaterialPieces=1 },
+                            new CraftableWeaponMaterial { WeaponID=78, MaterialID=50, MaterialPieces=1 },
+                            new CraftableWeaponMaterial { WeaponID=78, MaterialID=51, MaterialPieces=1 },
+                            new CraftableWeaponMaterial { WeaponID=78, MaterialID=54, MaterialPieces=1 },
+                            new CraftableWeaponMaterial { WeaponID=78, MaterialID=37, MaterialPieces=1 },
                                             }
         }
     };
@@ -363,21 +363,21 @@ namespace Zombiecalypse.DAL
 
 
             var zombies = new List<Zombie> {
-                            new Zombie {ZombieID=1, ZombieName="Salesman", ZombieLife=1, ZombieType=1, ZombieDamage=1, RewardCoins=2, RewardXP=1, ZombiePicture="/Content/Pictures/Zombies/SalesmanZombie.png"},
-                            new Zombie {ZombieID=2, ZombieName="Supermart", ZombieLife=1, ZombieType=1, ZombieDamage=1, RewardCoins=2, RewardXP=1, ZombiePicture="/Content/Pictures/Zombies/SupermartZombie.png"},
-                            new Zombie {ZombieID=3, ZombieName="Janitor", ZombieLife=1, ZombieType=1, ZombieDamage=1, RewardCoins=2, RewardXP=1, ZombiePicture="/Content/Pictures/Zombies/JanitorZombie.png"},
-                            new Zombie {ZombieID=4, ZombieName="Gas station", ZombieLife=2, ZombieType=2, ZombieDamage=2, RewardCoins=5, RewardXP=3, ZombiePicture="/Content/Pictures/Zombies/GasStationZombie.png"},
-                            new Zombie {ZombieID=5, ZombieName="Plumber", ZombieLife=2, ZombieType=2, ZombieDamage=2, RewardCoins=5, RewardXP=3, ZombiePicture="/Content/Pictures/Zombies/PlumberZombie.png"},
-                            new Zombie {ZombieID=6, ZombieName="Waitress", ZombieLife=2, ZombieType=2, ZombieDamage=2, RewardCoins=5, RewardXP=4, ZombiePicture="/Content/Pictures/Zombies/WaitressZombie.png"},
-                            new Zombie {ZombieID=7, ZombieName="Miner", ZombieLife=2, ZombieType=2, ZombieDamage=2, RewardCoins=6, RewardXP=6, ZombiePicture="/Content/Pictures/Zombies/MinerZombie.png"},
-                            new Zombie {ZombieID=8, ZombieName="Constructor", ZombieLife=4, ZombieType=3, ZombieDamage=3, RewardCoins=8, RewardXP=10, ZombiePicture="/Content/Pictures/Zombies/ConstructorZombie.png"},
-                            new Zombie {ZombieID=9, ZombieName="Firefighter", ZombieLife=4, ZombieType=3, ZombieDamage=3, RewardCoins=8, RewardXP=10, ZombiePicture="/Content/Pictures/Zombies/FirefighterZombie.png"},
-                            new Zombie {ZombieID=10, ZombieName="Gardener", ZombieLife=4, ZombieType=3, ZombieDamage=3, RewardCoins=8, RewardXP=10, ZombiePicture="/Content/Pictures/Zombies/GardenerZombie.png"},
-                            new Zombie {ZombieID=11, ZombieName="Hazmat", ZombieLife=4, ZombieType=3, ZombieDamage=2, RewardCoins=8, RewardXP=10, ZombiePicture="/Content/Pictures/Zombies/HazmatZombie.png"},
-                            new Zombie {ZombieID=12, ZombieName="Cowboy", ZombieLife=4, ZombieType=3, ZombieDamage=3, RewardCoins=8, RewardXP=10, ZombiePicture="/Content/Pictures/Zombies/CowboyZombie.png"},
-                            new Zombie {ZombieID=13, ZombieName="Sailor", ZombieLife=9, ZombieType=4, ZombieDamage=2, RewardCoins=15, RewardXP=18, ZombiePicture="/Content/Pictures/Zombies/SailorZombie.png"},
-                            new Zombie {ZombieID=14, ZombieName="Riot", ZombieLife=8, ZombieType=5, ZombieDamage=3, RewardCoins=20, RewardXP=20, ZombiePicture="/Content/Pictures/Zombies/RiotZombie.png"},
-                            new Zombie {ZombieID=15, ZombieName="Super soldier", ZombieLife=8, ZombieType=5, ZombieDamage=3, RewardCoins=20, RewardXP=20, ZombiePicture="/Content/Pictures/Zombies/SuperSoldierZombie.png"}
+                            new Zombie {ZombieID=1, ZombieName="Salesman", ZombieLife=1, ZombieRank=1, ZombieDamage=1, RewardCoins=2, RewardXP=1, ZombiePicture="/Content/Pictures/Zombies/SalesmanZombie.png"},
+                            new Zombie {ZombieID=2, ZombieName="Supermart", ZombieLife=1, ZombieRank=1, ZombieDamage=1, RewardCoins=2, RewardXP=1, ZombiePicture="/Content/Pictures/Zombies/SupermartZombie.png"},
+                            new Zombie {ZombieID=3, ZombieName="Janitor", ZombieLife=1, ZombieRank=1, ZombieDamage=1, RewardCoins=2, RewardXP=1, ZombiePicture="/Content/Pictures/Zombies/JanitorZombie.png"},
+                            new Zombie {ZombieID=4, ZombieName="Gas station", ZombieLife=2, ZombieRank=2, ZombieDamage=2, RewardCoins=5, RewardXP=3, ZombiePicture="/Content/Pictures/Zombies/GasStationZombie.png"},
+                            new Zombie {ZombieID=5, ZombieName="Plumber", ZombieLife=2, ZombieRank=2, ZombieDamage=2, RewardCoins=5, RewardXP=3, ZombiePicture="/Content/Pictures/Zombies/PlumberZombie.png"},
+                            new Zombie {ZombieID=6, ZombieName="Waitress", ZombieLife=2, ZombieRank=2, ZombieDamage=2, RewardCoins=5, RewardXP=4, ZombiePicture="/Content/Pictures/Zombies/WaitressZombie.png"},
+                            new Zombie {ZombieID=7, ZombieName="Miner", ZombieLife=2, ZombieRank=2, ZombieDamage=2, RewardCoins=6, RewardXP=6, ZombiePicture="/Content/Pictures/Zombies/MinerZombie.png"},
+                            new Zombie {ZombieID=8, ZombieName="Constructor", ZombieLife=4, ZombieRank=3, ZombieDamage=3, RewardCoins=8, RewardXP=10, ZombiePicture="/Content/Pictures/Zombies/ConstructorZombie.png"},
+                            new Zombie {ZombieID=9, ZombieName="Firefighter", ZombieLife=4, ZombieRank=3, ZombieDamage=3, RewardCoins=8, RewardXP=10, ZombiePicture="/Content/Pictures/Zombies/FirefighterZombie.png"},
+                            new Zombie {ZombieID=10, ZombieName="Gardener", ZombieLife=4, ZombieRank=3, ZombieDamage=3, RewardCoins=8, RewardXP=10, ZombiePicture="/Content/Pictures/Zombies/GardenerZombie.png"},
+                            new Zombie {ZombieID=11, ZombieName="Hazmat", ZombieLife=4, ZombieRank=3, ZombieDamage=2, RewardCoins=8, RewardXP=10, ZombiePicture="/Content/Pictures/Zombies/HazmatZombie.png"},
+                            new Zombie {ZombieID=12, ZombieName="Cowboy", ZombieLife=4, ZombieRank=3, ZombieDamage=3, RewardCoins=8, RewardXP=10, ZombiePicture="/Content/Pictures/Zombies/CowboyZombie.png"},
+                            new Zombie {ZombieID=13, ZombieName="Sailor", ZombieLife=9, ZombieRank=4, ZombieDamage=2, RewardCoins=15, RewardXP=18, ZombiePicture="/Content/Pictures/Zombies/SailorZombie.png"},
+                            new Zombie {ZombieID=14, ZombieName="Riot", ZombieLife=8, ZombieRank=5, ZombieDamage=3, RewardCoins=20, RewardXP=20, ZombiePicture="/Content/Pictures/Zombies/RiotZombie.png"},
+                            new Zombie {ZombieID=15, ZombieName="Super soldier", ZombieLife=8, ZombieRank=5, ZombieDamage=3, RewardCoins=20, RewardXP=20, ZombiePicture="/Content/Pictures/Zombies/SuperSoldierZombie.png"}
                         };
             zombies.ForEach(s => context.Zombies.Add(s));
             context.SaveChanges();
@@ -456,9 +456,10 @@ namespace Zombiecalypse.DAL
 
 
             var adventures = new List<Adventure> {
-                            new Adventure { AdventureName="Short Adventure", AdventureWaitingTime=10, AdventureXPBonus=6, AdventureSteps=3},
-                            new Adventure { AdventureName="Middle Adventure", AdventureWaitingTime=15, AdventureXPBonus=10, AdventureSteps=4}
-                        };
+                 new Adventure { AdventureName="Short Adventure", AdventureWaitingTime=10, AdventureXPBonus=6, AdventureSteps=3, AdventureZombieMaxRank=1, AdventureMaxZombiesPerRound=4, AdventureRequerdEnergy=3},
+                 new Adventure { AdventureName="Middle Adventure", AdventureWaitingTime=15, AdventureXPBonus=10, AdventureSteps=4, AdventureZombieMaxRank=2, AdventureMaxZombiesPerRound=3, AdventureRequerdEnergy=4},
+                 new Adventure { AdventureName="Third Adventure", AdventureWaitingTime=25, AdventureXPBonus=30, AdventureSteps=7, AdventureZombieMaxRank=3, AdventureMaxZombiesPerRound=2, AdventureRequerdEnergy=5}
+            };
             adventures.ForEach(s => context.Adventures.Add(s));
             context.SaveChanges();
 

@@ -89,6 +89,9 @@ namespace Zombiecalypse.Models
         [Required]
         [Display(Name = "Character name")]
         public string CharacterName { get; set; }
+        [Required]
+        [Display(Name = "Character type")]
+        public int CharacterType { get; set; }
 
     }
 

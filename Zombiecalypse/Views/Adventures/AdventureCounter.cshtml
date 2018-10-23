@@ -13,7 +13,7 @@
     <h4>Adventure</h4>
     <hr />
     <dl class="dl-horizontal">
-        <dt>
+        @*<dt>
             @Html.DisplayNameFor(model => model.Adventure.AdventureName)
         </dt>
         <dd>
@@ -31,23 +31,24 @@
         </dt>
         <dd>
             @Html.DisplayFor(model => model.Character.AdventureState)
-        </dd>
-
-        Adventure datas:</br>
+        </dd>*@
 
 
-        DateNow: @DateTime.Now </br>
-        Finish adventure date: @Model.AdventureFinishDate<br />
+        @*DateNow: @DateTime.Now </br>
+        Finish adventure date: @Model.AdventureFinishDate<br />*@
         @*<button onclick="startCountDown()">Start</button></br>*@
 
-        <img src ="" class="image" />
-        <span id="demo"></span></br>
-        now:
-        <span id="demo2"></span></br>
-        until:
-        <span id="demo3"></span></br>
-        counter:
-        <span id="adventurecounter"></span></br>
+        <div align="center">
+            <img width="200px" height="300px" src="" class="image" /> <br />
+            @*<span id="demo"></span></br>
+    now:
+    <span id="demo2"></span></br>
+    until:
+            <span id="demo3"></span></br>
+            counter:*@
+            <span id="adventurecounter"></span></br>
+        </div>
+
 
 
         @*<script>

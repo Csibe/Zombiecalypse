@@ -93,8 +93,13 @@ namespace Zombiecalypse.Models
     public class BuildingDetailViewModel : ViewModelBase
     {
         public virtual Building Building { get; set; }
-        public virtual ICollection<BuildingMaterial> BuildingMaterials { get; set; }
-        public virtual ICollection<BuildingBuildingMaterial> BuildingBuildingMaterials { get; set; }
+        public virtual Building NextBuilding { get; set; }
+        public virtual Character Character { get; set; }
+        public virtual ICollection<Material> Materials { get; set; }
+        public virtual ICollection<BuildingMaterial> NextBuildingMaterials { get; set; }
+        public virtual ICollection<BuildingBuildingMaterial> NextBuildingBuildingMaterials { get; set; }
+        public virtual ICollection<CraftableWeapon> CraftableWeapons { get; set; }
+        public virtual ICollection<CraftableWeaponMaterial> ComponentOfCraftableWeapon { get; set; }
     }
 
     public class PlantOnFieldVM : ViewModelBase

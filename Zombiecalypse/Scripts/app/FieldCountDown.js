@@ -7,14 +7,13 @@ var x = setInterval(function () {
     for (var count = 0; count < FieldFinishDate.length; count++) {
 
         var until = FieldFinishDate[count];
-        console.log("until: " +until);
         var fieldID = FieldID[count];
 
         var now = new Date();
         var distance = until - now;
 
-        console.log("count:" + count);
-        console.log("distance: " +distance);
+        console.log("fieldcounter");
+
 
         // Output the result in an element with id="demo"
         var days = Math.floor(distance / (1000 * 60 * 60 * 24));
@@ -35,10 +34,10 @@ var x = setInterval(function () {
             }
         }
 
-        list = document.getElementsByClassName("counter");
-        for (i = 0; i < list.length; ++i) {
-            list[i].innerHTML = days + " nap " + hours + " óra " + minutes + " perc " + seconds + " másodperc ";
-        }
+       // list = document.getElementsByClassName("counter");
+      //  for (i = 0; i < list.length; ++i) {
+     //       list[i].innerHTML = days + " nap " + hours + " óra " + minutes + " perc " + seconds + " másodperc ";
+     //   }
 
 
         // If the count down is over, write some text 
@@ -46,7 +45,7 @@ var x = setInterval(function () {
             clearInterval(x);
             //document.getElementById("demo").innerHTML = "EXPIRED";
 
-            window.location.href = '/Plants/GrowUpPlant/' + '?fieldID=' + fieldID;
+            window.location.href = '/Gathering/GrowUpPlant/' + '?fieldID=' + fieldID;
             // window.location = "/Adventures/Index";
         }
     }

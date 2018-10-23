@@ -14,132 +14,122 @@ namespace Zombiecalypse.Controllers
     public class BuildingsController : Controller
     {
         private DataContext db = new DataContext();
+        int BuildingMaxLevel = 5;
 
-        // GET: Buildings
-        public ActionResult Index()
+        public ActionResult Details(int id)
         {
-            return View(db.Buildings.ToList());
-        }
-
-        // GET: Buildings/Details/5
-        public ActionResult Details(int? id)
-        {
-            BuildingDetailViewModel buildingDetailViewModel = new BuildingDetailViewModel();
+            BuildingDetailViewModel model = new BuildingDetailViewModel();
 
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            Building building = db.Buildings.Find(id);
+            model.Building = db.Buildings.Find(id);
 
-            if (building == null)
+            List<CraftableWeaponMaterial> selectBuilding = new List<CraftableWeaponMaterial>();
+
+            foreach (var weaponMaterial in db.CraftableWeaponMaterials.Where(x => x.MaterialID == id))
+            {
+
+                selectBuilding.Add(weaponMaterial);
+            }
+
+            List<CraftableWeapon> craftableWeapons = new List<CraftableWeapon>();
+            List<CraftableWeaponMaterial> craftableWeaponMaterials = new List<CraftableWeaponMaterial>();
+
+            foreach (var weapon in selectBuilding)
+            {
+                foreach (var weaponMaterial in db.CraftableWeaponMaterials)
+                {
+                    if (weapon.WeaponID == weaponMaterial.WeaponID)
+                    {
+                        if (craftableWeapons.Contains<CraftableWeapon>(db.CraftableWeapons.Find(weapon.WeaponID)))
+                        {
+
+                        }
+                        else
+                        {
+                            craftableWeapons.Add(db.CraftableWeapons.Find(weapon.WeaponID));
+                        }
+                        craftableWeaponMaterials.Add(weaponMaterial);
+                    }
+                }
+            }
+
+
+            model.NextBuilding = db.Buildings.Find(id + 1);
+            model.CraftableWeapons = craftableWeapons;
+            model.ComponentOfCraftableWeapon = craftableWeaponMaterials;
+            model.Character = db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault(); ;
+            model.Materials = db.Materials.ToList();
+
+            if (model.Building == null)
             {
                 return HttpNotFound();
             }
-            else {
-                buildingDetailViewModel.Building = db.Buildings.Find(id);
-                buildingDetailViewModel.BuildingBuildingMaterials = db.BuildingBuildingMaterials.Where(x => x.BuildingID == id).ToList();
-                buildingDetailViewModel.BuildingMaterials = db.BuildingMaterials.ToList();
+            else
+            {
+                if (model.Building.BuildingLevel < BuildingMaxLevel)
+                {
+                    id += 1;
+                    model.NextBuilding = db.Buildings.Find(id);
+                    model.NextBuildingBuildingMaterials = db.BuildingBuildingMaterials.Where(x => x.BuildingID == id).ToList();
+                    model.NextBuildingMaterials = db.BuildingMaterials.ToList();
+                }
+                else
+                {
+                    model.NextBuilding = db.Buildings.Find(id);
+                    model.NextBuildingBuildingMaterials = db.BuildingBuildingMaterials.Where(x => x.BuildingID == id).ToList();
+                    model.NextBuildingMaterials = db.BuildingMaterials.ToList();
+                }
             }
 
-            buildingDetailViewModel.PageName = db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault().ApplicationUserID;
-            buildingDetailViewModel.Fields = db.CharacterFields.Where(x => x.CharacterID == db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault().CharacterID).ToList();
-            buildingDetailViewModel.EnergyPlusDate = db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault().EnergyPlusDate;
-            buildingDetailViewModel.AttackingZombies = db.ZombieAttackBases.Where(x => x.CharacterID == db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault().CharacterID).ToList();
-            buildingDetailViewModel.AdventureFinishDate = db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault().FinishAdventure;
 
+            model.UserKe = db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault().ApplicationUserID;
+            model.Fields = db.CharacterFields.Where(x => x.CharacterID == db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault().CharacterID).ToList();
+            model.EnergyPlusDate = db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault().EnergyPlusDate;
+            model.AttackingZombies = db.ZombieAttackBases.Where(x => x.CharacterID == db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault().CharacterID).ToList();
+            model.AdventureFinishDate = db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault().FinishAdventure;
 
-            return View(buildingDetailViewModel);
+            return View(model);
         }
 
-        // GET: Buildings/Create
-        public ActionResult Create()
+        public ActionResult RepairFence(string id)
         {
-            return View();
-        }
 
-        // POST: Buildings/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ItemID,ItemName,ItemPicture,ItemMaxDurability,BuildingLevel,BuildingEnergyCost,BuildingMoneyCost")] Building building)
-        {
-            if (ModelState.IsValid)
+            Character character = db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault();
+            Inventory item = character.Inventory.Where(x => x.ItemID == 55).FirstOrDefault(); //board
+
+
+            if (item == null)
             {
-                db.Items.Add(building);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Details", "Characters", new { id = User.Identity.Name });
             }
 
-            return View(building);
-        }
+            if (character.IsOnAdventure == false)
+            {
+                if (character.CurrentEnergy > 0)
+                {
+                    if (item.ItemPieces > 0)
+                    {
+                        var result = new CharactersController().ManageEnergy(User.Identity.Name, 1, this.Request.Path);
+                        item.ItemPieces--;
+                        character.FenceCurrentDurability++;
+                        db.SaveChanges();
+                    }
 
-        // GET: Buildings/Edit/5
-        public ActionResult Edit(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                    return RedirectToAction("Details", "Characters", new { id = User.Identity.Name });
+                }
+                else
+                {
+                    return RedirectToAction("Details", "Characters", new { id = User.Identity.Name });
+                }
             }
-            Building building = db.Buildings.Find(id);
-            if (building == null)
+            else
             {
-                return HttpNotFound();
+                return RedirectToAction("Details", "Characters", new { id = User.Identity.Name }); 
             }
-            return View(building);
-        }
-
-        // POST: Buildings/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ItemID,ItemName,ItemPicture,ItemMaxDurability,BuildingLevel,BuildingEnergyCost,BuildingMoneyCost")] Building building)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Entry(building).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            return View(building);
-        }
-
-        // GET: Buildings/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Building building = db.Buildings.Find(id);
-            if (building == null)
-            {
-                return HttpNotFound();
-            }
-            return View(building);
-        }
-
-        // POST: Buildings/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            Building building = db.Buildings.Find(id);
-            db.Items.Remove(building);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
         }
     }
 }
