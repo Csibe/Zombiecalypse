@@ -123,7 +123,7 @@ namespace Zombiecalypse.Controllers
                 item.ItemCurrentDurability = newitem.ItemMaxDurability;
 
                 character.CharacterMoney -= building.BuildingMoneyCost;
-                var result = new CharactersController().ManageEnergy(User.Identity.Name,building.BuildingEnergyCost, this.Request.FilePath);
+                var result = new CharactersController().ManageEnergy(User.Identity.Name, building.BuildingEnergyCost, this.Request.FilePath);
 
                 db.SaveChanges();
 
@@ -137,7 +137,7 @@ namespace Zombiecalypse.Controllers
 
         }
 
-        public ActionResult CraftWeapon(int WeaponId, string ChId)
+        public ActionResult CraftWeapon(int WeaponId)
         {
 
             Character character = db.Characters.Where(x => x.ApplicationUserID == User.Identity.Name).FirstOrDefault();
@@ -165,62 +165,76 @@ namespace Zombiecalypse.Controllers
 
             List<CraftableWeaponMaterial> craftableWeaponMaterials = db.CraftableWeaponMaterials.Where(x => x.WeaponID == WeaponId).ToList();
 
-            int counter = 0;
+            Building building = new Building();
 
-
-            foreach (var invMat in character.Inventory)
+            foreach (var mat in craftableWeaponMaterials)
             {
-                foreach (var weapMat in craftableWeaponMaterials)
+                foreach (var b in db.Buildings)
                 {
-                    if (invMat.ItemID == weapMat.MaterialID)
+                    if (mat.MaterialID == b.ItemID)
                     {
-                        if (invMat.ItemPieces >= weapMat.MaterialPieces)
-                        {
-                            counter++;
-                        }
-                    }
+                        building = db.Buildings.Find(b.ItemID);
 
+                    }
                 }
             }
 
+                int counter = 0;
 
-            if (counter == craftableWeaponMaterials.Count())
-            {
+
                 foreach (var invMat in character.Inventory)
                 {
                     foreach (var weapMat in craftableWeaponMaterials)
                     {
                         if (invMat.ItemID == weapMat.MaterialID)
                         {
-                            invMat.ItemPieces = invMat.ItemPieces - weapMat.MaterialPieces;
-
+                            if (invMat.ItemPieces >= weapMat.MaterialPieces)
+                            {
+                                counter++;
+                            }
                         }
+
                     }
                 }
 
 
-
-                if (character.Inventory.Where(x => x.ItemID == WeaponId).FirstOrDefault() != null)
+                if (counter == craftableWeaponMaterials.Count())
                 {
-                    Inventory inventory = character.Inventory.Where(x => x.ItemID == WeaponId).FirstOrDefault();
-                    inventory.ItemPieces++;
+                    foreach (var invMat in character.Inventory)
+                    {
+                        foreach (var weapMat in craftableWeaponMaterials)
+                        {
+                            if (invMat.ItemID == weapMat.MaterialID && invMat.ItemID != building.ItemID)
+                            {
+                                invMat.ItemPieces -= weapMat.MaterialPieces;
+
+                            }
+                        }
+                    }
+
+
+
+                    if (character.Inventory.Where(x => x.ItemID == WeaponId).FirstOrDefault() != null)
+                    {
+                        Inventory inventory = character.Inventory.Where(x => x.ItemID == WeaponId).FirstOrDefault();
+                        inventory.ItemPieces++;
+                    }
+                    else
+                    {
+                        Inventory inventory = new Inventory { ItemID = WeaponId, CharacterID = character.CharacterID, ItemPieces = 1, ItemCurrentDurability = craftableWeapon.ItemMaxDurability, ItemMaxDurability = craftableWeapon.ItemMaxDurability };
+                        db.Inventories.Add(inventory);
+                    }
+
+
+                    db.SaveChanges();
+
+                    return RedirectToAction("Details", "Characters", new { id = User.Identity.Name });
+
                 }
                 else
                 {
-                    Inventory inventory = new Inventory { ItemID = WeaponId, CharacterID = character.CharacterID, ItemPieces = 1, ItemCurrentDurability = craftableWeapon.ItemMaxDurability, ItemMaxDurability = craftableWeapon.ItemMaxDurability };
-                    db.Inventories.Add(inventory);
+                    return RedirectToAction("Details", "Characters", new { id = User.Identity.Name });
                 }
-
-
-                db.SaveChanges();
-
-                return RedirectToAction("Details", "Characters", new { id = User.Identity.Name });
-
-            }
-            else
-            {
-                return RedirectToAction("Details", "Characters", new { id = User.Identity.Name });
             }
         }
     }
-}

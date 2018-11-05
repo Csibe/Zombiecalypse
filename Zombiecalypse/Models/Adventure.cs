@@ -30,7 +30,6 @@ namespace Zombiecalypse.Models
         public int ItemMaxDrop { get; set; }
     }
 
-
     public class AdventureDropVM : ViewModelBase
     {
         public int AdventureDropID { get; set; }
@@ -47,15 +46,24 @@ namespace Zombiecalypse.Models
         public int ZombieLife { get; set; }
         public int CharacterID { get; set; }
         public int State { get; set; }
+        public bool isYourTourn { get; set; }
         public Zombie Zombie { get; set; }
     }
+
+    public class ZombieAttackAdventurer2
+    {
+        public virtual ZombieAttackAdventurer ZombieAttackAdventurer{ get;set;}
+        public virtual Character Character { get; set; }
+        public virtual Adventure Adventure { get; set; }
+        public virtual Zombie Zombie { get; set; }
+    }
+
 
 
     public class AdventureViewModel : ViewModelBase
     {
         
         public virtual ICollection<ZombieAttackAdventurer> ZombiesAttackAdventurer { get; set; }
-        public int CharacterID { get; set; }
         public virtual Character Character { get; set; }
         public virtual Adventure Adventure { get; set; }
         public virtual ICollection<Adventure> Adventures { get; set; }
@@ -63,8 +71,4 @@ namespace Zombiecalypse.Models
     }
 
 
-    public class ChosenZombie
-    {
-        public Zombie Zombie { get; set; }
-    }
 }

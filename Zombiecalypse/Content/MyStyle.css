@@ -1,6 +1,9 @@
-﻿img.image {
+﻿
+
+
+img.image {
     align-items: center;
-    text-align:center
+    text-align: center;
 }
 
 span.counter {
@@ -127,28 +130,28 @@ span.round-tab:hover {
 
 
 
-    .wizard {
-        width: 90%;
-        height: auto !important;
-    }
+.wizard {
+    width: 90%;
+    height: auto !important;
+}
 
-    span.round-tab {
-        font-size: 16px;
-        width: 50px;
-        height: 50px;
-        line-height: 50px;
-    }
+span.round-tab {
+    font-size: 16px;
+    width: 50px;
+    height: 50px;
+    line-height: 50px;
+}
 
-    .wizard .nav-tabs > li a {
-        width: 50px;
-        height: 50px;
-        line-height: 50px;
-    }
+.wizard .nav-tabs > li a {
+    width: 50px;
+    height: 50px;
+    line-height: 50px;
+}
 
-    .wizard li.active:after {
-        content: " ";
-        position: absolute;
-    }
+.wizard li.active:after {
+    content: " ";
+    position: absolute;
+}
 
 
 
@@ -158,8 +161,8 @@ h1.FoodCounter {
     background-size: cover;
     text-align: left;
     position: absolute;
-    top: 500px;
-    left: 1300px;
+    top: 65px;
+    left: 1000px;
     text-indent: 50px;
     color: white;
     background-repeat: no-repeat;
@@ -181,12 +184,6 @@ table, tr, td {
     text-align: center;
 }
 
-.tab-content {
-    /*background-image:url("/Content/Pictures/paper2.png");*/
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-origin: padding-box;
-}
 
 div.container > .rating-num {
     text-align: center;
@@ -195,27 +192,20 @@ div.container > .rating-num {
 
 
 div.container.body-content {
-    background-image: url("/Content/Pictures/paper4.png");
+    background-image: url("/Content/Pictures/table3.png");
     background-repeat: no-repeat;
-    /*background-size: cover;*/
-    /*  background-origin: padding-box;*/
-}
-
-div.container > .tab-content {
-    /*background-image: url("/Content/Pictures/paper2.png");*/
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-origin: border-box;
+    background-size:  cover;
+    background-origin: padding-box;
 }
 
 .nav-tabs > li > a {
     background-color: black;
     color: black;
-    background-image: url("/Content/Pictures/paper4.png");
+    background-image: url("/Content/Pictures/table2.png");
 }
 
 a.ActionLinkButton:link, a.ActionLinkButton:visited, a.ActionLinkButton:active, div.ActionLinkButton {
-    background-image: url("/Content/Pictures/button2.png");
+    background-image: url("/Content/Pictures/button2.png"); 
     display: inline-block;
     border: 1px solid;
     padding: 3px;

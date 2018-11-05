@@ -11,8 +11,7 @@
     var EnergyValue = ((Model.Character.CurrentEnergy * 100) / Model.Character.MaxEnergy);
     var XPValue = ((Model.Character.CharacterXP * 100) / Model.CharacterNextLevelXP);
 
-    var FenceValue = ((Model.Character.FenceCurrentDurability * 100) / Model.Character.FenceMaxtDurability);
-
+    var FenceValue = 0;
     var counter = 0;
 
     var minutes = DateTime.Now.Minute - @Model.Character.LastLogin.Minute;
@@ -20,9 +19,13 @@
     var hoursinminutes = hours * 60;
     var finalResult = (hoursinminutes - minutes) / 70;
 }
-<br />
-<br />
-<h2>@Model.Character.CharacterName</h2>
+
+@if (Model.FenceCurrentDurability > 0 && Model.FenceMaxDurability > 0)
+{
+    FenceValue = ((Model.FenceCurrentDurability * 100) / Model.FenceMaxDurability);
+}
+
+@*<h2>@Model.Character.CharacterName</h2>
 @Html.ActionLink("Start Zombie Attack", "StartAttack", "Zombies", new { id = User.Identity.Name, forCounter = finalResult }, null) <br />
 @Html.ActionLink("Login-1minute", "SetLasLoginMinusMinute", "Characters", new { id = User.Identity.Name }, null) <br />
 @Html.ActionLink("Login-1hour", "SetLasLoginMinusHour", "Characters", new { id = User.Identity.Name }, null) <br />
@@ -30,7 +33,7 @@
     h: @hours , @hoursinminutes  <br />
     m: @minutes <br />
     @finalResult <br />
-    @Model.Character.LastLogin
+    @Model.Character.LastLogin*@
 
 
 
@@ -81,7 +84,7 @@
                             </td>
                         }
                         <td>
-                            <table border="0" width="800">
+                            <table>
                                 <tr>
                                     <td>
                                         @Html.DisplayNameFor(model => model.Character.CharacterName)
@@ -167,7 +170,7 @@
                                 </tr>
                                 <tr>
                                     <td>
-                                        @Html.ActionLink("Add to energy", "AddToEnergy",null, new { @class = "ActionLinkButton" })
+                                        @Html.ActionLink("Add to energy", "AddToEnergy", null, new { @class = "ActionLinkButton" })
                                     </td>
                                     <td>
                                         @Html.ActionLink("Do something", "ManageEnergy", new { id = User.Identity.Name, returnUrl = "/Details/" + User.Identity.Name }, new { @class = "ActionLinkButton" })
@@ -180,12 +183,10 @@
             </div>
 
             <div align="center" id="buildings" class="tab-pane fade">
-                <br />
-                <br />
                 <table>
                     <td>
                         <div style="text-align:center">
-                            <img style="align-content:center" width=700 usemap="#map" height="450" src=@Model.BasePicture />
+                            <img style="align-content:center" width="600px" usemap="#map" src=@Model.BasePicture />
                             <map name="map">
                                 <area shape="rect" coords="0,0,200,200" alt="House" href="~/Buildings/Details/@houseID">
                                 <area shape="rect" coords="200,0,400,200" alt="Garage" href="~/Buildings/Details/@garageID">
@@ -197,7 +198,7 @@
                     </td>
                     <tr></tr>
                     <td>
-                        <table width="700" height="150" style="background-image:url(../../Content/Pictures/Base/fence.png); background-repeat: no-repeat, no-repeat; background-size: cover">
+                        <table width="600" height="150" style="background-image:url(../../Content/Pictures/Base/fence.png); background-repeat: no-repeat, no-repeat; background-size: cover">
                             <td>
                                 <meta charset="utf-8">
                                 <meta name="viewport" content="width=30%, initial-scale=1">
@@ -205,17 +206,16 @@
                                 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
                                 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-
                                 <div class="container" style="width:300px;">
                                     <div class="rating-num">
-                                        @Model.Character.FenceMaxtDurability/@Model.Character.FenceCurrentDurability
+                                        @Model.FenceCurrentDurability/@Model.FenceMaxDurability
                                         <div class="progress">
-                                            <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="@Model.Character.FenceCurrentDurability" aria-valuemin="0" aria-valuemax="100" style="width:@FenceValue%"></div>
+                                            <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="@Model.FenceCurrentDurability" aria-valuemin="0" aria-valuemax="100" style="width:@FenceValue%"></div>
                                         </div>
                                     </div>
                                 </div>
 
-                                @if (Model.Character.FenceCurrentDurability < Model.Character.FenceMaxtDurability)
+                                @if (Model.FenceCurrentDurability < Model.FenceMaxDurability)
                                 {
                                     @Html.ActionLink("Repair", "RepairFence", "Buildings", new { id = User.Identity.Name }, new { @class = "ActionLinkButton" })
                                 }
@@ -238,47 +238,46 @@
                     <table align="center" class="table">
                         @foreach (var zombies in Model.AttackingZombies)
                         {
-                            <td>
-                                <table align="center">
+                            foreach (var z in Model.ZombiesDB)
+                            {
+                                if (zombies.ZombieID == z.ZombieID)
+                                {
+                                    <td>
+                                        <table align="center">
 
-                                    <td>
-                                        <img src=@zombies.Zombie.ZombiePicture />
+                                            <td>
+                                                <img src=@zombies.Zombie.ZombiePicture />
+                                            </td>
+                                            <tr></tr>
+                                            <td>
+                                                @zombies.Zombie.ZombieName zombie
+                                            </td>
+                                            <tr></tr>
+                                            <td>
+                                                Attack date:   @zombies.ZombieAttackStart
+                                            </td>
+                                            <tr></tr>
+                                            <td>
+                                                Life:    @zombies.ZombieLife/ @z.ZombieLife
+                                            </td>
+                                            <tr></tr>
+                                            <td>
+                                                Damage:   @zombies.Zombie.ZombieDamage
+                                            </td>
+                                            <tr></tr>
+                                            <td>
+                                                @Html.ActionLink("Attack zombie", "BaseDefenseFromZombie", "Zombies", new { ZabID = @zombies.ZombieAttackBaseID, AttackPower = 0, InvID = 0 }, new { @class = "ActionLinkButton" })
+                                            </td>
+                                            <tr></tr>
+                                            <td>
+                                                @Html.ActionLink("Zombie attack", "ZombieAttackBase", "Zombies", new { ZabID = @zombies.ZombieAttackBaseID }, new { @class = "ActionLinkButton" })
+                                            </td>
+                                        </table>
                                     </td>
-                                    <tr></tr>
+                                }
 
-                                    <td>
-                                        @zombies.ZombieAttackBaseID
-                                    </td>
-                                    <tr></tr>
-                                    <td>
-                                        @zombies.ZombieID
-                                    </td>
-                                    <tr></tr>
-                                    <td>
-                                        @zombies.Zombie.ZombieName
-                                    </td>
-                                    <tr></tr>
-                                    <td>
-                                        @zombies.ZombieAttackStart
-                                    </td>
-                                    <tr></tr>
-                                    <td>
-                                        @zombies.ZombieLife
-                                    </td>
-                                    <tr></tr>
-                                    <td>
-                                        @zombies.Zombie.ZombieDamage
-                                    </td>
-                                    <tr></tr>
-                                    <td>
-                                        @Html.ActionLink("Attack zombie", "BaseDefenseFromZombie", "Zombies", new { ZabID = @zombies.ZombieAttackBaseID, AttackPower = 0, InvID = 0 }, new { @class = "ActionLinkButton" })
-                                    </td>
-                                    <tr></tr>
-                                    <td>
-                                        @Html.ActionLink("Zombie attack", "ZombieAttackBase", "Zombies", new { ZabID = @zombies.ZombieAttackBaseID }, new { @class = "ActionLinkButton" })
-                                    </td>
-                                </table>
-                            </td>
+                            }
+
                         }
 
                     </table>
@@ -303,11 +302,9 @@
                                         <table border="1">
                                             <td><img src="~/Content/Pictures/Fields/FieldEmpty.png" /></td>
                                             <tr></tr>
-                                            <td>@field.PlantID</td>
-                                            <tr></tr>
                                             <td>field is empty</td>
                                             <tr></tr>
-                                            <td>@Html.ActionLink("Choose plant", "ChoosePlantOnField", "Gathering", new { id = @field.CharacterFieldID }, new { @class = "ActionLinkButton" })</td>
+                                            <td>@Html.ActionLink("Choose a plant", "ChoosePlantOnField", "Gathering", new { id = @field.CharacterFieldID }, new { @class = "ActionLinkButton" })</td>
                                         </table>
                                     </td>
                                 }
@@ -329,7 +326,7 @@
                                                 <tr></tr>
 
                                             }
-                                            else
+                                            else if (@field.isFinished == false && @field.FinishDate > DateTime.Now)
                                             {
                                                 <td><img src=@field.Plant.ItemPicture /></td>
                                                 <tr></tr>
@@ -341,6 +338,12 @@
                                                 <tr></tr>
                                                 <td>@field.FinishDate</td>
                                                 <tr></tr>
+                                            }
+                                            else if (@field.isFinished == false)
+                                            {
+                                                <td>@Html.ActionLink("Grow up", "GrowUpPlant", "Gathering", new { fieldID = @field.CharacterFieldID }, new { @class = "ActionLinkButton" })</td>
+
+                                               
                                             }
                                         </table>
                                     </td>
@@ -409,14 +412,14 @@
             <div id="items" class="tab-pane fade">
                 <h3>Items</h3>
 
-                <table border="1" class="table">
+                <table border="1" style="width: inherit ">
                     @foreach (var item in Model.Character.Inventory)
                     {
-                        if (item.ItemID > 24 && item.ItemPieces > 0)
+                        if (item.ItemID > 24 && item.ItemID < 59 && item.ItemPieces > 0)
                         {
                             <td>
-                                <table border="1">
-                                    <td><img width="100" height="100" src=@item.Item.ItemPicture /></td>
+                                <table style="width:inherit" border="1">
+                                    <td><img width="75" height="75" src=@item.Item.ItemPicture /></td>
                                     <tr></tr>
                                     <td>@item.Item.ItemName</td>
                                     <tr></tr>
@@ -430,7 +433,38 @@
                                     @{counter = counter + 1;}
                                 </table>
                             </td>
-                                        if (@counter % 4 == 0)
+                                        if (@counter % 25 == 0)
+                                        {
+                                            <tr></tr>
+                                                }
+
+                                            }
+
+                                        }
+                </table>
+
+               <table width="700" border="1">
+                    @foreach (var item in Model.Character.Inventory)
+                    {
+                        if (item.ItemID > 24 && item.ItemPieces > 0)
+                        {
+                            <td>
+                                <table border="1">
+                                    <td><img width="75" height="75" src=@item.Item.ItemPicture /></td>
+                                    <tr></tr>
+                                    <td>@item.Item.ItemName</td>
+                                    <tr></tr>
+                                    <td>pieces: @item.ItemPieces</td>
+                                    <tr></tr>
+                                    @if (item.ItemMaxDurability > 0)
+                                    {
+                                        <td>durability: @item.ItemMaxDurability/@item.ItemCurrentDurability</td>
+                                    }
+
+                                    @{counter = counter + 1;}
+                                </table>
+                            </td>
+                                        if (@counter % 25 == 0)
                                         {
                                             <tr></tr>
                                                 }
@@ -441,7 +475,7 @@
                 </table>
 
 
-                <table class="table">
+                @*<table >
                     <tr>
                         <th>InventoryID</th>
                         <th>ItemID</th>
@@ -475,8 +509,6 @@
                         </tr>
                     }
 
-                </table>
-                <br />
-                <br />
+                </table>*@
 
             </div>

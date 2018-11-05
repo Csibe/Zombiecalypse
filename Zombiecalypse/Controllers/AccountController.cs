@@ -158,7 +158,7 @@ namespace Zombiecalypse.Controllers
             if (ModelState.IsValid)
             {
                 var user = new ApplicationUser { UserName = model.Name, Email = model.Email };
-                var character = new Character { ApplicationUserID = model.Name, CharacterName = model.CharacterName, CharacterType=model.CharacterType, FinishAdventure = DateTime.MaxValue, IsOnAdventure = false, CurrentEnergy = 14, MaxEnergy = 14, CharacterLevel = 1, EnergyPlusDate = DateTime.MaxValue, LastLogin = DateTime.MaxValue, FenceCurrentDurability=3, FenceMaxtDurability=3 };
+                var character = new Character { ApplicationUserID = model.Name, CharacterName = model.CharacterName, CharacterType = model.CharacterType, FinishAdventure = DateTime.MaxValue, IsOnAdventure = false, CurrentEnergy = 14, MaxEnergy = 14, CharacterLevel = 1, EnergyPlusDate = DateTime.MaxValue, LastLogin = DateTime.Now, MaxTolerance=5, Tolerance=5 };
 
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
@@ -172,7 +172,8 @@ namespace Zombiecalypse.Controllers
                     new Inventory{ CharacterID=character.CharacterID, ItemID=2, ItemPieces=1, ItemMaxDurability=1, ItemCurrentDurability=1},
                     new Inventory{ CharacterID=character.CharacterID, ItemID=7, ItemPieces=1,ItemMaxDurability=0, ItemCurrentDurability=0},
                     new Inventory{ CharacterID=character.CharacterID, ItemID=13, ItemPieces=1, ItemMaxDurability=0, ItemCurrentDurability=0},
-                    new Inventory{ CharacterID=character.CharacterID, ItemID=19, ItemPieces=1, ItemMaxDurability=0, ItemCurrentDurability=0},
+                    new Inventory{ CharacterID=character.CharacterID, ItemID=19, ItemPieces=1, ItemMaxDurability=db.Buildings.Where(x=> x.ItemID == 19).First().ItemMaxDurability, ItemCurrentDurability=db.Buildings.Where(x=> x.ItemID == 19).First().ItemMaxDurability},
+                    new Inventory{ CharacterID=character.CharacterID, ItemID=83, ItemPieces=1, ItemMaxDurability=db.Buildings.Where(x=> x.ItemID == 83).First().ItemMaxDurability, ItemCurrentDurability=db.Buildings.Where(x=> x.ItemID == 83).First().ItemMaxDurability},
 
                     new Inventory{ CharacterID=character.CharacterID, ItemID=54, ItemPieces=0, ItemMaxDurability=0, ItemCurrentDurability=0},
                     new Inventory{ CharacterID=character.CharacterID, ItemID=55, ItemPieces=0, ItemMaxDurability=0, ItemCurrentDurability=0},
@@ -180,10 +181,16 @@ namespace Zombiecalypse.Controllers
                     new Inventory{ CharacterID=character.CharacterID, ItemID=57, ItemPieces=0, ItemMaxDurability=0, ItemCurrentDurability=0},
                     new Inventory{ CharacterID=character.CharacterID, ItemID=58, ItemPieces=0, ItemMaxDurability=0, ItemCurrentDurability=0},
 
+                    new Inventory{ CharacterID=character.CharacterID, ItemID=36, ItemPieces=0, ItemMaxDurability=0, ItemCurrentDurability=0},
+                    new Inventory{ CharacterID=character.CharacterID, ItemID=37, ItemPieces=0, ItemMaxDurability=0, ItemCurrentDurability=0},
+                    new Inventory{ CharacterID=character.CharacterID, ItemID=38, ItemPieces=0, ItemMaxDurability=0, ItemCurrentDurability=0},
+                    new Inventory{ CharacterID=character.CharacterID, ItemID=39, ItemPieces=0, ItemMaxDurability=0, ItemCurrentDurability=0},
+                    new Inventory{ CharacterID=character.CharacterID, ItemID=40, ItemPieces=0, ItemMaxDurability=0, ItemCurrentDurability=0},
+
                     new Inventory{ CharacterID=character.CharacterID, ItemID=59, ItemPieces=1, ItemMaxDurability=999, ItemCurrentDurability=999},
                     new Inventory{ CharacterID=character.CharacterID, ItemID=69, ItemPieces=1, ItemMaxDurability=2, ItemCurrentDurability=2},
 
-                    
+
                     };
 
 
@@ -198,7 +205,7 @@ namespace Zombiecalypse.Controllers
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
 
-                    return RedirectToAction("Details", "Characters", new { id = User.Identity.Name });
+                    return RedirectToAction("Index", "Home");
                 }
                 AddErrors(result);
             }

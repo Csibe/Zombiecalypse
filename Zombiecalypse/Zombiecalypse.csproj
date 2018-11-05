@@ -240,14 +240,19 @@
     <Compile Include="Models\Zombie.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Content Include="Content\Pictures\Adventures\adventureMap3.png" />
     <Content Include="Content\Pictures\Adventures\adventureMap.jpg" />
     <Content Include="Content\Pictures\Adventures\adventureMap2.png" />
     <Content Include="Content\Pictures\Adventures\lada1.png" />
     <Content Include="Content\Pictures\Adventures\lada2.png" />
     <Content Include="Content\Pictures\background3.png" />
+    <Content Include="Content\Pictures\background4.png" />
     <Content Include="Content\Pictures\background_texture.png" />
     <Content Include="Content\Pictures\Base\fence.png" />
     <Content Include="Content\Pictures\Base\House1Garage0Garden0Tool0.png" />
+    <Content Include="Content\Pictures\table.png" />
+    <Content Include="Content\Pictures\table2.png" />
+    <Content Include="Content\Pictures\table3.png" />
     <Content Include="Content\Pictures\zombie.jpg" />
     <Content Include="Content\Pictures\Zombie1plant.png" />
     <Content Include="Scripts\app\AdventureCountdown.js" />
@@ -477,13 +482,14 @@
     <Content Include="Views\Characters\Index.cshtml" />
     <Content Include="Views\Adventures\AdventureCounter.cshtml" />
     <Content Include="Views\Adventures\CollectReward.cshtml" />
-    <Content Include="Views\Adventures\AdventureZombieAttack.cshtml" />
+    <Content Include="Views\Adventures\OnAdventure.cshtml" />
     <Content Include="Views\Adventures\CheckAdventure.cshtml" />
     <Content Include="Views\Adventures\StartAdventure.cshtml" />
     <Content Include="Views\Adventures\StopAdventure.cshtml" />
     <Content Include="Views\Zombies\BaseDefenseFromZombie.cshtml" />
     <Content Include="Views\Zombies\ZombieAttackBase.cshtml" />
     <Content Include="Views\Adventures\Index.cshtml" />
+    <Content Include="Views\Adventures\ZombieAttackAdventurer.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

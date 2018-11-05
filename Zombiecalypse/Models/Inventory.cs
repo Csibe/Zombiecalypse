@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
@@ -14,7 +15,9 @@ namespace Zombiecalypse.Models
         public int CharacterID { get; set; }
         public virtual Character Character { get; set; }
         public int ItemID { get; set; }
+        [DisplayName("Maximum durablity")]
         public int ItemMaxDurability { get; set; }
+        [DisplayName("Durablity")]
         public int ItemCurrentDurability { get; set; }
         public virtual Item Item { get; set; }
         //public virtual Building Building { get; set; }
@@ -22,6 +25,7 @@ namespace Zombiecalypse.Models
         //public virtual PlantField PlantField { get; set; }
         //public bool isFinished { get; set; }
         //public DateTime FinishDate { get; set; }
+        [DisplayName("Pieces")]
         public int ItemPieces { get; set; }
     }
 

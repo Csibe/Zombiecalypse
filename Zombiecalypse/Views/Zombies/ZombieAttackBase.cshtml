@@ -11,49 +11,51 @@
 <br />
 <h2>ZombieAttackBase</h2>
 
-random: @ViewBag.random
-  destroyedBuilding:         @ViewBag.destroyedBuilding
-  buildingLevel:          @ViewBag.buildingLevel
-  newBuildingLevel          @ViewBag.newBuildingLevel
-count: @ViewBag.count
+random: @ViewBag.random <br />
+  destroyedBuilding:         @ViewBag.destroyedBuilding.ItemName, @ViewBag.ItemCurrentDurability <br />
+  buildingLevel:          @ViewBag.buildingLevel<br />
+  newBuildingLevel          @ViewBag.newBuildingLevel<br />
+count: @ViewBag.count<br />
+attackPower: @ViewBag.AttackPower <br />
 <div>
     <h4>ZombieAttackBase</h4>
     <hr />
     <dl class="dl-horizontal">
 
-        @foreach (var build in @Model.Buildings) {
+        @foreach (var build in @Model.ZombieAttackBase.Buildings) {
             <tr>
                 <td>
-                    @build.ItemName
+                   name: @build.ItemName
                 </td>
                 <td>
-                    @build.BuildingLevel
+                   level: @build.BuildingLevel
                 </td>
             </tr>
 
         }
+        <br />
         <dt>
-            @Html.DisplayNameFor(model => model.CharacterID)
+            @Html.DisplayNameFor(model => model.ZombieAttackBase.Character.CharacterID)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.CharacterID)
+            @Html.DisplayFor(model => model.ZombieAttackBase.Character.CharacterID)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.Character.CharacterName)
+            @Html.DisplayNameFor(model => model.ZombieAttackBase.Character.CharacterName)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Character.CharacterName)
+            @Html.DisplayFor(model => model.ZombieAttackBase.Character.CharacterName)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.ZombieAttackStart)
+            @Html.DisplayNameFor(model => model.ZombieAttackBase.ZombieAttackStart)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.ZombieAttackStart)
+            @Html.DisplayFor(model => model.ZombieAttackBase.ZombieAttackStart)
         </dd>
         <br />
         <br />
-        You are attacked by:
+        @*You are attacked by:
         <dt>
             @Html.DisplayNameFor(model => model.Zombie.ZombiePicture)
         </dt>
@@ -95,9 +97,9 @@ count: @ViewBag.count
 
         <dd>
             @Html.DisplayFor(model => model.Zombie.RewardXP)
-        </dd>
+        </dd>*@
 
-        <h4>Items</h4>
+        @*<h4>Items</h4>
         <dd>
             <table class="table">
                 <tr>
@@ -124,9 +126,9 @@ count: @ViewBag.count
                                 <td>
                                     @inv.Item.ItemName
                                 </td>
-                                @*<td>
+                                <td>
                                     @inv.Item.ItemType
-                                </td>*@
+                                </td>
                                 <td>
                                     @building.BuildingLevel
                                 </td>
@@ -142,9 +144,9 @@ count: @ViewBag.count
                                 <td>
                                     <img src=@inv.Item.ItemPicture />
                                 </td>
-                                @*<td>
+                                <td>
                                         @Html.ActionLink("Attack with " + @weap.ItemName, "ZombieAttackBase", new { ZabID = @Model.ZombieAttackBaseID}, null)
-                                    </td>*@
+                                    </td>
                             </tr>
                         }
                     }
@@ -154,20 +156,20 @@ count: @ViewBag.count
             </table>
         </dd>
 
-        <br />
+        <br />*@
 
 
-        <button onclick="startCountDown()">Start</button></br>
+        @*<button onclick="startCountDown()">Start</button></br>
 
         counter:
         <span id="demo"></span></br>
         now:
         <span id="demo2"></span></br>
         until:
-        <span id="demo3"></span></br>
+        <span id="demo3"></span></br>*@
 
 
-        @*  <script>
+          @*<script>
                 var Year = @Model.ZombieAttackStart.Year;
                 var Month = @Model.ZombieAttackStart.Month;
                 var Day = @Model.ZombieAttackStart.Day;
@@ -185,6 +187,6 @@ count: @ViewBag.count
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = @Model.CharacterID }) |
+    @Html.ActionLink("Edit", "Edit", new { id = @Model.ZombieAttackBase.Character.CharacterID }) |
     @Html.ActionLink("Back to List", "Index")
 </p>

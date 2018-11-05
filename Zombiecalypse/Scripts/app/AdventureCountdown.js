@@ -37,7 +37,7 @@ var x = setInterval(function () {
         clearInterval(x);
         document.getElementById("adventurecounter").innerHTML = "";
 
-        window.location.href = '/Adventures/AdventureZombieAttack/' + '?ChId=' + ChId;
+        window.location.href = '/Adventures/OnAdventure/' + '?ChId=' + ChId;
         // window.location = "/Adventures/Index";
     }
 }, 1000);

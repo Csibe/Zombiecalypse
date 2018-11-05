@@ -100,7 +100,7 @@ namespace Zombiecalypse.Controllers
 
             Character character = db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault();
             Inventory item = character.Inventory.Where(x => x.ItemID == 55).FirstOrDefault(); //board
-
+            Inventory fence = character.Inventory.Where(x => x.Item.ItemName == "Fence").FirstOrDefault();
 
             if (item == null)
             {
@@ -115,7 +115,7 @@ namespace Zombiecalypse.Controllers
                     {
                         var result = new CharactersController().ManageEnergy(User.Identity.Name, 1, this.Request.Path);
                         item.ItemPieces--;
-                        character.FenceCurrentDurability++;
+                        fence.ItemCurrentDurability++;
                         db.SaveChanges();
                     }
 

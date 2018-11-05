@@ -105,7 +105,7 @@ namespace Zombiecalypse.Controllers
             if (zombieAttackBaseVM.ZombieAttackBase.ZombieLife <= 0)
             {
                 var result = character.CharacterXP += zombieAttackBaseVM.ZombieAttackBase.Zombie.RewardXP;
-                var addXP = new CharactersController().ManageXPAndLevelUp(character.ApplicationUserID, zombieAttackBaseVM.ZombieAttackBase.Zombie.RewardXP, this.Request.FilePath);
+                var addXP = new CharactersController().ManageXPAndLevelUp(User.Identity.Name,zombieAttackBaseVM.ZombieAttackBase.Zombie.RewardXP, this.Request.FilePath);
                 character.CharacterMoney += zombieAttackBaseVM.ZombieAttackBase.Zombie.RewardCoins;
                 db.ZombieAttackBases.Remove(zombieAttackBaseVM.ZombieAttackBase);
 
@@ -130,16 +130,27 @@ namespace Zombiecalypse.Controllers
 
         public ActionResult ZombieAttackBase(int ZabID)
         {
-            ZombieAttackBase zombieAttackBase = db.ZombieAttackBases.Find(ZabID);
-            Character character = zombieAttackBase.Character;
-            Zombie zombie = zombieAttackBase.Zombie;
+            ZombieAttackBaseVM model = new ZombieAttackBaseVM();
+            model.ZombieAttackBase = db.ZombieAttackBases.Find(ZabID);
+
+            Character character = db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault();
+            Inventory fence = character.Inventory.Where(x => x.Item.ItemName == "Fence").FirstOrDefault();
+            Building destroyedBuilding = new Building();
+
+            Zombie zombie = model.ZombieAttackBase.Zombie;
+
+            model.ZombieAttackBase.Buildings = new List<Building>();
+
 
             Random rand = new Random();
-            int random = rand.Next(0, zombie.ZombieDamage);
+            int attackPower = rand.Next(0, zombie.ZombieDamage);
+            int random = -9;
 
-            if (character.FenceCurrentDurability > 0)
+            if (fence.ItemCurrentDurability > 0)
             {
-                character.FenceCurrentDurability -= random;
+                fence.ItemCurrentDurability -= attackPower;
+                destroyedBuilding = db.Buildings.Where(x => x.ItemID == fence.ItemID).First();
+                db.SaveChanges();
             }
             else
             {
@@ -153,33 +164,29 @@ namespace Zombiecalypse.Controllers
                             Building building = db.Buildings.Find(inv.ItemID);
                             if (building.BuildingLevel > 0)
                             {
-                                zombieAttackBase.Buildings.Add(building);
+                                model.ZombieAttackBase.Buildings.Add(building);
                             }
                         }
                     }
                 }
-  
-                random = rand.Next(0, zombieAttackBase.Buildings.Count());
+            
 
-                Building destroyedBuilding = db.ZombieAttackBases.Find(ZabID).Buildings.ToArray()[random];
+                random = rand.Next(0, model.ZombieAttackBase.Buildings.Count());
+
+                destroyedBuilding = model.ZombieAttackBase.Buildings.ToArray()[random];
                 int buildingLevel = destroyedBuilding.BuildingLevel;
 
                 int newBuildingLevel = --buildingLevel;
 
-                ViewBag.random = random;
-                ViewBag.zombieAttackBaseBuildings = zombieAttackBase.Buildings.Count();
-                ViewBag.destroyedBuilding = destroyedBuilding.BuildingLevel;
-                ViewBag.buildingLevel = buildingLevel;
-                ViewBag.newBuildingLevel = newBuildingLevel;
-                ViewBag.count = zombieAttackBase.Buildings.Count();
+
 
                 foreach (var inv in character.Inventory)
                 {
                     if (inv.ItemID == destroyedBuilding.ItemID)
                     {
-                        if (inv.ItemCurrentDurability > 1)
+                        if (inv.ItemCurrentDurability >= attackPower)
                         {
-                            inv.ItemCurrentDurability--;
+                            inv.ItemCurrentDurability-= attackPower;
                         }
                         else
                         {
@@ -191,23 +198,43 @@ namespace Zombiecalypse.Controllers
                         }
                     }
                 }
-                db.SaveChanges();
+
             }
 
+            ViewBag.random = random;
+            ViewBag.attackPower = attackPower;
+            ViewBag.zombieAttackBaseBuildings = model.ZombieAttackBase.Buildings;
+            ViewBag.destroyedBuilding = destroyedBuilding;
+            ViewBag.ItemCurrentDurability = fence.ItemCurrentDurability;
+            //ViewBag.buildingLevel = buildingLevel;
+            //ViewBag.newBuildingLevel = newBuildingLevel;
+            ViewBag.count = model.ZombieAttackBase.Buildings.Count();
 
-            return View(zombieAttackBase);
+            model.ZombieAttackBase.ZombieAttackStart = DateTime.Now;
+            db.SaveChanges();
+
+
+            model.UserKe = db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault().ApplicationUserID;
+            model.Fields = db.CharacterFields.Where(x => x.CharacterID == db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault().CharacterID).ToList();
+            model.EnergyPlusDate = db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault().EnergyPlusDate;
+            model.AttackingZombies = db.ZombieAttackBases.Where(x => x.CharacterID == db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault().CharacterID).ToList();
+            model.AdventureFinishDate = db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault().FinishAdventure;
+
+
+            return View(model);
             //  return RedirectToAction("CharacterDetails", "Characters", new { id = User.Identity.Name });
         }
 
         public ActionResult DestroyFence(string id)
         {
             Character character = db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault();
-            character.FenceCurrentDurability--;
+            Inventory fence = character.Inventory.Where(x => x.Item.ItemName == "Fence").FirstOrDefault();
+            fence.ItemCurrentDurability--;
 
             db.SaveChanges();
 
             return RedirectToAction("Details", "Characters", new { id = User.Identity.Name });
         }
     }
-     
+
 }

@@ -4,14 +4,18 @@ using System.Linq;
 using System.Web;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel;
 
 namespace Zombiecalypse.Models
 {
     public abstract class Item
     {
         public int ItemID { get; set; }
+        [DisplayName("Name")]
         public string ItemName { get; set; }
+        [DisplayName("Picture")]
         public string ItemPicture { get; set; }
+        [DisplayName("Maximum durability")]
         public int ItemMaxDurability { get; set; }
 
     }
@@ -32,8 +36,11 @@ namespace Zombiecalypse.Models
 
     public class Building : Item
     {
+        [DisplayName("Level")]
         public int BuildingLevel { get; set; }
+        [DisplayName("Energy cost")]
         public int BuildingEnergyCost { get; set; }
+        [DisplayName("Money cost")]
         public int BuildingMoneyCost { get; set; }
     }
 

@@ -45,10 +45,10 @@
             }
         </table>
 
-    <table>
+    <table align="center">
         <td>
             <div style="text-align:center">
-                <img style="align-content:center" width=1000 usemap="#map" height="700" src="~/Content/Pictures/Adventures/adventureMap2.png" />
+                <img style="align-content:center" width=1000 usemap="#map" height="700" src="~/Content/Pictures/Adventures/adventureMap3.png" />
                 <map name="map">
 
                     @foreach (var adv in Model.Adventures)
@@ -57,11 +57,11 @@
                         link.ToString();
                         if (adv.AdventureID == 1)
                         {
-                            <area shape="circle" data-toggle="tooltip" title="@adv.AdventureName" coords="470,175,30" alt="@adv.AdventureID" @link>
+                            <area shape="circle" data-toggle="tooltip" title="@adv.AdventureName" coords="470,175,30" alt="@adv.AdventureID" @link />
                         }
                         else if (adv.AdventureID == 2)
                         {
-                            <area shape="circle"  data-toggle="tooltip" title="@adv.AdventureName" coords="540,430,30" alt="@adv.AdventureID" @link>
+                            <area shape="circle"  data-toggle="tooltip" title="@adv.AdventureName" coords="540,430,30" alt="@adv.AdventureID" @link />
                         }
 
                     }

@@ -32,8 +32,6 @@ namespace Zombiecalypse.Models
         [DisplayName("Level")]
         public int CharacterLevel { get; set; }
         [DisplayName("Is on adventure")]
-        public int FenceMaxtDurability { get; set; }
-        public int FenceCurrentDurability { get; set; }
         public int MaxTolerance { get; set; }
         public int Tolerance { get; set; }
         public bool IsOnAdventure { get; set; }
@@ -59,6 +57,8 @@ namespace Zombiecalypse.Models
 
         [DisplayName("Next level XP")]
         public int CharacterNextLevelXP { get; set; }
+        public int FenceMaxDurability { get; set; }
+        public int FenceCurrentDurability { get; set; }
         
         public string BasePicture { get; set; }
 
@@ -67,6 +67,7 @@ namespace Zombiecalypse.Models
         public virtual ICollection<CharacterField> CharacterFields { get; set; }
         public virtual ICollection<Adventure> Adventures { get; set; }
         public virtual ICollection<ZombieAttackBase> ZombieAttackBase { get; set; }
+        public virtual ICollection<Zombie> ZombiesDB { get; set; }
        
     }
 }

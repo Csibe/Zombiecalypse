@@ -133,10 +133,10 @@ namespace Zombiecalypse.Controllers
         }
 
 
-        public ActionResult ManageXPAndLevelUp(int add, string returnUrl)
+        public ActionResult ManageXPAndLevelUp(string id, int add, string returnUrl)
         {
 
-            Character character = db.Characters.Where(x => x.ApplicationUserID == User.Identity.Name).FirstOrDefault(); ;
+            Character character = db.Characters.Where(x => x.ApplicationUserID == id).FirstOrDefault();
             Level DbLevel = db.Levels.Where(x => x.LevelID == character.CharacterLevel).SingleOrDefault();
             int DbLevelID = DbLevel.LevelID;
             int DbLevelXP = DbLevel.LevelMaxXP;
@@ -167,17 +167,21 @@ namespace Zombiecalypse.Controllers
             {
                 foreach (var build in db.Buildings)
                 {
-                    if (item.ItemID == build.ItemID)
+                    if (item.ItemID == build.ItemID && item.Item.ItemName !="Fence")
                     {
                         model.CharacterBuildings.Add(build);
                     }
                 }
             }
 
+
             model.CharacterFields = db.CharacterFields.Where(x => x.CharacterID == model.Character.CharacterID).ToList();
             model.Adventures = db.Adventures.ToList();
 
             model.CharacterNextLevelXP = db.Levels.Where(l => l.LevelID == model.Character.CharacterLevel).FirstOrDefault().LevelMaxXP;
+            model.FenceMaxDurability = model.Character.Inventory.Where(x => x.Item.ItemName == "Fence").FirstOrDefault().ItemMaxDurability;
+            model.FenceCurrentDurability = model.Character.Inventory.Where(x => x.Item.ItemName == "Fence").FirstOrDefault().ItemCurrentDurability;
+            model.ZombiesDB = db.Zombies.ToList();
 
             string Picture = "/Content/Pictures/Base/";
             string[] BaseName;
