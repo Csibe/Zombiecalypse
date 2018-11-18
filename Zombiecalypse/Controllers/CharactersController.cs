@@ -14,7 +14,7 @@ namespace Zombiecalypse.Controllers
     public class CharactersController : Controller
     {
         private DataContext db = new DataContext();
-        
+
 
         public ActionResult AddToEnergy()
         {
@@ -25,26 +25,26 @@ namespace Zombiecalypse.Controllers
             return RedirectToAction("Details", "Characters", new { id = User.Identity.Name });
         }
 
-        public ActionResult SetLasLoginMinusMinute(string id)
+        public ActionResult SetLastZombieAttackTimeMinute(string id)
         {
             Character character = db.Characters.Where(x => x.ApplicationUserID == id).FirstOrDefault();
             if (character == null)
             {
                 return HttpNotFound();
             }
-            character.LastLogin = character.LastLogin.AddMinutes(-1);
+            character.LastZombieAttackTime = character.LastZombieAttackTime.AddMinutes(-1);
             db.SaveChanges();
             return RedirectToAction("Details", "Characters", new { id = User.Identity.Name });
         }
 
-        public ActionResult SetLasLoginMinusHour(string id)
+        public ActionResult SetLastZombieAttackTimeMinusHour(string id)
         {
             Character character = db.Characters.Where(x => x.ApplicationUserID == id).FirstOrDefault();
             if (character == null)
             {
                 return HttpNotFound();
             }
-            character.LastLogin = character.LastLogin.AddHours(-1);
+            character.LastZombieAttackTime = character.LastZombieAttackTime.AddHours(-1);
             db.SaveChanges();
             return RedirectToAction("Details", "Characters", new { id = User.Identity.Name });
         }
@@ -88,49 +88,9 @@ namespace Zombiecalypse.Controllers
             }
 
             db.SaveChanges();
-            return RedirectToAction(returnUrl);
+            return Redirect(returnUrl);
         }
 
-
-
-        public ActionResult ManageEnergyFromJavaScript(string id, string returnUrl)
-        {
-            Character character = db.Characters.Where(x => x.ApplicationUserID == id).FirstOrDefault();
-            if (character == null)
-            {
-                return HttpNotFound();
-            }
-
-            if (character.CurrentEnergy == character.MaxEnergy && character.EnergyPlusDate == DateTime.MaxValue)
-            {
-            }
-            else if (character.CurrentEnergy < character.MaxEnergy && character.EnergyPlusDate == DateTime.MaxValue)
-            {
-                character.EnergyPlusDate = DateTime.Now.AddSeconds(20);
-            }
-            else if (character.CurrentEnergy == character.MaxEnergy && character.EnergyPlusDate.Year < DateTime.MaxValue.Year)
-            {
-                character.EnergyPlusDate = DateTime.MaxValue;
-            }
-            else if (character.CurrentEnergy < character.MaxEnergy && character.EnergyPlusDate <= DateTime.Now)
-            {
-                character.EnergyPlusDate = DateTime.Now.AddSeconds(20);
-                character.CurrentEnergy++;
-            }
-            else if (character.CurrentEnergy < character.MaxEnergy && character.EnergyPlusDate > DateTime.Now)
-            {
-            }
-            else if (character.CurrentEnergy < character.MaxEnergy && character.EnergyPlusDate < DateTime.Now)
-            {
-
-                character.CurrentEnergy++;
-                character.EnergyPlusDate = DateTime.MaxValue;
-            }
-
-            db.SaveChanges();
-            return RedirectToAction("Details", "Characters", new { id = User.Identity.Name });
-            //return RedirectToAction(returnUrl);
-        }
 
 
         public ActionResult ManageXPAndLevelUp(string id, int add, string returnUrl)
@@ -177,11 +137,14 @@ namespace Zombiecalypse.Controllers
 
             model.CharacterFields = db.CharacterFields.Where(x => x.CharacterID == model.Character.CharacterID).ToList();
             model.Adventures = db.Adventures.ToList();
+            model.Missions = db.Missions.Where(x => x.CharacterID == User.Identity.Name).ToList();
+
 
             model.CharacterNextLevelXP = db.Levels.Where(l => l.LevelID == model.Character.CharacterLevel).FirstOrDefault().LevelMaxXP;
             model.FenceMaxDurability = model.Character.Inventory.Where(x => x.Item.ItemName == "Fence").FirstOrDefault().ItemMaxDurability;
             model.FenceCurrentDurability = model.Character.Inventory.Where(x => x.Item.ItemName == "Fence").FirstOrDefault().ItemCurrentDurability;
             model.ZombiesDB = db.Zombies.ToList();
+            model.ZombieAttackBase = db.ZombieAttackBases.Where(x => x.CharacterID == db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault().CharacterID).ToList();
 
             string Picture = "/Content/Pictures/Base/";
             string[] BaseName;
@@ -198,10 +161,12 @@ namespace Zombiecalypse.Controllers
 
 
             model.UserKe = db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault().ApplicationUserID;
+            model.PageUrl = this.Request.FilePath;
             model.Fields = db.CharacterFields.Where(x => x.CharacterID == db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault().CharacterID).ToList();
             model.EnergyPlusDate = db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault().EnergyPlusDate;
             model.AttackingZombies = db.ZombieAttackBases.Where(x => x.CharacterID == db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault().CharacterID).ToList();
             model.AdventureFinishDate = db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault().FinishAdventure;
+            model.LastZombieAttackDate = db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault().LastZombieAttackTime;
 
             return View(model);
         }

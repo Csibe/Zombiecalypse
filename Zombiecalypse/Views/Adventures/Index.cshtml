@@ -1,76 +1,98 @@
 ﻿@model Zombiecalypse.Models.AdventureViewModel
 
-<br />
-<br />
-<br />
-<br />
 
-    <h4>Adventures</h4>
     <dd>
-
-        @Html.ActionLink("Check Adventure", "CheckAdventure", "Adventures", new { id = User.Identity.Name }, new { @class = "ActionLinkButton" })
-
-        <table class="table">
-            <tr>
-                <th>ID</th>
-                <th>Name</th>
-                <th>AdventureWaitingTime</th>
-                <th>AdventureSteps</th>
-                <th>AdventureRequerdEnergy</th>
-                <th></th>
-            </tr>
-            @foreach (var adv in Model.Adventures)
-            {
-                <tr>
-                    <td>
-                        @adv.AdventureID
-                    </td>
-                    <td>
-                        @adv.AdventureName
-                    </td>
-                    <td>
-                        @adv.AdventureWaitingTime
-                    </td>
-                    <td>
-                        @adv.AdventureSteps
-                    </td>
-                    <td>
-                        @adv.AdventureRequerdEnergy
-                    </td>
-                    <td>
-                        @Html.ActionLink("Start Adventure", "StartAdventure", "Adventures", new { id = User.Identity.Name, AdId = @adv.AdventureID }, new { @class = "ActionLinkButton" })
-                    </td>
-                    <td></td>
-                </tr>
-            }
-        </table>
-
-    <table align="center">
-        <td>
+        @if (Model.Character.IsOnAdventure == true)
+        {
             <div style="text-align:center">
-                <img style="align-content:center" width=1000 usemap="#map" height="700" src="~/Content/Pictures/Adventures/adventureMap3.png" />
-                <map name="map">
-
-                    @foreach (var adv in Model.Adventures)
-                    {
-                        var link = Html.ActionLink(" ", "StartAdventure", new { id = User.Identity.Name, AdId = @adv.AdventureID }, null);
-                        link.ToString();
-                        if (adv.AdventureID == 1)
-                        {
-                            <area shape="circle" data-toggle="tooltip" title="@adv.AdventureName" coords="470,175,30" alt="@adv.AdventureID" @link />
-                        }
-                        else if (adv.AdventureID == 2)
-                        {
-                            <area shape="circle"  data-toggle="tooltip" title="@adv.AdventureName" coords="540,430,30" alt="@adv.AdventureID" @link />
-                        }
-
-                    }
-                </map>
-                <div align="center">
-                    <img usemap="#map" border="1" />
-                </div>
+             <h2>You are on an adventure</h2> 
+                @Html.ActionLink("Check Adventure", "CheckAdventure", "Adventures", new { id = User.Identity.Name }, new { @class = "ActionLinkButton" })
             </div>
-        </td>
-    </table>
+
+        }
+        else
+        {
+            <table class="table">
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>AdventureWaitingTime</th>
+                    <th>AdventureSteps</th>
+                    <th>AdventureRequerdEnergy</th>
+                    <th></th>
+                </tr>
+                @foreach (var adv in Model.Adventures)
+                {
+                    <tr>
+                        <td>
+                            @adv.AdventureID
+                        </td>
+                        <td>
+                            @adv.AdventureName
+                        </td>
+                        <td>
+                            @adv.AdventureWaitingTime
+                        </td>
+                        <td>
+                            @adv.AdventureSteps
+                        </td>
+                        <td>
+                            @adv.AdventureRequerdEnergy
+                        </td>
+                        @foreach (var drop in Model.AdventureDrops) {
+                            if (drop.AdventureID == adv.AdventureID)
+                            {
+                                <td>
+                                    <img width="30" height="30" src=@drop.Item.ItemPicture />
+                                </td>
+                            }
+                        }
+                        @if (Model.Character.CharacterLevel >= @adv.CharacterLevelRequired)
+                        {
+                            <td>
+                                @Html.ActionLink("Start Adventure", "StartAdventure", "Adventures", new { id = User.Identity.Name, AdId = @adv.AdventureID }, new { @class = "ActionLinkButton" })
+                            </td>
+                        }
+                        else
+                        {
+                            <td>
+                               Required level @adv.CharacterLevelRequired
+                            </td>
+                        }
+                        <td></td>
+                    </tr>
+                }
+            </table>
+
+            <table align="center">
+                <td>
+                    <div style="text-align:center">
+                        <img style="align-content:center" width=1000 usemap="#map" height="700" src="~/Content/Pictures/Adventures/adventureMap3.png" />
+                        <map name="map">
+
+                            @foreach (var adv in Model.Adventures)
+                            {
+                                var link = Html.ActionLink(" ", "StartAdventure", new { id = User.Identity.Name, AdId = @adv.AdventureID }, null);
+                                link.ToString();
+                                if (adv.AdventureID == 1)
+                                {
+                                    <area shape="circle" data-toggle="tooltip" title="@adv.AdventureName" coords="470,175,30" alt="@adv.AdventureID" @link />
+                                }
+                                else if (adv.AdventureID == 2)
+                                {
+                                    <area shape="circle" data-toggle="tooltip" title="@adv.AdventureName" coords="540,430,30" alt="@adv.AdventureID" @link />
+                                }
+
+                            }
+                        </map>
+                        <div align="center">
+                            <img usemap="#map" border="1" />
+                        </div>
+                    </div>
+                </td>
+            </table>
+        }
+
+      
 
     </dd>

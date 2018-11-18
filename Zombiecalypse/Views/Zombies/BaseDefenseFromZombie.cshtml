@@ -1,4 +1,4 @@
-﻿@model Zombiecalypse.Models.ZombieAttackBaseVM
+﻿@model Zombiecalypse.Models.BaseDefenseFromZombiesVM
 
 @{
     ViewBag.Title = "ZombieAttackBase";
@@ -19,10 +19,10 @@
             @Html.DisplayFor(model => model.ZombieAttackBase.CharacterID)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.ZombieAttackBase.Character.CharacterName)
+            @Html.DisplayNameFor(model => model.Character.CharacterName)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.ZombieAttackBase.Character.CharacterName)
+            @Html.DisplayFor(model => model.Character.CharacterName)
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.ZombieAttackBase.ZombieAttackStart)
@@ -34,18 +34,18 @@
         <br />
         You are attacked by:
         <dt>
-            @Html.DisplayNameFor(model => model.ZombieAttackBase.Zombie.ZombiePicture)
+            @Html.DisplayNameFor(model => model.Zombie.ZombiePicture)
         </dt>
 
         <dd>
-            <img src=@Model.ZombieAttackBase.Zombie.ZombiePicture />
+            <img src=@Model.Zombie.ZombiePicture />
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.ZombieAttackBase.Zombie.ZombieName)
+            @Html.DisplayNameFor(model => model.Zombie.ZombieName)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.ZombieAttackBase.Zombie.ZombieName)
+            @Html.DisplayFor(model => model.Zombie.ZombieName)
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.ZombieAttackBase.ZombieLife)
@@ -55,31 +55,31 @@
             @Html.DisplayFor(model => model.ZombieAttackBase.ZombieLife)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.ZombieAttackBase.Zombie.ZombieDamage)
+            @Html.DisplayNameFor(model => model.Zombie.ZombieDamage)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.ZombieAttackBase.Zombie.ZombieDamage)
+            @Html.DisplayFor(model => model.Zombie.ZombieDamage)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.ZombieAttackBase.Zombie.RewardCoins)
+            @Html.DisplayNameFor(model => model.Zombie.RewardCoins)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.ZombieAttackBase.Zombie.RewardCoins)
+            @Html.DisplayFor(model => model.Zombie.RewardCoins)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.ZombieAttackBase.Zombie.RewardXP)
+            @Html.DisplayNameFor(model => model.Zombie.RewardXP)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.ZombieAttackBase.Zombie.RewardXP)
+            @Html.DisplayFor(model => model.Zombie.RewardXP)
         </dd>
 
 
 
         <dd>
-            @foreach (var inv in Model.ZombieAttackBase.Character.Inventory)
+            @foreach (var inv in Model.Character.Inventory)
             {
                 if (@inv.ItemID == 59)
                 {
@@ -95,13 +95,13 @@
                             <th>Picture</th>
                         </tr>
                         <tr>
-                            <td>@Model.ZombieAttackBase.Weapon.ItemID</td>
-                            <td>@Model.ZombieAttackBase.Weapon.ItemName</td>
-                            <td>@Model.ZombieAttackBase.Weapon.WeaponDamage</td>
-                            <td>@Model.ZombieAttackBase.Weapon.ItemMaxDurability</td>
-                            <td>@Model.ZombieAttackBase.Weapon.ItemID</td>
+                            <td>@Model.Weapon.ItemID</td>
+                            <td>@Model.Weapon.ItemName</td>
+                            <td>@Model.Weapon.WeaponDamage</td>
+                            <td>@Model.Weapon.ItemMaxDurability</td>
+                            <td>@Model.Weapon.ItemID</td>
                             <td>
-                                @Html.ActionLink("Attack with " + @Model.ZombieAttackBase.Weapon.ItemName, "BaseDefenseFromZombie", new { ZabID = @Model.ZombieAttackBase.ZombieAttackBaseID, AttackPower = @Model.ZombieAttackBase.Weapon.WeaponDamage, InvID = @inv.InventoryID }, new { @class = "ActionLinkButton" })
+                                @Html.ActionLink("Attack with " + @Model.Weapon.ItemName, "BaseDefenseFromZombie", new { ZabID = @Model.ZombieAttackBase.ZombieAttackBaseID, AttackPower = @Model.Weapon.WeaponDamage, InvID = @inv.InventoryID }, new { @class = "ActionLinkButton" })
                             </td>
                         </tr>
 
@@ -123,9 +123,9 @@
                     <th>ItemCurrentDurability</th>
                     <th>Picture</th>
                 </tr>
-                @foreach (var weap in Model.ZombieAttackBase.BuyableWeapons)
+                @foreach (var weap in Model.BuyableWeapons)
                 {
-                    foreach (var inv in Model.ZombieAttackBase.Character.Inventory)
+                    foreach (var inv in Model.Character.Inventory)
                     {
                         if (@inv.ItemID == @weap.ItemID && @inv.ItemPieces > 0)
                         {
@@ -194,9 +194,9 @@
                     <th>ItemCurrentDurability</th>
                     <th>Picture</th>
                 </tr>
-                @foreach (var weap in Model.ZombieAttackBase.CraftableWeapons)
+                @foreach (var weap in Model.CraftableWeapons)
                 {
-                    foreach (var inv in Model.ZombieAttackBase.Character.Inventory)
+                    foreach (var inv in Model.Character.Inventory)
                     {
                         if (@inv.ItemID == @weap.ItemID && @inv.ItemPieces > 0)
                         {
@@ -252,37 +252,5 @@
             </table>
         </dd>
 
-        <br />
-
-
-        <button onclick="startCountDown()">Start</button></br>
-
-        counter:
-        <span id="demo"></span></br>
-        now:
-        <span id="demo2"></span></br>
-        until:
-        <span id="demo3"></span></br>
-
-
-        @*  <script>
-                var Year = @Model.ZombieAttackStart.Year;
-                var Month = @Model.ZombieAttackStart.Month;
-                var Day = @Model.ZombieAttackStart.Day;
-                var Hour = @Model.ZombieAttackStart.Hour;
-                var Minute = @Model.ZombieAttackStart.Minute;
-                var Second = @Model.ZombieAttackStart.AddSeconds(5).Second;
-
-                var ChId = @Model.CharacterID;
-                var ZombId = 1;
-                var zabID = @Model.ZombieAttackBaseID;
-                var FinishDate =  new Date(Year, Month-1, Day, Hour, Minute, Second, 0);
-
-            </script>
-            <script src="~/Scripts/app/zombieBaseAttack.js" type="text/javascript"></script>*@
     </dl>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = @Model.ZombieAttackBase.CharacterID }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>

@@ -20,7 +20,7 @@
     <div class="tab-content">
         <div id="weapons" class="tab-pane fade in active">
             <h3>Weapons</h3>
-            <table border="1" class="table" width="600">
+            <table border="1">
 
                 @foreach (var w in Model.Weapons)
             {
@@ -46,7 +46,7 @@
 
         <div id="plans" class="tab-pane fade">
             <h3>Gathering</h3>
-            <table border="1" class="table">
+            <table border="1">
                 <td>
                     <img src="~/Content/Pictures/Fields/FieldEmpty.png" />
                 </td>
@@ -55,52 +55,57 @@
                     @Html.ActionLink("Buy field", "BuyField", "Shop", new { id = User.Identity.Name }, new { @class = "ActionLinkButton" })
                 </td>
                 <tr></tr>
-            @foreach (var p in Model.Plants)
+                @foreach (var p in Model.Plants)
                 {
-                <td>
-                    <table border="1">
-                        <td><img width="100" height="100" src=@p.ItemPicture /></td>
-                        <tr></tr>
-                        <td>@p.ItemName</td>
-                        <tr></tr>
-                        <td>Cost: @p.PlantMoneyCost</td>
-                        <tr></tr>
-                        <td>Grow time: @p.PlantGrowTime</td>
-                        <tr></tr>
-                        <td>Reward coin: @p.PlantRewardCoin</td>
-                        <tr></tr>
-                        <td>Reward food: @p.PlantRewardFood</td>
-                        <tr></tr>
-                        <td>@Html.ActionLink("Buy", "Buy", "Shop", new { id = User.Identity.Name, ItemID = @p.ItemID }, new { @class = "ActionLinkButton" })</td>
-                    </table>
-                </td>
-            }
+                    <td>
+                        <table border="1">
+                            <td><img width="100" height="100" src=@p.ItemPicture /></td>
+                            <tr></tr>
+                            <td>@p.ItemName</td>
+                            <tr></tr>
+                            <td>Cost: @p.PlantMoneyCost</td>
+                            <tr></tr>
+                            <td>Grow time: @p.PlantGrowTime</td>
+                            <tr></tr>
+                            <td>Reward coin: @p.PlantRewardCoin</td>
+                            <tr></tr>
+                            <td>Reward food: @p.PlantRewardFood</td>
+                            <tr></tr>
+                            <td>@Html.ActionLink("Buy", "Buy", "Shop", new { id = User.Identity.Name, ItemID = @p.ItemID }, new { @class = "ActionLinkButton" })</td>
+                        </table>
+                    </td>
+                }
 
-        </table>
+            </table>
         </div>
 
         <div id="energy" class="tab-pane fade">
             <h3>Energy</h3>
-            <table border="1" class="table">
+            <table border="1">
 
-            @foreach (var e in Model.Energies)
+                @foreach (var e in Model.Energies)
             {
-                <td>
-                    <table border="1">
-                        <td><img width="100" height="100" src=@e.ItemPicture /></td>
-                        <tr></tr>
-                        <td>@e.ItemName</td>
-                        <tr></tr>
-                        <td>Durability: @e.PlusEnergy</td>
-                        <tr></tr>
-                        <td>Cost: @e.Cost</td>
-                        <tr></tr>
-                        <td>@Html.ActionLink("Buy", "Buy", "Shop", new { id = User.Identity.Name, ItemID = @e.ItemID }, new { @class = "ActionLinkButton" })</td>
-                    </table>
-                </td>
-            }
+                    <td>
+                        <table border="1">
+                            <td><img width="100" height="100" src=@e.ItemPicture /></td>
+                            <tr></tr>
+                            <td>@e.ItemName</td>
+                            <tr></tr>
+                            <td>Durability: @e.PlusEnergy</td>
+                            <tr></tr>
+                            <td>Cost: @e.Cost</td>
+                            <tr></tr>
+                            <td>@Html.ActionLink("Buy", "Buy", "Shop", new { id = User.Identity.Name, ItemID = @e.ItemID }, new { @class = "ActionLinkButton" })</td>
+                        </table>
+                    </td>
+                }
 
-        </table>
+            </table>
         </div>
     </div>
+
+</div>
+<div>
+    <br />
+    @Html.ActionLink("Back to base", "Details", "Characters", new { id = User.Identity.Name }, new { @class = "ActionLinkButton" })
 </div>

@@ -10,12 +10,14 @@ namespace Zombiecalypse.Models
     {
         public int AdventureID { get; set; }
         public string AdventureName { get; set; }
+        public string AdventureType { get; set; }
         public int AdventureWaitingTime { get; set; }
         public int AdventureSteps { get; set; }
         public int AdventureXPBonus { get; set; }
         public int AdventureZombieMaxRank { get; set; }
         public int AdventureMaxZombiesPerRound { get; set; }
         public int AdventureRequerdEnergy { get; set; }
+        public int CharacterLevelRequired { get; set; }
     }
 
     public class AdventureDrop
@@ -68,6 +70,7 @@ namespace Zombiecalypse.Models
         public virtual Adventure Adventure { get; set; }
         public virtual ICollection<Adventure> Adventures { get; set; }
         public ICollection<Weapon> Weapons { get; set; }
+        public ICollection<AdventureDrop> AdventureDrops { get; set; }
     }
 
 

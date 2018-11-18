@@ -9,11 +9,13 @@ namespace Zombiecalypse.Models
     public abstract class ViewModelBase
     {
         public string UserKe { get; set; }
+        public string PageUrl { get; set; }
         public ICollection<CharacterField> Fields { get; set; }
         [DataType(DataType.DateTime)]
         public DateTime EnergyPlusDate { get; set; }
         [DataType(DataType.DateTime)]
         public DateTime AdventureFinishDate { get; set; }
+        public DateTime LastZombieAttackDate { get; set; }
         public ICollection<ZombieAttackBase> AttackingZombies { get; set; }
        
 

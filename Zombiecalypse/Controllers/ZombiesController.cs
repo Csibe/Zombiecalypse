@@ -15,34 +15,38 @@ namespace Zombiecalypse.Controllers
     {
         private DataContext db = new DataContext();
 
-        public ActionResult StartAttack(string id, int forCounter)
+        public ActionResult ZombieStartAttackBase(string id, string returnUrl)
         {
-            for (int i = 0; i < forCounter; i++)
-            {
-                Random rand = new Random();
-                int ZombId = rand.Next(1, db.Zombies.Count() + 1);
-                Zombie zombie = db.Zombies.Find(ZombId);
-                Character character = db.Characters.Where(x => x.ApplicationUserID == id).FirstOrDefault();
 
-                ZombieAttackBase zab = new ZombieAttackBase { ZombieAttackStart = DateTime.Now, Zombie = zombie, Character = character, CharacterID = character.CharacterID, ZombieID = zombie.ZombieID, ZombieLife = zombie.ZombieLife };
-                db.ZombieAttackBases.Add(zab);
-                db.SaveChanges();
-            }
+            Character character = db.Characters.Where(x => x.ApplicationUserID == id).FirstOrDefault();
 
-            return RedirectToAction("Details", "Characters", new { id = User.Identity.Name, AttackPower = 0 });
+            Random rand = new Random();
+            int ZombId = rand.Next(1, db.Zombies.Count() + 1);
+            Zombie zombie = db.Zombies.Find(ZombId);
+
+            character.LastZombieAttackTime = DateTime.Now;
+            db.SaveChanges();
+
+
+            ZombieAttackBase zab = new ZombieAttackBase { ZombieAttackStart = DateTime.Now, CharacterID = character.CharacterID, ZombieID = zombie.ZombieID, ZombieLife = zombie.ZombieLife };
+            db.ZombieAttackBases.Add(zab);
+            db.SaveChanges();
+
+            return Redirect(returnUrl);
         }
 
 
 
         public ActionResult BaseDefenseFromZombie(int ZabID, int AttackPower, int invID)
         {
-            ZombieAttackBaseVM zombieAttackBaseVM = new ZombieAttackBaseVM();
-            zombieAttackBaseVM.ZombieAttackBase = db.ZombieAttackBases.Find(ZabID);
+            BaseDefenseFromZombiesVM model = new BaseDefenseFromZombiesVM();
+            model.ZombieAttackBase = db.ZombieAttackBases.Find(ZabID);
 
-            Character character = zombieAttackBaseVM.ZombieAttackBase.Character;
-            ICollection<Inventory> inventory = character.Inventory;
-            var isEnergyNull = true;
-            if (isEnergyNull)
+            ICollection<Inventory> inventory = model.Character.Inventory;
+
+            model.Weapon = db.Weapons.Find(59);
+
+            if (model.Character.CurrentEnergy > 0)
             {
 
                 if (invID != 0)
@@ -67,14 +71,14 @@ namespace Zombiecalypse.Controllers
                 }
                 if (AttackPower > 0)
                 {
-                    zombieAttackBaseVM.ZombieAttackBase.ZombieLife -= AttackPower;
-                    zombieAttackBaseVM.ZombieAttackBase.Character.CurrentEnergy--;
+                    model.ZombieAttackBase.ZombieLife -= AttackPower;
+                    model.Character.CurrentEnergy--;
                 }
 
             }
             else
             {
-                return View("~/Views/shared/NotEnoughtEnergy.cshtml");
+                return View("~/Views/Shared/NotEnoughtEnergy.cshtml");
             }
 
 
@@ -84,7 +88,7 @@ namespace Zombiecalypse.Controllers
                 {
                     if (item.ItemID == weap.ItemID)
                     {
-                        zombieAttackBaseVM.ZombieAttackBase.BuyableWeapons.Add(weap);
+                        model.BuyableWeapons.Add(weap);
                     }
                 }
             }
@@ -95,36 +99,33 @@ namespace Zombiecalypse.Controllers
                 {
                     if (item.ItemID == weap.ItemID)
                     {
-                        zombieAttackBaseVM.ZombieAttackBase.CraftableWeapons.Add(weap);
+                        model.CraftableWeapons.Add(weap);
                     }
                 }
             }
 
-            zombieAttackBaseVM.ZombieAttackBase.Weapon = db.Weapons.Find(59);
-
-            if (zombieAttackBaseVM.ZombieAttackBase.ZombieLife <= 0)
+            if (model.ZombieAttackBase.ZombieLife <= 0)
             {
-                var result = character.CharacterXP += zombieAttackBaseVM.ZombieAttackBase.Zombie.RewardXP;
-                var addXP = new CharactersController().ManageXPAndLevelUp(User.Identity.Name,zombieAttackBaseVM.ZombieAttackBase.Zombie.RewardXP, this.Request.FilePath);
-                character.CharacterMoney += zombieAttackBaseVM.ZombieAttackBase.Zombie.RewardCoins;
-                db.ZombieAttackBases.Remove(zombieAttackBaseVM.ZombieAttackBase);
+                var addXP = new CharactersController().ManageXPAndLevelUp(User.Identity.Name, model.Zombie.RewardXP, this.Request.FilePath);
+                model.Character.CharacterMoney += model.Zombie.RewardCoins;
+                db.ZombieAttackBases.Remove(model.ZombieAttackBase);
 
                 db.SaveChanges();
                 return RedirectToAction("Details", "Characters", new { id = User.Identity.Name });
             }
 
 
-            //var checkEnergy = new CharactersController().CheckEnergy(character.CharacterID, this.Request.FilePath);
-
             db.SaveChanges();
 
-            zombieAttackBaseVM.UserKe = db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault().ApplicationUserID;
-            zombieAttackBaseVM.Fields = db.CharacterFields.Where(x => x.CharacterID == db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault().CharacterID).ToList();
-            zombieAttackBaseVM.EnergyPlusDate = db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault().EnergyPlusDate;
-            zombieAttackBaseVM.AttackingZombies = db.ZombieAttackBases.Where(x => x.CharacterID == db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault().CharacterID).ToList();
-            zombieAttackBaseVM.AdventureFinishDate = db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault().FinishAdventure;
+            model.UserKe = db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault().ApplicationUserID;
+            model.PageUrl = this.Request.FilePath;
+            model.Fields = db.CharacterFields.Where(x => x.CharacterID == db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault().CharacterID).ToList();
+            model.EnergyPlusDate = db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault().EnergyPlusDate;
+            model.AttackingZombies = db.ZombieAttackBases.Where(x => x.CharacterID == db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault().CharacterID).ToList();
+            model.AdventureFinishDate = db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault().FinishAdventure;
+            model.LastZombieAttackDate = db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault().LastZombieAttackTime;
 
-            return View(zombieAttackBaseVM);
+            return View(model);
 
         }
 
@@ -137,19 +138,20 @@ namespace Zombiecalypse.Controllers
             Inventory fence = character.Inventory.Where(x => x.Item.ItemName == "Fence").FirstOrDefault();
             Building destroyedBuilding = new Building();
 
-            Zombie zombie = model.ZombieAttackBase.Zombie;
+            model.Zombie = db.Zombies.Find(model.ZombieAttackBase.ZombieID);
 
-            model.ZombieAttackBase.Buildings = new List<Building>();
+            model.Buildings = new List<Building>();
 
 
             Random rand = new Random();
-            int attackPower = rand.Next(0, zombie.ZombieDamage);
-            int random = -9;
+            int attackPower = rand.Next(0, model.Zombie.ZombieDamage);
+            int random;
 
             if (fence.ItemCurrentDurability > 0)
             {
                 fence.ItemCurrentDurability -= attackPower;
                 destroyedBuilding = db.Buildings.Where(x => x.ItemID == fence.ItemID).First();
+                model.Buildings.Add(destroyedBuilding);
                 db.SaveChanges();
             }
             else
@@ -164,16 +166,18 @@ namespace Zombiecalypse.Controllers
                             Building building = db.Buildings.Find(inv.ItemID);
                             if (building.BuildingLevel > 0)
                             {
-                                model.ZombieAttackBase.Buildings.Add(building);
+                                model.Buildings.Add(building);
                             }
                         }
                     }
                 }
-            
+            }
 
-                random = rand.Next(0, model.ZombieAttackBase.Buildings.Count());
+            if (model.Buildings.Count() > 0)
+            {
+                random = rand.Next(0, model.Buildings.Count());
 
-                destroyedBuilding = model.ZombieAttackBase.Buildings.ToArray()[random];
+                destroyedBuilding = model.Buildings.ToArray()[random];
                 int buildingLevel = destroyedBuilding.BuildingLevel;
 
                 int newBuildingLevel = --buildingLevel;
@@ -186,7 +190,7 @@ namespace Zombiecalypse.Controllers
                     {
                         if (inv.ItemCurrentDurability >= attackPower)
                         {
-                            inv.ItemCurrentDurability-= attackPower;
+                            inv.ItemCurrentDurability -= attackPower;
                         }
                         else
                         {
@@ -201,28 +205,36 @@ namespace Zombiecalypse.Controllers
 
             }
 
-            ViewBag.random = random;
+
+
+
+            else
+            {
+                db.ZombieAttackBases.Remove(model.ZombieAttackBase);
+                db.SaveChanges();
+                return RedirectToAction("Details", "Characters", new { id = User.Identity.Name });
+            }
+
+
             ViewBag.attackPower = attackPower;
-            ViewBag.zombieAttackBaseBuildings = model.ZombieAttackBase.Buildings;
+            ViewBag.zombieAttackBaseBuildings = model.Buildings;
             ViewBag.destroyedBuilding = destroyedBuilding;
             ViewBag.ItemCurrentDurability = fence.ItemCurrentDurability;
-            //ViewBag.buildingLevel = buildingLevel;
-            //ViewBag.newBuildingLevel = newBuildingLevel;
-            ViewBag.count = model.ZombieAttackBase.Buildings.Count();
+            ViewBag.count = model.Buildings.Count();
 
-            model.ZombieAttackBase.ZombieAttackStart = DateTime.Now;
+            model.ZombieAttackBase.ZombieAttackStart = model.ZombieAttackBase.ZombieAttackStart.AddMinutes(3);
             db.SaveChanges();
 
 
             model.UserKe = db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault().ApplicationUserID;
+            model.PageUrl = this.Request.FilePath;
             model.Fields = db.CharacterFields.Where(x => x.CharacterID == db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault().CharacterID).ToList();
             model.EnergyPlusDate = db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault().EnergyPlusDate;
             model.AttackingZombies = db.ZombieAttackBases.Where(x => x.CharacterID == db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault().CharacterID).ToList();
             model.AdventureFinishDate = db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault().FinishAdventure;
-
+            model.LastZombieAttackDate = db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault().LastZombieAttackTime;
 
             return View(model);
-            //  return RedirectToAction("CharacterDetails", "Characters", new { id = User.Identity.Name });
         }
 
         public ActionResult DestroyFence(string id)
@@ -235,6 +247,26 @@ namespace Zombiecalypse.Controllers
 
             return RedirectToAction("Details", "Characters", new { id = User.Identity.Name });
         }
+
+
+        public ActionResult Index()
+        {
+            ZombieVM model = new ZombieVM();
+
+            model.Zombies = db.Zombies.ToList();
+
+            model.UserKe = db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault().ApplicationUserID;
+            model.PageUrl = this.Request.FilePath;
+            model.Fields = db.CharacterFields.Where(x => x.CharacterID == db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault().CharacterID).ToList();
+            model.EnergyPlusDate = db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault().EnergyPlusDate;
+            model.AttackingZombies = db.ZombieAttackBases.Where(x => x.CharacterID == db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault().CharacterID).ToList();
+            model.AdventureFinishDate = db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault().FinishAdventure;
+            model.LastZombieAttackDate = db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault().LastZombieAttackTime;
+
+
+            return View(model);
+        }
+
     }
 
 }

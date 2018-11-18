@@ -1,0 +1,25 @@
+﻿@model Zombiecalypse.Models.ZombieVM
+
+
+
+<h2>Zombies</h2>
+<dl class="dl-horizontal">
+
+    <div>
+        <table>
+            @foreach (var zombie in Model.Zombies)
+            {
+                <tr>
+                    <td>
+                        <img src=@zombie.ZombiePicture />
+                    </td>
+                    <td>
+                        @zombie.ZombieName
+                    </td>
+                </tr>
+
+            }
+        </table>
+
+    </div>
+    </dl>

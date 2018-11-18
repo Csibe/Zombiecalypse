@@ -22,7 +22,7 @@ attackPower: @ViewBag.AttackPower <br />
     <hr />
     <dl class="dl-horizontal">
 
-        @foreach (var build in @Model.ZombieAttackBase.Buildings) {
+        @foreach (var build in @Model.Buildings) {
             <tr>
                 <td>
                    name: @build.ItemName
@@ -35,17 +35,17 @@ attackPower: @ViewBag.AttackPower <br />
         }
         <br />
         <dt>
-            @Html.DisplayNameFor(model => model.ZombieAttackBase.Character.CharacterID)
+            @Html.DisplayNameFor(model => model.Character.CharacterID)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.ZombieAttackBase.Character.CharacterID)
+            @Html.DisplayFor(model => model.Character.CharacterID)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.ZombieAttackBase.Character.CharacterName)
+            @Html.DisplayNameFor(model => model.Character.CharacterName)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.ZombieAttackBase.Character.CharacterName)
+            @Html.DisplayFor(model => model.Character.CharacterName)
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.ZombieAttackBase.ZombieAttackStart)
@@ -186,7 +186,3 @@ attackPower: @ViewBag.AttackPower <br />
             <script src="~/Scripts/app/zombieBaseAttack.js" type="text/javascript"></script>*@
     </dl>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = @Model.ZombieAttackBase.Character.CharacterID }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>

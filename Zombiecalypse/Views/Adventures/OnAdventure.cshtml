@@ -1,16 +1,13 @@
 ﻿@model Zombiecalypse.Models.AdventureViewModel
 
 
-@{
-    ViewBag.Title = "On adventure";
-}
 
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 <!------ Include the above in your HEAD tag ---------->
 
-<h2>On adventure</h2>
+<h2>Your adventure</h2>
 @Html.ActionLink("Finish adventure", "StopAdventure", "Adventures", new { id = User.Identity.Name }, null)
 
 Whos turn:  @ViewBag.WhosTurn
@@ -56,7 +53,8 @@ Manage turns: @Html.ActionLink("Manage turn", "ManageTurns", "Adventures", new {
                             <div class="tab-pane" role="tabpanel" id=@id>
                                 <h3>Round @counter</h3>
 
-                                @Html.ActionLink("AdventureDropCalculator", "AdventureDropCalculator", "Adventures", new { AdId = Model.Adventure.AdventureID, ChId = Model.Character.CharacterID }, null) <br />
+                                @Html.ActionLink("Collect reward", "CollectReward", "Adventures", new { AdId = 1, ChId = User.Identity.Name }, new { @class = "ActionLinkButton" })
+
 
                                 @Html.ActionLink("Finish adventure", "StopAdventure", "Adventures", new { AdId = Model.Adventure.AdventureID, ChId = Model.Character.CharacterID }, null) <br />
 
