@@ -36,6 +36,10 @@ namespace Zombiecalypse.DAL
         public DbSet<ZombieAttackBase> ZombieAttackBases { get; set; }
         public DbSet<AdventureDrop> AdventureDrops { get; set; }
         public DbSet<Mission> Missions { get; set; }
+        public DbSet<Dog> Dogs { get; set; }
+
+        public DbSet<OwnedDog> OwnedDogs { get; set; }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
 
@@ -101,6 +105,13 @@ namespace Zombiecalypse.DAL
             {
                 m.MapInheritedProperties();
                 m.ToTable("Missions");
+            });
+
+
+            modelBuilder.Entity<Dog>().Map(m =>
+            {
+                m.MapInheritedProperties();
+                m.ToTable("Dogs");
             });
 
 

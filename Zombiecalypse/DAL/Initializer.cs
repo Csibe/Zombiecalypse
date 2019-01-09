@@ -291,10 +291,8 @@ namespace Zombiecalypse.DAL
                                new BuildingBuildingMaterial { BuildingID=24, BuildingMaterialID=57, MaterialPieces=5},
                                new BuildingBuildingMaterial { BuildingID=24, BuildingMaterialID=58, MaterialPieces=5},
 
-
-
-
                         };
+
             buildingbuildingmaterials.ForEach(s => context.BuildingBuildingMaterials.Add(s));
             context.SaveChanges();
 
@@ -664,6 +662,13 @@ namespace Zombiecalypse.DAL
             context.SaveChanges();
 
 
+            var dogs = new List<Dog> {
+                 new Dog {  ItemID = 100, ItemName = "dog1", ItemPicture="/Content/Pictures/Dogs/dog1.png", ItemMaxDurability=0},
+                 new Dog {  ItemID = 101, ItemName = "dog2", ItemPicture="/Content/Pictures/Dogs/dog2.png", ItemMaxDurability=0},
+                 new Dog {  ItemID = 102, ItemName = "dog3", ItemPicture="/Content/Pictures/Dogs/dog3.png", ItemMaxDurability=0},
+            };
+            dogs.ForEach(s => context.Dogs.Add(s));
+            context.SaveChanges();
 
 
         }

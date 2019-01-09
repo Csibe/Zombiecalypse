@@ -81,6 +81,7 @@ namespace Zombiecalypse.Controllers
             model.AttackingZombies = db.ZombieAttackBases.Where(x => x.CharacterID == db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault().CharacterID).ToList();
             model.AdventureFinishDate = db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault().FinishAdventure;
             model.LastZombieAttackDate = db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault().LastZombieAttackTime;
+            model.EndOfExplore = db.OwnedDogs.Where(x => x.CharacterID == db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault().CharacterID).FirstOrDefault().EndOfExplore;
 
             return View(model);
         }
@@ -152,6 +153,18 @@ namespace Zombiecalypse.Controllers
                 if (zAA.Count >= 1)
                 {
                     zAA.ToArray()[0].isYourTourn = true;
+                }
+
+                List<Mission> zombieMission = db.Missions.Where(x => x.CharacterID == character.CharacterID).Where(x => x.MissionType == "zombiekilling").ToList();
+
+
+                if (zombieMission != null)
+                {
+                    foreach (var mission in zombieMission)
+                    {
+
+                        mission.MissionTaskProgress++;
+                    }
                 }
             }
 
@@ -285,6 +298,7 @@ namespace Zombiecalypse.Controllers
             model.AttackingZombies = db.ZombieAttackBases.Where(x => x.CharacterID == db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault().CharacterID).ToList();
             model.AdventureFinishDate = db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault().FinishAdventure;
             model.LastZombieAttackDate = db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault().LastZombieAttackTime;
+            model.EndOfExplore = db.OwnedDogs.Where(x => x.CharacterID == db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault().CharacterID).FirstOrDefault().EndOfExplore;
 
             return View(model);
         }
@@ -353,8 +367,6 @@ namespace Zombiecalypse.Controllers
             }
 
 
-
-
             model.UserKe = db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault().ApplicationUserID;
             model.PageUrl = this.Request.FilePath;
             model.Fields = db.CharacterFields.Where(x => x.CharacterID == db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault().CharacterID).ToList();
@@ -362,6 +374,8 @@ namespace Zombiecalypse.Controllers
             model.AttackingZombies = db.ZombieAttackBases.Where(x => x.CharacterID == db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault().CharacterID).ToList();
             model.AdventureFinishDate = db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault().FinishAdventure;
             model.LastZombieAttackDate = db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault().LastZombieAttackTime;
+            model.EndOfExplore = db.OwnedDogs.Where(x => x.CharacterID == db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault().CharacterID).FirstOrDefault().EndOfExplore;
+
 
             return View(model);
         }
@@ -444,6 +458,8 @@ namespace Zombiecalypse.Controllers
             model.AttackingZombies = db.ZombieAttackBases.Where(x => x.CharacterID == db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault().CharacterID).ToList();
             model.AdventureFinishDate = db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault().FinishAdventure;
             model.LastZombieAttackDate = db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault().LastZombieAttackTime;
+            model.EndOfExplore = db.OwnedDogs.Where(x => x.CharacterID == db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault().CharacterID).FirstOrDefault().EndOfExplore;
+
 
             return View(model);
         }

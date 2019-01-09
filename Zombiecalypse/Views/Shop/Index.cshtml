@@ -101,6 +101,27 @@
                 }
 
             </table>
+
+            <table border="1">
+
+                @foreach (var e in Model.Dogs)
+            {
+                    <td>
+                        <table border="1">
+                            <td><img width="100" height="100" src=@e.ItemPicture /></td>
+                            <tr></tr>
+                            <td>@e.ItemName</td>
+                            @*<tr></tr>
+                            <td>Durability: @e.PlusEnergy</td>
+                            <tr></tr>
+                            <td>Cost: @e.Cost</td>*@
+                            <tr></tr>
+                            <td>@Html.ActionLink("Buy", "Buy", "Shop", new { id = User.Identity.Name, ItemID = @e.ItemID }, new { @class = "ActionLinkButton" })</td>
+                        </table>
+                    </td>
+                }
+
+            </table>
         </div>
     </div>
 

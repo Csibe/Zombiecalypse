@@ -1,0 +1,115 @@
+﻿@model Zombiecalypse.Models.MissionVM
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<h3>Missions</h3>
+
+<div>
+
+    @if (Model.Missions.Count() > 0)
+    {
+        foreach (var mission in Model.Missions)
+        {
+            <table class="missiontable" border="1">
+                <tr>
+                    @if (mission.MissionType == "collection")
+                    {
+                        <td>Collect </td>
+                    }
+                    else if (mission.MissionType == "gathering")
+                    {
+                        <td>Harvest </td>
+                    }
+                    else if (mission.MissionType == "zombiekilling")
+                    {
+                        <td>Kill </td>
+                    }
+                    <td>@mission.MissionTaskNumber x</td>
+                    <td>
+                        <table>
+                            @if (mission.MissionType == "collection")
+                            {
+                                <td><img src=@mission.CollectionMissionTask.ItemPicture /></td>
+                                <tr></tr>
+                                <td>@mission.CollectionMissionTask.ItemName</td>
+                            }
+                            else if (mission.MissionType == "gathering")
+                            {
+                                <td><img src=@mission.GatheringMissionTask.ItemPicture /></td>
+                                <tr></tr>
+                                <td>@mission.GatheringMissionTask.ItemName</td>
+                            }
+                            else if (mission.MissionType == "zombiekilling")
+                            {
+                                <td>Zombies</td>
+                            }
+                        </table>
+                    </td>
+                    <td>Reward:</td>
+                    <td>@mission.MissionRewardNumber x</td>
+                    <td>
+                        <table>
+                            @if (mission.MissionType == "collection")
+                            {
+                                <td><img src=@mission.CollectionMissionReward.ItemPicture /></td>
+                                <tr></tr>
+                                <td>@mission.CollectionMissionReward.ItemName</td>
+                            }
+                            else if (mission.MissionType == "gathering")
+                            {
+                                <td><img src=@mission.GatheringMissionReward.ItemPicture /></td>
+                                <tr></tr>
+                                <td>@mission.GatheringMissionReward.ItemName</td>
+                            }
+                            else if (mission.MissionType == "zombiekilling")
+                            {
+                                <td><img src=@mission.GatheringMissionReward.ItemPicture /></td>
+                                <tr></tr>
+                                <td>@mission.GatheringMissionReward.ItemName</td>
+                            }
+                        </table>
+                    </td>
+                    <td>@mission.MissionFinishable</td>
+                    @if (mission.MissionFinishable == true)
+                    {
+                        <td>@Html.ActionLink("Get mission reward", "GetMissionReward", "Missions", new { Id = mission.MissionID }, new { @class = "ActionLinkButton" })</td>
+                    }
+                    else if (mission.MissionFinishable == false)
+                    {
+
+                        if (mission.MissionType == "gathering")
+                        {
+                            <td> @mission.MissionTaskProgress / @mission.MissionTaskNumber </td>
+                        }
+                        else if (mission.MissionType == "collection")
+                        {
+                            if (mission.CollectionMissionTask != null)
+                            {
+                                foreach (var item in Model.Character.Inventory)
+                                {
+                                    if (item.ItemID == mission.CollectionMissionTask.ItemID)
+                                    {
+                                        <td> @item.ItemPieces / @mission.MissionTaskNumber </td>
+                                    }
+                                }
+                            }
+                        }
+                        else if (mission.MissionType == "zombiekilling")
+                        {
+
+                            <td>@mission.MissionTaskProgress / @mission.MissionTaskNumber </td>
+                        }
+
+
+                    }
+
+                </tr>
+            </table>
+        }
+    }
+    }
+

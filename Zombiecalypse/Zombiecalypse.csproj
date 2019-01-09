@@ -215,6 +215,7 @@
     <Compile Include="Controllers\AdventuresController.cs" />
     <Compile Include="Controllers\BuildingsController.cs" />
     <Compile Include="Controllers\CharactersController.cs" />
+    <Compile Include="Controllers\DogsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\InventoriesController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -231,6 +232,7 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Adventure.cs" />
     <Compile Include="Models\Character.cs" />
+    <Compile Include="Models\Dog.cs" />
     <Compile Include="Models\Home.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Inventory.cs" />
@@ -262,6 +264,9 @@
     <Content Include="Content\Pictures\BuyableWeapons\Shotgun.png" />
     <Content Include="Content\Pictures\CraftableWeapons\Pepperspray.png" />
     <Content Include="Content\Pictures\CraftableWeapons\Shrapnelbomb.png" />
+    <Content Include="Content\Pictures\Dogs\dog1.png" />
+    <Content Include="Content\Pictures\Dogs\dog2.png" />
+    <Content Include="Content\Pictures\Dogs\dog3.png" />
     <Content Include="Content\Pictures\Fields\MelonFinished.png" />
     <Content Include="Content\Pictures\Fields\MelonStart.png" />
     <Content Include="Content\Pictures\Fields\PepperFinished.png" />
@@ -272,10 +277,12 @@
     <Content Include="Content\Pictures\Fields\StrawberryStart.png" />
     <Content Include="Content\Pictures\Fields\TomatoFinished.png" />
     <Content Include="Content\Pictures\Fields\TomatoStart.png" />
+    <Content Include="Content\Pictures\itembackground.png" />
     <Content Include="Content\Pictures\Items\Board.png" />
     <Content Include="Content\Pictures\Items\MetalSheet.png" />
     <Content Include="Content\Pictures\Items\RoofTile.png" />
     <Content Include="Content\Pictures\Items\Screw.png" />
+    <Content Include="Content\Pictures\missionbackground.png" />
     <Content Include="Content\Pictures\table.png" />
     <Content Include="Content\Pictures\table2.png" />
     <Content Include="Content\Pictures\table3.png" />
@@ -560,10 +567,11 @@
     <Content Include="Views\Adventures\Index.cshtml" />
     <Content Include="Views\Adventures\ZombieAttackAdventurer.cshtml" />
     <Content Include="Views\Zombies\Index.cshtml" />
-    <Content Include="Views\Mission\Index.cshtml" />
+    <Content Include="Views\Missions\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Dogs\" />
     <Folder Include="Views\Inventories\" />
   </ItemGroup>
   <ItemGroup>

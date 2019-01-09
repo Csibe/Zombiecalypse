@@ -5,6 +5,7 @@ var PageUrl = PageUrl;
 var untilAdventure = AdventureFinishDate;
 var untilEnergy = EnergyPlusDate;
 var lastZombieStartAttack = LastZombieStartAttack;
+var endOfExplore = EndOfExplore;
 
 
 var fieldFinishDate = FieldFinishDate;
@@ -18,7 +19,9 @@ var x = setInterval(function () {
     var distanceAdventure = untilAdventure - now;
     var distanceEnergy = untilEnergy - now;
     var distanceLastZombieStartAttack = now - lastZombieStartAttack;
+    var distanceEndOfExplore = endOfExplore - now;
 
+    console.log("endOfExplore: " +endOfExplore +" " +distanceEndOfExplore);
 
 
     var days = Math.floor(distanceAdventure / (1000 * 60 * 60 * 24));
@@ -60,6 +63,8 @@ var x = setInterval(function () {
         }
     }
 
+
+
     for (var count = 0; count < attackingZombieFinishDate.length; count++) {
 
         var untilZombie = attackingZombieFinishDate[count];
@@ -91,7 +96,12 @@ var x = setInterval(function () {
 
         if (distanceLastZombieStartAttack > 11760000) {
             clearInterval(x);
-            window.location.href = "/Characters/ManageZombiStartAttackBase/" + UserName + "?returnUrl=" + PageUrl;
+            window.location.href = "/Zombies/ZombieStartAttackBase/" + UserName + "?returnUrl=" + PageUrl;
+        }
+
+        if (distanceEndOfExplore < 0) {
+            clearInterval(x);
+            window.location.href = "/Dogs/StopDogToExplore/";
         }
 
     }, 1000);

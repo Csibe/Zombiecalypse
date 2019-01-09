@@ -47,6 +47,7 @@ namespace Zombiecalypse.Models
         public virtual Character Character { get; set; }
         public virtual Zombie Zombie { get; set; }
         public virtual Weapon Weapon { get; set; }
+        public virtual ICollection<Mission> Missions { get; set; }
         public virtual ICollection<Building> Buildings { get; set; }
         public virtual ICollection<CraftableWeapon> CraftableWeapons { get; set; }
         public virtual ICollection<BuyableWeapon> BuyableWeapons { get; set; }

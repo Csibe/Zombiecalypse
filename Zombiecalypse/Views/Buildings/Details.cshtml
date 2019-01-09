@@ -89,7 +89,6 @@
                                             <tr>
                                                 <td>MaterialID</td>
                                                 <td>ItemID</td>
-                                                <td>WeaponID</td>
                                                 <td>MaterialPieces</td>
                                             </tr>
                                             @foreach (var mat in Model.ComponentOfCraftableWeapon)
@@ -175,7 +174,7 @@
             }
             else
             {
-                @Html.ActionLink("Build" +Model.Building.ItemName, "LevelUpBuilding", "Inventories", new { id = inventoryItem.InventoryID }, new { @class = "ActionLinkButton" })
+                @Html.ActionLink("Build " +Model.Building.ItemName, "LevelUpBuilding", "Inventories", new { id = inventoryItem.InventoryID }, new { @class = "ActionLinkButton" })
             }
 
         </dd>

@@ -127,7 +127,7 @@ namespace Zombiecalypse.Controllers
             {
                 foreach (var build in db.Buildings)
                 {
-                    if (item.ItemID == build.ItemID && item.Item.ItemName !="Fence")
+                    if (item.ItemID == build.ItemID && item.Item.ItemName != "Fence")
                     {
                         model.CharacterBuildings.Add(build);
                     }
@@ -137,7 +137,69 @@ namespace Zombiecalypse.Controllers
 
             model.CharacterFields = db.CharacterFields.Where(x => x.CharacterID == model.Character.CharacterID).ToList();
             model.Adventures = db.Adventures.ToList();
-            model.Missions = db.Missions.Where(x => x.CharacterID == User.Identity.Name).ToList();
+
+            model.Missions = new List<MissionVM>();
+
+            foreach (var miss in db.Missions)
+            {
+                if (miss.CharacterID == model.Character.CharacterID)
+                {
+                    MissionVM mission = new MissionVM();
+                    mission.MissionID = miss.MissionID;
+                    mission.MissionTaskNumber = miss.MissionTaskNumber;
+                    mission.MissionFinishable = false;
+                    mission.MissionRewardNumber = miss.MissionRewardNumber;
+
+                    if (miss.MissionType == "collection") {
+
+                        mission.CollectionMissionReward = db.BuildingMaterials.Find(miss.MissionRewardID);
+                        mission.CollectionMissionTask = db.Materials.Find(miss.MissionTaskID);
+                        mission.MissionType = miss.MissionType;
+                        
+                        foreach (var item in model.Character.Inventory)
+                        {
+                            if (item.ItemID == mission.CollectionMissionTask.ItemID && item.ItemPieces >= mission.MissionTaskNumber)
+                            {
+                                mission.MissionFinishable = true;
+                            }
+
+                        }
+                    }
+
+                    else if(miss.MissionType == "gathering"){
+
+                        mission.MissionType = miss.MissionType;
+                        mission.GatheringMissionReward = db.BuildingMaterials.Find(miss.MissionRewardID);
+                        mission.GatheringMissionTask = db.Plants.Find(miss.MissionTaskID);
+                        mission.MissionTaskProgress = miss.MissionTaskProgress;
+                        foreach (var item in model.Character.Inventory)
+                        {
+                            if (item.ItemID == mission.GatheringMissionTask.ItemID && miss.MissionTaskProgress >= mission.MissionTaskNumber)
+                            {
+                                mission.MissionFinishable = true;
+                            }
+
+                        }
+                    }
+                    else if (miss.MissionType == "zombiekilling")
+                    {
+
+                        mission.MissionType = miss.MissionType;
+                        mission.GatheringMissionReward = db.BuildingMaterials.Find(miss.MissionRewardID);
+                        mission.MissionTaskProgress = miss.MissionTaskProgress;
+                            if (miss.MissionTaskProgress >= mission.MissionTaskNumber)
+                            {
+                                mission.MissionFinishable = true;
+                            }
+                    }
+
+
+
+
+                    model.Missions.Add(mission);
+
+                }
+            }
 
 
             model.CharacterNextLevelXP = db.Levels.Where(l => l.LevelID == model.Character.CharacterLevel).FirstOrDefault().LevelMaxXP;
@@ -158,6 +220,7 @@ namespace Zombiecalypse.Controllers
             Picture += ".png";
 
             model.BasePicture = Picture;
+            model.OwnedDog = db.OwnedDogs.Where(x => x.CharacterID == model.Character.CharacterID).FirstOrDefault();
 
 
             model.UserKe = db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault().ApplicationUserID;
@@ -167,6 +230,8 @@ namespace Zombiecalypse.Controllers
             model.AttackingZombies = db.ZombieAttackBases.Where(x => x.CharacterID == db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault().CharacterID).ToList();
             model.AdventureFinishDate = db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault().FinishAdventure;
             model.LastZombieAttackDate = db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault().LastZombieAttackTime;
+            model.EndOfExplore = db.OwnedDogs.Where(x => x.CharacterID == db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault().CharacterID).FirstOrDefault().EndOfExplore;
+
 
             return View(model);
         }

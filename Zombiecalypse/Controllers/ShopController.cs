@@ -20,6 +20,7 @@ namespace Zombiecalypse.Controllers
             model.Weapons = db.BuyableWeapons.ToList();
             model.Plants = db.Plants.ToList();
             model.Energies = db.Energies.ToList();
+            model.Dogs = db.Dogs.ToList();
 
 
             model.UserKe = db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault().ApplicationUserID;
@@ -29,6 +30,7 @@ namespace Zombiecalypse.Controllers
             model.AttackingZombies = db.ZombieAttackBases.Where(x => x.CharacterID == db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault().CharacterID).ToList();
             model.AdventureFinishDate = db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault().FinishAdventure;
             model.LastZombieAttackDate = db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault().LastZombieAttackTime;
+            model.EndOfExplore = db.OwnedDogs.Where(x => x.CharacterID == db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault().CharacterID).FirstOrDefault().EndOfExplore;
 
 
             return View(model);
@@ -60,20 +62,35 @@ namespace Zombiecalypse.Controllers
                 Energy variable = db.Energies.Find(ItemID);
                 price = variable.Cost;
             }
+            else if (item.GetType().Name.Contains("Dog"))
+            {
+                Dog variable = db.Dogs.Find(ItemID);
+                price = variable.Cost;
+            }
 
             //if (character.CharacterMoney >= price)
             //{
             character.CharacterMoney -= price;
-            if (character.Inventory.Where(x => x.ItemID == ItemID).FirstOrDefault() != null)
+            if (item.GetType().Name.Contains("Dog"))
             {
-                Inventory inventory = character.Inventory.Where(x => x.ItemID == ItemID).FirstOrDefault();
-                inventory.ItemPieces++;
+                OwnedDog dog = new OwnedDog { CharacterID = character.CharacterID, DogLevel = 1, DogMaxLife = 3, DogCurrentLife = 3, DogPicture = item.ItemPicture, DogCurrentEnergy = 5, DogMaxEnergy = 5, EndOfExplore = DateTime.MaxValue, IsOnExplore = false };
+                db.OwnedDogs.Add(dog);
             }
             else
             {
-                Inventory inventory = new Inventory { ItemID = ItemID, CharacterID = character.CharacterID, Item = item, ItemPieces = 1, ItemCurrentDurability = item.ItemMaxDurability, ItemMaxDurability = item.ItemMaxDurability };
-                db.Inventories.Add(inventory);
+                if (character.Inventory.Where(x => x.ItemID == ItemID).FirstOrDefault() != null)
+                {
+                    Inventory inventory = character.Inventory.Where(x => x.ItemID == ItemID).FirstOrDefault();
+                    inventory.ItemPieces++;
+                }
+                else
+                {
+                    Inventory inventory = new Inventory { ItemID = ItemID, CharacterID = character.CharacterID, Item = item, ItemPieces = 1, ItemCurrentDurability = item.ItemMaxDurability, ItemMaxDurability = item.ItemMaxDurability };
+                    db.Inventories.Add(inventory);
+                }
+
             }
+
             db.SaveChanges();
             //}
 
@@ -88,11 +105,11 @@ namespace Zombiecalypse.Controllers
 
             //if (character.CharacterMoney >= 300)
             //{
-                character.CharacterMoney -= 300;
-                db.CharacterFields.Add(characterField);
-                db.SaveChanges();
+            character.CharacterMoney -= 300;
+            db.CharacterFields.Add(characterField);
+            db.SaveChanges();
             //}
-                return RedirectToAction("Details", "Characters", new { id = User.Identity.Name });
-            }
+            return RedirectToAction("Details", "Characters", new { id = User.Identity.Name });
         }
     }
+}

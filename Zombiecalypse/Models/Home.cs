@@ -18,6 +18,7 @@ namespace Zombiecalypse.Models
         public DateTime LastZombieAttackDate { get; set; }
         public ICollection<ZombieAttackBase> AttackingZombies { get; set; }
        
+        public DateTime EndOfExplore { get; set; }
 
     }
 

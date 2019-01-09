@@ -11,6 +11,7 @@ namespace Zombiecalypse.Models
         public virtual ICollection<BuyableWeapon> Weapons { get; set; }
         public virtual ICollection<Plant> Plants { get; set; }
         public virtual ICollection<Energy> Energies { get; set; }
+        public virtual ICollection<Dog> Dogs { get; set; }
 
     }
 }

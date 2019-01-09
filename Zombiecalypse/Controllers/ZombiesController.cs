@@ -41,6 +41,8 @@ namespace Zombiecalypse.Controllers
         {
             BaseDefenseFromZombiesVM model = new BaseDefenseFromZombiesVM();
             model.ZombieAttackBase = db.ZombieAttackBases.Find(ZabID);
+            model.Zombie = db.Zombies.Find(model.ZombieAttackBase.ZombieID);
+            model.Character = db.Characters.Find(model.ZombieAttackBase.CharacterID);
 
             ICollection<Inventory> inventory = model.Character.Inventory;
 
@@ -82,7 +84,10 @@ namespace Zombiecalypse.Controllers
             }
 
 
-            foreach (var item in inventory)
+            model.BuyableWeapons = new List<BuyableWeapon>();
+            model.CraftableWeapons = new List<CraftableWeapon>();
+
+            foreach (var item in model.Character.Inventory)
             {
                 foreach (var weap in db.BuyableWeapons)
                 {
@@ -93,7 +98,7 @@ namespace Zombiecalypse.Controllers
                 }
             }
 
-            foreach (var item in inventory)
+            foreach (var item in model.Character.Inventory)
             {
                 foreach (var weap in db.CraftableWeapons)
                 {
@@ -109,6 +114,16 @@ namespace Zombiecalypse.Controllers
                 var addXP = new CharactersController().ManageXPAndLevelUp(User.Identity.Name, model.Zombie.RewardXP, this.Request.FilePath);
                 model.Character.CharacterMoney += model.Zombie.RewardCoins;
                 db.ZombieAttackBases.Remove(model.ZombieAttackBase);
+               List<Mission> zombieMission = db.Missions.Where(x => x.CharacterID == model.Character.CharacterID).Where(x => x.MissionType == "zombiekilling").ToList();
+
+
+                if (zombieMission != null) {
+                    foreach (var mission in zombieMission) {
+
+                        mission.MissionTaskProgress++;
+                    }
+                }
+
 
                 db.SaveChanges();
                 return RedirectToAction("Details", "Characters", new { id = User.Identity.Name });
@@ -242,6 +257,7 @@ namespace Zombiecalypse.Controllers
             Character character = db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault();
             Inventory fence = character.Inventory.Where(x => x.Item.ItemName == "Fence").FirstOrDefault();
             fence.ItemCurrentDurability--;
+
 
             db.SaveChanges();
 

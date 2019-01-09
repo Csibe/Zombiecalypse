@@ -54,6 +54,7 @@ namespace Zombiecalypse.Models
         public int CharacterID { get; set; }
 
         public virtual Character Character { get; set; }
+        public virtual OwnedDog OwnedDog { get; set; }
 
         [DisplayName("Next level XP")]
         public int CharacterNextLevelXP { get; set; }
@@ -62,7 +63,7 @@ namespace Zombiecalypse.Models
         
         public string BasePicture { get; set; }
 
-        public virtual ICollection<Mission> Missions { get; set; }
+        public virtual ICollection<MissionVM> Missions { get; set; }
         public virtual ICollection<Inventory> CharacterItems { get; set; }
         public virtual ICollection<Building> CharacterBuildings { get; set; }
         public virtual ICollection<CharacterField> CharacterFields { get; set; }
