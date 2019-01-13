@@ -158,7 +158,7 @@ namespace Zombiecalypse.Controllers
             if (ModelState.IsValid)
             {
                 var user = new ApplicationUser { UserName = model.Name, Email = model.Email };
-                var character = new Character { ApplicationUserID = model.Name, CharacterName = model.CharacterName, CharacterType = model.CharacterType, FinishAdventure = DateTime.MaxValue, IsOnAdventure = false, CurrentEnergy = 14, MaxEnergy = 14, CharacterLevel = 1, EnergyPlusDate = DateTime.MaxValue, LastZombieAttackTime = DateTime.Now, MaxTolerance=5, Tolerance=5 };
+                var character = new Character { ApplicationUserID = model.Name, CharacterName = model.CharacterName, CharacterType = model.CharacterType, CharacterMoney = 2000000, FinishAdventure = DateTime.MaxValue, IsOnAdventure = false, CurrentEnergy = 14, MaxEnergy = 14, CharacterLevel = 5, EnergyPlusDate = DateTime.MaxValue, LastZombieAttackTime = DateTime.Now, MaxTolerance=5, Tolerance=5 };
 
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
@@ -175,17 +175,17 @@ namespace Zombiecalypse.Controllers
                     new Inventory{ CharacterID=character.CharacterID, ItemID=19, ItemPieces=1, ItemMaxDurability=db.Buildings.Where(x=> x.ItemID == 19).First().ItemMaxDurability, ItemCurrentDurability=db.Buildings.Where(x=> x.ItemID == 19).First().ItemMaxDurability},
                     new Inventory{ CharacterID=character.CharacterID, ItemID=83, ItemPieces=1, ItemMaxDurability=db.Buildings.Where(x=> x.ItemID == 83).First().ItemMaxDurability, ItemCurrentDurability=db.Buildings.Where(x=> x.ItemID == 83).First().ItemMaxDurability},
 
-                    new Inventory{ CharacterID=character.CharacterID, ItemID=54, ItemPieces=0, ItemMaxDurability=0, ItemCurrentDurability=0},
-                    new Inventory{ CharacterID=character.CharacterID, ItemID=55, ItemPieces=0, ItemMaxDurability=0, ItemCurrentDurability=0},
-                    new Inventory{ CharacterID=character.CharacterID, ItemID=56, ItemPieces=0, ItemMaxDurability=0, ItemCurrentDurability=0},
-                    new Inventory{ CharacterID=character.CharacterID, ItemID=57, ItemPieces=0, ItemMaxDurability=0, ItemCurrentDurability=0},
-                    new Inventory{ CharacterID=character.CharacterID, ItemID=58, ItemPieces=0, ItemMaxDurability=0, ItemCurrentDurability=0},
+                    new Inventory{ CharacterID=character.CharacterID, ItemID=54, ItemPieces=200, ItemMaxDurability=0, ItemCurrentDurability=0},
+                    new Inventory{ CharacterID=character.CharacterID, ItemID=55, ItemPieces=200, ItemMaxDurability=0, ItemCurrentDurability=0},
+                    new Inventory{ CharacterID=character.CharacterID, ItemID=56, ItemPieces=200, ItemMaxDurability=0, ItemCurrentDurability=0},
+                    new Inventory{ CharacterID=character.CharacterID, ItemID=57, ItemPieces=200, ItemMaxDurability=0, ItemCurrentDurability=0},
+                    new Inventory{ CharacterID=character.CharacterID, ItemID=58, ItemPieces=200, ItemMaxDurability=0, ItemCurrentDurability=0},
 
-                    new Inventory{ CharacterID=character.CharacterID, ItemID=36, ItemPieces=0, ItemMaxDurability=0, ItemCurrentDurability=0},
-                    new Inventory{ CharacterID=character.CharacterID, ItemID=37, ItemPieces=0, ItemMaxDurability=0, ItemCurrentDurability=0},
-                    new Inventory{ CharacterID=character.CharacterID, ItemID=38, ItemPieces=0, ItemMaxDurability=0, ItemCurrentDurability=0},
-                    new Inventory{ CharacterID=character.CharacterID, ItemID=39, ItemPieces=0, ItemMaxDurability=0, ItemCurrentDurability=0},
-                    new Inventory{ CharacterID=character.CharacterID, ItemID=40, ItemPieces=0, ItemMaxDurability=0, ItemCurrentDurability=0},
+                    new Inventory{ CharacterID=character.CharacterID, ItemID=36, ItemPieces=200, ItemMaxDurability=0, ItemCurrentDurability=0},
+                    new Inventory{ CharacterID=character.CharacterID, ItemID=37, ItemPieces=200, ItemMaxDurability=0, ItemCurrentDurability=0},
+                    new Inventory{ CharacterID=character.CharacterID, ItemID=38, ItemPieces=200, ItemMaxDurability=0, ItemCurrentDurability=0},
+                    new Inventory{ CharacterID=character.CharacterID, ItemID=39, ItemPieces=200, ItemMaxDurability=0, ItemCurrentDurability=0},
+                    new Inventory{ CharacterID=character.CharacterID, ItemID=40, ItemPieces=200, ItemMaxDurability=0, ItemCurrentDurability=0},
 
                     new Inventory{ CharacterID=character.CharacterID, ItemID=59, ItemPieces=1, ItemMaxDurability=999, ItemCurrentDurability=999},
                     new Inventory{ CharacterID=character.CharacterID, ItemID=69, ItemPieces=1, ItemMaxDurability=2, ItemCurrentDurability=2},

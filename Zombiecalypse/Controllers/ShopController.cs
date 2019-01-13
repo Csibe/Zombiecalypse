@@ -8,31 +8,21 @@ using Zombiecalypse.Models;
 
 namespace Zombiecalypse.Controllers
 {
-    public class ShopController : Controller
+    public class ShopController : BaseController
     {
-
-        DataContext db = new DataContext();
 
         // GET: Shop
         public ActionResult Index()
         {
             Shop model = new Shop();
+
+            model.Character = db.Characters.Where(x => x.ApplicationUserID == User.Identity.Name).FirstOrDefault();
             model.Weapons = db.BuyableWeapons.ToList();
             model.Plants = db.Plants.ToList();
             model.Energies = db.Energies.ToList();
             model.Dogs = db.Dogs.ToList();
 
-
-            model.UserKe = db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault().ApplicationUserID;
-            model.PageUrl = this.Request.FilePath;
-            model.Fields = db.CharacterFields.Where(x => x.CharacterID == db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault().CharacterID).ToList();
-            model.EnergyPlusDate = db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault().EnergyPlusDate;
-            model.AttackingZombies = db.ZombieAttackBases.Where(x => x.CharacterID == db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault().CharacterID).ToList();
-            model.AdventureFinishDate = db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault().FinishAdventure;
-            model.LastZombieAttackDate = db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault().LastZombieAttackTime;
-            model.EndOfExplore = db.OwnedDogs.Where(x => x.CharacterID == db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault().CharacterID).FirstOrDefault().EndOfExplore;
-
-
+            base.SetModelProperties(model);
             return View(model);
         }
 
@@ -68,9 +58,17 @@ namespace Zombiecalypse.Controllers
                 price = variable.Cost;
             }
 
-            //if (character.CharacterMoney >= price)
-            //{
-            character.CharacterMoney -= price;
+            if (item.GetType().Name.Contains("Energy"))
+            {
+                character.CharacterFood -= price;
+            }
+            else
+            {
+                character.CharacterMoney -= price;
+            }
+
+
+
             if (item.GetType().Name.Contains("Dog"))
             {
                 OwnedDog dog = new OwnedDog { CharacterID = character.CharacterID, DogLevel = 1, DogMaxLife = 3, DogCurrentLife = 3, DogPicture = item.ItemPicture, DogCurrentEnergy = 5, DogMaxEnergy = 5, EndOfExplore = DateTime.MaxValue, IsOnExplore = false };

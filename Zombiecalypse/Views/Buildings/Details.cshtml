@@ -3,183 +3,275 @@
 @{
     ViewBag.Title = "Details";
 
-    var inventoryItem = Model.Character.Inventory.Where(x => x.ItemID == Model.Building.ItemID).FirstOrDefault();
+    var inventoryItem = Model.Character.Inventory.Where(x => x.Item.ItemName == Model.Building.ItemName).FirstOrDefault();
+
     var durability = 0;
+    var isCraftable = true;
+    var isBuildable = true;
 
     if (inventoryItem.ItemCurrentDurability != 0 && Model.Building.ItemMaxDurability != 0)
     {
         durability = ((inventoryItem.ItemCurrentDurability * 100) / Model.Building.ItemMaxDurability);
     }
+
 }
 
-<div>
-    <h4>@Html.DisplayFor(model => model.Building.ItemName)</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <table>
-            <tr>
-                <td>
-                    <img src="@Model.Building.ItemPicture" />
-                </td>
-                @if (Model.Building.BuildingLevel > 0)
-                {
-                    <td>
-                        <table align="left">
-                            <tr>
-                                <td>
-                                    @Html.DisplayNameFor(model => Model.Character.Inventory.Where(x => x.ItemID == Model.Building.ItemID).FirstOrDefault().ItemCurrentDurability)
-                                    <div class="container" style="width:300px;">
-                                        <div class="rating-num">
-                                            @Model.Building.ItemMaxDurability / @inventoryItem.ItemCurrentDurability
-                                            <div class="progress">
-                                                <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="@Model.Building.ItemMaxDurability" aria-valuemin="0" aria-valuemax="100" style="width: @durability%"></div>
-                                            </div>
-                                            @if (Model.Building.ItemMaxDurability > inventoryItem.ItemCurrentDurability)
-                                            {
-                                                @Html.ActionLink("Repair", "SetLasLoginMinusHour", "Characters", new { id = User.Identity.Name }, new { @class = "ActionLinkButton" })
-                                            }
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    @Html.DisplayNameFor(model => model.Building.BuildingLevel): @Html.DisplayFor(model => model.Building.BuildingLevel)
-                                </td>
-                            </tr>
-                        </table>
-                    </td>
-                }
-            </tr>
-        </table>
+<div class="container">
 
+    <h3>@Html.DisplayFor(model => model.Building.ItemName)</h3>
+    <hr />
+
+    <table>
+        <tr>
+            <td>
+                <img src="@Model.Building.ItemPicture" />
+            </td>
+            
+            <td>
+                @Model.Building.ItemID
+            </td>
+            @if (Model.Building.BuildingLevel > 0)
+            {
+                <td>
+                    <table>
+                        <tr>
+                            <td>
+
+                                <div class="container" style="width:300px;">
+                                    <div class="rating-num">
+                                        @Html.DisplayNameFor(model => Model.Character.Inventory.Where(x => x.ItemID == Model.Building.ItemID).FirstOrDefault().ItemCurrentDurability):  @Model.Building.ItemMaxDurability / @inventoryItem.ItemCurrentDurability
+                                        <div class="progress">
+                                            <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="@Model.Building.ItemMaxDurability" aria-valuemin="0" aria-valuemax="100" style="width: @durability%"></div>
+                                        </div>
+                                        @if (Model.Building.ItemMaxDurability > inventoryItem.ItemCurrentDurability)
+                                        {
+                                            @Html.ActionLink("Repair", "RepairBuilding", "Buildings", new { id = Model.Building.ItemID, returnUrl = this.Request.Url }, new { @class = "ActionLinkButton" })
+                                        }
+                                        else
+                                        {
+                                            <div class="alert alert-success">
+                                                <strong>@Model.Building.ItemName is undamaged</strong>
+                                            </div>
+
+
+                                        }
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                @Html.DisplayNameFor(model => model.Building.BuildingLevel): @Html.DisplayFor(model => model.Building.BuildingLevel)
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            }
+        </tr>
+    </table>
+
+    <div align="center">
         @if (Model.Building.BuildingLevel > 0)
         {
-            <dd>
-                <div>Craftable weapons</div>
-                <table border="1">
+            <h4>Craftable weapons</h4>
+            <table border="1">
+                <tbody>
                     <tr>
                         @foreach (var weapon in Model.CraftableWeapons)
                         {
                             <td>
-                                <table>
-                                    <td>
-                                        <img src=@weapon.ItemPicture />
-                                    </td>
-                                    <tr></tr>
-                                    <td>
-                                        @weapon.ItemID
-                                    </td>
-                                    <tr></tr>
-                                    <td>
-                                        @weapon.ItemName
-                                    </td>
-                                    <tr></tr>
-                                    <td>
-                                        @weapon.ItemMaxDurability
-                                    </td>
-                                    <tr></tr>
-                                    <td>
-                                        @weapon.WeaponDamage
-                                    </td>
-                                    <tr></tr>
-                                    <td>
+                                <table class="table">
+                                    <tr>
+                                        <td>
+                                            @weapon.ItemName
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <img src=@weapon.ItemPicture />
+                                        </td>
+                                    </tr>
 
-                                        <table border="1">
-                                            <tr>
-                                                <td>MaterialID</td>
-                                                <td>ItemID</td>
-                                                <td>MaterialPieces</td>
-                                            </tr>
-                                            @foreach (var mat in Model.ComponentOfCraftableWeapon)
-                                            {
-                                                foreach (var item in Model.Character.Inventory)
+
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayNameFor(model => weapon.ItemMaxDurability): @weapon.ItemMaxDurability
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayNameFor(model => weapon.WeaponDamage): @weapon.WeaponDamage
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <table border="1">
+                                                @foreach (var mat in Model.ComponentOfCraftableWeapon)
                                                 {
-                                                    if (mat.WeaponID == weapon.ItemID && mat.MaterialID != Model.Building.ItemID && item.ItemID == mat.MaterialID)
+                                                    foreach (var item in Model.Character.Inventory)
                                                     {
-                                                        var material = Model.Materials.Where(x => x.ItemID == mat.MaterialID).FirstOrDefault();
+                                                        if (mat.WeaponID == weapon.ItemID && mat.MaterialID != Model.Building.ItemID && item.ItemID == mat.MaterialID)
                                                         {
+                                                            var material = Model.Materials.Where(x => x.ItemID == mat.MaterialID).FirstOrDefault();
+                                                            {
 
-                                                            <tr>
-                                                                <td>
-                                                                    <img width="30px" height="30px" src=@material.ItemPicture />
-                                                                </td>
-                                                                <td>
-                                                                    @material.ItemName
-                                                                </td>
-                                                                <td>
-                                                                    @item.ItemPieces / @mat.MaterialPieces
-                                                                </td>
-                                                            </tr>
+                                                                <tr>
+                                                                    <td>
+                                                                        <img width="30" height="30" src=@material.ItemPicture />
+                                                                    </td>
+                                                                    <td>
+                                                                        @material.ItemName
+                                                                    </td>
+                                                                    <td>
+                                                                        @item.ItemPieces / @mat.MaterialPieces
+                                                                    </td>
+                                                                </tr>
+                                                                if (item.ItemPieces < mat.MaterialPieces)
+                                                                {
+                                                                    isCraftable = false;
+                                                                }
+                                                            }
                                                         }
                                                     }
+
                                                 }
-                                            }
+                                                <tr>
+                                            </table>
+                                        </td>
 
-                                        </table>
+                                    </tr>
+                                    <tr>
+                                        @if (isCraftable == true)
+                                        {
+                                            <td>@Html.ActionLink("Craft weapon", "CraftWeapon", "Inventories", new { WeaponId = weapon.ItemID }, new { @class = "ActionLinkButton" })</td>
+                                        }
+                                        else
+                                        {
+                                            <td>
+                                                <div class="alert alert-danger">
+                                                    <strong>Not enought material.</strong>
+                                                </div>
+                                            </td>
+                                        }
 
-                                    </td>
-                                    <tr></tr>
-                                    <td>@Html.ActionLink("Craft weapon", "CraftWeapon", "Inventories", new { WeaponId = weapon.ItemID }, new { @class = "ActionLinkButton" })</td>
+                                    </tr>
                                 </table>
                             </td>
-
                         }
                     </tr>
-                </table>
-            </dd>
+            </table>
         }
 
 
-
-        <dd>
-            <br />
-            <div>Required materials to the building</div>
-            <table>
-                <tr>
-                    @foreach (var bbm in Model.NextBuildingBuildingMaterials)
+        <br />
+        <h4>Required materials to the building</h4>
+        <table>
+            <tr>
+                @foreach (var bbm in Model.NextBuildingBuildingMaterials)
+                {
+                    foreach (var bm in Model.NextBuildingMaterials)
                     {
-                        foreach (var bm in Model.NextBuildingMaterials)
+                        foreach (var item in Model.Character.Inventory)
                         {
-                            foreach (var item in Model.Character.Inventory)
+                            if (bbm.BuildingMaterialID == bm.ItemID && bm.ItemID == item.ItemID)
                             {
-
-                                if (bbm.BuildingMaterialID == bm.ItemID && bm.ItemID == item.ItemID)
-                                {
-                                    <td>
-                                        <table border="1">
+                                <td>
+                                    <table border="1">
+                                        <tr>
                                             <td>
                                                 <img src=@bm.ItemPicture />
                                             </td>
-                                            <tr></tr>
+                                        </tr>
+
+                                        <tr>
                                             <td>
                                                 @bm.ItemName
                                             </td>
-                                            <tr></tr>
+                                        </tr>
+                                        <tr>
                                             <td>
                                                 @item.ItemPieces of @bbm.MaterialPieces piece(s)
                                             </td>
-                                            <tr></tr>
-                                        </table>
-                                    </td>
+                                        </tr>
+
+                                    </table>
+                                </td>
+                                if (item.ItemPieces < bbm.MaterialPieces)
+                                {
+                                    isBuildable = false;
                                 }
                             }
                         }
                     }
-                </tr>
-            </table>
-            @if (Model.Building.BuildingLevel > 0)
-            {
-                @Html.ActionLink("Level up building", "LevelUpBuilding", "Inventories", new { id = inventoryItem.InventoryID }, new { @class = "ActionLinkButton" })
-            }
-            else
-            {
-                @Html.ActionLink("Build " +Model.Building.ItemName, "LevelUpBuilding", "Inventories", new { id = inventoryItem.InventoryID }, new { @class = "ActionLinkButton" })
-            }
+                }
+            </tr>
+            <tr>
+                <td>Cost: @Model.Building.BuildingMoneyCost <img src="~/Content/Pictures/Coin.png" /></td>
+            </tr>
+            <tr>
+                <td>@Model.Building.BuildingEnergyCost <img width="25" , height="25" src="~/Content/Pictures/Energy.png" /></td>
+            </tr>
+        </table>
+        <table>
+            <tr>
+                <td>
+                    @if (isBuildable == false)
+                    {
+                        <div class="alert alert-danger">
+                            <strong>Not enought materials</strong>
+                        </div>
+                    }
+                    else if (Model.Character.IsOnAdventure == true)
+                    {
+                        <div class="alert alert-danger">
+                            <strong>You are on adventure</strong>
+                        </div>
+                    }
+                    else if (Model.Character.CurrentEnergy < Model.Building.BuildingEnergyCost)
+                    {
+                        <div class="alert alert-danger">
+                            <strong>Not enought energy</strong>
+                        </div>
 
-        </dd>
-        <div>
-            @Html.ActionLink("Back to base", "Details", "Characters", new { id = User.Identity.Name }, new { @class = "ActionLinkButton" })
-        </div>
-    </dl>
+                    }
+                    else if (Model.Character.CharacterMoney < Model.Building.BuildingMoneyCost)
+                    {
+                        <div class="alert alert-danger">
+                            <strong>Not enought money</strong>
+                        </div>
+                    }
+                    else if (Model.Building.BuildingLevel >= 5)
+                    {
+                        <div class="alert alert-success">
+                            <strong>You achived the max level</strong>
+                        </div>
+                    }
+                    else if (Model.Building.ItemMaxDurability > inventoryItem.ItemCurrentDurability)
+                    {
+                        <div class="alert alert-danger">
+                            <strong>Have to reapir before level up</strong>
+                        </div>
+                    }
+                    else
+                    {
+                        if (Model.Building.BuildingLevel > 0)
+                        {
+
+                            @Html.ActionLink("Level up building", "LevelUpBuilding", "Inventories", new { id = inventoryItem.InventoryID }, new { @class = "ActionLinkButton" })
+                        }
+                        else
+                        {
+                            @Html.ActionLink("Build " + Model.Building.ItemName, "LevelUpBuilding", "Inventories", new { id = inventoryItem.InventoryID }, new { @class = "ActionLinkButton" })
+                        }
+                    }
+                </td>
+            </tr>
+        </table>
+
+
+    </div>
+    <div>
+        @Html.ActionLink("Back to base", "Details", "Characters", new { id = User.Identity.Name }, new { @class = "ActionLinkButton" })
+    </div>
 </div>

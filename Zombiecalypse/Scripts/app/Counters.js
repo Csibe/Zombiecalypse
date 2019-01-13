@@ -21,32 +21,30 @@ var x = setInterval(function () {
     var distanceLastZombieStartAttack = now - lastZombieStartAttack;
     var distanceEndOfExplore = endOfExplore - now;
 
-    console.log("endOfExplore: " +endOfExplore +" " +distanceEndOfExplore);
-
 
     var days = Math.floor(distanceAdventure / (1000 * 60 * 60 * 24));
     var hours = Math.floor((distanceAdventure % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
     var minutes = Math.floor((distanceAdventure % (1000 * 60 * 60)) / (1000 * 60));
     var seconds = Math.floor((distanceAdventure % (1000 * 60)) / 1000);
 
-    //if ($(document.getElementsByClassName("image")) != null) {
-    //    list = document.getElementsByClassName("image");
+    if (document.getElementsByClassName("image")) {
+        list = document.getElementsByClassName("image");
 
-    //    for (i = 0; i < list.length; ++i) {
-    //        if (seconds % 2 == 0) {
-    //            list[i].setAttribute("src", "/Content/Pictures/walk1.PNG");
-    //        }
-    //        else {
-    //            list[i].setAttribute("src", "/Content/Pictures/walk2.PNG");
-    //        }
-    //    }
-    //}
+        for (i = 0; i < list.length; ++i) {
+            if (seconds % 2 == 0) {
+                list[i].setAttribute("src", "/Content/Pictures/walk1.PNG");
+            }
+            else {
+                list[i].setAttribute("src", "/Content/Pictures/walk2.PNG");
+            }
+        }
+    }
 
-    //console.log(distanceAdventure);
-    //console.log("distanceLastZombieAttack: " + distanceLastZombieStartAttack);
-    //if ($(document.getElementById("counter")) != null) {
-    //    document.getElementById("counter").innerHTML = days + " nap " + hours + " óra " + minutes + " perc " + seconds + " másodperc ";
-    //}
+    console.log(distanceAdventure);
+    console.log("distanceLastZombieAttack: " + distanceLastZombieStartAttack);
+    if (document.getElementById("counter")) {
+        document.getElementById("counter").innerHTML = days + " nap " + hours + " óra " + minutes + " perc " + seconds + " másodperc ";
+    }
 
     for (var count = 0; count < FieldFinishDate.length; count++) {
 
@@ -54,7 +52,7 @@ var x = setInterval(function () {
         var fieldID = FieldID[count];
 
         var distanceField = untilField - now;
-
+        console.log(fieldFinishDate[count]);
 
         if (distanceField < 0) {
 
@@ -72,10 +70,9 @@ var x = setInterval(function () {
 
         var distanceZombie = now - untilZombie;
 
-        console.log(distanceZombie);
+      //  console.log(distanceZombie);
 
-        if (distanceZombie > 10000) {
-
+        if (distanceZombie > 1000000) {
             clearInterval(x);
             window.location.href = '/Zombies/ZombieAttackBase/' + '?ZabID=' + zabID;
             
@@ -92,7 +89,7 @@ var x = setInterval(function () {
             window.location.href = "/Characters/ManageEnergy/" + UserName +"?energyCost=0&returnUrl=" +PageUrl;
         }
 
-        console.log(distanceLastZombieStartAttack);
+       // console.log(distanceLastZombieStartAttack);
 
         if (distanceLastZombieStartAttack > 11760000) {
             clearInterval(x);

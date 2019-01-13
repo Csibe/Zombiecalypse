@@ -1,0 +1,32 @@
+﻿@model Zombiecalypse.Models.AttackingZombieReward
+
+@{
+}
+
+<div>
+
+    <h4>Collect reward</h4>
+    <hr />
+
+        Rewards:
+        <br />
+        <div align="center">
+            <img src="~/Content/Pictures/Adventures/lada2.png" />
+        </div>
+        <table align="center" class="table">
+            <tr>
+                <td>
+                    Coin reward: @Model.RewardCoin
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    XP reward: @Model.RewardCoin
+                </td>
+            </tr>
+        </table>
+
+        <div>
+            @Html.ActionLink("Back to base", "Details", "Characters", new { id = User.Identity.Name }, new { @class = "ActionLinkButton" })
+        </div>
+</div>

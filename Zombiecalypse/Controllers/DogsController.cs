@@ -8,11 +8,8 @@ using Zombiecalypse.DAL;
 
 namespace Zombiecalypse.Controllers
 {
-    public class DogsController : Controller
+    public class DogsController : BaseController
     {
-
-        private DataContext db = new DataContext();
-
 
         // GET: Dogs
         public ActionResult Index()
@@ -111,7 +108,8 @@ namespace Zombiecalypse.Controllers
                 return RedirectToAction("Details", "Characters", new { id = User.Identity.Name });
             }
 
-            return View(model);
+
+            return RedirectToAction("Details", "Characters", new { id = User.Identity.Name });
         }
 
     }

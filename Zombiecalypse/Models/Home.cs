@@ -17,12 +17,12 @@ namespace Zombiecalypse.Models
         public DateTime AdventureFinishDate { get; set; }
         public DateTime LastZombieAttackDate { get; set; }
         public ICollection<ZombieAttackBase> AttackingZombies { get; set; }
-       
         public DateTime EndOfExplore { get; set; }
 
     }
 
     public class HomeViewModel : ViewModelBase
     {
+
     }
 }

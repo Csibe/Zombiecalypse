@@ -73,5 +73,8 @@ namespace Zombiecalypse.Models
         public ICollection<AdventureDrop> AdventureDrops { get; set; }
     }
 
+    public class StopAdventureVM : ViewModelBase {
+
+    }
 
 }

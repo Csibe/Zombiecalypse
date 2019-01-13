@@ -11,11 +11,8 @@ using Zombiecalypse.Models;
 
 namespace Zombiecalypse.Controllers
 {
-    public class GatheringController : Controller
+    public class GatheringController : BaseController
     {
-        private DataContext db = new DataContext();
-
-
 
         public ActionResult GrowUpPlant(int fieldID)
         {
@@ -25,17 +22,6 @@ namespace Zombiecalypse.Controllers
             model.CharacterField.isFinished = true;
             model.CharacterField.FinishDate = DateTime.MaxValue;
             db.SaveChanges();
-
-
-
-            model.UserKe = db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault().ApplicationUserID;
-            model.PageUrl = this.Request.FilePath;
-            model.Fields = db.CharacterFields.Where(x => x.CharacterID == db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault().CharacterID).ToList();
-            model.EnergyPlusDate = db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault().EnergyPlusDate;
-            model.AttackingZombies = db.ZombieAttackBases.Where(x => x.CharacterID == db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault().CharacterID).ToList();
-            model.AdventureFinishDate = db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault().FinishAdventure;
-            model.LastZombieAttackDate = db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault().LastZombieAttackTime;
-
 
             return RedirectToAction("Details", "Characters", new { id = User.Identity.Name });
         }
@@ -114,17 +100,9 @@ namespace Zombiecalypse.Controllers
             model.Plants = plants;
             model.Inventory = items;
 
+            SetModelProperties(model);
 
-            model.UserKe = db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault().ApplicationUserID;
-            model.PageUrl = this.Request.FilePath;
-            model.Fields = db.CharacterFields.Where(x => x.CharacterID == db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault().CharacterID).ToList();
-            model.EnergyPlusDate = db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault().EnergyPlusDate;
-            model.AttackingZombies = db.ZombieAttackBases.Where(x => x.CharacterID == db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault().CharacterID).ToList();
-            model.AdventureFinishDate = db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault().FinishAdventure;
-            model.LastZombieAttackDate = db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault().LastZombieAttackTime;
-
-
-
+            base.SetModelProperties(model);
             return View(model);
         }
 

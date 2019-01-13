@@ -11,9 +11,9 @@ using Zombiecalypse.Models;
 
 namespace Zombiecalypse.Controllers
 {
-    public class BuildingsController : Controller
+    public class BuildingsController : BaseController
     {
-        private DataContext db = new DataContext();
+
         int BuildingMaxLevel = 5;
 
         public ActionResult Details(int id)
@@ -31,7 +31,6 @@ namespace Zombiecalypse.Controllers
 
             foreach (var weaponMaterial in db.CraftableWeaponMaterials.Where(x => x.MaterialID == id))
             {
-
                 selectBuilding.Add(weaponMaterial);
             }
 
@@ -86,20 +85,11 @@ namespace Zombiecalypse.Controllers
             }
 
 
-            model.UserKe = db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault().ApplicationUserID;
-            model.PageUrl = this.Request.FilePath;
-            model.Fields = db.CharacterFields.Where(x => x.CharacterID == db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault().CharacterID).ToList();
-            model.EnergyPlusDate = db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault().EnergyPlusDate;
-            model.AttackingZombies = db.ZombieAttackBases.Where(x => x.CharacterID == db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault().CharacterID).ToList();
-            model.AdventureFinishDate = db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault().FinishAdventure;
-            model.LastZombieAttackDate = db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault().LastZombieAttackTime;
-            model.EndOfExplore = db.OwnedDogs.Where(x => x.CharacterID == db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault().CharacterID).FirstOrDefault().EndOfExplore;
-
-
+            base.SetModelProperties(model);
             return View(model);
         }
 
-        public ActionResult RepairFence(string id)
+        public ActionResult RepairFence(string id, string returnUrl)
         {
 
             Character character = db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault();
@@ -123,17 +113,58 @@ namespace Zombiecalypse.Controllers
                         db.SaveChanges();
                     }
 
-                    return RedirectToAction("Details", "Characters", new { id = User.Identity.Name });
+                    return Redirect(returnUrl);
                 }
                 else
                 {
-                    return RedirectToAction("Details", "Characters", new { id = User.Identity.Name });
+                    return Redirect(returnUrl);
                 }
             }
             else
             {
-                return RedirectToAction("Details", "Characters", new { id = User.Identity.Name }); 
+                return Redirect(returnUrl);
             }
         }
+
+
+        public ActionResult RepairBuilding(int id, string returnUrl)
+        {
+
+            Character character = db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault();
+            Inventory item = character.Inventory.Where(x => x.ItemID == 55).FirstOrDefault(); //board
+            Inventory building = character.Inventory.Where(x => x.Item.ItemID == id).FirstOrDefault();
+
+            if (item == null)
+            {
+                return RedirectToAction("Details", "Characters", new { id = User.Identity.Name });
+            }
+
+            if (character.IsOnAdventure == false)
+            {
+                if (character.CurrentEnergy > 0)
+                {
+                    if (item.ItemPieces > 0)
+                    {
+                        var result = new CharactersController().ManageEnergy(User.Identity.Name, 1, this.Request.Path);
+                        item.ItemPieces--;
+                        building.ItemCurrentDurability++;
+                        db.SaveChanges();
+                    }
+
+                    return Redirect(returnUrl);
+                }
+                else
+                {
+                    return Redirect(returnUrl);
+                }
+            }
+            else
+            {
+                return Redirect(returnUrl);
+            }
+        }
+
+
+
     }
 }

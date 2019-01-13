@@ -11,25 +11,38 @@ using Zombiecalypse.Models;
 
 namespace Zombiecalypse.Controllers
 {
-    public class AdventuresController : Controller
+    public class AdventuresController : BaseController
     {
-        private DataContext db = new DataContext();
 
-        public ActionResult StopAdventure(string id)
-        {
+        public ActionResult AddToTolerance() {
             Character character = db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault();
 
+            character.Tolerance += 1;
 
-            List<ZombieAttackAdventurer> zombies = db.ZombieAttackAdventurers.Where(x => x.CharacterID == character.CharacterID).ToList();
+            db.SaveChanges();
+            return RedirectToAction("Details", "Characters", new { id = User.Identity.Name });
+        }
+
+
+        public ActionResult StopAdventure(int AdId, int ChId)
+        {
+            AdventureViewModel model = new AdventureViewModel();
+
+            Character character = db.Characters.Where(y => y.CharacterID == ChId).FirstOrDefault();
+            List<ZombieAttackAdventurer> zombies = db.ZombieAttackAdventurers.Where(x => x.CharacterID == ChId).ToList();
 
             zombies.ForEach(x => db.ZombieAttackAdventurers.Remove(x));
             character.IsOnAdventure = false;
             character.FinishAdventure = DateTime.MaxValue;
             db.SaveChanges();
 
-            return RedirectToAction("Details", "Characters", new { id = User.Identity.Name });
-        }
 
+            base.SetModelProperties(model);
+            return View(model);
+
+
+            //   return RedirectToAction("Details", "Characters", new { id = User.Identity.Name });
+        }
 
 
         public ActionResult CheckAdventure()
@@ -65,8 +78,6 @@ namespace Zombiecalypse.Controllers
             return RedirectToAction("Details", "Characters", new { id = User.Identity.Name });
         }
 
-
-
         public ActionResult AdventureCounter(int AdId, string ChId)
         {
             AdventureViewModel model = new AdventureViewModel();
@@ -74,15 +85,7 @@ namespace Zombiecalypse.Controllers
             model.Character = db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault();
             model.Adventure = db.Adventures.Find(AdId);
 
-            model.UserKe = db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault().ApplicationUserID;
-            model.PageUrl = this.Request.FilePath;
-            model.Fields = db.CharacterFields.Where(x => x.CharacterID == db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault().CharacterID).ToList();
-            model.EnergyPlusDate = db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault().EnergyPlusDate;
-            model.AttackingZombies = db.ZombieAttackBases.Where(x => x.CharacterID == db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault().CharacterID).ToList();
-            model.AdventureFinishDate = db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault().FinishAdventure;
-            model.LastZombieAttackDate = db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault().LastZombieAttackTime;
-            model.EndOfExplore = db.OwnedDogs.Where(x => x.CharacterID == db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault().CharacterID).FirstOrDefault().EndOfExplore;
-
+            base.SetModelProperties(model);
             return View(model);
         }
 
@@ -101,6 +104,19 @@ namespace Zombiecalypse.Controllers
             int attackPower = rand.Next(0, model.Zombie.ZombieDamage + 1);
 
             model.Character.Tolerance -= attackPower;
+
+            if (model.Character.Tolerance <= 0) {
+
+                model.Character.Tolerance = 0;
+                List<ZombieAttackAdventurer> zombies = db.ZombieAttackAdventurers.Where(x => x.CharacterID == model.Character.CharacterID).ToList();
+
+                zombies.ForEach(x => db.ZombieAttackAdventurers.Remove(x));
+                model.Character.IsOnAdventure = false;
+                model.Character.FinishAdventure = DateTime.MaxValue;
+                db.SaveChanges();
+                return RedirectToAction("StopAdventure", "Adventures", new { AdId = model.Adventure.AdventureID , ChId = model.Character.CharacterID });
+
+            }
 
             db.SaveChanges();
             return RedirectToAction(returnUrl);
@@ -195,7 +211,6 @@ namespace Zombiecalypse.Controllers
                 {
                     zombieAttackInThisTurn.ToArray()[c].isYourTourn = false;
                 }
-
             }
 
             db.SaveChanges();
@@ -238,7 +253,7 @@ namespace Zombiecalypse.Controllers
 
             if (model.Character.IsOnAdventure == false)
             {
-                return RedirectToAction("Details", "Characters", new { id = User.Identity.Name });
+                return RedirectToAction("Index", "Adventures");
             }
 
             model.Adventure = db.Adventures.Find(model.Character.AdventureID);
@@ -273,7 +288,6 @@ namespace Zombiecalypse.Controllers
 
             }
 
-
             List<ZombieAttackAdventurer> zombieAttackInThisTurn = new List<ZombieAttackAdventurer>();
             zombieAttackInThisTurn = db.ZombieAttackAdventurers.Where(x => x.CharacterID == model.Character.CharacterID).Where(x => x.State == model.Character.AdventureState).ToList();
 
@@ -285,21 +299,11 @@ namespace Zombiecalypse.Controllers
                     var result = new AdventuresController().ManageTurns(User.Identity.Name, this.Request.FilePath);
                     return RedirectToAction("OnAdventure", "Adventures", new { id = User.Identity.Name });
                 }
-
             }
-           
 
             db.SaveChanges();
 
-            model.UserKe = db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault().ApplicationUserID;
-            model.PageUrl = this.Request.FilePath;
-            model.Fields = db.CharacterFields.Where(x => x.CharacterID == db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault().CharacterID).ToList();
-            model.EnergyPlusDate = db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault().EnergyPlusDate;
-            model.AttackingZombies = db.ZombieAttackBases.Where(x => x.CharacterID == db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault().CharacterID).ToList();
-            model.AdventureFinishDate = db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault().FinishAdventure;
-            model.LastZombieAttackDate = db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault().LastZombieAttackTime;
-            model.EndOfExplore = db.OwnedDogs.Where(x => x.CharacterID == db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault().CharacterID).FirstOrDefault().EndOfExplore;
-
+            base.SetModelProperties(model);
             return View(model);
         }
 
@@ -307,6 +311,7 @@ namespace Zombiecalypse.Controllers
         public ActionResult AddToInventory(int ChId, int ItemId, int addPieces)
         {
 
+            Character character = db.Characters.Where(x => x.CharacterID == ChId).FirstOrDefault();
             Inventory inventory = db.Inventories.Where(s => s.ItemID == ItemId).Where(s => s.CharacterID == ChId).FirstOrDefault();
             if (inventory == null)
             {
@@ -318,13 +323,12 @@ namespace Zombiecalypse.Controllers
                 inventory.ItemPieces += addPieces;
             }
             db.SaveChanges();
-            return View();
+            return RedirectToAction("Details", "Characters", new { id = character.ApplicationUserID });
         }
 
 
         public ActionResult CollectReward(int AdId, string ChId)
         {
-
 
             AdventureDropVM model = new AdventureDropVM();
             List<AdventureDrop> dropList = db.AdventureDrops.Where(a => a.AdventureID == AdId).ToList();
@@ -367,16 +371,7 @@ namespace Zombiecalypse.Controllers
             }
 
 
-            model.UserKe = db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault().ApplicationUserID;
-            model.PageUrl = this.Request.FilePath;
-            model.Fields = db.CharacterFields.Where(x => x.CharacterID == db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault().CharacterID).ToList();
-            model.EnergyPlusDate = db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault().EnergyPlusDate;
-            model.AttackingZombies = db.ZombieAttackBases.Where(x => x.CharacterID == db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault().CharacterID).ToList();
-            model.AdventureFinishDate = db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault().FinishAdventure;
-            model.LastZombieAttackDate = db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault().LastZombieAttackTime;
-            model.EndOfExplore = db.OwnedDogs.Where(x => x.CharacterID == db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault().CharacterID).FirstOrDefault().EndOfExplore;
-
-
+            base.SetModelProperties(model);
             return View(model);
         }
 
@@ -451,16 +446,7 @@ namespace Zombiecalypse.Controllers
             model.Adventures = db.Adventures.ToList();
             model.AdventureDrops = db.AdventureDrops.ToList();
 
-            model.UserKe = db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault().ApplicationUserID;
-            model.PageUrl = this.Request.FilePath;
-            model.Fields = db.CharacterFields.Where(x => x.CharacterID == db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault().CharacterID).ToList();
-            model.EnergyPlusDate = db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault().EnergyPlusDate;
-            model.AttackingZombies = db.ZombieAttackBases.Where(x => x.CharacterID == db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault().CharacterID).ToList();
-            model.AdventureFinishDate = db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault().FinishAdventure;
-            model.LastZombieAttackDate = db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault().LastZombieAttackTime;
-            model.EndOfExplore = db.OwnedDogs.Where(x => x.CharacterID == db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault().CharacterID).FirstOrDefault().EndOfExplore;
-
-
+            base.SetModelProperties(model);
             return View(model);
         }
     }

@@ -5,7 +5,7 @@ using System.Web;
 
 namespace Zombiecalypse.Models
 {
-    public class OwnedDog
+    public class OwnedDog 
     {
         public int OwnedDogID { get; set; }
         public string DogPicture { get; set; }

@@ -1,53 +1,56 @@
 ﻿@model Zombiecalypse.Models.AdventureViewModel
 
 
-    <dd>
-        @if (Model.Character.IsOnAdventure == true)
-        {
-            <div style="text-align:center">
-             <h2>You are on an adventure</h2> 
-                @Html.ActionLink("Check Adventure", "CheckAdventure", "Adventures", new { id = User.Identity.Name }, new { @class = "ActionLinkButton" })
-            </div>
+<dd>
+    @if (Model.Character.IsOnAdventure == true)
+    {
+        <div style="text-align:center">
+            <h2>You are on an adventure</h2>
+            @Html.ActionLink("Check Adventure", "CheckAdventure", "Adventures", new { id = User.Identity.Name }, new { @class = "ActionLinkButton" })
+        </div>
 
-        }
-        else
-        {
-            <table class="table">
-                <tr>
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>AdventureWaitingTime</th>
-                    <th>AdventureSteps</th>
-                    <th>AdventureRequerdEnergy</th>
-                    <th></th>
-                </tr>
-                @foreach (var adv in Model.Adventures)
+    }
+    else
+    {
+        <table class="table">
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>AdventureWaitingTime</th>
+                <th>AdventureSteps</th>
+                <th>AdventureRequerdEnergy</th>
+                <th></th>
+            </tr>
+            @foreach (var adv in Model.Adventures)
                 {
-                    <tr>
-                        <td>
-                            @adv.AdventureID
-                        </td>
-                        <td>
-                            @adv.AdventureName
-                        </td>
-                        <td>
-                            @adv.AdventureWaitingTime
-                        </td>
-                        <td>
-                            @adv.AdventureSteps
-                        </td>
-                        <td>
-                            @adv.AdventureRequerdEnergy
-                        </td>
-                        @foreach (var drop in Model.AdventureDrops) {
-                            if (drop.AdventureID == adv.AdventureID)
-                            {
-                                <td>
-                                    <img width="30" height="30" src=@drop.Item.ItemPicture />
-                                </td>
-                            }
+                <tr>
+                    <td>
+                        @adv.AdventureID
+                    </td>
+                    <td>
+                        @adv.AdventureName
+                    </td>
+                    <td>
+                        @adv.AdventureWaitingTime
+                    </td>
+                    <td>
+                        @adv.AdventureSteps
+                    </td>
+                    <td>
+                        @adv.AdventureRequerdEnergy
+                    </td>
+                    @foreach (var drop in Model.AdventureDrops)
+                    {
+                        if (drop.AdventureID == adv.AdventureID)
+                        {
+                            <td>
+                                <img width="30" height="30" src=@drop.Item.ItemPicture />
+                            </td>
                         }
-                        @if (Model.Character.CharacterLevel >= @adv.CharacterLevelRequired)
+                    }
+                    @if (Model.Character.CharacterLevel >= @adv.CharacterLevelRequired)
+                    {
+                        if (Model.Character.Tolerance > 0)
                         {
                             <td>
                                 @Html.ActionLink("Start Adventure", "StartAdventure", "Adventures", new { id = User.Identity.Name, AdId = @adv.AdventureID }, new { @class = "ActionLinkButton" })
@@ -55,14 +58,20 @@
                         }
                         else
                         {
-                            <td>
-                               Required level @adv.CharacterLevelRequired
-                            </td>
+                            <td><strong><div class="alert-danger">Not enought tolerance</div></strong></td>
                         }
-                        <td></td>
-                    </tr>
-                }
-            </table>
+
+                    }
+                    else
+                    {
+                        <td>
+                            Required level @adv.CharacterLevelRequired
+                        </td>
+                    }
+                    <td></td>
+                </tr>
+            }
+        </table>
 
             <table align="center">
                 <td>
@@ -91,8 +100,8 @@
                     </div>
                 </td>
             </table>
-        }
+    }
 
-      
 
-    </dd>
+
+</dd>

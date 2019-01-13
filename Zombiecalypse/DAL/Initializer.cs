@@ -76,13 +76,13 @@ namespace Zombiecalypse.DAL
                 new Building {ItemID=23, ItemName = "Tool shed", BuildingLevel = 4, ItemMaxDurability=20, BuildingEnergyCost = 5, BuildingMoneyCost = 400, ItemPicture = "/Content/Pictures/Buildings/ToolShed_4.png" },
                 new Building {ItemID=24, ItemName = "Tool shed", BuildingLevel = 5, ItemMaxDurability=25, BuildingEnergyCost = 5, BuildingMoneyCost = 400, ItemPicture = "/Content/Pictures/Buildings/ToolShed_5.png" },
 
-                new Building {ItemID=82, ItemName = "Fence", BuildingLevel = 0, ItemMaxDurability=0, BuildingEnergyCost = 0, BuildingMoneyCost = 0, ItemPicture = "/Content/Pictures/Buildings/Fence_0.png" },
-                new Building {ItemID=83, ItemName = "Fence", BuildingLevel = 1, ItemMaxDurability=5, BuildingEnergyCost = 5, BuildingMoneyCost = 400, ItemPicture = "/Content/Pictures/Buildings/Fence_1.png" },
-                new Building {ItemID=84, ItemName = "Fence", BuildingLevel = 2, ItemMaxDurability=10, BuildingEnergyCost = 5, BuildingMoneyCost = 400, ItemPicture = "/Content/Pictures/Buildings/Fence_2.png" },
-                new Building {ItemID=85, ItemName = "Fence", BuildingLevel = 3, ItemMaxDurability=15, BuildingEnergyCost = 5, BuildingMoneyCost = 400, ItemPicture = "/Content/Pictures/Buildings/Fence_3.png" },
-                new Building {ItemID=86, ItemName = "Fence", BuildingLevel = 4, ItemMaxDurability=20, BuildingEnergyCost = 5, BuildingMoneyCost = 400, ItemPicture = "/Content/Pictures/Buildings/Fence_4.png" },
-                new Building {ItemID=87, ItemName = "Fence", BuildingLevel = 5, ItemMaxDurability=25, BuildingEnergyCost = 5, BuildingMoneyCost = 400, ItemPicture = "/Content/Pictures/Buildings/Fence_5.png" },
-            
+                new Building {ItemID=82, ItemName = "Fence", BuildingLevel = 0, ItemMaxDurability=0, BuildingEnergyCost = 0, BuildingMoneyCost = 0, ItemPicture = "/Content/Pictures/Buildings/82.png" },
+                new Building {ItemID=83, ItemName = "Fence", BuildingLevel = 1, ItemMaxDurability=5, BuildingEnergyCost = 5, BuildingMoneyCost = 400, ItemPicture = "/Content/Pictures/Buildings/83.png" },
+                new Building {ItemID=84, ItemName = "Fence", BuildingLevel = 2, ItemMaxDurability=10, BuildingEnergyCost = 5, BuildingMoneyCost = 400, ItemPicture = "/Content/Pictures/Buildings/84.png" },
+                new Building {ItemID=85, ItemName = "Fence", BuildingLevel = 3, ItemMaxDurability=15, BuildingEnergyCost = 5, BuildingMoneyCost = 400, ItemPicture = "/Content/Pictures/Buildings/85.png" },
+                new Building {ItemID=86, ItemName = "Fence", BuildingLevel = 4, ItemMaxDurability=20, BuildingEnergyCost = 5, BuildingMoneyCost = 400, ItemPicture = "/Content/Pictures/Buildings/86.png" },
+                new Building {ItemID=87, ItemName = "Fence", BuildingLevel = 5, ItemMaxDurability=25, BuildingEnergyCost = 5, BuildingMoneyCost = 400, ItemPicture = "/Content/Pictures/Buildings/87.png" },
+
 
                     };
             buildings.ForEach(s => context.Buildings.Add(s));
@@ -291,6 +291,26 @@ namespace Zombiecalypse.DAL
                                new BuildingBuildingMaterial { BuildingID=24, BuildingMaterialID=57, MaterialPieces=5},
                                new BuildingBuildingMaterial { BuildingID=24, BuildingMaterialID=58, MaterialPieces=5},
 
+                                               //fence 1
+                               new BuildingBuildingMaterial { BuildingID=83, BuildingMaterialID=54, MaterialPieces=5},
+
+
+                                               //fence 2
+                               new BuildingBuildingMaterial { BuildingID=84, BuildingMaterialID=54, MaterialPieces=10},
+
+
+                                               //fence 3
+                               new BuildingBuildingMaterial { BuildingID=85, BuildingMaterialID=54, MaterialPieces=15},
+
+
+                                               //fence 4
+                               new BuildingBuildingMaterial { BuildingID=86, BuildingMaterialID=54, MaterialPieces=20},
+
+
+                                               //fence 5
+                               new BuildingBuildingMaterial { BuildingID=87, BuildingMaterialID=54, MaterialPieces=25},
+
+
                         };
 
             buildingbuildingmaterials.ForEach(s => context.BuildingBuildingMaterials.Add(s));
@@ -322,14 +342,21 @@ namespace Zombiecalypse.DAL
                           CraftableWeaponMaterials = new List<CraftableWeaponMaterial> {
                         new CraftableWeaponMaterial { WeaponID=69, MaterialID=37, MaterialPieces=1 },
                         new CraftableWeaponMaterial { WeaponID=69, MaterialID=38, MaterialPieces=1 },
-                        new CraftableWeaponMaterial { WeaponID=69, MaterialID=2, MaterialPieces=1 }
+                        new CraftableWeaponMaterial { WeaponID=69, MaterialID=2, MaterialPieces=1 },
+                        //new CraftableWeaponMaterial { WeaponID=69, MaterialID=3, MaterialPieces=1 },
+                        //new CraftableWeaponMaterial { WeaponID=69, MaterialID=4, MaterialPieces=1 },
+                        //new CraftableWeaponMaterial { WeaponID=69, MaterialID=5, MaterialPieces=1 },
+                        //new CraftableWeaponMaterial { WeaponID=69, MaterialID=6, MaterialPieces=1 },
                     }
                 },
                     new CraftableWeapon {ItemID=70, ItemName = "Flamethrower",  WeaponDamage = 2, ItemMaxDurability=2, ItemPicture= "/Content/Pictures/CraftableWeapons/Flamethrower.png",
                         CraftableWeaponMaterials = new List<CraftableWeaponMaterial> {
                             new CraftableWeaponMaterial { WeaponID=70, MaterialID=34, MaterialPieces=1 },
                             new CraftableWeaponMaterial { WeaponID=70, MaterialID=35, MaterialPieces=1 },
-                            new CraftableWeaponMaterial { WeaponID=70, MaterialID=3, MaterialPieces=1 },
+                            new CraftableWeaponMaterial { WeaponID=70, MaterialID=2, MaterialPieces=1 },
+                            //new CraftableWeaponMaterial { WeaponID=70, MaterialID=4, MaterialPieces=1 },
+                            //new CraftableWeaponMaterial { WeaponID=70, MaterialID=5, MaterialPieces=1 },
+                            //new CraftableWeaponMaterial { WeaponID=70, MaterialID=6, MaterialPieces=1 },
 
                         }
                     },
@@ -339,6 +366,11 @@ namespace Zombiecalypse.DAL
                             new CraftableWeaponMaterial { WeaponID=71, MaterialID=52, MaterialPieces=1 },
                             new CraftableWeaponMaterial { WeaponID=71, MaterialID=36, MaterialPieces=1 },
                             new CraftableWeaponMaterial { WeaponID=71, MaterialID=20, MaterialPieces=1 },
+                            new CraftableWeaponMaterial { WeaponID=71, MaterialID=8, MaterialPieces=1 },
+                            new CraftableWeaponMaterial { WeaponID=71, MaterialID=9, MaterialPieces=1 },
+                            new CraftableWeaponMaterial { WeaponID=71, MaterialID=10, MaterialPieces=1 },
+                            new CraftableWeaponMaterial { WeaponID=71, MaterialID=11, MaterialPieces=1 },
+                            new CraftableWeaponMaterial { WeaponID=71, MaterialID=12, MaterialPieces=1 },
                                             }
                     },
                     new CraftableWeapon {ItemID=72, ItemName = "Mega Maul",  WeaponDamage = 2, ItemMaxDurability=2, ItemPicture= "/Content/Pictures/CraftableWeapons/MegaMaul.png",
@@ -346,6 +378,10 @@ namespace Zombiecalypse.DAL
                             new CraftableWeaponMaterial { WeaponID=72, MaterialID=39, MaterialPieces=1 },
                             new CraftableWeaponMaterial { WeaponID=72, MaterialID=40, MaterialPieces=1 },
                             new CraftableWeaponMaterial { WeaponID=72, MaterialID=20, MaterialPieces=1 },
+                            new CraftableWeaponMaterial { WeaponID=71, MaterialID=9, MaterialPieces=1 },
+                            new CraftableWeaponMaterial { WeaponID=71, MaterialID=10, MaterialPieces=1 },
+                            new CraftableWeaponMaterial { WeaponID=71, MaterialID=11, MaterialPieces=1 },
+                            new CraftableWeaponMaterial { WeaponID=71, MaterialID=12, MaterialPieces=1 },
                                             }
                     },
                     new CraftableWeapon {ItemID=73, ItemName = "Crowd Controller", WeaponDamage = 2, ItemMaxDurability=2, ItemPicture= "/Content/Pictures/CraftableWeapons/CrowdController.png",
@@ -353,6 +389,12 @@ namespace Zombiecalypse.DAL
                             new CraftableWeaponMaterial { WeaponID=73, MaterialID=41, MaterialPieces=1 },
                             new CraftableWeaponMaterial { WeaponID=73, MaterialID=42, MaterialPieces=1 },
                             new CraftableWeaponMaterial { WeaponID=73, MaterialID=36, MaterialPieces=1 },
+                            new CraftableWeaponMaterial { WeaponID=73, MaterialID=13, MaterialPieces=1 },
+                            new CraftableWeaponMaterial { WeaponID=73, MaterialID=14, MaterialPieces=1 },
+                            new CraftableWeaponMaterial { WeaponID=73, MaterialID=15, MaterialPieces=1 },
+                            new CraftableWeaponMaterial { WeaponID=73, MaterialID=16, MaterialPieces=1 },
+                            new CraftableWeaponMaterial { WeaponID=73, MaterialID=17, MaterialPieces=1 },
+                            new CraftableWeaponMaterial { WeaponID=73, MaterialID=18, MaterialPieces=1 },
                                             }
                     },
                     new CraftableWeapon {ItemID=74, ItemName = "Fire Bomb", WeaponDamage = 2, ItemMaxDurability=2, ItemPicture= "/Content/Pictures/CraftableWeapons/FireBomb.png",
@@ -361,6 +403,11 @@ namespace Zombiecalypse.DAL
                             new CraftableWeaponMaterial { WeaponID=74, MaterialID=36, MaterialPieces=1 },
                             new CraftableWeaponMaterial { WeaponID=74, MaterialID=40, MaterialPieces=1 },
                             new CraftableWeaponMaterial { WeaponID=74, MaterialID=36, MaterialPieces=1 },
+                            new CraftableWeaponMaterial { WeaponID=73, MaterialID=14, MaterialPieces=1 },
+                            new CraftableWeaponMaterial { WeaponID=73, MaterialID=15, MaterialPieces=1 },
+                            new CraftableWeaponMaterial { WeaponID=73, MaterialID=16, MaterialPieces=1 },
+                            new CraftableWeaponMaterial { WeaponID=73, MaterialID=17, MaterialPieces=1 },
+                            new CraftableWeaponMaterial { WeaponID=73, MaterialID=18, MaterialPieces=1 },
                                             }
                     },
                     new CraftableWeapon {ItemID=75, ItemName = "Molotov", WeaponDamage = 2, ItemMaxDurability=2, ItemPicture= "/Content/Pictures/CraftableWeapons/Molotov.png",
@@ -369,6 +416,12 @@ namespace Zombiecalypse.DAL
                             new CraftableWeaponMaterial { WeaponID=64, MaterialID=44, MaterialPieces=1 },
                             new CraftableWeaponMaterial { WeaponID=64, MaterialID=36, MaterialPieces=1 },
                             new CraftableWeaponMaterial { WeaponID=64, MaterialID=36, MaterialPieces=1 },
+                            new CraftableWeaponMaterial { WeaponID=64, MaterialID=19, MaterialPieces=1 },
+                            new CraftableWeaponMaterial { WeaponID=64, MaterialID=20, MaterialPieces=1 },
+                            new CraftableWeaponMaterial { WeaponID=64, MaterialID=21, MaterialPieces=1 },
+                            new CraftableWeaponMaterial { WeaponID=64, MaterialID=22, MaterialPieces=1 },
+                            new CraftableWeaponMaterial { WeaponID=64, MaterialID=23, MaterialPieces=1 },
+                            new CraftableWeaponMaterial { WeaponID=64, MaterialID=24, MaterialPieces=1 },
                                             }
                     },
                     new CraftableWeapon {ItemID=76, ItemName = "Slingshot", WeaponDamage = 2, ItemMaxDurability=2, ItemPicture= "/Content/Pictures/CraftableWeapons/Slingshot.png",
@@ -377,6 +430,11 @@ namespace Zombiecalypse.DAL
                             new CraftableWeaponMaterial { WeaponID=76, MaterialID=47, MaterialPieces=1 },
                             new CraftableWeaponMaterial { WeaponID=76, MaterialID=37, MaterialPieces=1 },
                             new CraftableWeaponMaterial { WeaponID=76, MaterialID=37, MaterialPieces=1 },
+                            new CraftableWeaponMaterial { WeaponID=76, MaterialID=20, MaterialPieces=1 },
+                            new CraftableWeaponMaterial { WeaponID=76, MaterialID=21, MaterialPieces=1 },
+                            new CraftableWeaponMaterial { WeaponID=76, MaterialID=22, MaterialPieces=1 },
+                            new CraftableWeaponMaterial { WeaponID=76, MaterialID=23, MaterialPieces=1 },
+                            new CraftableWeaponMaterial { WeaponID=76, MaterialID=24, MaterialPieces=1 },
                                             }
                     },
                     new CraftableWeapon {ItemID=77, ItemName = "Zombie Trimmer", WeaponDamage = 2, ItemMaxDurability=2, ItemPicture= "/Content/Pictures/CraftableWeapons/ZombieTrimmer.png",
@@ -385,6 +443,8 @@ namespace Zombiecalypse.DAL
                             new CraftableWeaponMaterial { WeaponID=77, MaterialID=49, MaterialPieces=1 },
                             new CraftableWeaponMaterial { WeaponID=77, MaterialID=41, MaterialPieces=1 },
                             new CraftableWeaponMaterial { WeaponID=77, MaterialID=37, MaterialPieces=1 },
+                            new CraftableWeaponMaterial { WeaponID=77, MaterialID=5, MaterialPieces=1 },
+                            new CraftableWeaponMaterial { WeaponID=77, MaterialID=6, MaterialPieces=1 },
                                             }
                     },
                     new CraftableWeapon {ItemID=78, ItemName = "Ice Ice Baby", WeaponDamage = 2, ItemMaxDurability=2, ItemPicture= "/Content/Pictures/CraftableWeapons/IceIceBaby.png",
@@ -393,6 +453,8 @@ namespace Zombiecalypse.DAL
                             new CraftableWeaponMaterial { WeaponID=78, MaterialID=51, MaterialPieces=1 },
                             new CraftableWeaponMaterial { WeaponID=78, MaterialID=54, MaterialPieces=1 },
                             new CraftableWeaponMaterial { WeaponID=78, MaterialID=37, MaterialPieces=1 },
+                            new CraftableWeaponMaterial { WeaponID=78, MaterialID=17, MaterialPieces=1 },
+                            new CraftableWeaponMaterial { WeaponID=78, MaterialID=18, MaterialPieces=1 },
                                             }
         }
     };
@@ -400,9 +462,9 @@ namespace Zombiecalypse.DAL
             context.SaveChanges();
 
             var energies = new List<Energy> {
-                            new Energy {ItemID=79, PlusEnergy = 1, ItemName = "Small energy pack", ItemMaxDurability=1,  Cost=65, ItemPicture = "/Content/Pictures/EnergyPacks/SmallEnergyPack.png" },
-                            new Energy {ItemID=80, PlusEnergy = 3, ItemName = "Medium energy pack", ItemMaxDurability=1, Cost=100,ItemPicture = "/Content/Pictures/EnergyPacks/MediumEnergyPack.png" },
-                            new Energy {ItemID=81, PlusEnergy = 5, ItemName = "Big energy pack", ItemMaxDurability=1, Cost=250, ItemPicture = "/Content/Pictures/EnergyPacks/BigEnergyPack.png" },
+                            new Energy {ItemID=79, PlusEnergy = 3, ItemName = "Small energy pack", ItemMaxDurability=1,  Cost=3, ItemPicture = "/Content/Pictures/EnergyPacks/SmallEnergyPack.png" },
+                            new Energy {ItemID=80, PlusEnergy = 10, ItemName = "Medium energy pack", ItemMaxDurability=1, Cost=5,ItemPicture = "/Content/Pictures/EnergyPacks/MediumEnergyPack.png" },
+                            new Energy {ItemID=81, PlusEnergy = 20, ItemName = "Big energy pack", ItemMaxDurability=1, Cost=7, ItemPicture = "/Content/Pictures/EnergyPacks/BigEnergyPack.png" },
                         };
 
             energies.ForEach(s => context.Energies.Add(s));

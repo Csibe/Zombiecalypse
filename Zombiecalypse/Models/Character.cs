@@ -58,11 +58,9 @@ namespace Zombiecalypse.Models
 
         [DisplayName("Next level XP")]
         public int CharacterNextLevelXP { get; set; }
-        public int FenceMaxDurability { get; set; }
-        public int FenceCurrentDurability { get; set; }
-        
+        public Inventory Fence { get; set; }
         public string BasePicture { get; set; }
-
+        public virtual ICollection<Energy> EnergyPacks { get; set; }
         public virtual ICollection<MissionVM> Missions { get; set; }
         public virtual ICollection<Inventory> CharacterItems { get; set; }
         public virtual ICollection<Building> CharacterBuildings { get; set; }
@@ -72,4 +70,5 @@ namespace Zombiecalypse.Models
         public virtual ICollection<Zombie> ZombiesDB { get; set; }
        
     }
+
 }

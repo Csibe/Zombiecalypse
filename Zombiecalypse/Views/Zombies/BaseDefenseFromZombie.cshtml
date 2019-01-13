@@ -1,256 +1,154 @@
 ﻿@model Zombiecalypse.Models.BaseDefenseFromZombiesVM
 
 @{
-    ViewBag.Title = "ZombieAttackBase";
+
 }
 
-<h2>ZombieAttackBase</h2>
-
 <div>
-    <h4>ZombieAttackBase</h4>
+    <h3>Base defense from @Model.Zombie.ZombieName zombie</h3>
     <hr />
-    <dl class="dl-horizontal">
 
-        <dt>
-            @Html.DisplayNameFor(model => model.ZombieAttackBase.CharacterID)
-        </dt>
+    <div>
+        <table align="center">
+            <tr>
+                <td>
+                    <img src=@Model.Zombie.ZombiePicture />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Model.Zombie.ZombieName zombie
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <img width="25" height="25" src="~/Content/Pictures/life.png" />: @Model.ZombieAttackBase.ZombieLife / @Model.Zombie.ZombieLife
+                </td>
+            </tr>
+            <tr>
+                <td> <img width="25" height="25" src="~/Content/Pictures/damage.png" />:@Model.Zombie.ZombieDamage</td>
+            </tr>
+            <tr>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+            </tr>
+        </table>
 
-        <dd>
-            @Html.DisplayFor(model => model.ZombieAttackBase.CharacterID)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Character.CharacterName)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Character.CharacterName)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.ZombieAttackBase.ZombieAttackStart)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.ZombieAttackBase.ZombieAttackStart)
-        </dd>
-        <br />
-        <br />
-        You are attacked by:
-        <dt>
-            @Html.DisplayNameFor(model => model.Zombie.ZombiePicture)
-        </dt>
+    </div>
 
-        <dd>
-            <img src=@Model.Zombie.ZombiePicture />
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Zombie.ZombieName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Zombie.ZombieName)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.ZombieAttackBase.ZombieLife)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ZombieAttackBase.ZombieLife)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Zombie.ZombieDamage)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Zombie.ZombieDamage)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Zombie.RewardCoins)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Zombie.RewardCoins)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Zombie.RewardXP)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Zombie.RewardXP)
-        </dd>
-
-
-
-        <dd>
-            @foreach (var inv in Model.Character.Inventory)
+    <table align="center" cellspacing="150">
+        <tr>
+            @foreach (var item in Model.Character.Inventory)
             {
-                if (@inv.ItemID == 59)
+                if (item.ItemID == 59)
                 {
-                    <table class="table">
-                        <tr>
-                            <th>ID</th>
-                            <th>Name</th>
-                            <th>Type</th>
-                            <th>Damage</th>
-                            <th>ItemPieces</th>
-                            <th>ItemMaxDurability</th>
-                            <th>ItemCurrentDurability</th>
-                            <th>Picture</th>
-                        </tr>
-                        <tr>
-                            <td>@Model.Weapon.ItemID</td>
-                            <td>@Model.Weapon.ItemName</td>
-                            <td>@Model.Weapon.WeaponDamage</td>
-                            <td>@Model.Weapon.ItemMaxDurability</td>
-                            <td>@Model.Weapon.ItemID</td>
-                            <td>
-                                @Html.ActionLink("Attack with " + @Model.Weapon.ItemName, "BaseDefenseFromZombie", new { ZabID = @Model.ZombieAttackBase.ZombieAttackBaseID, AttackPower = @Model.Weapon.WeaponDamage, InvID = @inv.InventoryID }, new { @class = "ActionLinkButton" })
-                            </td>
-                        </tr>
-
-                    </table>
+                    <td>
+                        <table>
+                            <tr>
+                                <td>
+                                    <img src=@item.Item.ItemPicture />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    @item.Item.ItemName
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    durability: @item.ItemCurrentDurability / @item.ItemMaxDurability
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    @Html.ActionLink("Attack with " + item.Item.ItemName, "BaseDefenseFromZombie", "Zombies", new { ZabID = Model.ZombieAttackBase.ZombieAttackBaseID, AttackPower = 1, invID = item.InventoryID }, new { @class = "ActionLinkButton" })
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
                 }
             }
-        </dd>
 
-        <h4>Items</h4>
-        <dd>
-            <table class="table">
-                <tr>
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>Type</th>
-                    <th>Damage</th>
-                    <th>ItemPieces</th>
-                    <th>ItemMaxDurability</th>
-                    <th>ItemCurrentDurability</th>
-                    <th>Picture</th>
-                </tr>
-                @foreach (var weap in Model.BuyableWeapons)
+
+            @foreach (var weap in Model.BuyableWeapons)
+            {
+                foreach (var item in Model.Character.Inventory)
                 {
-                    foreach (var inv in Model.Character.Inventory)
+                    if (item.ItemID == weap.ItemID && item.ItemPieces > 0)
                     {
-                        if (@inv.ItemID == @weap.ItemID && @inv.ItemPieces > 0)
-                        {
-                            <tr>
-                                <td>
-                                    @weap.ItemID
-                                </td>
-                                <td>
-                                    @weap.ItemName
-                                </td>
-                                <td>
-                                    @weap.WeaponDamage
-                                </td>
-                                <td>
-                                    @inv.ItemPieces
-                                </td>
-                                <td>
-                                    @if (inv.ItemMaxDurability == 999)
-                                    {
-                                        <html>
-                                        &#8734
-                                    </html>
-                                    }
-                                    else
-                                    {
-                                        @inv.ItemMaxDurability
-                                    }
-                                </td>
-                                <td>
-                                    @if (inv.ItemCurrentDurability == 999)
-                                    {
-                                        <html>
-                                        &#8734
-                                    </html>
-                                    }
-                                    else
-                                    {
-                                        @inv.ItemCurrentDurability
-                                    }
-
-                                </td>
-                                <td>
-                                    <img src=@weap.ItemPicture />
-                                </td>
-                                <td>
-                                    @Html.ActionLink("Attack with " + @weap.ItemName, "BaseDefenseFromZombie", new { ZabID = @Model.ZombieAttackBase.ZombieAttackBaseID, AttackPower = @weap.WeaponDamage, InvID = @inv.InventoryID }, new { @class = "ActionLinkButton" })
-                                </td>
-                            </tr>
-                        }
+                        <td>
+                            <table>
+                                <tr>
+                                    <td>
+                                        <img src=@item.Item.ItemPicture />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        @item.Item.ItemName
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        durability: @item.ItemCurrentDurability / @item.ItemMaxDurability
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        @Html.ActionLink("Attack with " + item.Item.ItemName, "BaseDefenseFromZombie", "Zombies", new { ZabID = Model.ZombieAttackBase.ZombieAttackBaseID, AttackPower = weap.WeaponDamage, invID = item.InventoryID }, new { @class = "ActionLinkButton" })
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
                     }
                 }
+            }
 
-
-            </table>
-        </dd>
-
-        <dd>
-            <table class="table">
-                <tr>
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>Type</th>
-                    <th>Damage</th>
-                    <th>ItemPieces</th>
-                    <th>ItemMaxDurability</th>
-                    <th>ItemCurrentDurability</th>
-                    <th>Picture</th>
-                </tr>
-                @foreach (var weap in Model.CraftableWeapons)
+            @foreach (var weap in Model.CraftableWeapons)
+            {
+                foreach (var item in Model.Character.Inventory)
                 {
-                    foreach (var inv in Model.Character.Inventory)
+                    if (item.ItemID == weap.ItemID && item.ItemPieces > 0)
                     {
-                        if (@inv.ItemID == @weap.ItemID && @inv.ItemPieces > 0)
-                        {
-                            <tr>
-                                <td>
-                                    @weap.ItemID
-                                </td>
-                                <td>
-                                    @weap.ItemName
-                                </td>
-                                <td>
-                                    @weap.WeaponDamage
-                                </td>
-                                <td>
-                                    @inv.ItemPieces
-                                </td>
-                                <td>
-                                    @if (inv.ItemMaxDurability == 999)
-                                    {
-                                        <html>
-                                        &#8734
-                                    </html>
-                                    }
-                                    else
-                                    {
-                                        @inv.ItemMaxDurability
-                                    }
-                                </td>
-                                <td>
-                                    @if (inv.ItemCurrentDurability == 999)
-                                    {
-                                        <html>
-                                        &#8734
-                                    </html>
-                                    }
-                                    else
-                                    {
-                                        @inv.ItemCurrentDurability
-                                    }
-
-                                </td>
-                                <td>
-                                    <img src=@weap.ItemPicture />
-                                </td>
-                                <td>
-                                    @Html.ActionLink("Attack with " + @weap.ItemName, "BaseDefenseFromZombie", new { ZabID = @Model.ZombieAttackBase.ZombieAttackBaseID, AttackPower = @weap.WeaponDamage, InvID = @inv.InventoryID }, new { @class = "ActionLinkButton" })
-                                </td>
-                            </tr>
-                        }
+                        <td>
+                            <table>
+                                <tr>
+                                    <td>
+                                        <img src=@item.Item.ItemPicture />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        @item.Item.ItemName
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        durability: @item.ItemCurrentDurability / @item.ItemMaxDurability
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        @Html.ActionLink("Attack with " + item.Item.ItemName, "BaseDefenseFromZombie", "Zombies", new { ZabID = Model.ZombieAttackBase.ZombieAttackBaseID, AttackPower = weap.WeaponDamage, invID = item.InventoryID }, new { @class = "ActionLinkButton" })
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
                     }
                 }
+            }
 
-            </table>
-        </dd>
 
-    </dl>
+        </tr>
+    </table>
+    <div>
+        @Html.ActionLink("Back to base", "Details", "Characters", new { id = User.Identity.Name }, new { @class = "ActionLinkButton" })
+    </div>
+
+
 </div>

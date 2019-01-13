@@ -68,7 +68,7 @@ Manage turns: @Html.ActionLink("Manage turn", "ManageTurns", "Adventures", new {
                                         {
                                             <td>
                                                 <img onclick="document.getElementById(@zombie.ZombieAttackAdventurerID).style.display = 'inline' " src=@zombie.Zombie.ZombiePicture />
-                                                <table cellspacing="100">
+                                                <table cellspacing="150">
                                                     <td>
                                                         @Html.ActionLink("ZAA", "ZombieAttackAdventurer", "Adventures", new { id = @zombie.ZombieAttackAdventurerID }, null)
                                                     </td>
@@ -99,12 +99,12 @@ Manage turns: @Html.ActionLink("Manage turn", "ManageTurns", "Adventures", new {
                                                             {
                                                                 if (item.ItemPieces > 0)
                                                                 {
-                                                                    <table>
+                                                                    <table cellspacing="150">
                                                                         <tr>
                                                                             <td><img src=@item.Item.ItemPicture /></td>
                                                                             <td>@item.Item.ItemName</td>
-                                                                            <td>durability:@item.ItemCurrentDurability / @item.ItemMaxDurability</td>
-                                                                            <td>@Html.ActionLink("Attack with " + @item.Item.ItemName, "AttackZombie", new { zAAID = zombie.ZombieAttackAdventurerID, InvID = @item.InventoryID }, new { @class = "ActionLinkButton" })</td>
+                                                                            <td>durability: @item.ItemCurrentDurability / @item.ItemMaxDurability</td>
+                                                                            <td>@Html.ActionLink("Attack with " + item.Item.ItemName, "AttackZombie", new { zAAID = zombie.ZombieAttackAdventurerID, InvID = @item.InventoryID }, new { @class = "ActionLinkButton" })</td>
                                                                         </tr>
                                                                     </table>
                                                                     <br />

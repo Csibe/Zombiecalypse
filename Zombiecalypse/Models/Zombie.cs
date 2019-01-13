@@ -72,4 +72,11 @@ namespace Zombiecalypse.Models
     }
 
 
+    public class AttackingZombieReward : ViewModelBase
+    {
+        public int RexardXP { get; set; }
+        public int RewardCoin { get; set; }
+    }
+
+
 }

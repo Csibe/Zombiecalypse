@@ -9,7 +9,6 @@
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     @Styles.Render("~/Content/MyStyle.css")
-    @*<img src="~/Content/Pictures/header.png" />*@
 
     <style>
         body, html {
@@ -54,20 +53,6 @@
 
             </div>
         </div>
-        @*<div class="counter">
-            </div>
-            <div class="counter2">
-            </div>
-            demo0:<p id="demo0">
-            </p>
-            demo1:<p id="demo1">
-            </p>
-            <p id="demo2">
-            </p>
-            EnergyCounter:<div class="EnergyCounter"></div>
-            ZombieCounter:<div class="counterZombieAttack">
-                AdventureCounter: <div class="adventurecounter"></div>
-            </div>*@
     </div>
     <div class="container body-content">
         <br />
@@ -77,7 +62,6 @@
         @RenderBody()
         <hr />
         <footer>
-
             <p>&copy; @DateTime.Now.Year - Zombiecalypse</p>
 
             @if (User.Identity.IsAuthenticated)
@@ -86,6 +70,7 @@
                 {
                     if (User.Identity.IsAuthenticated)
                     {
+
                         int i = 0;
 
                         <script>
@@ -97,7 +82,7 @@
                         for (var a = 0; a < Model.Fields.ToArray().Length; a++)
                         {
                             <script>
-                                var date = new Date(@Model.Fields.ToArray()[i].FinishDate.Year, @Model.Fields.ToArray()[i].FinishDate.AddMonths(-1).Month, @Model.Fields.ToArray()[i].FinishDate.Day, @Model.Fields.ToArray()[i].FinishDate.Hour, @Model.Fields.ToArray()[i].FinishDate.Minute, @Model.Fields.ToArray()[i].FinishDate.Second, 0);
+                                var date = new Date(@Model.Fields.ToArray()[i].FinishDate.Year, @Model.Fields.ToArray()[i].FinishDate.Month -1, @Model.Fields.ToArray()[i].FinishDate.Day, @Model.Fields.ToArray()[i].FinishDate.Hour, @Model.Fields.ToArray()[i].FinishDate.Minute, @Model.Fields.ToArray()[i].FinishDate.Second, 0);
                                 FieldFinishDate.push(date)
                                 FieldID.push(@Model.Fields.ToArray()[i].CharacterFieldID)
                             </script>
@@ -110,7 +95,7 @@
                             {
                                 <script>
                                     console.log("j:" + @j);
-                                    var date = new Date(@Model.AttackingZombies.ToArray()[j].ZombieAttackStart.Year, @Model.AttackingZombies.ToArray()[j].ZombieAttackStart.AddMonths(-1).Month, @Model.AttackingZombies.ToArray()[j].ZombieAttackStart.Day, @Model.AttackingZombies.ToArray()[j].ZombieAttackStart.Hour, @Model.AttackingZombies.ToArray()[j].ZombieAttackStart.AddMinutes(2).Minute, @Model.AttackingZombies.ToArray()[j].ZombieAttackStart.Second, 0);
+                                    var date = new Date(@Model.AttackingZombies.ToArray()[j].ZombieAttackStart.Year, @Model.AttackingZombies.ToArray()[j].ZombieAttackStart.Month -1, @Model.AttackingZombies.ToArray()[j].ZombieAttackStart.Day, @Model.AttackingZombies.ToArray()[j].ZombieAttackStart.Hour, @Model.AttackingZombies.ToArray()[j].ZombieAttackStart.AddMinutes(2).Minute, @Model.AttackingZombies.ToArray()[j].ZombieAttackStart.Second, 0);
                                     AttackingZombieFinishDate.push(date)
                                     ZombieAttackBaseID.push(@Model.AttackingZombies.ToArray()[j].ZombieAttackBaseID)
                                 </script>
@@ -137,17 +122,14 @@
         <script>
             var PageUrl= "@Model.PageUrl";
             var UserName = "@Model.UserKe";
-            var EnergyPlusDate = new Date(@Model.EnergyPlusDate.Year, @Model.EnergyPlusDate.AddMonths(-1).Month, @Model.EnergyPlusDate.Day, @Model.EnergyPlusDate.Hour, @Model.EnergyPlusDate.Minute, @Model.EnergyPlusDate.Second, 0);
-            var AdventureFinishDate = new Date(@Model.AdventureFinishDate.Year, @Model.AdventureFinishDate.AddMonths(-1).Month, @Model.AdventureFinishDate.Day, @Model.AdventureFinishDate.Hour, @Model.AdventureFinishDate.Minute, @Model.AdventureFinishDate.Second, 0);
+            var EnergyPlusDate = new Date(@Model.EnergyPlusDate.Year, @Model.EnergyPlusDate.Month -1, @Model.EnergyPlusDate.Day, @Model.EnergyPlusDate.Hour, @Model.EnergyPlusDate.Minute, @Model.EnergyPlusDate.Second, 0);
+            var AdventureFinishDate = new Date(@Model.AdventureFinishDate.Year, @Model.AdventureFinishDate.Month -1, @Model.AdventureFinishDate.Day, @Model.AdventureFinishDate.Hour, @Model.AdventureFinishDate.Minute, @Model.AdventureFinishDate.Second, 0);
             var PageUrl = "@Model.PageUrl";
-            var LastZombieStartAttack = new Date(@Model.LastZombieAttackDate.Year, @Model.LastZombieAttackDate.AddMonths(-1).Month, @Model.LastZombieAttackDate.Day, @Model.LastZombieAttackDate.Hour, @Model.LastZombieAttackDate.Minute, @Model.LastZombieAttackDate.Second, 0);
-            var EndOfExplore = new Date(@Model.EndOfExplore.AddYears(-1).Year, @Model.EndOfExplore.AddMonths(-1).Month, @Model.EndOfExplore.Day, @Model.EndOfExplore.Hour, @Model.EndOfExplore.Minute, @Model.EndOfExplore.Second, 0);
+            var LastZombieStartAttack = new Date(@Model.LastZombieAttackDate.Year, @Model.LastZombieAttackDate.Month -1, @Model.LastZombieAttackDate.Day, @Model.LastZombieAttackDate.Hour, @Model.LastZombieAttackDate.Minute, @Model.LastZombieAttackDate.Second, 0);
+            var EndOfExplore = new Date(@Model.EndOfExplore.Year, @Model.EndOfExplore.Month -1, @Model.EndOfExplore.Day, @Model.EndOfExplore.Hour, @Model.EndOfExplore.Minute, @Model.EndOfExplore.Second, 0);
           </script>
 
         <script src="~/Scripts/app/Counters.js" type="text/javascript"></script>
-        @* <script src="~/Scripts/app/FieldCountDown.js" type="text/javascript"></script>
-            <script src="~/Scripts/app/EnergyCounter.js" type="text/javascript"></script>*@
-        @*<script src="~/Scripts/app/ZombieBaseAttack.js" type="text/javascript"></script>*@
     }
 </body>
 </html>

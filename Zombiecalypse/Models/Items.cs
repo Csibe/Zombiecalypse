@@ -15,13 +15,14 @@ namespace Zombiecalypse.Models
         public string ItemName { get; set; }
         [DisplayName("Picture")]
         public string ItemPicture { get; set; }
-        [DisplayName("Maximum durability")]
+        [DisplayName("Max durability")]
         public int ItemMaxDurability { get; set; }
 
     }
 
     public class Plant : Item 
     {
+
         public int PlantMoneyCost { get; set; }
         public int PlantGrowTime { get; set; }
         public int PlantRewardCoin { get; set; }
@@ -64,6 +65,7 @@ namespace Zombiecalypse.Models
 
     public class Weapon : Item
     {
+        [DisplayName("Damage")]
         public int WeaponDamage { get; set; }
     }
 
