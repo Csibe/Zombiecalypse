@@ -34,6 +34,8 @@ namespace Zombiecalypse.Controllers
                 selectBuilding.Add(weaponMaterial);
             }
 
+
+
             List<CraftableWeapon> craftableWeapons = new List<CraftableWeapon>();
             List<CraftableWeaponMaterial> craftableWeaponMaterials = new List<CraftableWeaponMaterial>();
 

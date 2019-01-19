@@ -22,7 +22,7 @@ namespace Zombiecalypse.Controllers
             model.CharacterField.isFinished = true;
             model.CharacterField.FinishDate = DateTime.MaxValue;
             db.SaveChanges();
-
+                        
             return RedirectToAction("Details", "Characters", new { id = User.Identity.Name });
         }
 

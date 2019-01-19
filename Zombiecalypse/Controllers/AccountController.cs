@@ -62,8 +62,15 @@ namespace Zombiecalypse.Controllers
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
-            ViewBag.ReturnUrl = returnUrl;
-            return View();
+            if (this.User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                ViewBag.ReturnUrl = returnUrl;
+                return View();
+            }
         }
 
         //
@@ -158,7 +165,7 @@ namespace Zombiecalypse.Controllers
             if (ModelState.IsValid)
             {
                 var user = new ApplicationUser { UserName = model.Name, Email = model.Email };
-                var character = new Character { ApplicationUserID = model.Name, CharacterName = model.CharacterName, CharacterType = model.CharacterType, CharacterMoney = 2000000, FinishAdventure = DateTime.MaxValue, IsOnAdventure = false, CurrentEnergy = 14, MaxEnergy = 14, CharacterLevel = 5, EnergyPlusDate = DateTime.MaxValue, LastZombieAttackTime = DateTime.Now, MaxTolerance=5, Tolerance=5 };
+                var character = new Character { ApplicationUserID = model.Name, CharacterName = model.CharacterName, CharacterType = model.CharacterType, CharacterMoney = 2000000, FinishAdventure = DateTime.MaxValue, IsOnAdventure = false, CurrentEnergy = 14, MaxEnergy = 14, CharacterLevel = 5, EnergyPlusDate = DateTime.MaxValue, LastZombieAttackTime = DateTime.Now, MaxTolerance = 5, Tolerance = 5 };
 
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)

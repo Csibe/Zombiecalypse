@@ -57,7 +57,12 @@ var x = setInterval(function () {
         if (distanceField < 0) {
 
             clearInterval(x);
-            window.location.href = '/Gathering/GrowUpPlant/' + '?fieldID=' + fieldID;
+            // window.location.href = '/Gathering/GrowUpPlant/' + '?fieldID=' + fieldID;
+            var url = '/Gathering/GrowUpPlant/' + '?fieldID=' + fieldID;
+            $.get(url, function (data) {
+                alert("Load was performed.");
+            });
+
         }
     }
 
