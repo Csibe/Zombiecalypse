@@ -14,6 +14,7 @@ namespace Zombiecalypse.Controllers
     public class AdventuresController : BaseController
     {
 
+        [Authorize]
         public ActionResult AddToTolerance() {
             Character character = db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault();
 
@@ -24,7 +25,8 @@ namespace Zombiecalypse.Controllers
         }
 
 
-        public ActionResult StopAdventure(int AdId, int ChId)
+        [Authorize]
+        public ActionResult StopAdventure(int AdId, int ChId, string returnUrl)
         {
             AdventureViewModel model = new AdventureViewModel();
 
@@ -36,24 +38,17 @@ namespace Zombiecalypse.Controllers
             character.FinishAdventure = DateTime.MaxValue;
             db.SaveChanges();
 
-
-            base.SetModelProperties(model);
-            return View(model);
-
-
-            //   return RedirectToAction("Details", "Characters", new { id = User.Identity.Name });
+            return RedirectToAction(returnUrl);
         }
 
 
+
+
+        [Authorize]
         public ActionResult CheckAdventure()
         {
 
             Character character = db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault();
-
-            if (character == null) {
-                return RedirectToAction("Details", "Characters", new { id = User.Identity.Name });
-            }
-
 
             if (character.IsOnAdventure == true && character.FinishAdventure > DateTime.Now && character.FinishAdventure < DateTime.MaxValue.AddDays(-1))
             {
@@ -61,23 +56,19 @@ namespace Zombiecalypse.Controllers
                 return RedirectToAction("AdventureCounter", "Adventures", new { AdId = character.AdventureID, ChId = User.Identity.Name });
             }
 
-            else if (character.IsOnAdventure == true && (character.FinishAdventure <= DateTime.Now || character.FinishAdventure >= DateTime.MaxValue.AddDays(-1)))
+            if (character.IsOnAdventure == true && (character.FinishAdventure <= DateTime.Now || character.FinishAdventure >= DateTime.MaxValue.AddDays(-1)))
             {
-                if (character.FinishAdventure <= DateTime.Now) {
                     character.FinishAdventure = DateTime.MaxValue;
                     db.SaveChanges();
-                }
-                return RedirectToAction("OnAdventure", "Adventures", new { id = User.Identity.Name });
+                    return RedirectToAction("OnAdventure", "Adventures", new { id = User.Identity.Name });
+
             }
 
-            else if (character.IsOnAdventure == false)
-            {
-                return RedirectToAction("Details", "Characters", new { id = User.Identity.Name });
-            }
-
-            return RedirectToAction("Details", "Characters", new { id = User.Identity.Name });
+            return RedirectToAction("Index", "Adventures");
         }
 
+
+        [Authorize]
         public ActionResult AdventureCounter(int AdId, string ChId)
         {
             AdventureViewModel model = new AdventureViewModel();
@@ -90,9 +81,10 @@ namespace Zombiecalypse.Controllers
         }
 
 
+        [Authorize]
         public ActionResult ZombieAttackAdventurer(string id, int zId, string returnUrl)
         {
-            ZombieAttackAdventurer2 model = new ZombieAttackAdventurer2();
+            ZombieAttackAdventurerVM model = new ZombieAttackAdventurerVM();
 
             model.Character = db.Characters.Where(y => y.ApplicationUserID == id).FirstOrDefault();
             model.ZombieAttackAdventurer = db.ZombieAttackAdventurers.Find(zId);
@@ -114,7 +106,7 @@ namespace Zombiecalypse.Controllers
                 model.Character.IsOnAdventure = false;
                 model.Character.FinishAdventure = DateTime.MaxValue;
                 db.SaveChanges();
-                return RedirectToAction("StopAdventure", "Adventures", new { AdId = model.Adventure.AdventureID , ChId = model.Character.CharacterID });
+                return RedirectToAction("StopAdventure", "Adventures", new { AdId = model.Adventure.AdventureID , ChId = model.Character.CharacterID, returnUrl = returnUrl });
 
             }
 
@@ -123,73 +115,94 @@ namespace Zombiecalypse.Controllers
         }
 
 
-
-        public ActionResult AttackZombie(int zAAID, int invID)
+        [Authorize]
+        public ActionResult AttackZombie(string zAAID, int invID)
         {
             Character character = db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault();
 
+            List<int> zombik = System.Web.Helpers.Json.Decode<List<int>>(zAAID);
 
-            ZombieAttackAdventurer model = db.ZombieAttackAdventurers.Find(zAAID);
+            List<ZombieAttackAdventurer> zombies = new List<ZombieAttackAdventurer>();
+
+            foreach (var z in zombik)
+            {
+                var zombie = db.ZombieAttackAdventurers.Find(z);
+                zombies.Add(zombie);
+            }
 
 
-            model.Zombie = db.Zombies.Find(model.ZombieID);
             Inventory item = db.Inventories.Find(invID);
             Weapon weapon = db.Weapons.Find(item.ItemID);
 
-            var inv = db.Inventories.Find(invID);
-            if (inv.ItemCurrentDurability > 0 && inv.ItemMaxDurability != 999)
+
+            foreach (var z in zombies)
             {
-                inv.ItemCurrentDurability--;
-            }
-            else if (inv.ItemCurrentDurability > 0 && inv.ItemMaxDurability == 999)
-            {
-            }
-            else
-            {
-                if (inv.ItemPieces > 0)
+
+
+                ZombieAttackAdventurer model = db.ZombieAttackAdventurers.Find(z.ZombieAttackAdventurerID);
+                model.Zombie = db.Zombies.Find(model.ZombieID);
+
+                var inv = db.Inventories.Find(invID);
+                if (inv.ItemCurrentDurability > 0 && inv.ItemMaxDurability != 999)
                 {
-                    inv.ItemCurrentDurability = inv.ItemMaxDurability;
-                    inv.ItemPieces--;
+                    inv.ItemCurrentDurability--;
                 }
-            }
-
-            if (model.ZombieLife > weapon.WeaponDamage)
-            {
-                model.ZombieLife = model.ZombieLife - weapon.WeaponDamage;
-                List<ZombieAttackAdventurer> zAA = db.ZombieAttackAdventurers.Where(x => x.CharacterID == character.CharacterID).Where(x => x.State == character.AdventureState).ToList();
-                zAA.ToArray()[0].isYourTourn = true;
-            }
-            else
-            {
-                var addXP = new CharactersController().ManageXPAndLevelUp(User.Identity.Name, model.Zombie.RewardXP, this.Request.FilePath);
-                character.CharacterMoney += model.Zombie.RewardCoins;
-                db.ZombieAttackAdventurers.Remove(model);
-                db.SaveChanges();
-                List<ZombieAttackAdventurer> zAA = db.ZombieAttackAdventurers.Where(x => x.CharacterID == character.CharacterID).Where(x => x.State == character.AdventureState).ToList();
-                if (zAA.Count >= 1)
+                else if (inv.ItemCurrentDurability > 0 && inv.ItemMaxDurability == 999)
                 {
-                    zAA.ToArray()[0].isYourTourn = true;
                 }
-
-                List<Mission> zombieMission = db.Missions.Where(x => x.CharacterID == character.CharacterID).Where(x => x.MissionType == "zombiekilling").ToList();
-
-
-                if (zombieMission != null)
+                else
                 {
-                    foreach (var mission in zombieMission)
+                    if (inv.ItemPieces > 0)
                     {
+                        inv.ItemCurrentDurability = inv.ItemMaxDurability;
+                        inv.ItemPieces--;
+                    }
+                }
 
-                        mission.MissionTaskProgress++;
+                if (model.ZombieLife > weapon.WeaponDamage)
+                {
+                    model.ZombieLife = model.ZombieLife - weapon.WeaponDamage;
+
+                }
+                else
+                {
+                    var addXP = new CharactersController().ManageXPAndLevelUp(User.Identity.Name, model.Zombie.RewardXP, this.Request.FilePath);
+                    character.CharacterMoney += model.Zombie.RewardCoins;
+                    db.ZombieAttackAdventurers.Remove(model);
+                    db.SaveChanges();
+
+
+                    List<Mission> zombieMission = db.Missions.Where(x => x.CharacterID == character.CharacterID).Where(x => x.MissionType == "zombiekilling").ToList();
+
+                    if (zombieMission != null)
+                    {
+                        foreach (var mission in zombieMission)
+                        {
+
+                            mission.MissionTaskProgress++;
+                        }
                     }
                 }
             }
 
+            //var result2 = "";
+
+            //List<int> result = System.Web.Helpers.Json.Decode<List<int>>(zAAID);
+            //foreach (var r in result) {
+            //    result2 += r +" ";
+            //}
+
+
+            //  var result2 = string.Join("", zAAID.ToArray());
+
 
             db.SaveChanges();
             return RedirectToAction("OnAdventure", "Adventures", new { id = User.Identity.Name });
+           // return result2;
         }
 
 
+        [Authorize]
         public ActionResult ManageTurns(string id, string returnUrl)
         {
             Character character = db.Characters.Where(y => y.ApplicationUserID == id).FirstOrDefault();
@@ -219,6 +232,7 @@ namespace Zombiecalypse.Controllers
         }
 
 
+        [Authorize]
         public string WhosTurn(string id)
         {
             Character character = db.Characters.Where(y => y.ApplicationUserID == id).FirstOrDefault();
@@ -243,7 +257,7 @@ namespace Zombiecalypse.Controllers
         }
 
 
-
+        [Authorize]
         public ActionResult OnAdventure(string id)
         {
 
@@ -308,6 +322,7 @@ namespace Zombiecalypse.Controllers
         }
 
 
+        [Authorize]
         public ActionResult AddToInventory(int ChId, int ItemId, int addPieces)
         {
 
@@ -376,6 +391,7 @@ namespace Zombiecalypse.Controllers
         }
 
 
+        [Authorize]
         public ActionResult StartAdventure(int AdId)
         {
             Adventure adventure = db.Adventures.Find(AdId);
@@ -402,7 +418,7 @@ namespace Zombiecalypse.Controllers
                         }
                     }
 
-                    for (int stepCounter = 0; stepCounter <= adventure.AdventureSteps; stepCounter++)
+                    for (int stepCounter = 1; stepCounter <= adventure.AdventureSteps; stepCounter++)
                     {
                         int maxZombiesPerRound = rand.Next(1, adventure.AdventureMaxZombiesPerRound);
 
@@ -410,7 +426,7 @@ namespace Zombiecalypse.Controllers
                         {
                             int zombieIndex = rand.Next(1, selectableZombies.Count());
                             Zombie selectedZombie = selectableZombies.ElementAt<Zombie>(zombieIndex);
-                            ZombieAttackAdventurer attackingZombie = new ZombieAttackAdventurer { CharacterID = character.CharacterID, State = stepCounter, Zombie = selectedZombie, ZombieID = selectedZombie.ZombieID, ZombieLife = selectedZombie.ZombieLife, isYourTourn = false };
+                            ZombieAttackAdventurer attackingZombie = new ZombieAttackAdventurer { CharacterID = character.CharacterID, State = stepCounter, ZombieID = selectedZombie.ZombieID, ZombieLife = selectedZombie.ZombieLife, isYourTourn = false };
                             db.ZombieAttackAdventurers.Add(attackingZombie);
                         }
                     }
@@ -436,6 +452,7 @@ namespace Zombiecalypse.Controllers
 
         }
 
+        [Authorize]
         // GET: Adventures
         public ActionResult Index()
         {

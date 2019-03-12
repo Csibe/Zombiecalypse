@@ -9,7 +9,6 @@ namespace Zombiecalypse.Controllers
 {
     public class HomeController : BaseController
     {
-        protected DataContext db = new DataContext();
 
         public ActionResult Index()
         {

@@ -23,7 +23,6 @@ namespace Zombiecalypse.Controllers
 
             Inventory invEnergy = character.Inventory.Where(x => x.ItemID == energy.ItemID).FirstOrDefault();
 
-
             invEnergy.ItemPieces -= 1;
             character.CurrentEnergy += energy.PlusEnergy;
 
@@ -47,19 +46,10 @@ namespace Zombiecalypse.Controllers
         {
             Character character = db.Characters.Where(x => x.ApplicationUserID == id).FirstOrDefault();
 
-            if (character == null)
-            {
-                return HttpNotFound();
-            }
-            character.CurrentEnergy -= energyCost;
 
-
-            if (character.CurrentEnergy == character.MaxEnergy && character.EnergyPlusDate.Year == DateTime.MaxValue.Year)
+            if (character.CurrentEnergy < character.MaxEnergy && character.EnergyPlusDate.Year == DateTime.MaxValue.Year)
             {
-            }
-            else if (character.CurrentEnergy < character.MaxEnergy && character.EnergyPlusDate.Year == DateTime.MaxValue.Year)
-            {
-                character.EnergyPlusDate = DateTime.Now.AddSeconds(20);
+                character.EnergyPlusDate = DateTime.Now.AddMinutes(2);
             }
             else if (character.CurrentEnergy == character.MaxEnergy && character.EnergyPlusDate.Year < DateTime.MaxValue.Year)
             {
@@ -67,20 +57,16 @@ namespace Zombiecalypse.Controllers
             }
             else if (character.CurrentEnergy < character.MaxEnergy && character.EnergyPlusDate <= DateTime.Now)
             {
-                character.EnergyPlusDate = DateTime.Now.AddSeconds(20);
+                character.EnergyPlusDate = character.EnergyPlusDate.AddMinutes(2);
                 character.CurrentEnergy++;
             }
             else if (character.CurrentEnergy < character.MaxEnergy && character.EnergyPlusDate > DateTime.Now)
             {
             }
-            else if (character.CurrentEnergy < character.MaxEnergy && character.EnergyPlusDate < DateTime.Now)
-            {
 
-                character.CurrentEnergy++;
-                character.EnergyPlusDate = DateTime.MaxValue;
-            }
-
+            TimeSpan distance = DateTime.Now - character.EnergyPlusDate;
             db.SaveChanges();
+
             return Redirect(returnUrl);
         }
 
@@ -193,9 +179,8 @@ namespace Zombiecalypse.Controllers
 
             model.CharacterNextLevelXP = db.Levels.Where(l => l.LevelID == model.Character.CharacterLevel).FirstOrDefault().LevelMaxXP;
 
-
-
             model.Fence = model.Character.Inventory.Where(x => x.Item.ItemName == "Fence").FirstOrDefault();
+            model.Plants = db.Plants.ToList();
 
             model.ZombiesDB = db.Zombies.ToList();
             model.ZombieAttackBase = db.ZombieAttackBases.Where(x => x.CharacterID == db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault().CharacterID).ToList();

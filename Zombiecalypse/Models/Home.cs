@@ -8,6 +8,7 @@ namespace Zombiecalypse.Models
 {
     public abstract class ViewModelBase
     {
+        public Character Character { get; set; }
         public string UserKe { get; set; }
         public string PageUrl { get; set; }
         public ICollection<CharacterField> Fields { get; set; }
@@ -18,6 +19,7 @@ namespace Zombiecalypse.Models
         public DateTime LastZombieAttackDate { get; set; }
         public ICollection<ZombieAttackBase> AttackingZombies { get; set; }
         public DateTime EndOfExplore { get; set; }
+        public DateTime DailyMissionDate { get; set; }
 
     }
 

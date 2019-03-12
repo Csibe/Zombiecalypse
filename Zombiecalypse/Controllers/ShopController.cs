@@ -26,7 +26,7 @@ namespace Zombiecalypse.Controllers
             return View(model);
         }
 
-        public ActionResult Buy(string id, int ItemID)
+        public ActionResult Buy(string id, int ItemID, string returnUrl)
         {
             Character character = db.Characters.Where(x => x.ApplicationUserID == id).FirstOrDefault();
             if (character == null)
@@ -57,11 +57,6 @@ namespace Zombiecalypse.Controllers
                 Dog variable = db.Dogs.Find(ItemID);
                 price = variable.Cost;
             }
-
-            if (item.GetType().Name.Contains("Energy"))
-            {
-                character.CharacterFood -= price;
-            }
             else
             {
                 character.CharacterMoney -= price;
@@ -90,24 +85,21 @@ namespace Zombiecalypse.Controllers
             }
 
             db.SaveChanges();
-            //}
 
-            return RedirectToAction("Details", "Characters", new { id = User.Identity.Name });
+            return Redirect(returnUrl);
         }
 
-        public ActionResult BuyField(string id)
+        public ActionResult BuyField(string id, string returnUrl)
         {
 
             Character character = db.Characters.Where(x => x.ApplicationUserID == id).FirstOrDefault();
             CharacterField characterField = new CharacterField { CharacterID = character.CharacterID, FinishDate = DateTime.MaxValue, isFinished = false, IsEmpty = true };
 
-            //if (character.CharacterMoney >= 300)
-            //{
             character.CharacterMoney -= 300;
             db.CharacterFields.Add(characterField);
             db.SaveChanges();
-            //}
-            return RedirectToAction("Details", "Characters", new { id = User.Identity.Name });
+
+            return Redirect(returnUrl);
         }
     }
 }

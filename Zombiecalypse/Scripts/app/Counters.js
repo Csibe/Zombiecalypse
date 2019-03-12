@@ -1,12 +1,11 @@
-﻿
-var UserName = UserName;
+﻿var UserName = UserName;
 var PageUrl = PageUrl;
 
 var untilAdventure = AdventureFinishDate;
 var untilEnergy = EnergyPlusDate;
 var lastZombieStartAttack = LastZombieStartAttack;
 var endOfExplore = EndOfExplore;
-
+var dailyMissionDate = DailyMissionDate;
 
 var fieldFinishDate = FieldFinishDate;
 var fieldID = FieldID;
@@ -21,11 +20,24 @@ var x = setInterval(function () {
     var distanceLastZombieStartAttack = now - lastZombieStartAttack;
     var distanceEndOfExplore = endOfExplore - now;
 
+    var today = new Date(now.getFullYear(),now.getMonth(),now.getDate(),0,0,0,0);
+
 
     var days = Math.floor(distanceAdventure / (1000 * 60 * 60 * 24));
     var hours = Math.floor((distanceAdventure % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
     var minutes = Math.floor((distanceAdventure % (1000 * 60 * 60)) / (1000 * 60));
     var seconds = Math.floor((distanceAdventure % (1000 * 60)) / 1000);
+
+    if (dailyMissionDate <= today) {
+        clearInterval(x);
+        var result = '/api/Default/GenerateDailyMissions'
+
+        $.get(result, function () {
+        });
+
+    }
+
+
 
     if (document.getElementsByClassName("image")) {
         list = document.getElementsByClassName("image");
@@ -40,8 +52,6 @@ var x = setInterval(function () {
         }
     }
 
-    console.log(distanceAdventure);
-    console.log("distanceLastZombieAttack: " + distanceLastZombieStartAttack);
     if (document.getElementById("counter")) {
         document.getElementById("counter").innerHTML = days + " nap " + hours + " óra " + minutes + " perc " + seconds + " másodperc ";
     }
@@ -52,15 +62,21 @@ var x = setInterval(function () {
         var fieldID = FieldID[count];
 
         var distanceField = untilField - now;
-        console.log(fieldFinishDate[count]);
+
+       console.log("field distance: " +fieldFinishDate[count]);
 
         if (distanceField < 0) {
 
             clearInterval(x);
             // window.location.href = '/Gathering/GrowUpPlant/' + '?fieldID=' + fieldID;
-            var url = '/Gathering/GrowUpPlant/' + '?fieldID=' + fieldID;
-            $.get(url, function (data) {
-                alert("Load was performed.");
+
+            var result = '/api/Default/GrowUpPlant/' + fieldID
+
+          //  var url = '/Gathering/GrowUpPlant/' + '?fieldID=' + fieldID
+
+            $.get(result, function (data) {
+                toastr.success('Plant grew up!' + data, 'Success Alert', { timeOut: 10000 })
+               // alert("Plant grew up!");
             });
 
         }
@@ -75,35 +91,78 @@ var x = setInterval(function () {
 
         var distanceZombie = now - untilZombie;
 
-      //  console.log(distanceZombie);
+        console.log("distanceZombie: " + distanceZombie);
 
-        if (distanceZombie > 1000000) {
+        if (distanceZombie > 500000) {
             clearInterval(x);
-            window.location.href = '/Zombies/ZombieAttackBase/' + '?ZabID=' + zabID;
-            
+
+            //window.location.href = '/Zombies/ZombieAttackBase/' + '?ZabID=' + zabID;
+
+            var result = '/api/Default/ZombieDamageBase/' + zabID
+
+            $.get(result, function () {
+              //  alert("Zombie attacked!");
+            });
         }
     }
+    console.log("distanceAdventure: " + distanceAdventure);
 
         if (distanceAdventure < 0) {
             clearInterval(x);
-            window.location.href = '/Adventures/CheckAdventure/';
+
+            if (PageUrl == '/Adventures/Index' || PageUrl == '/Adventures/OnAdventure' || PageUrl == '/Adventures/CheckAdventure') {
+                window.location.href = '/Adventures/CheckAdventure/';
+            }
+
+            else {
+                var result = '/api/Default/CheckAdventure'
+
+
+                $.get(result, function () {
+                    //alert("Adventure finished!");
+                });
+
+            }
         }
+
+        console.log("distanceEnergy: " + distanceEnergy);
 
         if (distanceEnergy < 0) {
             clearInterval(x);
-            window.location.href = "/Characters/ManageEnergy/" + UserName +"?energyCost=0&returnUrl=" +PageUrl;
+
+            var result = '/api/Default/ManageEnergy/' + UserName
+
+            $.get(result, function () {
+               // alert("Energy added!");
+            });
+
+          //  window.location.href = "/Characters/ManageEnergy/" + UserName +"?energyCost=0&returnUrl=" +PageUrl;
         }
 
-       // console.log(distanceLastZombieStartAttack);
 
-        if (distanceLastZombieStartAttack > 11760000) {
+        console.log("distanceLastZombieStartAttack: " + distanceLastZombieStartAttack);
+
+
+        if (distanceLastZombieStartAttack > 1176000) {
             clearInterval(x);
-            window.location.href = "/Zombies/ZombieStartAttackBase/" + UserName + "?returnUrl=" + PageUrl;
+
+            var result = '/api/Default/ZombieStartAttackBase/' + UserName
+
+            $.get(result, function () {
+                // alert("Energy added!");
+            });
+         //   window.location.href = "/Zombies/ZombieStartAttackBase/" + UserName + "?returnUrl=" + PageUrl;
+
         }
 
-        if (distanceEndOfExplore < 0) {
-            clearInterval(x);
-            window.location.href = "/Dogs/StopDogToExplore/";
-        }
+        console.log("distanceEndOfExplore: " + distanceEndOfExplore);
+
+        //if (distanceEndOfExplore < 0) {
+        //    clearInterval(x);
+
+
+
+        //    window.location.href = "/Dogs/StopDogToExplore/";
+        //}
 
     }, 1000);

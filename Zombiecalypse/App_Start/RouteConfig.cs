@@ -14,10 +14,10 @@ namespace Zombiecalypse
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
-            RouteTable.Routes.MapHttpRoute(
-                name: "DefaultApi",
-                routeTemplate: "api/{controller}/{id}",
-                defaults: new { id = System.Web.Http.RouteParameter.Optional }
+            routes.MapHttpRoute(
+                name: "API Default",
+                routeTemplate: "api/{controller}/{action}/{id}",
+                defaults: new { id = RouteParameter.Optional }
             );
 
             routes.MapRoute(

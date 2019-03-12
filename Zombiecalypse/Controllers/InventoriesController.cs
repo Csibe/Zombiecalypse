@@ -13,13 +13,10 @@ namespace Zombiecalypse.Controllers
 {
     public class InventoriesController : Controller
     {
-        private DataContext db = new DataContext();
-        private int MaxBuildingLevel = 5;
-
+        protected DataContext db = new DataContext();
 
         public ActionResult AddToItem(int itemId)
         {
-
             Inventory item = db.Inventories.Where(x => x.InventoryID == itemId).FirstOrDefault();
             item.ItemPieces++;
             db.SaveChanges();
@@ -34,21 +31,6 @@ namespace Zombiecalypse.Controllers
             Inventory item = db.Inventories.Find(id);
             Character character = db.Characters.Where(x => x.ApplicationUserID == User.Identity.Name).FirstOrDefault();
             Building building = db.Buildings.Find(item.ItemID);
-
-
-            if (item == null)
-            {
-                return HttpNotFound();
-            }
-
-            if (building == null)
-            {
-                return HttpNotFound();
-            }
-            if (character == null)
-            {
-                return HttpNotFound();
-            }
 
 
             ICollection<Inventory> characterInventory = db.Inventories.Where(x => x.CharacterID == character.CharacterID).ToList();
@@ -97,8 +79,8 @@ namespace Zombiecalypse.Controllers
                 item.ItemMaxDurability = newitem.ItemMaxDurability;
                 item.ItemCurrentDurability = newitem.ItemMaxDurability;
 
-                character.CharacterMoney -= building.BuildingMoneyCost;
-                var result = new CharactersController().ManageEnergy(User.Identity.Name, building.BuildingEnergyCost, this.Request.FilePath);
+                character.CharacterMoney -= newitem.BuildingMoneyCost;
+                var result = new CharactersController().ManageEnergy(User.Identity.Name, newitem.BuildingEnergyCost, this.Request.FilePath);
 
                 db.SaveChanges();
 
@@ -113,22 +95,6 @@ namespace Zombiecalypse.Controllers
             Inventory item = db.Inventories.Find(id);
             Character character = db.Characters.Where(x => x.ApplicationUserID == User.Identity.Name).FirstOrDefault();
             Building fence = db.Buildings.Find(item.ItemID);
-
-
-            if (item == null)
-            {
-                return HttpNotFound();
-            }
-
-            if (fence == null)
-            {
-                return HttpNotFound();
-            }
-            if (character == null)
-            {
-                return HttpNotFound();
-            }
-
 
             ICollection<Inventory> characterInventory = db.Inventories.Where(x => x.CharacterID == character.CharacterID).ToList();
 
@@ -164,111 +130,91 @@ namespace Zombiecalypse.Controllers
             db.SaveChanges();
 
             return Redirect(returnUrl);
-    }
-
-
-
-
-
-
-    public ActionResult CraftWeapon(int WeaponId)
-    {
-
-        Character character = db.Characters.Where(x => x.ApplicationUserID == User.Identity.Name).FirstOrDefault();
-
-        if (character.IsOnAdventure == true)
-        {
-            return RedirectToAction("Details", "Characters", new { id = User.Identity.Name });
         }
 
 
 
-        if (WeaponId == null)
+
+
+
+        public ActionResult CraftWeapon(int WeaponId, string returnUrl)
         {
-            return HttpNotFound();
-        }
+
+            Character character = db.Characters.Where(x => x.ApplicationUserID == User.Identity.Name).FirstOrDefault();
+
+            CraftableWeapon craftableWeapon = db.CraftableWeapons.Find(WeaponId);
 
 
-        CraftableWeapon craftableWeapon = db.CraftableWeapons.Find(WeaponId);
+            List<CraftableWeaponMaterial> allCraftableWeaponMaterials = db.CraftableWeaponMaterials.Where(x => x.WeaponID == WeaponId).ToList();
 
-        if (craftableWeapon == null)
-        {
-            return HttpNotFound();
-        }
+            List<CraftableWeaponMaterial> craftableWeaponMaterials = db.CraftableWeaponMaterials.Where(x => x.WeaponID == WeaponId).ToList();
 
+            Building building = new Building();
 
-        List<CraftableWeaponMaterial> craftableWeaponMaterials = db.CraftableWeaponMaterials.Where(x => x.WeaponID == WeaponId).ToList();
+            int counter = 0;
 
-        Building building = new Building();
-
-        foreach (var mat in craftableWeaponMaterials)
-        {
-            foreach (var b in db.Buildings)
+            foreach (var mat in allCraftableWeaponMaterials)
             {
-                if (mat.MaterialID == b.ItemID)
+                foreach (var b in db.Buildings)
                 {
-                    building = db.Buildings.Find(b.ItemID);
-
-                }
-            }
-        }
-
-        int counter = 0;
-
-
-        foreach (var invMat in character.Inventory)
-        {
-            foreach (var weapMat in craftableWeaponMaterials)
-            {
-                if (invMat.ItemID == weapMat.MaterialID)
-                {
-                    if (invMat.ItemPieces >= weapMat.MaterialPieces)
+                    if (b.ItemID == mat.MaterialID)
                     {
-                        counter++;
+                        craftableWeaponMaterials.Remove(mat);
                     }
                 }
-
             }
-        }
 
 
-        if (counter == craftableWeaponMaterials.Count())
-        {
+
             foreach (var invMat in character.Inventory)
             {
                 foreach (var weapMat in craftableWeaponMaterials)
                 {
-                    if (invMat.ItemID == weapMat.MaterialID && invMat.ItemID != building.ItemID)
+                    if (invMat.ItemID == weapMat.MaterialID)
                     {
-                        invMat.ItemPieces -= weapMat.MaterialPieces;
-
+                        if (invMat.ItemPieces >= weapMat.MaterialPieces)
+                        {
+                            counter++;
+                        }
                     }
+
                 }
             }
 
 
-
-            if (character.Inventory.Where(x => x.ItemID == WeaponId).FirstOrDefault() != null)
+            if (counter == craftableWeaponMaterials.Count())
             {
-                Inventory inventory = character.Inventory.Where(x => x.ItemID == WeaponId).FirstOrDefault();
-                inventory.ItemPieces++;
+                foreach (var invMat in character.Inventory)
+                {
+                    foreach (var weapMat in craftableWeaponMaterials)
+                    {
+                        if (invMat.ItemID == weapMat.MaterialID && invMat.ItemID != building.ItemID)
+                        {
+                            invMat.ItemPieces -= weapMat.MaterialPieces;
+
+                        }
+                    }
+                }
+
+
+
+                if (character.Inventory.Where(x => x.ItemID == WeaponId).FirstOrDefault() != null)
+                {
+                    Inventory inventory = character.Inventory.Where(x => x.ItemID == WeaponId).FirstOrDefault();
+                    inventory.ItemPieces++;
+                }
+                else
+                {
+                    Inventory inventory = new Inventory { ItemID = WeaponId, CharacterID = character.CharacterID, ItemPieces = 1, ItemCurrentDurability = craftableWeapon.ItemMaxDurability, ItemMaxDurability = craftableWeapon.ItemMaxDurability };
+                    db.Inventories.Add(inventory);
+                }
+
+
+                db.SaveChanges();
+
             }
-            else
-            {
-                Inventory inventory = new Inventory { ItemID = WeaponId, CharacterID = character.CharacterID, ItemPieces = 1, ItemCurrentDurability = craftableWeapon.ItemMaxDurability, ItemMaxDurability = craftableWeapon.ItemMaxDurability };
-                db.Inventories.Add(inventory);
-            }
+            return Redirect(returnUrl);
 
-
-            db.SaveChanges();
-
-            return RedirectToAction("Details", "Characters", new { id = User.Identity.Name });
-
-        }
-        else
-        {
-            return RedirectToAction("Details", "Characters", new { id = User.Identity.Name });
         }
     }
 }
-    }

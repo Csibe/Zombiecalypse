@@ -50,7 +50,7 @@
                                 <tr>
                                     @if (Model.Character.CharacterMoney >= w.Cost)
                                     {
-                                        <td>@Html.ActionLink("Buy", "Buy", "Shop", new { id = User.Identity.Name, ItemID = @w.ItemID }, new { @class = "ActionLinkButton" })</td>
+                                        <td>@Html.ActionLink("Buy", "Buy", "Shop", new { id = User.Identity.Name, ItemID = @w.ItemID, returnUrl=this.Request.Url }, new { @class = "ActionLinkButton" })</td>
                                     }
                                     else
                                     {
@@ -103,7 +103,7 @@
                                 @if (Model.Character.CharacterMoney >= 300)
                                 {
                                     <td>
-                                        @Html.ActionLink("Buy field", "BuyField", "Shop", new { id = User.Identity.Name }, new { @class = "ActionLinkButton" })
+                                        @Html.ActionLink("Buy", "BuyField", "Shop", new { id = User.Identity.Name, returnUrl = this.Request.Url }, new { @class = "ActionLinkButton" })
                                     </td>
                                 }
                                 else
@@ -149,7 +149,7 @@
                                     <tr>
                                         @if (Model.Character.CharacterMoney >= p.PlantMoneyCost)
                                         {
-                                            <td>@Html.ActionLink("Buy", "Buy", "Shop", new { id = User.Identity.Name, ItemID = @p.ItemID }, new { @class = "ActionLinkButton" })</td>
+                                            <td>@Html.ActionLink("Buy", "Buy", "Shop", new { id = User.Identity.Name, ItemID = @p.ItemID, returnUrl = this.Request.Url }, new { @class = "ActionLinkButton" })</td>
                                         }
                                         else
                                         {
@@ -191,7 +191,7 @@
                                     <tr>
                                         @if (Model.Character.CharacterFood >= e.Cost)
                                         {
-                                            <td>@Html.ActionLink("Buy", "Buy", "Shop", new { id = User.Identity.Name, ItemID = @e.ItemID }, new { @class = "ActionLinkButton" })</td>
+                                            <td>@Html.ActionLink("Buy", "Buy", "Shop", new { id = User.Identity.Name, ItemID = @e.ItemID, returnUrl = this.Request.Url }, new { @class = "ActionLinkButton" })</td>
                                         }
                                         else
                                         {
@@ -229,7 +229,7 @@
                                         <td>@e.ItemName</td>
                                     </tr>
                                     <tr>
-                                        <td>@Html.ActionLink("Buy", "Buy", "Shop", new { id = User.Identity.Name, ItemID = @e.ItemID }, new { @class = "ActionLinkButton" })</td>
+                                        <td>@Html.ActionLink("Buy", "Buy", "Shop", new { id = User.Identity.Name, ItemID = @e.ItemID, returnUrl = this.Request.Url }, new { @class = "ActionLinkButton" })</td>
                                     </tr>
                                 </table>
                             </td>

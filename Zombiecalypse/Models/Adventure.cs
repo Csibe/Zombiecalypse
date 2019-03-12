@@ -18,6 +18,7 @@ namespace Zombiecalypse.Models
         public int AdventureMaxZombiesPerRound { get; set; }
         public int AdventureRequerdEnergy { get; set; }
         public int CharacterLevelRequired { get; set; }
+        public string AdventureCoords { get; set; }
     }
 
     public class AdventureDrop
@@ -52,7 +53,7 @@ namespace Zombiecalypse.Models
         public Zombie Zombie { get; set; }
     }
 
-    public class ZombieAttackAdventurer2
+    public class ZombieAttackAdventurerVM
     {
         public virtual ZombieAttackAdventurer ZombieAttackAdventurer{ get;set;}
         public virtual Character Character { get; set; }
@@ -65,12 +66,12 @@ namespace Zombiecalypse.Models
     public class AdventureViewModel : ViewModelBase
     {
         
-        public virtual ICollection<ZombieAttackAdventurer> ZombiesAttackAdventurer { get; set; }
+        public virtual List<ZombieAttackAdventurer> ZombiesAttackAdventurer { get; set; }
         public virtual Character Character { get; set; }
         public virtual Adventure Adventure { get; set; }
-        public virtual ICollection<Adventure> Adventures { get; set; }
-        public ICollection<Weapon> Weapons { get; set; }
-        public ICollection<AdventureDrop> AdventureDrops { get; set; }
+        public virtual List<Adventure> Adventures { get; set; }
+        public List<Weapon> Weapons { get; set; }
+        public List<AdventureDrop> AdventureDrops { get; set; }
     }
 
     public class StopAdventureVM : ViewModelBase {

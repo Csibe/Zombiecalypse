@@ -47,6 +47,7 @@ namespace Zombiecalypse.Models
         [DataType(DataType.DateTime)]
         public DateTime LastZombieAttackTime { get; set; }
         public virtual ICollection<Inventory> Inventory { get; set; }
+        public DateTime DailyMissionDate { get; set; }
     }
 
     public class CharacterDetailsViewModel : ViewModelBase
@@ -60,6 +61,7 @@ namespace Zombiecalypse.Models
         public int CharacterNextLevelXP { get; set; }
         public Inventory Fence { get; set; }
         public string BasePicture { get; set; }
+        public virtual ICollection<Plant> Plants { get; set; }
         public virtual ICollection<Energy> EnergyPacks { get; set; }
         public virtual ICollection<MissionVM> Missions { get; set; }
         public virtual ICollection<Inventory> CharacterItems { get; set; }

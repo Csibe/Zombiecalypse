@@ -14,19 +14,19 @@ namespace Zombiecalypse.Controllers
     public class GatheringController : BaseController
     {
 
-        public ActionResult GrowUpPlant(int fieldID)
-        {
-            CharacterFieldVM model = new CharacterFieldVM();
+        //public ActionResult GrowUpPlant(int fieldID)
+        //{
+        //    CharacterFieldVM model = new CharacterFieldVM();
 
-            model.CharacterField = db.CharacterFields.Find(fieldID);
-            model.CharacterField.isFinished = true;
-            model.CharacterField.FinishDate = DateTime.MaxValue;
-            db.SaveChanges();
+        //    model.CharacterField = db.CharacterFields.Find(fieldID);
+        //    model.CharacterField.isFinished = true;
+        //    model.CharacterField.FinishDate = DateTime.MaxValue;
+        //    db.SaveChanges();
                         
-            return RedirectToAction("Details", "Characters", new { id = User.Identity.Name });
-        }
+        //    return RedirectToAction("Details", "Characters", new { id = User.Identity.Name });
+        //}
 
-        public ActionResult HarvestField(int fieldID, int plantID)
+        public ActionResult HarvestField(int fieldID, int plantID, string returnUrl)
         {
             CharacterField field = db.CharacterFields.Find(fieldID);
             Plant plant = db.Plants.Find(plantID);
@@ -48,7 +48,7 @@ namespace Zombiecalypse.Controllers
             character.CharacterFood += plant.PlantRewardFood;
             db.SaveChanges();
 
-            return RedirectToAction("Details", "Characters", new { id = User.Identity.Name });
+            return Redirect(returnUrl);
         }
 
         public ActionResult PlantOnField(int fieldID, int plantID)
@@ -61,7 +61,6 @@ namespace Zombiecalypse.Controllers
             if (invPlant.ItemPieces > 0)
             {
                 field.PlantID = plantID;
-                field.Plant = plant;
                 field.isFinished = false;
                 field.IsEmpty = false;
                 invPlant.ItemPieces--;

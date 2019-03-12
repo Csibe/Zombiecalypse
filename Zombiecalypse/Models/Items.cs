@@ -67,6 +67,7 @@ namespace Zombiecalypse.Models
     {
         [DisplayName("Damage")]
         public int WeaponDamage { get; set; }
+        public bool IsRanged { get; set; }
     }
 
     public class Energy : Item

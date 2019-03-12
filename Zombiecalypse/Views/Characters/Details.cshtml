@@ -1,5 +1,11 @@
 ﻿@model Zombiecalypse.Models.CharacterDetailsViewModel
 
+<script type="text/javascript" src="//cdn.jsdelivr.net/jquery/1/jquery.min.js"></script>
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+<link href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet">
+
+
 @{
     var houseID = @Model.Character.Inventory.Where(x => x.Item.ItemName == "House").FirstOrDefault().ItemID;
     var garageID = @Model.Character.Inventory.Where(x => x.Item.ItemName == "Garage").FirstOrDefault().ItemID;
@@ -20,16 +26,15 @@
     FenceValue = ((Model.Fence.ItemCurrentDurability * 100) / Model.Fence.ItemMaxDurability);
 }
 
-
 <h2>@Model.Character.CharacterName</h2>
 
 
 @Html.ActionLink("Zombie Attack Base", "StartAttack", "Zombies", new { id = User.Identity.Name }, null) <br />
 @Html.ActionLink("ManageEnergy", "ManageEnergy", "Characters", new { id = User.Identity.Name, energyCost = 0, returnUrl = this.Request.Url }, null)<br />
 @Html.ActionLink("ZombieStartAttackBase", "ZombieStartAttackBase", "Zombies", new { id = User.Identity.Name, returnUrl = this.Request.Url }, null)<br />
-@Html.ActionLink("Generate material collect mission", "GenerateMaterialCollectMission", "Missions", new { id = User.Identity.Name }, null)<br />
-@Html.ActionLink("Generate gathering mission", "GenerateGatheringMission", "Missions", new { id = User.Identity.Name }, null)<br />
-@Html.ActionLink("GenerateZombieKillingMission", "GenerateZombieKillingMission", "Missions", new { id = User.Identity.Name }, null)<br />
+@Html.ActionLink("Generate material collect mission", "GenerateMaterialCollectMission", "Missions", new { id = User.Identity.Name, returnUrl = this.Request.Url }, null)<br />
+@Html.ActionLink("Generate gathering mission", "GenerateGatheringMission", "Missions", new { id = User.Identity.Name, returnUrl = this.Request.Url }, null)<br />
+@Html.ActionLink("GenerateZombieKillingMission", "GenerateZombieKillingMission", "Missions", new { id = User.Identity.Name, returnUrl = this.Request.Url }, null)<br />
 
 
 
@@ -55,31 +60,31 @@
                     @if (@Model.Character.CharacterType == 1)
                     {
                         <td>
-                            <img src="~/Content/Pictures/Types/Type_1.png" />
+                            <img src="~/Content/Pictures/Types/1.png" />
                         </td>
                     }
                     else if (@Model.Character.CharacterType == 2)
                     {
                         <td>
-                            <img src="~/Content/Pictures/Types/Type_2.png" />
+                            <img src="~/Content/Pictures/Types/2.png" />
                         </td>
                     }
                     else if (@Model.Character.CharacterType == 3)
                     {
                         <td>
-                            <img src="~/Content/Pictures/Types/Type_3.png" />
+                            <img src="~/Content/Pictures/Types/3.png" />
                         </td>
                     }
                     else if (@Model.Character.CharacterType == 4)
                     {
                         <td>
-                            <img src="~/Content/Pictures/Types/Type_4.png" />
+                            <img src="~/Content/Pictures/Types/4.png" />
                         </td>
                     }
                     else if (@Model.Character.CharacterType == 5)
                     {
                         <td>
-                            <img src="~/Content/Pictures/Types/Type_5.png" />
+                            <img src="~/Content/Pictures/Types/5.png" />
                         </td>
                     }
                     @if (Model.OwnedDog != null)
@@ -221,9 +226,6 @@
                                 <td>
                                     @Html.ActionLink("Add to energy", "AddToEnergy", null, new { @class = "ActionLinkButton" })
                                 </td>
-                                <td>
-                                    @Html.ActionLink("Do something", "ManageEnergy", new { id = User.Identity.Name, returnUrl = "/Details/" + User.Identity.Name }, new { @class = "ActionLinkButton" })
-                                </td>
                             </tr>
                         </table>
                     </td>
@@ -280,7 +282,7 @@
 
                                     </div>
 
-                                    @if (Model.Fence.ItemCurrentDurability < Model.Fence.ItemMaxDurability || Model.Fence.ItemMaxDurability == 0)
+                                    @if (Model.Fence.ItemCurrentDurability < Model.Fence.ItemMaxDurability)
                                     {
                                         @Html.ActionLink("Repair", "RepairFence", "Buildings", new { id = User.Identity.Name, returnUrl = this.Request.Url }, new { @class = "ActionLinkButton" })
                                     }
@@ -304,65 +306,71 @@
             <h3>You are attacked by:</h3>
             <div>
                 <table align="center" cellpadding="100">
-                    @foreach (var zombies in Model.ZombieAttackBase)
-                    {
-                        foreach (var z in Model.ZombiesDB)
+                    <tr>
+                        @foreach (var zombies in Model.ZombieAttackBase)
                         {
-                            if (zombies.ZombieID == z.ZombieID)
+                            foreach (var z in Model.ZombiesDB)
                             {
-                                <td>
-                                    <table class="zombieTable">
-                                        <tr>
-                                            <td>
-                                                <img src=@z.ZombiePicture />
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                @z.ZombieName zombie
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <img width="25" height="25" src="~/Content/Pictures/life.png" />:    @zombies.ZombieLife/@z.ZombieLife
+                                if (zombies.ZombieID == z.ZombieID)
+                                {
+                                    <td>
+                                        <table class="zombieTable">
+                                            <tr>
+                                                <td>
+                                                    @zombies.ZombieAttackBaseID
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <img src=@z.ZombiePicture />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    @z.ZombieName zombie
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <img width="25" height="25" src="~/Content/Pictures/life.png" />:    @zombies.ZombieLife/@z.ZombieLife
 
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <img width="25" height="25" src="~/Content/Pictures/damage.png" />: @z.ZombieDamage
-                                            </td>
-                                        </tr>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <img width="25" height="25" src="~/Content/Pictures/damage.png" />: @z.ZombieDamage
+                                                </td>
+                                            </tr>
 
-                                        <tr>
-                                            <td>
-                                                @if (Model.Character.CurrentEnergy > 0)
-                                                {
-                                                    @Html.ActionLink("Attack zombie", "BaseDefenseFromZombie", "Zombies", new { ZabID = @zombies.ZombieAttackBaseID, AttackPower = 0, InvID = 0 }, new { @class = "ActionLinkButton" })
+                                            <tr>
+                                                <td>
+                                                    @if (Model.Character.CurrentEnergy > 0)
+                                                    {
+                                                        @Html.ActionLink("Attack zombie", "BaseDefenseFromZombie", "Zombies", new { ZabID = @zombies.ZombieAttackBaseID, AttackPower = 0, InvID = 0 }, new { @class = "ActionLinkButton" })
 
-                                                }
-                                                else
-                                                {
-                                                    <div class="alert alert-danger">
-                                                        <strong>Not enought energy</strong>
-                                                    </div>
-                                                }
-                                            </td>
-                                        </tr>
+                                                    }
+                                                    else
+                                                    {
+                                                        <div class="alert alert-danger">
+                                                            <strong>Not enought energy</strong>
+                                                        </div>
+                                                    }
+                                                </td>
+                                            </tr>
 
-                                        <tr>
-                                            <td>
-                                                @Html.ActionLink("Zombie attack", "ZombieAttackBase", "Zombies", new { ZabID = @zombies.ZombieAttackBaseID }, new { @class = "ActionLinkButton" })
-                                            </td>
-                                        </tr>
-                                    </table>
-                                </td>
+                                            <tr>
+                                                <td>
+                                                    @Html.ActionLink("Zombie attack", "ZombieAttackBase", "Zombies", new { ZabID = @zombies.ZombieAttackBaseID }, new { @class = "ActionLinkButton" })
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                }
+
                             }
 
                         }
-
-                    }
-
+                    </tr>
                 </table>
             </div>
 
@@ -376,6 +384,7 @@
                 <tr>
                     @foreach (var field in Model.CharacterFields)
                     {
+
                         if (field.IsEmpty == true)
                         {
                             <td>
@@ -387,53 +396,59 @@
                                         <td>field is empty</td>
                                     </tr>
                                     <tr>
-                                        <td>@Html.ActionLink("Choose a plant", "ChoosePlantOnField", "Gathering", new { id = @field.CharacterFieldID }, new { @class = "ActionLinkButton" })</td>
+                                        <td>@Html.ActionLink("Choose a plant", "ChoosePlantOnField", "Gathering", new { id = @field.CharacterFieldID, returnUrl = this.Request.Url }, new { @class = "ActionLinkButton" })</td>
                                     </tr>
                                 </table>
                             </td>
                         }
                         else
                         {
-                            <td>
-                                <table>
-                                    @if (@field.isFinished == true)
-                                    {
-                                        <tr>
-                                            <td><img src=@field.Plant.PlantFinishedPicture /></td>
-                                        </tr>
-                                        <tr>
-                                            <td>@field.PlantID</td>
-                                        </tr>
-                                        <tr>
-                                            <td>@field.Plant.ItemName</td>
-                                        </tr>
-                                        <tr>
-                                            <td>@field.Plant.PlantGrowTime</td>
-                                        </tr>
-                                        <tr>
-                                            <td>@Html.ActionLink("Harvest field", "HarvestField", "Gathering", new { fieldID = @field.CharacterFieldID, plantID = @field.PlantID }, new { @class = "ActionLinkButton" })</td>
-                                        </tr>
-                                    }
-                                    else if (@field.isFinished == false)
-                                    {
-                                        <tr>
-                                            <td><img src=@field.Plant.ItemPicture /></td>
-                                        </tr>
-                                        <tr>
-                                            <td>@field.PlantID</td>
-                                        </tr>
-                                        <tr>
-                                            <td>@field.Plant.ItemName</td>
-                                        </tr>
-                                        <tr>
-                                            <td>@field.Plant.PlantGrowTime</td>
-                                        </tr>
-                                        <tr>
-                                            <td> @field.FinishDate.Month.@field.FinishDate.Day, @field.FinishDate.Hour:@field.FinishDate.Minute</td>
-                                        </tr>
-                                    }
-                                </table>
-                            </td>
+                            foreach (var plant in Model.Plants)
+                            {
+                                if (field.PlantID == plant.ItemID)
+                                {
+                                    <td>
+                                        <table>
+                                            @if (@field.isFinished == true)
+                                            {
+                                                <tr>
+                                                    <td><img src=@plant.PlantFinishedPicture /></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>@field.PlantID</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>@plant.ItemName</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>@plant.PlantGrowTime</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>@Html.ActionLink("Harvest field", "HarvestField", "Gathering", new { fieldID = @field.CharacterFieldID, plantID = @field.PlantID, returnUrl = this.Request.Url }, new { @class = "ActionLinkButton" })</td>
+                                                </tr>
+                                            }
+                                            else if (@field.isFinished == false)
+                                            {
+                                                <tr>
+                                                    <td><img src=@plant.ItemPicture /></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>@field.PlantID</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>@plant.ItemName</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>@plant.PlantGrowTime</td>
+                                                </tr>
+                                                <tr>
+                                                    <td> @field.FinishDate.Month.@field.FinishDate.Day, @field.FinishDate.Hour:@field.FinishDate.Minute</td>
+                                                </tr>
+                                            }
+                                        </table>
+                                    </td>
+                                }
+                            }
                         }
                     }
                 </tr>
@@ -842,3 +857,38 @@
 
                         </div>
 
+    <script type="text/javascript">
+
+        function myFunction() {
+            toastr.success('We do have the Kapua suite available.', 'Success Alert', { timeOut: 10000 });
+        };
+
+
+        //$(".success").click(function () {
+
+        //    toastr.success('We do have the Kapua suite available.', 'Success Alert', { timeOut: 10000 })
+
+        //});
+
+
+        //$(".error").click(function () {
+
+        //    toastr.error('You Got Error', 'Inconceivable!', { timeOut: 10000 })
+
+        //});
+
+
+        //$(".info").click(function () {
+
+        //    toastr.info('It is for your kind information', 'Information', { timeOut: 10000 })
+
+        //});
+
+
+        //$(".warning").click(function () {
+
+        //    toastr.warning('It is for your kind warning', 'Warning', { timeOut: 10000 })
+
+        //});
+
+    </script>

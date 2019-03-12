@@ -316,21 +316,21 @@ namespace Zombiecalypse.DAL
             buildingbuildingmaterials.ForEach(s => context.BuildingBuildingMaterials.Add(s));
             context.SaveChanges();
 
-            var weapon = new Weapon { ItemID = 59, ItemName = "Shovel", ItemMaxDurability = 999, WeaponDamage = 1, ItemPicture = "/Content/Pictures/BuyableWeapons/Shovel.png" };
+            var weapon = new Weapon { ItemID = 59, ItemName = "Shovel", ItemMaxDurability = 999, WeaponDamage = 1, ItemPicture = "/Content/Pictures/BuyableWeapons/Shovel.png", IsRanged= false };
             context.Weapons.Add(weapon);
             context.SaveChanges();
 
 
             var buyableWeapons = new List<BuyableWeapon> {
-                new BuyableWeapon {ItemID=60, ItemName="Katana", ItemMaxDurability=999,Cost=300, WeaponDamage=2, ItemPicture="/Content/Pictures/BuyableWeapons/Katana.png"},
-                new BuyableWeapon {ItemID=61, ItemName="Shotgun", ItemMaxDurability=10, Cost=200, WeaponDamage=1, ItemPicture="/Content/Pictures/BuyableWeapons/Shotgun.png"},
-                new BuyableWeapon {ItemID=62, ItemName="Hunting riffle", ItemMaxDurability=10, Cost=800, WeaponDamage=2, ItemPicture="/Content/Pictures/BuyableWeapons/HuntingRiffle.png"},
-                new BuyableWeapon {ItemID=63, ItemName="Assault riffle", ItemMaxDurability=100,  Cost=7000, WeaponDamage=2, ItemPicture="/Content/Pictures/BuyableWeapons/AssaultRiffle.png"},
-                new BuyableWeapon {ItemID=64, ItemName="Mini-gun", ItemMaxDurability=20, Cost=5000, WeaponDamage=4, ItemPicture="/Content/Pictures/BuyableWeapons/MiniGun.png"},
-                new BuyableWeapon {ItemID=65, ItemName="Chin a lake", ItemMaxDurability=2,  Cost=8000, WeaponDamage=10, ItemPicture="/Content/Pictures/BuyableWeapons/ChinALake.png"},
-                new BuyableWeapon {ItemID=66, ItemName="Bazooka", ItemMaxDurability=1, Cost=500, WeaponDamage=1, ItemPicture="/Content/Pictures/BuyableWeapons/Bazooka.png"},
-                new BuyableWeapon {ItemID=67, ItemName="Chainsaw", ItemMaxDurability=10, Cost=100, WeaponDamage=2, ItemPicture="/Content/Pictures/BuyableWeapons/Chainsaw.png"},
-                new BuyableWeapon {ItemID=68, ItemName="Ray gun", ItemMaxDurability=1, Cost=2, WeaponDamage=2, ItemPicture="/Content/Pictures/BuyableWeapons/RayGun.png"},
+                new BuyableWeapon {ItemID=60, ItemName="Katana", ItemMaxDurability=999,Cost=300, WeaponDamage=2, ItemPicture="/Content/Pictures/BuyableWeapons/Katana.png", IsRanged=false },
+                new BuyableWeapon {ItemID=61, ItemName="Shotgun", ItemMaxDurability=10, Cost=200, WeaponDamage=1, ItemPicture="/Content/Pictures/BuyableWeapons/Shotgun.png", IsRanged= true},
+                new BuyableWeapon {ItemID=62, ItemName="Hunting riffle", ItemMaxDurability=10, Cost=800, WeaponDamage=2, ItemPicture="/Content/Pictures/BuyableWeapons/HuntingRiffle.png", IsRanged=true},
+                new BuyableWeapon {ItemID=63, ItemName="Assault riffle", ItemMaxDurability=100,  Cost=7000, WeaponDamage=2, ItemPicture="/Content/Pictures/BuyableWeapons/AssaultRiffle.png", IsRanged=true },
+                new BuyableWeapon {ItemID=64, ItemName="Mini-gun", ItemMaxDurability=20, Cost=5000, WeaponDamage=4, ItemPicture="/Content/Pictures/BuyableWeapons/MiniGun.png", IsRanged = true},
+                new BuyableWeapon {ItemID=65, ItemName="Chin a lake", ItemMaxDurability=2,  Cost=8000, WeaponDamage=10, ItemPicture="/Content/Pictures/BuyableWeapons/ChinALake.png", IsRanged= false},
+                new BuyableWeapon {ItemID=66, ItemName="Bazooka", ItemMaxDurability=1, Cost=500, WeaponDamage=1, ItemPicture="/Content/Pictures/BuyableWeapons/Bazooka.png", IsRanged= true},
+                new BuyableWeapon {ItemID=67, ItemName="Chainsaw", ItemMaxDurability=10, Cost=100, WeaponDamage=2, ItemPicture="/Content/Pictures/BuyableWeapons/Chainsaw.png", IsRanged = false},
+                new BuyableWeapon {ItemID=68, ItemName="Ray gun", ItemMaxDurability=1, Cost=2, WeaponDamage=2, ItemPicture="/Content/Pictures/BuyableWeapons/RayGun.png", IsRanged = true},
 
             };
             buyableWeapons.ForEach(s => context.BuyableWeapons.Add(s));
@@ -338,7 +338,7 @@ namespace Zombiecalypse.DAL
 
             var craftableWeapons = new List<CraftableWeapon>
             {
-                new CraftableWeapon {ItemID=69, ItemName = "Fire Mitts", WeaponDamage = 2, ItemMaxDurability=2, ItemPicture= "/Content/Pictures/CraftableWeapons/FireMitts.png",
+                new CraftableWeapon {ItemID=69, ItemName = "Fire Mitts", WeaponDamage = 2, ItemMaxDurability=2, ItemPicture= "/Content/Pictures/CraftableWeapons/FireMitts.png", IsRanged=false ,
                           CraftableWeaponMaterials = new List<CraftableWeaponMaterial> {
                         new CraftableWeaponMaterial { WeaponID=69, MaterialID=37, MaterialPieces=1 },
                         new CraftableWeaponMaterial { WeaponID=69, MaterialID=38, MaterialPieces=1 },
@@ -349,7 +349,7 @@ namespace Zombiecalypse.DAL
                         new CraftableWeaponMaterial { WeaponID=69, MaterialID=6, MaterialPieces=1 },
                     }
                 },
-                    new CraftableWeapon {ItemID=70, ItemName = "Flamethrower",  WeaponDamage = 2, ItemMaxDurability=2, ItemPicture= "/Content/Pictures/CraftableWeapons/Flamethrower.png",
+                    new CraftableWeapon {ItemID=70, ItemName = "Flamethrower",  WeaponDamage = 2, ItemMaxDurability=2, ItemPicture= "/Content/Pictures/CraftableWeapons/Flamethrower.png", IsRanged=true,
                         CraftableWeaponMaterials = new List<CraftableWeaponMaterial> {
                             new CraftableWeaponMaterial { WeaponID=70, MaterialID=34, MaterialPieces=1 },
                             new CraftableWeaponMaterial { WeaponID=70, MaterialID=35, MaterialPieces=1 },
@@ -360,7 +360,7 @@ namespace Zombiecalypse.DAL
 
                         }
                     },
-                    new CraftableWeapon {ItemID=71, ItemName = "Electric Rake", WeaponDamage = 2, ItemMaxDurability=2, ItemPicture= "/Content/Pictures/CraftableWeapons/ElectricRake.png",
+                    new CraftableWeapon {ItemID=71, ItemName = "Electric Rake", WeaponDamage = 2, ItemMaxDurability=2, ItemPicture= "/Content/Pictures/CraftableWeapons/ElectricRake.png", IsRanged=false ,
                         CraftableWeaponMaterials = new List<CraftableWeaponMaterial> {
                             new CraftableWeaponMaterial { WeaponID=71, MaterialID=51, MaterialPieces=1 },
                             new CraftableWeaponMaterial { WeaponID=71, MaterialID=52, MaterialPieces=1 },
@@ -698,19 +698,19 @@ namespace Zombiecalypse.DAL
 
 
             var adventures = new List<Adventure> {
-                 new Adventure { AdventureName="Short adventure", AdventureType="Base", AdventureWaitingTime=10, AdventureXPBonus=6, AdventureSteps=3, AdventureZombieMaxRank=1, AdventureMaxZombiesPerRound=4, AdventureRequerdEnergy=3, CharacterLevelRequired = 1},
-                 new Adventure { AdventureName="Desert adventure 1", AdventureType="Desert", AdventureWaitingTime=15, AdventureXPBonus=10, AdventureSteps=2, AdventureZombieMaxRank=1, AdventureMaxZombiesPerRound=3, AdventureRequerdEnergy=4, CharacterLevelRequired=4},
-                 new Adventure { AdventureName="Pirate ship adventure 2", AdventureType="Pirate", AdventureWaitingTime=25, AdventureXPBonus=30, AdventureSteps=7, AdventureZombieMaxRank=1, AdventureMaxZombiesPerRound=2, AdventureRequerdEnergy=5, CharacterLevelRequired=7},
-                 new Adventure { AdventureName="4. Adventure", AdventureType="WildWest", AdventureWaitingTime=10, AdventureXPBonus=6, AdventureSteps=3, AdventureZombieMaxRank=1, AdventureMaxZombiesPerRound=4, AdventureRequerdEnergy=3, CharacterLevelRequired=11},
-                 new Adventure { AdventureName="5. Adventure", AdventureType="Cave", AdventureWaitingTime=15, AdventureXPBonus=10, AdventureSteps=4, AdventureZombieMaxRank=2, AdventureMaxZombiesPerRound=3, AdventureRequerdEnergy=4, CharacterLevelRequired=14},
-                 new Adventure { AdventureName="6. Adventure", AdventureType="LostCity", AdventureWaitingTime=25, AdventureXPBonus=30, AdventureSteps=7, AdventureZombieMaxRank=3, AdventureMaxZombiesPerRound=2, AdventureRequerdEnergy=5, CharacterLevelRequired=17},
-                 new Adventure { AdventureName="7. Adventure", AdventureWaitingTime=10, AdventureXPBonus=6, AdventureSteps=3, AdventureZombieMaxRank=1, AdventureMaxZombiesPerRound=4, AdventureRequerdEnergy=3, CharacterLevelRequired=19},
-                 new Adventure { AdventureName="8. Adventure", AdventureWaitingTime=15, AdventureXPBonus=10, AdventureSteps=4, AdventureZombieMaxRank=2, AdventureMaxZombiesPerRound=3, AdventureRequerdEnergy=4, CharacterLevelRequired=21},
-                 new Adventure { AdventureName="9. Adventure", AdventureWaitingTime=25, AdventureXPBonus=30, AdventureSteps=7, AdventureZombieMaxRank=3, AdventureMaxZombiesPerRound=2, AdventureRequerdEnergy=5, CharacterLevelRequired=24},
-                 new Adventure { AdventureName="10. Adventure", AdventureWaitingTime=10, AdventureXPBonus=6, AdventureSteps=3, AdventureZombieMaxRank=1, AdventureMaxZombiesPerRound=4, AdventureRequerdEnergy=3, CharacterLevelRequired=26},
-                 new Adventure { AdventureName="11. Adventure", AdventureWaitingTime=15, AdventureXPBonus=10, AdventureSteps=4, AdventureZombieMaxRank=2, AdventureMaxZombiesPerRound=3, AdventureRequerdEnergy=4, CharacterLevelRequired=29},
-                 new Adventure { AdventureName="12. Adventure", AdventureWaitingTime=25, AdventureXPBonus=30, AdventureSteps=7, AdventureZombieMaxRank=3, AdventureMaxZombiesPerRound=2, AdventureRequerdEnergy=5, CharacterLevelRequired=31},
-                 new Adventure { AdventureName="13. Adventure", AdventureWaitingTime=25, AdventureXPBonus=30, AdventureSteps=7, AdventureZombieMaxRank=3, AdventureMaxZombiesPerRound=2, AdventureRequerdEnergy=5, CharacterLevelRequired=33}
+                 new Adventure { AdventureName="Short adventure", AdventureType="Base", AdventureWaitingTime=10, AdventureXPBonus=6, AdventureSteps=3, AdventureZombieMaxRank=1, AdventureMaxZombiesPerRound=4, AdventureRequerdEnergy=3, CharacterLevelRequired = 1, AdventureCoords="290,125,25" },
+                 new Adventure { AdventureName="Desert adventure 1", AdventureType="Desert", AdventureWaitingTime=15, AdventureXPBonus=10, AdventureSteps=2, AdventureZombieMaxRank=1, AdventureMaxZombiesPerRound=3, AdventureRequerdEnergy=4, CharacterLevelRequired=4, AdventureCoords="50,0,100,50"},
+                 new Adventure { AdventureName="Pirate ship adventure 2", AdventureType="Pirate", AdventureWaitingTime=25, AdventureXPBonus=30, AdventureSteps=7, AdventureZombieMaxRank=1, AdventureMaxZombiesPerRound=2, AdventureRequerdEnergy=5, CharacterLevelRequired=7, AdventureCoords="100,0,150,50"},
+                 new Adventure { AdventureName="4. Adventure", AdventureType="WildWest", AdventureWaitingTime=10, AdventureXPBonus=6, AdventureSteps=3, AdventureZombieMaxRank=1, AdventureMaxZombiesPerRound=4, AdventureRequerdEnergy=3, CharacterLevelRequired=11, AdventureCoords=""},
+                 new Adventure { AdventureName="5. Adventure", AdventureType="Cave", AdventureWaitingTime=15, AdventureXPBonus=10, AdventureSteps=4, AdventureZombieMaxRank=2, AdventureMaxZombiesPerRound=3, AdventureRequerdEnergy=4, CharacterLevelRequired=14, AdventureCoords=""},
+                 new Adventure { AdventureName="6. Adventure", AdventureType="LostCity", AdventureWaitingTime=25, AdventureXPBonus=30, AdventureSteps=7, AdventureZombieMaxRank=3, AdventureMaxZombiesPerRound=2, AdventureRequerdEnergy=5, CharacterLevelRequired=17, AdventureCoords=""},
+                 new Adventure { AdventureName="7. Adventure", AdventureWaitingTime=10, AdventureXPBonus=6, AdventureSteps=3, AdventureZombieMaxRank=1, AdventureMaxZombiesPerRound=4, AdventureRequerdEnergy=3, CharacterLevelRequired=19, AdventureCoords=""},
+                 new Adventure { AdventureName="8. Adventure", AdventureWaitingTime=15, AdventureXPBonus=10, AdventureSteps=4, AdventureZombieMaxRank=2, AdventureMaxZombiesPerRound=3, AdventureRequerdEnergy=4, CharacterLevelRequired=21, AdventureCoords=""},
+                 new Adventure { AdventureName="9. Adventure", AdventureWaitingTime=25, AdventureXPBonus=30, AdventureSteps=7, AdventureZombieMaxRank=3, AdventureMaxZombiesPerRound=2, AdventureRequerdEnergy=5, CharacterLevelRequired=24, AdventureCoords=""},
+                 new Adventure { AdventureName="10. Adventure", AdventureWaitingTime=10, AdventureXPBonus=6, AdventureSteps=3, AdventureZombieMaxRank=1, AdventureMaxZombiesPerRound=4, AdventureRequerdEnergy=3, CharacterLevelRequired=26, AdventureCoords=""},
+                 new Adventure { AdventureName="11. Adventure", AdventureWaitingTime=15, AdventureXPBonus=10, AdventureSteps=4, AdventureZombieMaxRank=2, AdventureMaxZombiesPerRound=3, AdventureRequerdEnergy=4, CharacterLevelRequired=29, AdventureCoords=""},
+                 new Adventure { AdventureName="12. Adventure", AdventureWaitingTime=25, AdventureXPBonus=30, AdventureSteps=7, AdventureZombieMaxRank=3, AdventureMaxZombiesPerRound=2, AdventureRequerdEnergy=5, CharacterLevelRequired=31, AdventureCoords=""},
+                 new Adventure { AdventureName="13. Adventure", AdventureWaitingTime=25, AdventureXPBonus=30, AdventureSteps=7, AdventureZombieMaxRank=3, AdventureMaxZombiesPerRound=2, AdventureRequerdEnergy=5, CharacterLevelRequired=33, AdventureCoords=""}
 
             };
             adventures.ForEach(s => context.Adventures.Add(s));

@@ -15,192 +15,222 @@ namespace Zombiecalypse.Controllers
     {
 
 
-        private DataContext db = new DataContext();
+        //public ActionResult GenerateDailyMissions() {
 
-        public ActionResult GenerateMaterialCollectMission()
-        {
+        //    Mission model = new Mission();
+        //    Character character = db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault();
+        //    List<BuildingMaterial> buildingMaterials = db.BuildingMaterials.ToList();
 
-            Mission model = new Mission();
-            Character character = db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault();
-            List<BuildingMaterial> buildingMaterials = db.BuildingMaterials.ToList();
+        //    List<Material> materials = db.Materials.ToList();
 
-            List<Material> materials = db.Materials.ToList();
+        //    Random rand = new Random();
 
-            Random rand = new Random();
+        //    int rewardItem = rand.Next(0, db.BuildingMaterials.Count());
+        //    int taskItem = rand.Next(0, db.Materials.Count());
 
-            int rewardItem = rand.Next(0, db.BuildingMaterials.Count());
-            int taskItem = rand.Next(0, db.Materials.Count());
+        //    Mission mission = new Mission { CharacterID = character.CharacterID, MissionTaskID = db.Materials.ToArray()[taskItem].ItemID, MissionTaskNumber = 2, MissionRewardID = buildingMaterials.ToArray()[rewardItem].ItemID, MissionRewardNumber = 1, MissionRewardXP = 10, MissionType = "collection" };
+        //    db.Missions.Add(mission);
+        //    db.SaveChanges();
 
-            Mission mission = new Mission { CharacterID = character.CharacterID, MissionTaskID = db.Materials.ToArray()[taskItem].ItemID, MissionTaskNumber = 2, MissionRewardID = buildingMaterials.ToArray()[rewardItem].ItemID, MissionRewardNumber = 1, MissionRewardXP=10,MissionType = "collection" };
-            db.Missions.Add(mission);
-            db.SaveChanges();
+        //    List<Plant> plants = db.Plants.ToList();
 
+        //    rand = new Random();
 
-            return RedirectToAction("Details", "Characters", new { id = User.Identity.Name });
-        }
+        //    rewardItem = rand.Next(0, db.BuildingMaterials.Count());
+        //    taskItem = rand.Next(0, db.Plants.Count());
 
-        public ActionResult GenerateGatheringMission()
-        {
+        //    mission = new Mission { CharacterID = character.CharacterID, MissionTaskID = db.Plants.ToArray()[taskItem].ItemID, MissionTaskNumber = 2, MissionRewardID = buildingMaterials.ToArray()[rewardItem].ItemID, MissionRewardNumber = 1, MissionType = "gathering", MissionRewardXP = 10, MissionTaskProgress = 0 };
+        //    db.Missions.Add(mission);
+        //    db.SaveChanges();
 
-            Mission model = new Mission();
-            Character character = db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault();
-            List<BuildingMaterial> buildingMaterials = db.BuildingMaterials.ToList();
+        //    List<Zombie> zombies = db.Zombies.ToList();
 
-            List<Plant> plants = db.Plants.ToList();
+        //    rand = new Random();
 
-            Random rand = new Random();
+        //    rewardItem = rand.Next(0, db.BuildingMaterials.Count());
+        //    //  int taskItem = rand.Next(0, db.Plants.Count());
 
-            int rewardItem = rand.Next(0, db.BuildingMaterials.Count());
-            int taskItem = rand.Next(0, db.Plants.Count());
-
-            Mission mission = new Mission { CharacterID = character.CharacterID, MissionTaskID = db.Plants.ToArray()[taskItem].ItemID, MissionTaskNumber = 2, MissionRewardID = buildingMaterials.ToArray()[rewardItem].ItemID, MissionRewardNumber = 1, MissionType = "gathering", MissionRewardXP = 10, MissionTaskProgress = 0 };
-            db.Missions.Add(mission);
-            db.SaveChanges();
+        //    mission = new Mission { CharacterID = character.CharacterID, MissionTaskNumber = 2, MissionRewardID = buildingMaterials.ToArray()[rewardItem].ItemID, MissionRewardNumber = 1, MissionType = "zombiekilling", MissionRewardXP = 10, MissionTaskProgress = 0 };
+        //    db.Missions.Add(mission);
+        //    db.SaveChanges();
 
 
-            return RedirectToAction("Details", "Characters", new { id = User.Identity.Name });
-        }
+        //    rand = new Random();
 
-        public ActionResult GenerateZombieKillingMission()
-        {
+        //    rewardItem = rand.Next(0, db.BuildingMaterials.Count());
+        //    taskItem = rand.Next(0, db.Materials.Count());
 
-            Mission model = new Mission();
-            Character character = db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault();
-            List<BuildingMaterial> buildingMaterials = db.BuildingMaterials.ToList();
+        //    mission = new Mission { CharacterID = character.CharacterID, MissionTaskID = db.Materials.ToArray()[taskItem].ItemID, MissionTaskNumber = 2, MissionRewardID = buildingMaterials.ToArray()[rewardItem].ItemID, MissionRewardNumber = 1, MissionRewardXP = 10, MissionType = "collection" };
+        //    db.Missions.Add(mission);
 
-            List<Zombie> plants = db.Zombies.ToList();
+        //    character.DailyMissionDate.AddMinutes(10);
 
-            Random rand = new Random();
-
-            int rewardItem = rand.Next(0, db.BuildingMaterials.Count());
-            //  int taskItem = rand.Next(0, db.Plants.Count());
-
-            Mission mission = new Mission { CharacterID = character.CharacterID, MissionTaskNumber = 2, MissionRewardID = buildingMaterials.ToArray()[rewardItem].ItemID, MissionRewardNumber = 1, MissionType = "zombiekilling", MissionRewardXP = 10, MissionTaskProgress = 0 };
-            db.Missions.Add(mission);
-            db.SaveChanges();
+        //    db.SaveChanges();
 
 
-            return RedirectToAction("Details", "Characters", new { id = User.Identity.Name });
-        }
+
+        //    return RedirectToAction("Details", "Characters", new { id = User.Identity.Name });
+        //}
+
+        //public ActionResult GenerateGatheringMission(string returnUrl)
+        //{
+
+        //    Mission model = new Mission();
+        //    Character character = db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault();
+        //    List<BuildingMaterial> buildingMaterials = db.BuildingMaterials.ToList();
+
+        //    List<Plant> plants = db.Plants.ToList();
+
+        //    Random rand = new Random();
+
+        //    int rewardItem = rand.Next(0, db.BuildingMaterials.Count());
+        //    int taskItem = rand.Next(0, db.Plants.Count());
+
+        //    Mission mission = new Mission { CharacterID = character.CharacterID, MissionTaskID = db.Plants.ToArray()[taskItem].ItemID, MissionTaskNumber = 2, MissionRewardID = buildingMaterials.ToArray()[rewardItem].ItemID, MissionRewardNumber = 1, MissionType = "gathering", MissionRewardXP = 10, MissionTaskProgress = 0 };
+        //    db.Missions.Add(mission);
+        //    db.SaveChanges();
 
 
-        public ActionResult GetMissionReward(int id)
-        {
+        //    return Redirect(returnUrl);
+        //}
 
-            Mission mission = db.Missions.Find(id);
+        //public ActionResult GenerateZombieKillingMission(string returnUrl)
+        //{
 
-            Character character = db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault();
+        //    Mission model = new Mission();
+        //    Character character = db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault();
+        //    List<BuildingMaterial> buildingMaterials = db.BuildingMaterials.ToList();
 
-            foreach (var item in character.Inventory)
-            {
-                if (mission.MissionTaskID == item.ItemID && item.ItemPieces >= mission.MissionTaskNumber)
-                {
-                    item.ItemPieces -= mission.MissionTaskNumber;
-                }
-            }
+        //    List<Zombie> plants = db.Zombies.ToList();
 
-            foreach (var item in character.Inventory)
-            {
-                if (mission.MissionRewardID == item.ItemID)
-                {
-                    item.ItemPieces += mission.MissionRewardNumber;
-                    db.Missions.Remove(mission);
-                }
-            }
+        //    Random rand = new Random();
 
+        //    int rewardItem = rand.Next(0, db.BuildingMaterials.Count());
+        //    //  int taskItem = rand.Next(0, db.Plants.Count());
 
-            db.SaveChanges();
+        //    Mission mission = new Mission { CharacterID = character.CharacterID, MissionTaskNumber = 2, MissionRewardID = buildingMaterials.ToArray()[rewardItem].ItemID, MissionRewardNumber = 1, MissionType = "zombiekilling", MissionRewardXP = 10, MissionTaskProgress = 0 };
+        //    db.Missions.Add(mission);
+        //    db.SaveChanges();
+
+        //    return Redirect(returnUrl);
+        //}
 
 
-            return RedirectToAction("Details", "Characters", new { id = User.Identity.Name });
-        }
+        //public ActionResult GetMissionReward(int id, string returnUrl)
+        //{
+
+        //    Mission mission = db.Missions.Find(id);
+
+        //    Character character = db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault();
+
+        //    foreach (var item in character.Inventory)
+        //    {
+        //        if (mission.MissionTaskID == item.ItemID && item.ItemPieces >= mission.MissionTaskNumber)
+        //        {
+        //            item.ItemPieces -= mission.MissionTaskNumber;
+        //        }
+        //    }
+
+        //    foreach (var item in character.Inventory)
+        //    {
+        //        if (mission.MissionRewardID == item.ItemID)
+        //        {
+        //            item.ItemPieces += mission.MissionRewardNumber;
+        //            db.Missions.Remove(mission);
+        //        }
+        //    }
 
 
-        public ActionResult AddToGatheringTaskProgress(int id, string returnUrl)
-        {
+        //    db.SaveChanges();
 
 
-            Mission mission = db.Missions.Find(id);
-            mission.MissionTaskProgress += 1;
-
-            db.SaveChanges();
-
-            return Redirect(returnUrl);
-        }
+        //    return RedirectToAction(returnUrl);
+        //}
 
 
-        public ActionResult Index()
-        {
-            MissionVM model = new MissionVM();
+        //public ActionResult AddToGatheringTaskProgress(int id, string returnUrl)
+        //{
 
-            model.Missions = new List<MissionVM>();
-            model.Character = db.Characters.Where(x => x.ApplicationUserID == User.Identity.Name).First();
+        //    Mission mission = db.Missions.Find(id);
+        //    mission.MissionTaskProgress += 1;
 
-            foreach (var miss in db.Missions)
-            {
-                if (miss.CharacterID == model.Character.CharacterID)
-                {
-                    MissionVM mission = new MissionVM();
-                    mission.MissionID = miss.MissionID;
-                    mission.MissionTaskNumber = miss.MissionTaskNumber;
-                    mission.MissionFinishable = false;
-                    mission.MissionRewardNumber = miss.MissionRewardNumber;
+        //    db.SaveChanges();
 
-                    if (miss.MissionType == "collection")
-                    {
-
-                        mission.CollectionMissionReward = db.BuildingMaterials.Find(miss.MissionRewardID);
-                        mission.CollectionMissionTask = db.Materials.Find(miss.MissionTaskID);
-                        mission.MissionType = miss.MissionType;
-
-                        foreach (var item in model.Character.Inventory)
-                        {
-                            if (item.ItemID == mission.CollectionMissionTask.ItemID && item.ItemPieces >= mission.MissionTaskNumber)
-                            {
-                                mission.MissionFinishable = true;
-                            }
-
-                        }
-                    }
-
-                    else if (miss.MissionType == "gathering")
-                    {
-
-                        mission.MissionType = miss.MissionType;
-                        mission.GatheringMissionReward = db.BuildingMaterials.Find(miss.MissionRewardID);
-                        mission.GatheringMissionTask = db.Plants.Find(miss.MissionTaskID);
-                        mission.MissionTaskProgress = miss.MissionTaskProgress;
-                        foreach (var item in model.Character.Inventory)
-                        {
-                            if (item.ItemID == mission.GatheringMissionTask.ItemID && miss.MissionTaskProgress >= mission.MissionTaskNumber)
-                            {
-                                mission.MissionFinishable = true;
-                            }
-
-                        }
-                    }
-                    else if (miss.MissionType == "zombiekilling")
-                    {
-
-                        mission.MissionType = miss.MissionType;
-                        mission.GatheringMissionReward = db.BuildingMaterials.Find(miss.MissionRewardID);
-                        mission.MissionTaskProgress = miss.MissionTaskProgress;
-                        if (miss.MissionTaskProgress >= mission.MissionTaskNumber)
-                        {
-                            mission.MissionFinishable = true;
-                        }
-                    }
-                    model.Missions.Add(mission);
-
-                }
-            }
+        //    return Redirect(returnUrl);
+        //}
 
 
-            db.SaveChanges();
+        //public ActionResult Index()
+        //{
+        //    MissionVM model = new MissionVM();
 
-            base.SetModelProperties(model);
-            return View(model);
-        }
+        //    model.Missions = new List<MissionVM>();
+        //    model.Character = db.Characters.Where(x => x.ApplicationUserID == User.Identity.Name).First();
+
+        //    foreach (var miss in db.Missions)
+        //    {
+        //        if (miss.CharacterID == model.Character.CharacterID)
+        //        {
+        //            MissionVM mission = new MissionVM();
+        //            mission.MissionID = miss.MissionID;
+        //            mission.MissionTaskNumber = miss.MissionTaskNumber;
+        //            mission.MissionFinishable = false;
+        //            mission.MissionRewardNumber = miss.MissionRewardNumber;
+
+        //            if (miss.MissionType == "collection")
+        //            {
+
+        //                mission.CollectionMissionReward = db.BuildingMaterials.Find(miss.MissionRewardID);
+        //                mission.CollectionMissionTask = db.Materials.Find(miss.MissionTaskID);
+        //                mission.MissionType = miss.MissionType;
+
+        //                foreach (var item in model.Character.Inventory)
+        //                {
+        //                    if (item.ItemID == mission.CollectionMissionTask.ItemID && item.ItemPieces >= mission.MissionTaskNumber)
+        //                    {
+        //                        mission.MissionFinishable = true;
+        //                    }
+
+        //                }
+        //            }
+
+        //            else if (miss.MissionType == "gathering")
+        //            {
+
+        //                mission.MissionType = miss.MissionType;
+        //                mission.GatheringMissionReward = db.BuildingMaterials.Find(miss.MissionRewardID);
+        //                mission.GatheringMissionTask = db.Plants.Find(miss.MissionTaskID);
+        //                mission.MissionTaskProgress = miss.MissionTaskProgress;
+        //                foreach (var item in model.Character.Inventory)
+        //                {
+        //                    if (item.ItemID == mission.GatheringMissionTask.ItemID && miss.MissionTaskProgress >= mission.MissionTaskNumber)
+        //                    {
+        //                        mission.MissionFinishable = true;
+        //                    }
+
+        //                }
+        //            }
+        //            else if (miss.MissionType == "zombiekilling")
+        //            {
+
+        //                mission.MissionType = miss.MissionType;
+        //                mission.GatheringMissionReward = db.BuildingMaterials.Find(miss.MissionRewardID);
+        //                mission.MissionTaskProgress = miss.MissionTaskProgress;
+        //                if (miss.MissionTaskProgress >= mission.MissionTaskNumber)
+        //                {
+        //                    mission.MissionFinishable = true;
+        //                }
+        //            }
+        //            model.Missions.Add(mission);
+
+        //        }
+        //    }
+
+        //    db.SaveChanges();
+
+        //    base.SetModelProperties(model);
+        //    return View(model);
+        //}
 
 
 

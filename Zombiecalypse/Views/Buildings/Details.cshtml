@@ -144,7 +144,7 @@
                                     <tr>
                                         @if (isCraftable == true)
                                         {
-                                            <td>@Html.ActionLink("Craft weapon", "CraftWeapon", "Inventories", new { WeaponId = weapon.ItemID }, new { @class = "ActionLinkButton" })</td>
+                                            <td>@Html.ActionLink("Craft weapon", "CraftWeapon", "Inventories", new { WeaponId = weapon.ItemID, returnUrl = this.Request.Url }, new { @class = "ActionLinkButton" })</td>
                                         }
                                         else
                                         {

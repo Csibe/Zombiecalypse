@@ -20,11 +20,6 @@ namespace Zombiecalypse.Models
         [DisplayName("Durablity")]
         public int ItemCurrentDurability { get; set; }
         public virtual Item Item { get; set; }
-        //public virtual Building Building { get; set; }
-        //public virtual BuildingMaterial BuildingMaterial { get; set; }
-        //public virtual PlantField PlantField { get; set; }
-        //public bool isFinished { get; set; }
-        //public DateTime FinishDate { get; set; }
         [DisplayName("Pieces")]
         public int ItemPieces { get; set; }
     }
@@ -37,7 +32,7 @@ namespace Zombiecalypse.Models
         public bool isFinished { get; set; }
         public bool IsEmpty { get; set; }
         public DateTime FinishDate { get; set; }
-        public virtual Plant Plant { get; set; }
+      //  public virtual Plant Plant { get; set; }
     }
 
     public class CharacterFieldVM : ViewModelBase

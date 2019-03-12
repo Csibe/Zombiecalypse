@@ -1,107 +1,187 @@
 ﻿@model Zombiecalypse.Models.AdventureViewModel
 
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+
 
 <dd>
-    @if (Model.Character.IsOnAdventure == true)
-    {
-        <div style="text-align:center">
-            <h2>You are on an adventure</h2>
-            @Html.ActionLink("Check Adventure", "CheckAdventure", "Adventures", new { id = User.Identity.Name }, new { @class = "ActionLinkButton" })
-        </div>
+    <div>
+        @if (Model.Character.IsOnAdventure == true && (Model.Character.FinishAdventure <= DateTime.Now || Model.Character.FinishAdventure >= DateTime.MaxValue.AddDays(-1)))
+        {
+            @Html.ActionLink("Check Adventure", "CheckAdventure", "Adventures", new { id = User.Identity.Name, returnUrl = this.Request.Url }, new { @class = "ActionLinkButton" })
+        }
 
-    }
-    else
-    {
-        <table class="table">
-            <tr>
-                <th>ID</th>
-                <th>Name</th>
-                <th>AdventureWaitingTime</th>
-                <th>AdventureSteps</th>
-                <th>AdventureRequerdEnergy</th>
-                <th></th>
-            </tr>
-            @foreach (var adv in Model.Adventures)
-                {
-                <tr>
-                    <td>
-                        @adv.AdventureID
-                    </td>
-                    <td>
-                        @adv.AdventureName
-                    </td>
-                    <td>
-                        @adv.AdventureWaitingTime
-                    </td>
-                    <td>
-                        @adv.AdventureSteps
-                    </td>
-                    <td>
-                        @adv.AdventureRequerdEnergy
-                    </td>
-                    @foreach (var drop in Model.AdventureDrops)
+        else if (Model.Character.IsOnAdventure == true && Model.Character.FinishAdventure > DateTime.Now && Model.Character.FinishAdventure < DateTime.MaxValue.AddDays(-1))
+        {
+            @Html.Action("AdventureCounter", "Adventures", new { AdId = Model.Character.AdventureID, ChId = User.Identity.Name });
+        }
+
+        else if (Model.Character.IsOnAdventure == false)
+        {
+            @*<table class="table">
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>AdventureWaitingTime</th>
+                        <th>AdventureSteps</th>
+                        <th>AdventureRequerdEnergy</th>
+                        <th></th>
+                    </tr>
+                    @foreach (var adv in Model.Adventures)
                     {
-                        if (drop.AdventureID == adv.AdventureID)
-                        {
+                        <tr>
                             <td>
-                                <img width="30" height="30" src=@drop.Item.ItemPicture />
+                                @adv.AdventureID
                             </td>
-                        }
-                    }
-                    @if (Model.Character.CharacterLevel >= @adv.CharacterLevelRequired)
-                    {
-                        if (Model.Character.Tolerance > 0)
-                        {
                             <td>
-                                @Html.ActionLink("Start Adventure", "StartAdventure", "Adventures", new { id = User.Identity.Name, AdId = @adv.AdventureID }, new { @class = "ActionLinkButton" })
+                                @adv.AdventureName
                             </td>
-                        }
-                        else
-                        {
-                            <td><strong><div class="alert-danger">Not enought tolerance</div></strong></td>
-                        }
-
-                    }
-                    else
-                    {
-                        <td>
-                            Required level @adv.CharacterLevelRequired
-                        </td>
-                    }
-                    <td></td>
-                </tr>
-            }
-        </table>
-
-            <table align="center">
-                <td>
-                    <div style="text-align:center">
-                        <img style="align-content:center" width=1000 usemap="#map" height="700" src="~/Content/Pictures/Adventures/adventureMap3.png" />
-                        <map name="map">
-
-                            @foreach (var adv in Model.Adventures)
+                            <td>
+                                @adv.AdventureWaitingTime
+                            </td>
+                            <td>
+                                @adv.AdventureSteps
+                            </td>
+                            <td>
+                                @adv.AdventureRequerdEnergy
+                            </td>
+                            @foreach (var drop in Model.AdventureDrops)
                             {
-                                var link = Html.ActionLink(" ", "StartAdventure", new { id = User.Identity.Name, AdId = @adv.AdventureID }, null);
-                                link.ToString();
-                                if (adv.AdventureID == 1)
+                                if (drop.AdventureID == adv.AdventureID)
                                 {
-                                    <area shape="circle" data-toggle="tooltip" title="@adv.AdventureName" coords="470,175,30" alt="@adv.AdventureID" @link />
+                                    <td>
+                                        <img width="30" height="30" src=@drop.Item.ItemPicture />
+
+
+                                    </td>
                                 }
-                                else if (adv.AdventureID == 2)
+                            }
+                            @if (Model.Character.CharacterLevel >= adv.CharacterLevelRequired)
+                            {
+                                if (Model.Character.Tolerance > 0)
                                 {
-                                    <area shape="circle" data-toggle="tooltip" title="@adv.AdventureName" coords="540,430,30" alt="@adv.AdventureID" @link />
+                                    <td>
+                                        @Html.ActionLink("Start Adventure", "StartAdventure", "Adventures", new { id = User.Identity.Name, AdId = @adv.AdventureID }, new { @class = "ActionLinkButton" })
+                                    </td>
+                                }
+                                else
+                                {
+                                    <td><div class="alert-danger"><strong>Not enought tolerance</strong></div></td>
                                 }
 
                             }
-                        </map>
-                        <div align="center">
-                            <img usemap="#map" border="1" />
-                        </div>
-                    </div>
-                </td>
+                            else
+                            {
+                                <td>
+                                    Required level @adv.CharacterLevelRequired
+                                </td>
+                            }
+                        </tr>
+                    }
+                </table>*@
+
+            <table id="adventureMap" width="941" height="530" style="background-image: url(/Content/Pictures/Adventures/map.png) ">
+                <tr style="border:solid, black, 1px;">
+                                        @foreach (var adv in Model.Adventures)
+                                        {
+                                            var linkId = "adventureLink" + adv.AdventureID;
+                                            var tableId = "adventureTable" + adv.AdventureID;
+                                            var valtozo = "/Adventures/StartAdventure/" + User.Identity.Name + "?AdId=" + adv.AdventureID;
+
+                                            <td style="border:solid, black, 1px;">
+
+                                                @if (Model.Character.CharacterLevel >= adv.CharacterLevelRequired)
+                                                {
+                                                    if (Model.Character.Tolerance > 0)
+                                                    {
+                                                        <a id=@linkId href=@valtozo><img src="~/Content/Pictures/Adventures/rickTeleporter.png" /></a>
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    <a id=@linkId><img src="~/Content/Pictures/Adventures/rickTeleporter.png" /></a>
+                                                }
+
+                            <table id=@tableId style="background-image: url(/Content/Pictures/table2.png);">
+                                <tr>
+                                    <td>
+                                        @adv.AdventureName
+                                    </td>
+                                    <td>
+                                        @adv.AdventureWaitingTime
+                                    </td>
+                                    <td>
+                                        @adv.AdventureSteps
+                                    </td>
+                                    <td>
+                                        @adv.AdventureRequerdEnergy
+                                    </td>
+                                </tr>
+                                @foreach (var drop in Model.AdventureDrops)
+                                {
+
+                                    <tr>
+                                        @if (drop.AdventureID == adv.AdventureID)
+                                        {
+                                            <td>
+                                                <img width="30" height="30" src=@drop.Item.ItemPicture />
+                                            </td>
+                                            <td>
+                                                @drop.Item.ItemName
+                                            </td>
+                                        }
+                                    </tr>
+                                }
+                                <tr>
+                                    @if (Model.Character.CharacterLevel >= adv.CharacterLevelRequired)
+                                    {
+                                        if (Model.Character.Tolerance > 0)
+                                        {
+                                            <td>
+                                                @Html.ActionLink("Start Adventure", "StartAdventure", "Adventures", new { id = User.Identity.Name, AdId = @adv.AdventureID }, new { @class = "ActionLinkButton" })
+                                            </td>
+                                        }
+                                        else
+                                        {
+                                            <td><div class="alert-danger"><strong>Not enought tolerance</strong></div></td>
+                                        }
+
+                                    }
+                                    else
+                                    {
+                                        <td>
+                                            Required level @adv.CharacterLevelRequired
+                                        </td>
+                                    }
+                                </tr>
+                            </table>
+                        </td>
+                    }
+                </tr>
             </table>
-    }
+        }
 
-
+    </div>
 
 </dd>
+
+@foreach (var adv in Model.Adventures)
+{
+
+    var hoverId = "adventureTable" + adv.AdventureID;
+    var aId = "adventureLink" + adv.AdventureID;
+    <script>
+
+        $(@aId).hover(function (ev) {
+            $(@hoverId).stop(true, true).fadeIn();
+        }, function (ev) {
+            $(@hoverId).stop(true, true).fadeOut();
+        }).mousemove(function (ev) {
+            $(@hoverId).css({ left: ev.layerX + 10, top: ev.layerY + 10 });
+        });
+    </script>
+
+
+}

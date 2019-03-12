@@ -134,8 +134,8 @@
     <Reference Include="System.Activities" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
-    <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.7\lib\net45\System.Net.Http.Formatting.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Web.DynamicData" />
@@ -144,8 +144,12 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="System.Web.Http, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.3\lib\net45\System.Web.Http.dll</HintPath>
+    <Reference Include="System.Web.Http, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.7\lib\net45\System.Web.Http.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Http.SelfHost, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.SelfHost.5.2.7\lib\net45\System.Web.Http.SelfHost.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Web.Http.WebHost, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -221,7 +225,6 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\InventoriesController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
-    <Compile Include="Controllers\MaterialsController.cs" />
     <Compile Include="Controllers\GatheringController.cs" />
     <Compile Include="Controllers\MissionsController.cs" />
     <Compile Include="Controllers\ShopController.cs" />
@@ -251,6 +254,10 @@
     <Content Include="Content\Pictures\Adventures\adventureMap2.png" />
     <Content Include="Content\Pictures\Adventures\lada1.png" />
     <Content Include="Content\Pictures\Adventures\lada2.png" />
+    <Content Include="Content\Pictures\Adventures\map.png" />
+    <Content Include="Content\Pictures\Adventures\rickTeleporter.jpg" />
+    <Content Include="Content\Pictures\Adventures\rickTeleporter.png" />
+    <Content Include="Content\Pictures\Adventures\teleport.png" />
     <Content Include="Content\Pictures\background3.png" />
     <Content Include="Content\Pictures\background4.png" />
     <Content Include="Content\Pictures\background_texture.png" />
@@ -479,11 +486,11 @@
     <Content Include="Content\Pictures\paper2.png" />
     <Content Include="Content\Pictures\Striped_Background_Effect_Transparent_PNG_Clip_Art_Image.png" />
     <Content Include="Content\Pictures\Striped_Background_Effect_Transparent_PNG_Clip_Art_Image2.png" />
-    <Content Include="Content\Pictures\Types\Type_1.png" />
-    <Content Include="Content\Pictures\Types\Type_2.png" />
-    <Content Include="Content\Pictures\Types\Type_3.png" />
-    <Content Include="Content\Pictures\Types\Type_4.png" />
-    <Content Include="Content\Pictures\Types\Type_5.png" />
+    <Content Include="Content\Pictures\Types\1.png" />
+    <Content Include="Content\Pictures\Types\2.png" />
+    <Content Include="Content\Pictures\Types\3.png" />
+    <Content Include="Content\Pictures\Types\4.png" />
+    <Content Include="Content\Pictures\Types\5.png" />
     <Content Include="Content\Pictures\walk1.PNG" />
     <Content Include="Content\Pictures\walk2.PNG" />
     <Content Include="favicon.ico" />
