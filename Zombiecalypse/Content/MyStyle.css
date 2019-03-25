@@ -1,4 +1,23 @@
-﻿
+﻿.craftableWeaponMaterial {
+    background-image: url("Pictures/zombieBorder.png");
+    border-radius: 20px;
+    width: 150px;
+    height: 150px;
+}
+
+.craftableWeapon {
+    background-image: url("Pictures/zombieBorder.png");
+    border-radius: 20px;
+    padding-top: 50px;
+    padding-bottom: 0px;
+    padding-left: 25px;
+    padding-right: 25px;
+    width: 200px;
+    height: 350px;
+}
+
+
+
 #adventureTable1, #adventureTable2, #adventureTable3, #adventureTable4, #adventureTable5, #adventureTable6, #adventureTable7, #adventureTable8, #adventureTable9, #adventureTable10, #adventureTable11, #adventureTable12, #adventureTable13 {
     display: none;
 }

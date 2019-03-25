@@ -56,7 +56,7 @@ namespace Zombiecalypse.Models
 
     public class ZombieAttackBaseVM : ViewModelBase
     {
-        public virtual ZombieAttackBase ZombieAttackBase { get; set; }
+        public virtual List<ZombieAttackBase> ZombiesAttackBase { get; set; }
         public virtual Character Character { get; set; }
         public virtual Zombie Zombie { get; set; }
         public virtual Weapon Weapon { get; set; }

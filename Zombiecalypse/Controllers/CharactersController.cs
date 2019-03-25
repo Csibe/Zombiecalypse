@@ -45,19 +45,20 @@ namespace Zombiecalypse.Controllers
         public ActionResult ManageEnergy(string id, int energyCost, string returnUrl)
         {
             Character character = db.Characters.Where(x => x.ApplicationUserID == id).FirstOrDefault();
-
+            character.CurrentEnergy -= energyCost;
 
             if (character.CurrentEnergy < character.MaxEnergy && character.EnergyPlusDate.Year == DateTime.MaxValue.Year)
             {
-                character.EnergyPlusDate = DateTime.Now.AddMinutes(2);
+                character.EnergyPlusDate = DateTime.Now.AddSeconds(20);
             }
             else if (character.CurrentEnergy == character.MaxEnergy && character.EnergyPlusDate.Year < DateTime.MaxValue.Year)
             {
                 character.EnergyPlusDate = DateTime.MaxValue;
+
             }
             else if (character.CurrentEnergy < character.MaxEnergy && character.EnergyPlusDate <= DateTime.Now)
             {
-                character.EnergyPlusDate = character.EnergyPlusDate.AddMinutes(2);
+                character.EnergyPlusDate = character.EnergyPlusDate.AddSeconds(20);
                 character.CurrentEnergy++;
             }
             else if (character.CurrentEnergy < character.MaxEnergy && character.EnergyPlusDate > DateTime.Now)
@@ -115,6 +116,8 @@ namespace Zombiecalypse.Controllers
 
             model.CharacterFields = db.CharacterFields.Where(x => x.CharacterID == model.Character.CharacterID).ToList();
             model.Adventures = db.Adventures.ToList();
+            model.Weapons = db.Weapons.ToList();
+
 
             model.Missions = new List<MissionVM>();
 

@@ -49,7 +49,7 @@ namespace Zombiecalypse.Models
         public int ZombieLife { get; set; }
         public int CharacterID { get; set; }
         public int State { get; set; }
-        public bool isYourTourn { get; set; }
+        public bool isYourTurn { get; set; }
         public Zombie Zombie { get; set; }
     }
 

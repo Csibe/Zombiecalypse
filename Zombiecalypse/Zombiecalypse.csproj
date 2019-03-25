@@ -261,8 +261,15 @@
     <Content Include="Content\Pictures\background3.png" />
     <Content Include="Content\Pictures\background4.png" />
     <Content Include="Content\Pictures\background_texture.png" />
+    <Content Include="Content\Pictures\Base\base_background.jpg" />
     <Content Include="Content\Pictures\Base\fence.png" />
+    <Content Include="Content\Pictures\Base\House0Garage0Garden0Tool0.png" />
+    <Content Include="Content\Pictures\Base\House0Garage0Garden1Tool1.png" />
+    <Content Include="Content\Pictures\Base\House0Garage1Garden1Tool1.png" />
     <Content Include="Content\Pictures\Base\House1Garage0Garden0Tool0.png" />
+    <Content Include="Content\Pictures\Base\House1Garage1Garden0Tool0.png" />
+    <Content Include="Content\Pictures\Base\House1Garage1Garden1Tool0.png" />
+    <Content Include="Content\Pictures\Base\House1Garage1Garden1Tool1.png" />
     <Content Include="Content\Pictures\Buildings\82.png" />
     <Content Include="Content\Pictures\Buildings\83.png" />
     <Content Include="Content\Pictures\Buildings\84.png" />

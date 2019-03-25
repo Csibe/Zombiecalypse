@@ -39,6 +39,7 @@ namespace Zombiecalypse.Models
         public int AdventureID { get; set; }
         [DisplayName("Adventure state")]
         public int AdventureState { get; set; }
+        public bool isYourTurn { get; set; }
         [DataType(DataType.DateTime)]
         [DisplayName("Finish adventure time")]
         public DateTime FinishAdventure { get; set; }
@@ -70,7 +71,7 @@ namespace Zombiecalypse.Models
         public virtual ICollection<Adventure> Adventures { get; set; }
         public virtual ICollection<ZombieAttackBase> ZombieAttackBase { get; set; }
         public virtual ICollection<Zombie> ZombiesDB { get; set; }
-       
+        public virtual ICollection<Weapon> Weapons { get; set; }
     }
 
 }

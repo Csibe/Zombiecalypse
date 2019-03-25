@@ -99,7 +99,8 @@ namespace Zombiecalypse.Controllers
             ICollection<Inventory> characterInventory = db.Inventories.Where(x => x.CharacterID == character.CharacterID).ToList();
 
             int buildingLevel = fence.BuildingLevel;
-            int newBuildingLevel = ++buildingLevel;
+            int newBuildingLevel = buildingLevel;
+            newBuildingLevel++;
             string buildingName = fence.ItemName;
 
             Building newBuilding = db.Buildings.Where(x => x.ItemName == buildingName).Where(x => x.BuildingLevel == newBuildingLevel).FirstOrDefault();

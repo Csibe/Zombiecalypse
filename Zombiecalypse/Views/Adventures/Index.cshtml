@@ -20,67 +20,6 @@
 
         else if (Model.Character.IsOnAdventure == false)
         {
-            @*<table class="table">
-                    <tr>
-                        <th>ID</th>
-                        <th>Name</th>
-                        <th>AdventureWaitingTime</th>
-                        <th>AdventureSteps</th>
-                        <th>AdventureRequerdEnergy</th>
-                        <th></th>
-                    </tr>
-                    @foreach (var adv in Model.Adventures)
-                    {
-                        <tr>
-                            <td>
-                                @adv.AdventureID
-                            </td>
-                            <td>
-                                @adv.AdventureName
-                            </td>
-                            <td>
-                                @adv.AdventureWaitingTime
-                            </td>
-                            <td>
-                                @adv.AdventureSteps
-                            </td>
-                            <td>
-                                @adv.AdventureRequerdEnergy
-                            </td>
-                            @foreach (var drop in Model.AdventureDrops)
-                            {
-                                if (drop.AdventureID == adv.AdventureID)
-                                {
-                                    <td>
-                                        <img width="30" height="30" src=@drop.Item.ItemPicture />
-
-
-                                    </td>
-                                }
-                            }
-                            @if (Model.Character.CharacterLevel >= adv.CharacterLevelRequired)
-                            {
-                                if (Model.Character.Tolerance > 0)
-                                {
-                                    <td>
-                                        @Html.ActionLink("Start Adventure", "StartAdventure", "Adventures", new { id = User.Identity.Name, AdId = @adv.AdventureID }, new { @class = "ActionLinkButton" })
-                                    </td>
-                                }
-                                else
-                                {
-                                    <td><div class="alert-danger"><strong>Not enought tolerance</strong></div></td>
-                                }
-
-                            }
-                            else
-                            {
-                                <td>
-                                    Required level @adv.CharacterLevelRequired
-                                </td>
-                            }
-                        </tr>
-                    }
-                </table>*@
 
             <table id="adventureMap" width="941" height="530" style="background-image: url(/Content/Pictures/Adventures/map.png) ">
                 <tr style="border:solid, black, 1px;">

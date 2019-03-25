@@ -37,6 +37,6 @@ namespace Zombiecalypse.Models
 
     public class CharacterFieldVM : ViewModelBase
     {
-        public CharacterField CharacterField { get; set; }
+        public List<CharacterField> CharacterFields { get; set; }
     }
 }

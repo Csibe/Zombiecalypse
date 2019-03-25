@@ -61,58 +61,56 @@ namespace Zombiecalypse.Controllers
                     character.FinishAdventure = DateTime.MaxValue;
                     db.SaveChanges();
                     return RedirectToAction("OnAdventure", "Adventures", new { id = User.Identity.Name });
-
             }
-
             return RedirectToAction("Index", "Adventures");
         }
 
 
         [Authorize]
-        public ActionResult AdventureCounter(int AdId, string ChId)
+        public ActionResult AdventureCounter(string ChId)
         {
             AdventureViewModel model = new AdventureViewModel();
 
             model.Character = db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault();
-            model.Adventure = db.Adventures.Find(AdId);
+            model.Adventure = db.Adventures.Find(model.Character.AdventureID);
 
             base.SetModelProperties(model);
             return View(model);
         }
 
 
-        [Authorize]
-        public ActionResult ZombieAttackAdventurer(string id, int zId, string returnUrl)
-        {
-            ZombieAttackAdventurerVM model = new ZombieAttackAdventurerVM();
+        //[Authorize]
+        //public ActionResult ZombieAttackAdventurer(string id, int zId, string returnUrl)
+        //{
+        //    ZombieAttackAdventurerVM model = new ZombieAttackAdventurerVM();
 
-            model.Character = db.Characters.Where(y => y.ApplicationUserID == id).FirstOrDefault();
-            model.ZombieAttackAdventurer = db.ZombieAttackAdventurers.Find(zId);
-            model.ZombieAttackAdventurer.isYourTourn = true;
-            model.Zombie = db.Zombies.Find(model.ZombieAttackAdventurer.ZombieID);
-            model.Adventure = db.Adventures.Find(model.Character.AdventureID);
+        //    model.Character = db.Characters.Where(y => y.ApplicationUserID == id).FirstOrDefault();
+        //    model.ZombieAttackAdventurer = db.ZombieAttackAdventurers.Find(zId);
+        //    model.ZombieAttackAdventurer.isYourTurn = true;
+        //    model.Zombie = db.Zombies.Find(model.ZombieAttackAdventurer.ZombieID);
+        //    model.Adventure = db.Adventures.Find(model.Character.AdventureID);
 
-            Random rand = new Random();
-            int attackPower = rand.Next(0, model.Zombie.ZombieDamage + 1);
+        //    Random rand = new Random();
+        //    int attackPower = rand.Next(0, model.Zombie.ZombieDamage + 1);
 
-            model.Character.Tolerance -= attackPower;
+        //    model.Character.Tolerance -= attackPower;
 
-            if (model.Character.Tolerance <= 0) {
+        //    if (model.Character.Tolerance <= 0) {
 
-                model.Character.Tolerance = 0;
-                List<ZombieAttackAdventurer> zombies = db.ZombieAttackAdventurers.Where(x => x.CharacterID == model.Character.CharacterID).ToList();
+        //        model.Character.Tolerance = 0;
+        //        List<ZombieAttackAdventurer> zombies = db.ZombieAttackAdventurers.Where(x => x.CharacterID == model.Character.CharacterID).ToList();
 
-                zombies.ForEach(x => db.ZombieAttackAdventurers.Remove(x));
-                model.Character.IsOnAdventure = false;
-                model.Character.FinishAdventure = DateTime.MaxValue;
-                db.SaveChanges();
-                return RedirectToAction("StopAdventure", "Adventures", new { AdId = model.Adventure.AdventureID , ChId = model.Character.CharacterID, returnUrl = returnUrl });
+        //        zombies.ForEach(x => db.ZombieAttackAdventurers.Remove(x));
+        //        model.Character.IsOnAdventure = false;
+        //        model.Character.FinishAdventure = DateTime.MaxValue;
+        //        db.SaveChanges();
+        //        return RedirectToAction("StopAdventure", "Adventures", new { AdId = model.Adventure.AdventureID , ChId = model.Character.CharacterID, returnUrl = returnUrl });
 
-            }
+        //    }
 
-            db.SaveChanges();
-            return RedirectToAction(returnUrl);
-        }
+        //    db.SaveChanges();
+        //    return RedirectToAction(returnUrl);
+        //}
 
 
         [Authorize]
@@ -162,6 +160,8 @@ namespace Zombiecalypse.Controllers
                 if (model.ZombieLife > weapon.WeaponDamage)
                 {
                     model.ZombieLife = model.ZombieLife - weapon.WeaponDamage;
+                    List<ZombieAttackAdventurer> zAA = db.ZombieAttackAdventurers.Where(x => x.CharacterID == character.CharacterID).Where(x => x.State == character.AdventureState).ToList();
+                    zAA.ToArray()[0].isYourTurn = true;
 
                 }
                 else
@@ -185,51 +185,40 @@ namespace Zombiecalypse.Controllers
                 }
             }
 
-            //var result2 = "";
-
-            //List<int> result = System.Web.Helpers.Json.Decode<List<int>>(zAAID);
-            //foreach (var r in result) {
-            //    result2 += r +" ";
-            //}
-
-
-            //  var result2 = string.Join("", zAAID.ToArray());
-
-
+            character.isYourTurn = false;
             db.SaveChanges();
             return RedirectToAction("OnAdventure", "Adventures", new { id = User.Identity.Name });
-           // return result2;
         }
 
 
-        [Authorize]
-        public ActionResult ManageTurns(string id, string returnUrl)
-        {
-            Character character = db.Characters.Where(y => y.ApplicationUserID == id).FirstOrDefault();
-            List<ZombieAttackAdventurer> zombieAttackInThisTurn = new List<ZombieAttackAdventurer>();
+        //[Authorize]
+        //public ActionResult ManageTurns(string id, string returnUrl)
+        //{
+        //    Character character = db.Characters.Where(y => y.ApplicationUserID == id).FirstOrDefault();
+        //    List<ZombieAttackAdventurer> zombieAttackInThisTurn = new List<ZombieAttackAdventurer>();
 
-            zombieAttackInThisTurn = db.ZombieAttackAdventurers.Where(x => x.CharacterID == character.CharacterID).Where(x => x.State == character.AdventureState).ToList();
+        //    zombieAttackInThisTurn = db.ZombieAttackAdventurers.Where(x => x.CharacterID == character.CharacterID).Where(x => x.State == character.AdventureState).ToList();
 
-            for (int c = 0; c < zombieAttackInThisTurn.Count; c++)
-            {
+        //    for (int c = 0; c < zombieAttackInThisTurn.Count; c++)
+        //    {
 
-                if (zombieAttackInThisTurn.ToArray()[c].isYourTourn == true && c < zombieAttackInThisTurn.Count - 1)
-                {
-                    int d = c + 1;
-                    zombieAttackInThisTurn.ToArray()[c].isYourTourn = false;
-                    zombieAttackInThisTurn.ToArray()[d].isYourTourn = true;
-                    break;
-                }
-                else if (zombieAttackInThisTurn.ToArray()[c].isYourTourn == true && c == zombieAttackInThisTurn.Count - 1)
-                {
-                    zombieAttackInThisTurn.ToArray()[c].isYourTourn = false;
-                }
-            }
+        //        if (zombieAttackInThisTurn.ToArray()[c].isYourTurn == true && c < zombieAttackInThisTurn.Count - 1)
+        //        {
+        //            int d = c + 1;
+        //            zombieAttackInThisTurn.ToArray()[c].isYourTurn = false;
+        //            zombieAttackInThisTurn.ToArray()[d].isYourTurn = true;
+        //            break;
+        //        }
+        //        else if (zombieAttackInThisTurn.ToArray()[c].isYourTurn == true && c == zombieAttackInThisTurn.Count - 1)
+        //        {
+        //            zombieAttackInThisTurn.ToArray()[c].isYourTurn = false;
+        //        }
+        //    }
 
-            db.SaveChanges();
+        //    db.SaveChanges();
 
-            return RedirectToAction(returnUrl);
-        }
+        //    return RedirectToAction(returnUrl);
+        //}
 
 
         [Authorize]
@@ -246,7 +235,7 @@ namespace Zombiecalypse.Controllers
             for (int c = 0; c < zombieAttackInThisTurn.Count; c++)
             {
 
-                if (zombieAttackInThisTurn.ToArray()[c].isYourTourn == true)
+                if (zombieAttackInThisTurn.ToArray()[c].isYourTurn == true)
                 {
                     result = "zombies turn: " + zombieAttackInThisTurn.ToArray()[c].ZombieAttackAdventurerID;
                     break;
@@ -305,15 +294,15 @@ namespace Zombiecalypse.Controllers
             List<ZombieAttackAdventurer> zombieAttackInThisTurn = new List<ZombieAttackAdventurer>();
             zombieAttackInThisTurn = db.ZombieAttackAdventurers.Where(x => x.CharacterID == model.Character.CharacterID).Where(x => x.State == model.Character.AdventureState).ToList();
 
-            foreach (var zombie in zombieAttackInThisTurn)
-            {
-                if (zombie.isYourTourn == true)
-                {
-                    var attack = new AdventuresController().ZombieAttackAdventurer(User.Identity.Name, zombie.ZombieAttackAdventurerID, this.Request.FilePath);
-                    var result = new AdventuresController().ManageTurns(User.Identity.Name, this.Request.FilePath);
-                    return RedirectToAction("OnAdventure", "Adventures", new { id = User.Identity.Name });
-                }
-            }
+            //foreach (var zombie in zombieAttackInThisTurn)
+            //{
+            //    if (zombie.isYourTurn == true)
+            //    {
+            //        var attack = new AdventuresController().ZombieAttackAdventurer(User.Identity.Name, zombie.ZombieAttackAdventurerID, this.Request.FilePath);
+            //        var result = new AdventuresController().ManageTurns(User.Identity.Name, this.Request.FilePath);
+            //        return RedirectToAction("OnAdventure", "Adventures", new { id = User.Identity.Name });
+            //    }
+            //}
 
             db.SaveChanges();
 
@@ -426,7 +415,7 @@ namespace Zombiecalypse.Controllers
                         {
                             int zombieIndex = rand.Next(1, selectableZombies.Count());
                             Zombie selectedZombie = selectableZombies.ElementAt<Zombie>(zombieIndex);
-                            ZombieAttackAdventurer attackingZombie = new ZombieAttackAdventurer { CharacterID = character.CharacterID, State = stepCounter, ZombieID = selectedZombie.ZombieID, ZombieLife = selectedZombie.ZombieLife, isYourTourn = false };
+                            ZombieAttackAdventurer attackingZombie = new ZombieAttackAdventurer { CharacterID = character.CharacterID, State = stepCounter, ZombieID = selectedZombie.ZombieID, ZombieLife = selectedZombie.ZombieLife, isYourTurn = false };
                             db.ZombieAttackAdventurers.Add(attackingZombie);
                         }
                     }

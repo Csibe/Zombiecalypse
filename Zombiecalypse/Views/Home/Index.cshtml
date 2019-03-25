@@ -23,7 +23,6 @@
 
 
     <div class="container text-center" >
-        <div style="display:none">
 
 
             <br />
@@ -39,7 +38,6 @@
             <button class="info btn btn-info">Info</button>
 
             <button class="warning btn btn-warning">Warning</button>
-        </div>
     </div>
 
 
@@ -53,7 +51,25 @@
 
 	$(".success").click(function(){
 
-		toastr.success('We do have the Kapua suite available.', 'Success Alert', {timeOut: 10000})
+	    toastr.success('We do have the Kapua suite available.', 'Success Alert', toastr.options = {
+	        "closeButton": false,
+	        "debug": false,
+	        "newestOnTop": false,
+	        "progressBar": false,
+	        "positionClass": "toast-bottom-right",
+	        "preventDuplicates": false,
+	        "onclick": null,
+	        "showDuration": "300",
+	        "hideDuration": "1000",
+	        "timeOut": "50000",
+	        "extendedTimeOut": "10000",
+	        "showEasing": "swing",
+	        "hideEasing": "linear",
+	        "showMethod": "fadeIn",
+	        "hideMethod": "fadeOut",
+	        "icon": 'fa fa-paw'
+	    })
+
 
 	});
 

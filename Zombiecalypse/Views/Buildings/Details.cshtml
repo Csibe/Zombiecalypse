@@ -74,15 +74,14 @@
         @if (Model.Building.BuildingLevel > 0)
         {
             <h4>Craftable weapons</h4>
-            <table border="1">
-                <tbody>
+            <table align="center">
                     <tr>
                         @foreach (var weapon in Model.CraftableWeapons)
                         {
-                            <td>
-                                <table class="table">
+                            <td style="padding-right:25px">
+                                <table class="craftableWeapon">
                                     <tr>
-                                        <td>
+                                        <td style="padding-top:25px">
                                             @weapon.ItemName
                                         </td>
                                     </tr>
@@ -106,7 +105,7 @@
                                     </tr>
                                     <tr>
                                         <td>
-                                            <table border="1">
+                                            <table align="center">
                                                 @foreach (var mat in Model.ComponentOfCraftableWeapon)
                                                 {
                                                     foreach (var item in Model.Character.Inventory)
@@ -136,7 +135,6 @@
                                                     }
 
                                                 }
-                                                <tr>
                                             </table>
                                         </td>
 
@@ -167,7 +165,7 @@
         <br />
         <h4>Required materials to the building</h4>
         <table>
-            <tr>
+            <tr style="padding-top: 50px">
                 @foreach (var bbm in Model.NextBuildingBuildingMaterials)
                 {
                     foreach (var bm in Model.NextBuildingMaterials)
@@ -176,10 +174,10 @@
                         {
                             if (bbm.BuildingMaterialID == bm.ItemID && bm.ItemID == item.ItemID)
                             {
-                                <td>
-                                    <table border="1">
+                                <td style="padding-right: 25px">
+                                    <table align="center" class="craftableWeaponMaterial">
                                         <tr>
-                                            <td>
+                                            <td style="padding-top:25px">
                                                 <img src=@bm.ItemPicture />
                                             </td>
                                         </tr>

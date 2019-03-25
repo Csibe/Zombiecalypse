@@ -1,17 +1,29 @@
 ﻿@model Zombiecalypse.Models.AdventureViewModel
 
-
-
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-<!------ Include the above in your HEAD tag ---------->
+
+<style>
+    .selectedZombie {
+        background-image: url("/Content/Pictures/button2.png");
+        display: inline-block;
+        border: 1px solid;
+        padding: 3px;
+        text-decoration: none;
+        border-radius: 4px;
+        color: floralwhite;
+        border-color: bisque;
+    }
+</style>
+
 
 <h2>Your adventure</h2>
 @Html.ActionLink("Finish adventure", "StopAdventure", "Adventures", new { id = User.Identity.Name }, null)
 
 Whos turn:  @ViewBag.WhosTurn
-Manage turns: @Html.ActionLink("Manage turn", "ManageTurns", "Adventures", new { id = User.Identity.Name, returnUrl = "/AdventureZombieAttack/" + User.Identity.Name }, null)
+Manage turns: @Html.ActionLink("Manage turn", "ManageTurns", "Adventures", new { id = User.Identity.Name, returnUrl = "/AdventureZombieAttack/" + User.Identity.Name }, null) <br />
+IsYourTurn: @Model.Character.isYourTurn
 <br />
 
 @{
@@ -106,6 +118,7 @@ Manage turns: @Html.ActionLink("Manage turn", "ManageTurns", "Adventures", new {
                                                                                 </td>
                                                                                 <td>durability: @item.ItemCurrentDurability / @item.ItemMaxDurability</td>
                                                                                 <td>@weap.IsRanged</td>
+                                                                                <td>damage: @weap.WeaponDamage</td>
                                                                             </tr>
                                                                         }
                                                                         else
@@ -124,6 +137,9 @@ Manage turns: @Html.ActionLink("Manage turn", "ManageTurns", "Adventures", new {
                                                                                 </td>
                                                                                 <td>durability: @item.ItemCurrentDurability / @item.ItemMaxDurability</td>
                                                                                 <td>@weap.IsRanged</td>
+                                                                            
+                                                                                <td>damage: @weap.WeaponDamage</td>
+                                                                            
                                                                             </tr>
                                                                         }
                                                                     </table>
@@ -183,7 +199,7 @@ Manage turns: @Html.ActionLink("Manage turn", "ManageTurns", "Adventures", new {
 
                                                                     <tr>
                                                                         <td>
-                                                                            yourTurn:@zombie.isYourTourn
+                                                                            yourTurn:@zombie.isYourTurn
                                                                         </td>
                                                                     </tr>
                                                                     <tr>
@@ -401,6 +417,8 @@ Adventure ID: @Model.Adventure.AdventureID
 
 
                         $(document.getElementById(zombieId).style.border = "");
+                        $(document.getElementById(zombieId).classList = "zombieTable2");
+                        
                     }
 
 
@@ -411,6 +429,8 @@ Adventure ID: @Model.Adventure.AdventureID
 
                     $(document.getElementById(zombieId).style.border = "solid red 1px");
                     $(document.getElementById(id).style.display = 'inline-block');
+                    $(document.getElementById(zombieId).classList = "selectedZombie");
+
                 }
                 else if(isRanged == true){
 
@@ -424,6 +444,7 @@ Adventure ID: @Model.Adventure.AdventureID
 
 
                         $(document.getElementById(zombieId).style.border = "");
+                        $(document.getElementById(zombieId).classList = "zombieTable2");
                     }
 
                     for(var szam = 0; szam <  @Model.ZombiesAttackAdventurer.Count-3; szam++){
@@ -436,6 +457,7 @@ Adventure ID: @Model.Adventure.AdventureID
 
 
                         $(document.getElementById(zombieId).style.border = "solid red 1px");
+                        $(document.getElementById(zombieId).classList = "selectedZombie");
                     }
 
 
@@ -449,11 +471,6 @@ Adventure ID: @Model.Adventure.AdventureID
             };
 
         </script>
-
-
     }
-
-
-
 
 }
