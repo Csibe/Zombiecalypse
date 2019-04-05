@@ -135,6 +135,8 @@ namespace Zombiecalypse.Controllers
             Character character = db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault();
             Inventory item = character.Inventory.Where(x => x.ItemID == 55).FirstOrDefault(); //board
             Inventory building = character.Inventory.Where(x => x.Item.ItemID == id).FirstOrDefault();
+            List<CharacterMissionTask> characterMissionTasks = db.CharacterMissionTasks.Where(x => x.CharacterID == character.CharacterID).ToList();
+
 
             if (item == null)
             {

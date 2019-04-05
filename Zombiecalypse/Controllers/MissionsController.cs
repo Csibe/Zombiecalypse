@@ -14,225 +14,467 @@ namespace Zombiecalypse.Controllers
     public class MissionsController : BaseController
     {
 
+        public ActionResult Index()
+        {
 
-        //public ActionResult GenerateDailyMissions() {
+            MissionVM model = new MissionVM();
 
-        //    Mission model = new Mission();
-        //    Character character = db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault();
-        //    List<BuildingMaterial> buildingMaterials = db.BuildingMaterials.ToList();
-
-        //    List<Material> materials = db.Materials.ToList();
-
-        //    Random rand = new Random();
-
-        //    int rewardItem = rand.Next(0, db.BuildingMaterials.Count());
-        //    int taskItem = rand.Next(0, db.Materials.Count());
-
-        //    Mission mission = new Mission { CharacterID = character.CharacterID, MissionTaskID = db.Materials.ToArray()[taskItem].ItemID, MissionTaskNumber = 2, MissionRewardID = buildingMaterials.ToArray()[rewardItem].ItemID, MissionRewardNumber = 1, MissionRewardXP = 10, MissionType = "collection" };
-        //    db.Missions.Add(mission);
-        //    db.SaveChanges();
-
-        //    List<Plant> plants = db.Plants.ToList();
-
-        //    rand = new Random();
-
-        //    rewardItem = rand.Next(0, db.BuildingMaterials.Count());
-        //    taskItem = rand.Next(0, db.Plants.Count());
-
-        //    mission = new Mission { CharacterID = character.CharacterID, MissionTaskID = db.Plants.ToArray()[taskItem].ItemID, MissionTaskNumber = 2, MissionRewardID = buildingMaterials.ToArray()[rewardItem].ItemID, MissionRewardNumber = 1, MissionType = "gathering", MissionRewardXP = 10, MissionTaskProgress = 0 };
-        //    db.Missions.Add(mission);
-        //    db.SaveChanges();
-
-        //    List<Zombie> zombies = db.Zombies.ToList();
-
-        //    rand = new Random();
-
-        //    rewardItem = rand.Next(0, db.BuildingMaterials.Count());
-        //    //  int taskItem = rand.Next(0, db.Plants.Count());
-
-        //    mission = new Mission { CharacterID = character.CharacterID, MissionTaskNumber = 2, MissionRewardID = buildingMaterials.ToArray()[rewardItem].ItemID, MissionRewardNumber = 1, MissionType = "zombiekilling", MissionRewardXP = 10, MissionTaskProgress = 0 };
-        //    db.Missions.Add(mission);
-        //    db.SaveChanges();
+            model.Character = db.Characters.Where(x => x.ApplicationUserID == User.Identity.Name).First();
+            model.Missions = db.Missions.ToList();
+            model.Items = db.Items.ToList();
+            model.InProgressMissions = db.CharacterMissions.Where(x => x.CharacterID == model.Character.CharacterID).ToList();
+            model.Zombies = db.Zombies.ToList();
 
 
-        //    rand = new Random();
-
-        //    rewardItem = rand.Next(0, db.BuildingMaterials.Count());
-        //    taskItem = rand.Next(0, db.Materials.Count());
-
-        //    mission = new Mission { CharacterID = character.CharacterID, MissionTaskID = db.Materials.ToArray()[taskItem].ItemID, MissionTaskNumber = 2, MissionRewardID = buildingMaterials.ToArray()[rewardItem].ItemID, MissionRewardNumber = 1, MissionRewardXP = 10, MissionType = "collection" };
-        //    db.Missions.Add(mission);
-
-        //    character.DailyMissionDate.AddMinutes(10);
-
-        //    db.SaveChanges();
+            foreach (var mission in model.InProgressMissions)
+            {
+                mission.CharacterMissionTasks = db.CharacterMissionTasks.Where(x => x.CharacterMissionID == mission.CharacterMissionID).ToList();
+            }
 
 
+            foreach (var mission in model.Missions)
+            {
+                mission.MissionTasks = db.MissionTasks.Where(x => x.MissionID == mission.MissionID).ToList();
+            }
 
-        //    return RedirectToAction("Details", "Characters", new { id = User.Identity.Name });
-        //}
+            foreach (var mission in model.InProgressMissions)
+            {
+                var result = new MissionsController().CheckMission(mission.CharacterMissionID, User.Identity.Name);
+            }
 
-        //public ActionResult GenerateGatheringMission(string returnUrl)
+
+            db.SaveChanges();
+
+            base.SetModelProperties(model);
+            return View(model);
+        }
+
+        public ActionResult StartMission(int id, string userID)
+        {
+            if (userID == null)
+            {
+                userID = User.Identity.Name;
+            }
+
+
+            Character character = db.Characters.Where(y => y.ApplicationUserID == userID).FirstOrDefault();
+            Mission mission = db.Missions.Find(id);
+            mission.MissionTasks = db.MissionTasks.Where(x => x.MissionID == mission.MissionID).ToList();
+
+            CharacterMission charMiss = new CharacterMission { CharacterID = character.CharacterID, MissionID = mission.MissionID, IsCompleted = false };
+
+            db.CharacterMissions.Add(charMiss);
+            db.SaveChanges();
+
+            foreach (var m in mission.MissionTasks)
+            {
+                CharacterMissionTask characterMissionTask = new CharacterMissionTask { CharacterMissionTaskID = 1, CharacterID = character.CharacterID, MissionTaskID = m.MissionTaskID, CharacterMissionID = charMiss.CharacterMissionID, IsCompleted = false };
+                db.CharacterMissionTasks.Add(characterMissionTask);
+                db.SaveChanges();
+            }
+
+
+            var result = new MissionsController().CheckMission(charMiss.CharacterMissionID, userID);
+
+            return RedirectToAction("Index", "Missions", new { id = userID });
+        }
+
+        public ActionResult CheckMission(int id, string userID)
+        {
+
+            Character character = db.Characters.Where(y => y.ApplicationUserID == userID).FirstOrDefault();
+            character.Inventory = db.Inventories.Where(x => x.CharacterID == character.CharacterID).ToList();
+
+            List<Item> items = db.Items.ToList();
+
+            CharacterMission characterMission = db.CharacterMissions.Find(id);
+            List<CharacterMissionTask> characterMissionTasks = db.CharacterMissionTasks.Where(x => x.CharacterMissionID == characterMission.CharacterMissionID).ToList();
+
+            Mission mission = db.Missions.Find(characterMission.MissionID);
+            List<MissionTask> missionTasks = db.MissionTasks.Where(x => x.MissionID == mission.MissionID).ToList();
+
+
+            foreach (var cmt in characterMissionTasks)
+            {
+                foreach (var mt in missionTasks)
+                {
+                    if (mt.MissionTaskID == cmt.MissionTaskID && mt.GetType().Name == "CollectMissionTask")
+                    {
+
+                        foreach (var inv in character.Inventory)
+                        {
+                            if (mt.ItemID == inv.ItemID)
+                            {
+                                cmt.TaskProgress = inv.ItemPieces;
+                                db.SaveChanges();
+                                if (cmt.TaskProgress < mt.ItemPieces)
+                                {
+                                    cmt.IsCompleted = false;
+                                }
+                                else
+                                {
+                                    cmt.IsCompleted = true;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            foreach (var cmt in characterMissionTasks)
+            {
+                foreach (var mt in missionTasks)
+                {
+                    if (mt.MissionTaskID == cmt.MissionTaskID)
+                    {
+
+                        foreach (var inv in character.Inventory)
+                        {
+                            if (mt.ItemID == inv.ItemID)
+                            {
+                                if (cmt.TaskProgress < mt.ItemPieces)
+                                {
+                                    cmt.IsCompleted = false;
+                                }
+                                else
+                                {
+                                    cmt.IsCompleted = true;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            db.SaveChanges();
+
+
+            int taskcounter = 0;
+
+            foreach (var task in characterMissionTasks)
+            {
+                if (task.IsCompleted == true)
+                {
+                    taskcounter++;
+                }
+            }
+
+            if (taskcounter == mission.MissionTasks.Count())
+            {
+                characterMission.IsCompleted = true;
+            }
+            else
+            {
+                characterMission.IsCompleted = false;
+            }
+
+
+            db.SaveChanges();
+
+            return RedirectToAction("Index", "Missions", new { id = userID });
+        }
+
+        public ActionResult GetReward(int id)
+        {
+
+            Character character = db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault();
+            character.Inventory = db.Inventories.Where(x => x.CharacterID == character.CharacterID).ToList();
+
+            List<Item> items = db.Items.ToList();
+
+            CharacterMission characterMission = db.CharacterMissions.Find(id);
+            List<CharacterMissionTask> characterMissionTasks = db.CharacterMissionTasks.Where(x => x.CharacterMissionID == characterMission.CharacterMissionID).ToList();
+
+            Mission mission = db.Missions.Find(characterMission.MissionID);
+            List<MissionTask> missionTasks = db.MissionTasks.Where(x => x.MissionID == mission.MissionID).ToList();
+
+            foreach (var cmt in characterMissionTasks)
+            {
+                foreach (var mt in missionTasks)
+                {
+                    if (mt.MissionTaskID == cmt.MissionTaskID)
+                    {
+
+                        foreach (var inv in character.Inventory)
+                        {
+                            if (mt.ItemID == inv.ItemID)
+                            {
+                                if (cmt.TaskProgress >= mt.ItemPieces)
+                                {
+                                    inv.ItemPieces -= mt.ItemPieces;
+                                    db.CharacterMissionTasks.Remove(cmt);
+
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            db.SaveChanges();
+
+
+            characterMissionTasks = db.CharacterMissionTasks.Where(x => x.CharacterMissionID == characterMission.CharacterMissionID).ToList();
+
+
+            if (characterMissionTasks.Count() == 0)
+            {
+                db.CharacterMissions.Remove(characterMission);
+            }
+
+            db.SaveChanges();
+
+            if (mission.IsNextMission)
+            {
+                var result = new MissionsController().StartMission(mission.MissionID + 1, User.Identity.Name);
+            }
+
+            return RedirectToAction("Index", "Missions", new { id = User.Identity.Name });
+        }
+
+
+        public ActionResult RepairMission(int id)
+        {
+            Character character = db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault();
+            character.Inventory = db.Inventories.Where(x => x.CharacterID == character.CharacterID).ToList();
+
+            List<Item> items = db.Items.ToList();
+
+            CharacterMission characterMission = db.CharacterMissions.Find(id);
+            List<CharacterMissionTask> characterMissionTasks = db.CharacterMissionTasks.Where(x => x.CharacterMissionID == characterMission.CharacterMissionID).ToList();
+
+            Mission mission = db.Missions.Find(characterMission.MissionID);
+            List<MissionTask> missionTasks = db.MissionTasks.Where(x => x.MissionID == mission.MissionID).ToList();
+
+
+            foreach (var cmt in characterMissionTasks)
+            {
+                foreach (var mt in missionTasks)
+                {
+                    if (mt.MissionTaskID == cmt.MissionTaskID && mt.GetType().Name == "RepairMissionTask")
+                    {
+
+                        foreach (var inv in character.Inventory)
+                        {
+                            if (mt.ItemID == inv.ItemID)
+                            {
+                                cmt.TaskProgress++;
+                            }
+                        }
+                    }
+                }
+            }
+
+            db.SaveChanges();
+
+            return RedirectToAction("Index", "Missions", new { id = User.Identity.Name });
+        }
+
+        public ActionResult HarvestMission(int id, string userID)
+        {
+
+            if (userID == null)
+            {
+                userID = User.Identity.Name;
+            }
+
+            Character character = db.Characters.Where(y => y.ApplicationUserID == userID).FirstOrDefault();
+            character.Inventory = db.Inventories.Where(x => x.CharacterID == character.CharacterID).ToList();
+
+            List<Item> items = db.Items.ToList();
+
+
+            List<Mission> missions = db.Missions.ToList();
+            List<CharacterMission> inProgressMissions = db.CharacterMissions.Where(x => x.CharacterID == character.CharacterID).ToList();
+
+            foreach (var mission in inProgressMissions)
+            {
+                mission.CharacterMissionTasks = db.CharacterMissionTasks.Where(x => x.CharacterMissionID == mission.CharacterMissionID).ToList();
+            }
+
+            foreach (var mission in missions)
+            {
+                mission.MissionTasks = db.MissionTasks.Where(x => x.MissionID == mission.MissionID).ToList();
+            }
+
+
+            foreach (var cm in inProgressMissions)
+            {
+                foreach (var m in missions)
+                {
+                    if (cm.MissionID == m.MissionID)
+                    {
+                        foreach (var cmt in cm.CharacterMissionTasks)
+                        {
+                            foreach (var mt in m.MissionTasks)
+                            {
+                                if (cmt.MissionTaskID == mt.MissionTaskID)
+                                {
+                                    if (mt.ItemID == id)
+                                    {
+                                        cmt.TaskProgress++;
+                                    }
+                                }
+
+                            }
+                        }
+                    }
+                }
+            }
+
+            db.SaveChanges();
+
+            return RedirectToAction("Index", "Missions", new { id = userID });
+        }
+
+
+
+
+        public ActionResult KillingMission(int id, string userID)
+        {
+
+            if (userID == null)
+            {
+                userID = User.Identity.Name;
+            }
+
+            Character character = db.Characters.Where(y => y.ApplicationUserID == userID).FirstOrDefault();
+
+            List<Mission> missions = db.Missions.ToList();
+            List<CharacterMission> inProgressMissions = db.CharacterMissions.Where(x => x.CharacterID == character.CharacterID).ToList();
+
+            foreach (var mission in inProgressMissions)
+            {
+                mission.CharacterMissionTasks = db.CharacterMissionTasks.Where(x => x.CharacterMissionID == mission.CharacterMissionID).ToList();
+            }
+
+            foreach (var mission in missions)
+            {
+                mission.MissionTasks = db.MissionTasks.Where(x => x.MissionID == mission.MissionID).ToList();
+            }
+
+
+            foreach (var cm in inProgressMissions)
+            {
+                foreach (var m in missions)
+                {
+                    if (cm.MissionID == m.MissionID)
+                    {
+                        foreach (var cmt in cm.CharacterMissionTasks)
+                        {
+                            foreach (var mt in m.MissionTasks)
+                            {
+                                if (cmt.MissionTaskID == mt.MissionTaskID)
+                                {
+                                    if (mt.ItemID == id)
+                                    {
+                                        cmt.TaskProgress++;
+                                    }
+                                }
+
+                            }
+                        }
+                    }
+                }
+            }
+
+            db.SaveChanges();
+
+            return RedirectToAction("Index", "Missions", new { id = userID });
+        }
+
+        //delete
+        public ActionResult ZombieStartAttackBase(int id, string userID)
+        {
+
+            if (userID == null)
+            {
+                userID = User.Identity.Name;
+            }
+
+            Character character = db.Characters.Where(y => y.ApplicationUserID == userID).FirstOrDefault();
+            character.Inventory = db.Inventories.Where(x => x.CharacterID == character.CharacterID).ToList();
+            Zombie zombie = db.Zombies.Find(id);
+
+
+            ZombieAttackBase zab = new ZombieAttackBase { ZombieAttackStart = DateTime.Now, CharacterID = character.CharacterID, ZombieID = zombie.ZombieID, ZombieLife = zombie.ZombieLife };
+            db.ZombieAttackBases.Add(zab);
+            db.SaveChanges();
+
+            return RedirectToAction("Index", "Missions", new { id = userID });
+        }
+
+
+
+
+        //public ActionResult GenerateDailyMissions()
         //{
 
-        //    Mission model = new Mission();
-        //    Character character = db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault();
-        //    List<BuildingMaterial> buildingMaterials = db.BuildingMaterials.ToList();
-
-        //    List<Plant> plants = db.Plants.ToList();
-
-        //    Random rand = new Random();
-
-        //    int rewardItem = rand.Next(0, db.BuildingMaterials.Count());
-        //    int taskItem = rand.Next(0, db.Plants.Count());
-
-        //    Mission mission = new Mission { CharacterID = character.CharacterID, MissionTaskID = db.Plants.ToArray()[taskItem].ItemID, MissionTaskNumber = 2, MissionRewardID = buildingMaterials.ToArray()[rewardItem].ItemID, MissionRewardNumber = 1, MissionType = "gathering", MissionRewardXP = 10, MissionTaskProgress = 0 };
-        //    db.Missions.Add(mission);
-        //    db.SaveChanges();
-
-
-        //    return Redirect(returnUrl);
-        //}
-
-        //public ActionResult GenerateZombieKillingMission(string returnUrl)
-        //{
-
-        //    Mission model = new Mission();
-        //    Character character = db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault();
-        //    List<BuildingMaterial> buildingMaterials = db.BuildingMaterials.ToList();
-
-        //    List<Zombie> plants = db.Zombies.ToList();
-
-        //    Random rand = new Random();
-
-        //    int rewardItem = rand.Next(0, db.BuildingMaterials.Count());
-        //    //  int taskItem = rand.Next(0, db.Plants.Count());
-
-        //    Mission mission = new Mission { CharacterID = character.CharacterID, MissionTaskNumber = 2, MissionRewardID = buildingMaterials.ToArray()[rewardItem].ItemID, MissionRewardNumber = 1, MissionType = "zombiekilling", MissionRewardXP = 10, MissionTaskProgress = 0 };
-        //    db.Missions.Add(mission);
-        //    db.SaveChanges();
-
-        //    return Redirect(returnUrl);
-        //}
-
-
-        //public ActionResult GetMissionReward(int id, string returnUrl)
-        //{
-
-        //    Mission mission = db.Missions.Find(id);
 
         //    Character character = db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault();
 
-        //    foreach (var item in character.Inventory)
+        //    List<CharacterMission> characterMissions = db.CharacterMissions.Where(x => x.CharacterID == character.CharacterID).ToList();
+
+        //    foreach (var mission in db.DailyMissions)
         //    {
-        //        if (mission.MissionTaskID == item.ItemID && item.ItemPieces >= mission.MissionTaskNumber)
+        //        foreach (var cm in characterMissions)
         //        {
-        //            item.ItemPieces -= mission.MissionTaskNumber;
+        //            if (mission.MissionID == cm.MissionID)
+        //            {
+        //                foreach (var cmt in db.CharacterMissionTasks.Where(x => x.CharacterID == character.CharacterID).Where(x => x.CharacterMissionID == cm.CharacterMissionID).ToList()) {
+        //                    db.CharacterMissionTasks.Remove(cmt);
+        //                }
+        //            }
         //        }
         //    }
 
-        //    foreach (var item in character.Inventory)
+        //    db.SaveChanges();
+
+
+        //    foreach (var mission in db.DailyMissions)
         //    {
-        //        if (mission.MissionRewardID == item.ItemID)
+        //        foreach (var cm in characterMissions)
         //        {
-        //            item.ItemPieces += mission.MissionRewardNumber;
-        //            db.Missions.Remove(mission);
+        //            if (mission.MissionID == cm.MissionID)
+        //            {
+        //                  if (cm.CharacterMissionTasks.Count == 0) {
+        //                        db.CharacterMissions.Remove(cm);
+        //                }
+        //            }
         //        }
         //    }
 
 
         //    db.SaveChanges();
 
+        //    Random rand = new Random();
+        //    List<DailyMission> dailymissions = db.DailyMissions.ToList();
+        //    int missionIndex = rand.Next(0, dailymissions.Count());
+        //    DailyMission selectedMission = dailymissions.ElementAt<DailyMission>(missionIndex);
 
-        //    return RedirectToAction(returnUrl);
-        //}
+        //    selectedMission.MissionTasks = db.MissionTasks.Where(x => x.MissionID == selectedMission.MissionID).ToList();
 
 
-        //public ActionResult AddToGatheringTaskProgress(int id, string returnUrl)
-        //{
+        //    CharacterMission charMiss = new CharacterMission { CharacterID = character.CharacterID, MissionID = selectedMission.MissionID, IsCompleted = false };
 
-        //    Mission mission = db.Missions.Find(id);
-        //    mission.MissionTaskProgress += 1;
-
+        //    db.CharacterMissions.Add(charMiss);
         //    db.SaveChanges();
 
-        //    return Redirect(returnUrl);
-        //}
-
-
-        //public ActionResult Index()
-        //{
-        //    MissionVM model = new MissionVM();
-
-        //    model.Missions = new List<MissionVM>();
-        //    model.Character = db.Characters.Where(x => x.ApplicationUserID == User.Identity.Name).First();
-
-        //    foreach (var miss in db.Missions)
+        //    foreach (var m in selectedMission.MissionTasks)
         //    {
-        //        if (miss.CharacterID == model.Character.CharacterID)
-        //        {
-        //            MissionVM mission = new MissionVM();
-        //            mission.MissionID = miss.MissionID;
-        //            mission.MissionTaskNumber = miss.MissionTaskNumber;
-        //            mission.MissionFinishable = false;
-        //            mission.MissionRewardNumber = miss.MissionRewardNumber;
-
-        //            if (miss.MissionType == "collection")
-        //            {
-
-        //                mission.CollectionMissionReward = db.BuildingMaterials.Find(miss.MissionRewardID);
-        //                mission.CollectionMissionTask = db.Materials.Find(miss.MissionTaskID);
-        //                mission.MissionType = miss.MissionType;
-
-        //                foreach (var item in model.Character.Inventory)
-        //                {
-        //                    if (item.ItemID == mission.CollectionMissionTask.ItemID && item.ItemPieces >= mission.MissionTaskNumber)
-        //                    {
-        //                        mission.MissionFinishable = true;
-        //                    }
-
-        //                }
-        //            }
-
-        //            else if (miss.MissionType == "gathering")
-        //            {
-
-        //                mission.MissionType = miss.MissionType;
-        //                mission.GatheringMissionReward = db.BuildingMaterials.Find(miss.MissionRewardID);
-        //                mission.GatheringMissionTask = db.Plants.Find(miss.MissionTaskID);
-        //                mission.MissionTaskProgress = miss.MissionTaskProgress;
-        //                foreach (var item in model.Character.Inventory)
-        //                {
-        //                    if (item.ItemID == mission.GatheringMissionTask.ItemID && miss.MissionTaskProgress >= mission.MissionTaskNumber)
-        //                    {
-        //                        mission.MissionFinishable = true;
-        //                    }
-
-        //                }
-        //            }
-        //            else if (miss.MissionType == "zombiekilling")
-        //            {
-
-        //                mission.MissionType = miss.MissionType;
-        //                mission.GatheringMissionReward = db.BuildingMaterials.Find(miss.MissionRewardID);
-        //                mission.MissionTaskProgress = miss.MissionTaskProgress;
-        //                if (miss.MissionTaskProgress >= mission.MissionTaskNumber)
-        //                {
-        //                    mission.MissionFinishable = true;
-        //                }
-        //            }
-        //            model.Missions.Add(mission);
-
-        //        }
+        //        CharacterMissionTask characterMissionTask = new CharacterMissionTask { CharacterID = character.CharacterID, MissionTaskID = m.MissionTaskID, CharacterMissionID = charMiss.CharacterMissionID, IsCompleted = false };
+        //        db.CharacterMissionTasks.Add(characterMissionTask);
+        //        db.SaveChanges();
         //    }
 
+
+        //    character.DailyMissionDate.AddMinutes(2);
+
         //    db.SaveChanges();
 
-        //    base.SetModelProperties(model);
-        //    return View(model);
+
+
+        //    return RedirectToAction("Index", "Missions", new { });
         //}
-
-
 
     }
 }

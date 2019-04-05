@@ -257,7 +257,7 @@
 
                                     if (field.IsEmpty == true)
                                     {
-                                        <td>
+                                        <td style="padding-right:50px">
                                             <table class="zombieTable">
                                                 <tr>
                                                    <td>
@@ -280,7 +280,7 @@
                                         {
                                             if (field.PlantID == plant.ItemID)
                                             {
-                                                <td>
+                                                <td style="padding-right:50px">
                                                     <table>
                                                         @if (@field.isFinished == true)
                                                         {
@@ -300,8 +300,10 @@
                                                                 <td>@Html.ActionLink("Harvest field", "HarvestField", "Gathering", new { fieldID = @field.CharacterFieldID, plantID = @field.PlantID, returnUrl = this.Request.Url }, new { @class = "ActionLinkButton" })</td>
                                                             </tr>
                                                         }
-                                                        else if (@field.isFinished == false)
-                                                        {
+                                                        else if (@field.isFinished == false) {
+
+                                                        var fieldName = "field" + field.CharacterFieldID;
+
                                                             <tr>
                                                                 <td><img  width="100" src=@plant.ItemPicture /></td>
                                                             </tr>
@@ -312,10 +314,8 @@
                                                                 <td>@plant.ItemName</td>
                                                             </tr>
                                                             <tr>
-                                                                <td>@plant.PlantGrowTime</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td> @field.FinishDate.Month.@field.FinishDate.Day, @field.FinishDate.Hour:@field.FinishDate.Minute</td>
+                                                                <td id=@fieldName>
+                                                                </td>
                                                             </tr>
                                                         }
                                                     </table>
@@ -758,7 +758,7 @@
 
                             </div>
 
-                            <div id="missions" class="tab-pane fade">
+                            @*<div id="missions" class="tab-pane fade">
                                 <h3>Missions</h3>
 
 
@@ -866,6 +866,6 @@
                                     }
                                 }
 
-                            </div>
+                            </div>*@
 
                         </div>

@@ -166,7 +166,7 @@ namespace Zombiecalypse.Controllers
             if (ModelState.IsValid)
             {
                 var user = new ApplicationUser { UserName = model.Name, Email = model.Email };
-                var character = new Character { ApplicationUserID = model.Name, CharacterName = model.CharacterName, CharacterType = model.CharacterType, CharacterMoney = 2000000, FinishAdventure = DateTime.MaxValue, IsOnAdventure = false, CurrentEnergy = 14, MaxEnergy = 14, CharacterLevel = 5, EnergyPlusDate = DateTime.MaxValue, LastZombieAttackTime = DateTime.Now, MaxTolerance = 20, Tolerance = 20, DailyMissionDate= DateTime.Now.AddDays(-1) };
+                var character = new Character { ApplicationUserID = model.Name, CharacterName = model.CharacterName, CharacterType = model.CharacterType, CharacterMoney = 2000000, FinishAdventure = DateTime.MaxValue, IsOnAdventure = false, CurrentEnergy = 14, MaxEnergy = 14, CharacterLevel = 8, EnergyPlusDate = DateTime.MaxValue, LastZombieAttackTime = DateTime.Now, MaxTolerance = 20, Tolerance = 20, DailyMissionDate= DateTime.Now.AddDays(-1) };
 
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
@@ -177,11 +177,14 @@ namespace Zombiecalypse.Controllers
 
                     var items = new List<Inventory>
                     {
-                    new Inventory{ CharacterID=character.CharacterID, ItemID=2, ItemPieces=1, ItemMaxDurability=db.Buildings.Where(x=> x.ItemID == 2).First().ItemMaxDurability, ItemCurrentDurability=db.Buildings.Where(x=> x.ItemID == 2).First().ItemMaxDurability},
+                    new Inventory{ CharacterID=character.CharacterID, ItemID=1, ItemPieces=1, ItemMaxDurability=db.Buildings.Where(x=> x.ItemID == 1).First().ItemMaxDurability, ItemCurrentDurability=db.Buildings.Where(x=> x.ItemID == 1).First().ItemMaxDurability},
                     new Inventory{ CharacterID=character.CharacterID, ItemID=7, ItemPieces=1, ItemMaxDurability=db.Buildings.Where(x=> x.ItemID == 7).First().ItemMaxDurability, ItemCurrentDurability=db.Buildings.Where(x=> x.ItemID == 7).First().ItemMaxDurability},
                     new Inventory{ CharacterID=character.CharacterID, ItemID=13, ItemPieces=1, ItemMaxDurability=db.Buildings.Where(x=> x.ItemID == 13).First().ItemMaxDurability, ItemCurrentDurability=db.Buildings.Where(x=> x.ItemID == 13).First().ItemMaxDurability},
                     new Inventory{ CharacterID=character.CharacterID, ItemID=19, ItemPieces=1, ItemMaxDurability=db.Buildings.Where(x=> x.ItemID == 19).First().ItemMaxDurability, ItemCurrentDurability=db.Buildings.Where(x=> x.ItemID == 19).First().ItemMaxDurability},
                     new Inventory{ CharacterID=character.CharacterID, ItemID=83, ItemPieces=1, ItemMaxDurability=db.Buildings.Where(x=> x.ItemID == 83).First().ItemMaxDurability, ItemCurrentDurability=db.Buildings.Where(x=> x.ItemID == 83).First().ItemMaxDurability},
+                    new Inventory{ CharacterID=character.CharacterID, ItemID=88, ItemPieces=1, ItemMaxDurability=db.Buildings.Where(x=> x.ItemID == 88).First().ItemMaxDurability, ItemCurrentDurability=db.Buildings.Where(x=> x.ItemID == 88).First().ItemMaxDurability},
+
+
 
                     new Inventory{ CharacterID=character.CharacterID, ItemID=59, ItemPieces=1, ItemMaxDurability=999, ItemCurrentDurability=999},
                     new Inventory{ CharacterID=character.CharacterID, ItemID=69, ItemPieces=1, ItemMaxDurability=2, ItemCurrentDurability=2},
@@ -202,6 +205,8 @@ namespace Zombiecalypse.Controllers
                         db.Inventories.Add(ittem);
                     }
 
+
+                    var missionStart = new MissionsController().StartMission(1, model.Name);
 
                     //  items.ForEach(s => db.Inventories.Add(s));
                     db.SaveChanges();

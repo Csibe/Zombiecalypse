@@ -77,7 +77,7 @@ namespace Zombiecalypse.Controllers
                 item.Item = db.Items.Find(newitem.ItemID);
                 item.ItemID = newitem.ItemID;
                 item.ItemMaxDurability = newitem.ItemMaxDurability;
-                item.ItemCurrentDurability = newitem.ItemMaxDurability;
+                item.ItemCurrentDurability = 0;
 
                 character.CharacterMoney -= newitem.BuildingMoneyCost;
                 var result = new CharactersController().ManageEnergy(User.Identity.Name, newitem.BuildingEnergyCost, this.Request.FilePath);

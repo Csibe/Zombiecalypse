@@ -172,16 +172,16 @@ namespace Zombiecalypse.Controllers
                     db.SaveChanges();
 
 
-                    List<Mission> zombieMission = db.Missions.Where(x => x.CharacterID == character.CharacterID).Where(x => x.MissionType == "zombiekilling").ToList();
+                    //List<Mission> zombieMission = db.Missions.Where(x => x.CharacterID == character.CharacterID).Where(x => x.MissionType == "zombiekilling").ToList();
 
-                    if (zombieMission != null)
-                    {
-                        foreach (var mission in zombieMission)
-                        {
+                    //if (zombieMission != null)
+                    //{
+                    //    foreach (var mission in zombieMission)
+                    //    {
 
-                            mission.MissionTaskProgress++;
-                        }
-                    }
+                    //        mission.MissionTaskProgress++;
+                    //    }
+                    //}
                 }
             }
 
@@ -279,6 +279,7 @@ namespace Zombiecalypse.Controllers
                 {
                     model.Character.AdventureState++;
                     model.Character.FinishAdventure = DateTime.Now.AddSeconds(model.Adventure.AdventureWaitingTime);
+                    model.Character.isWaitingOnAdventure = true;
                     db.SaveChanges();
                     return RedirectToAction("AdventureCounter", "Adventures", new { AdId = model.Adventure.AdventureID, ChId = User.Identity.Name });
 
@@ -423,6 +424,8 @@ namespace Zombiecalypse.Controllers
                     character.FinishAdventure = DateTime.MaxValue;
                     character.AdventureState = 1;
                     character.AdventureID = AdId;
+                    character.isYourTurn = true;
+                    character.isWaitingOnAdventure = false;
 
                     character.IsOnAdventure = true;
                     db.SaveChanges();

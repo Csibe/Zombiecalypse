@@ -32,13 +32,13 @@ namespace Zombiecalypse.Controllers
             Plant plant = db.Plants.Find(plantID);
             Character character = db.Characters.Where(x => x.ApplicationUserID == User.Identity.Name).FirstOrDefault();
 
-            List<Mission> missions = db.Missions.Where(x => x.CharacterID == field.CharacterID).Where(x=>x.MissionType=="gathering").ToList();
+            //List<Mission> missions = db.Missions.Where(x => x.CharacterID == field.CharacterID).Where(x=>x.MissionType=="gathering").ToList();
 
-            foreach (var miss in missions) {
-                if (miss.MissionTaskID == plantID) {
-                    miss.MissionTaskProgress += 1;
-                }
-            }
+            //foreach (var miss in missions) {
+            //    if (miss.MissionTaskID == plantID) {
+            //        miss.MissionTaskProgress += 1;
+            //    }
+            //}
 
             field.PlantID = 0;
             field.IsEmpty = true;
@@ -46,6 +46,8 @@ namespace Zombiecalypse.Controllers
 
             character.CharacterMoney += plant.PlantRewardCoin;
             character.CharacterFood += plant.PlantRewardFood;
+            var result = new MissionsController().HarvestMission(plantID, User.Identity.Name);
+
             db.SaveChanges();
 
             return Redirect(returnUrl);

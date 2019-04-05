@@ -41,6 +41,7 @@ namespace Zombiecalypse.Models
         public int AdventureState { get; set; }
         public bool isYourTurn { get; set; }
         [DataType(DataType.DateTime)]
+        public bool isWaitingOnAdventure { get; set; }
         [DisplayName("Finish adventure time")]
         public DateTime FinishAdventure { get; set; }
         [DataType(DataType.DateTime)]
@@ -64,7 +65,7 @@ namespace Zombiecalypse.Models
         public string BasePicture { get; set; }
         public virtual ICollection<Plant> Plants { get; set; }
         public virtual ICollection<Energy> EnergyPacks { get; set; }
-        public virtual ICollection<MissionVM> Missions { get; set; }
+        public virtual ICollection<Mission> Missions { get; set; }
         public virtual ICollection<Inventory> CharacterItems { get; set; }
         public virtual ICollection<Building> CharacterBuildings { get; set; }
         public virtual ICollection<CharacterField> CharacterFields { get; set; }

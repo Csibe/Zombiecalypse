@@ -6,6 +6,7 @@ var untilAdventure = AdventureFinishDate;
 var untilEnergy = EnergyPlusDate;
 var lastZombieStartAttack = LastZombieStartAttack;
 var endOfExplore = EndOfExplore;
+var isWaitingOnAdventure = IsWaitingOnAdventure
 var dailyMissionDate = DailyMissionDate;
 
 var fieldFinishDate = FieldFinishDate;
@@ -20,8 +21,23 @@ var x = setInterval(function () {
     var distanceEnergy = untilEnergy - now;
     var distanceLastZombieStartAttack = now - lastZombieStartAttack;
     var distanceEndOfExplore = endOfExplore - now;
+   
 
-    var today = new Date(now.getFullYear(),now.getMonth(),now.getDate(),0,0,0,0);
+    var today = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 0, 0, 0, 0);
+    var tomorrow = new Date(now.getFullYear(), now.getMonth(), now.getDate()+1, 0, 0, 0, 0);
+
+    var distanceDailyMission = tomorrow - now;
+
+    var Missionhours = Math.floor((distanceDailyMission % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    var Missionminutes = Math.floor((distanceDailyMission % (1000 * 60 * 60)) / (1000 * 60));
+    var Missionseconds = Math.floor((distanceDailyMission % (1000 * 60)) / 1000);
+
+
+    if (document.getElementById("missionCounter")) {
+        document.getElementById("missionCounter").innerHTML = Missionhours + "h " + Missionminutes + "m " + Missionseconds + "s ";;
+    }
+
+
 
 
     var days = Math.floor(distanceAdventure / (1000 * 60 * 60 * 24));
@@ -29,10 +45,7 @@ var x = setInterval(function () {
     var minutes = Math.floor((distanceAdventure % (1000 * 60 * 60)) / (1000 * 60));
     var seconds = Math.floor((distanceAdventure % (1000 * 60)) / 1000);
 
-
- if (isYourTurn == 'False' && isOnAdventure == 'True') {
-
-     console.log("isYourTurn: " + isYourTurn);
+    if (isYourTurn == 'False' && isOnAdventure == 'True' && isWaitingOnAdventure == 'False') {
 
         clearInterval(x);
 
@@ -43,11 +56,11 @@ var x = setInterval(function () {
             location.reload();
             //  alert("ManageTurns!");
         });
-        //   window.location.href = "/Zombies/ZombieStartAttackBase/" + UserName + "?returnUrl=" + PageUrl;
+           //window.location.href = "/Zombies/ZombieStartAttackBase/" + UserName + "?returnUrl=" + PageUrl;
 
     }
 
-
+    console.log("dailyMissionDate: " + dailyMissionDate + ", today: " + today);
     if (dailyMissionDate <= today) {
         clearInterval(x);
 
@@ -78,12 +91,33 @@ var x = setInterval(function () {
         document.getElementById("counter").innerHTML = days + " nap " + hours + " óra " + minutes + " perc " + seconds + " másodperc ";
     }
 
+
     for (var count = 0; count < FieldFinishDate.length; count++) {
 
         var untilField = fieldFinishDate[count];
         var fieldID = FieldID[count];
 
         var distanceField = untilField - now;
+
+        var fieldName = "field" + fieldID;
+
+
+
+
+
+
+        if (document.getElementById(fieldName)) {
+
+            var fielddays = Math.floor(distanceField / (1000 * 60 * 60 * 24));
+            var fieldhours = Math.floor((distanceField % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            var fieldminutes = Math.floor((distanceField % (1000 * 60 * 60)) / (1000 * 60));
+            var fieldseconds = Math.floor((distanceField % (1000 * 60)) / 1000);
+
+
+            document.getElementById(fieldName).innerHTML = fieldhours + " h " + fieldminutes + " m " + fieldseconds + " s ";
+        }
+
+
 
        console.log("field distance: " +fieldFinishDate[count]);
 

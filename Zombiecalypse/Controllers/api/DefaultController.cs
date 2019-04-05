@@ -67,11 +67,15 @@ namespace Zombiecalypse.Controllers.api
                 if (character.FinishAdventure <= DateTime.Now)
                 {
                     character.FinishAdventure = DateTime.MaxValue;
+                    character.isWaitingOnAdventure = false;
+                    character.isYourTurn = true;
                     db.SaveChanges();
                     result = "Adventure finished!";
                 }
                 else if (character.FinishAdventure > DateTime.Now)
                 {
+                    character.isWaitingOnAdventure = true;
+                    db.SaveChanges();
                     result = "You are on adventure!";
                 }
 
@@ -370,72 +374,81 @@ namespace Zombiecalypse.Controllers.api
         }
 
 
+
+
         [HttpGet]
         public IHttpActionResult GenerateDailyMissions()
         {
+
+
             Character character = db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault();
 
+            List<CharacterMission> characterMissions = db.CharacterMissions.Where(x => x.CharacterID == character.CharacterID).ToList();
 
-            List<Mission> missions = db.Missions.Where(x => x.CharacterID == character.CharacterID).ToList();
-
-            if (missions.Count() > 0)
+            foreach (var mission in db.DailyMissions)
             {
-                missions.ForEach(s => db.Missions.Remove(s));
+                foreach (var cm in characterMissions)
+                {
+                    if (mission.MissionID == cm.MissionID)
+                    {
+                        foreach (var cmt in db.CharacterMissionTasks.Where(x => x.CharacterID == character.CharacterID).Where(x => x.CharacterMissionID == cm.CharacterMissionID).ToList())
+                        {
+                            db.CharacterMissionTasks.Remove(cmt);
+                        }
+                    }
+                }
+            }
+
+            db.SaveChanges();
+
+
+            foreach (var mission in db.DailyMissions)
+            {
+                foreach (var cm in characterMissions)
+                {
+                    if (mission.MissionID == cm.MissionID)
+                    {
+                        if (cm.CharacterMissionTasks.Count == 0)
+                        {
+                            db.CharacterMissions.Remove(cm);
+                        }
+                    }
+                }
+            }
+
+
+            db.SaveChanges();
+
+            Random rand = new Random();
+            List<DailyMission> dailymissions = db.DailyMissions.ToList();
+            int missionIndex = rand.Next(0, dailymissions.Count());
+            DailyMission selectedMission = dailymissions.ElementAt<DailyMission>(missionIndex);
+
+            selectedMission.MissionTasks = db.MissionTasks.Where(x => x.MissionID == selectedMission.MissionID).ToList();
+
+
+            CharacterMission charMiss = new CharacterMission { CharacterID = character.CharacterID, MissionID = selectedMission.MissionID, IsCompleted = false };
+
+            db.CharacterMissions.Add(charMiss);
+            db.SaveChanges();
+
+            foreach (var m in selectedMission.MissionTasks)
+            {
+                CharacterMissionTask characterMissionTask = new CharacterMissionTask { CharacterID = character.CharacterID, MissionTaskID = m.MissionTaskID, CharacterMissionID = charMiss.CharacterMissionID, IsCompleted = false };
+                db.CharacterMissionTasks.Add(characterMissionTask);
                 db.SaveChanges();
             }
 
-            Mission model = new Mission();
-
-            List<BuildingMaterial> buildingMaterials = db.BuildingMaterials.ToList();
-
-            List<Material> materials = db.Materials.ToList();
-
-            Random rand = new Random();
-
-            int rewardItem = rand.Next(0, db.BuildingMaterials.Count());
-            int taskItem = rand.Next(0, db.Materials.Count());
-
-            Mission mission = new Mission { CharacterID = character.CharacterID, MissionTaskID = db.Materials.ToArray()[taskItem].ItemID, MissionTaskNumber = 2, MissionRewardID = buildingMaterials.ToArray()[rewardItem].ItemID, MissionRewardNumber = 1, MissionRewardXP = 10, MissionType = "collection" };
-            db.Missions.Add(mission);
-            db.SaveChanges();
-
-            List<Plant> plants = db.Plants.ToList();
-
-            rand = new Random();
-
-            rewardItem = rand.Next(0, db.BuildingMaterials.Count());
-            taskItem = rand.Next(0, db.Plants.Count());
-
-            mission = new Mission { CharacterID = character.CharacterID, MissionTaskID = db.Plants.ToArray()[taskItem].ItemID, MissionTaskNumber = 2, MissionRewardID = buildingMaterials.ToArray()[rewardItem].ItemID, MissionRewardNumber = 1, MissionType = "gathering", MissionRewardXP = 10, MissionTaskProgress = 0 };
-            db.Missions.Add(mission);
-            db.SaveChanges();
-
-            List<Zombie> zombies = db.Zombies.ToList();
-
-            rand = new Random();
-
-            rewardItem = rand.Next(0, db.BuildingMaterials.Count());
-            //  int taskItem = rand.Next(0, db.Plants.Count());
-
-            mission = new Mission { CharacterID = character.CharacterID, MissionTaskNumber = 2, MissionRewardID = buildingMaterials.ToArray()[rewardItem].ItemID, MissionRewardNumber = 1, MissionType = "zombiekilling", MissionRewardXP = 10, MissionTaskProgress = 0 };
-            db.Missions.Add(mission);
-            db.SaveChanges();
-
-
-            rand = new Random();
-
-            rewardItem = rand.Next(0, db.BuildingMaterials.Count());
-            taskItem = rand.Next(0, db.Materials.Count());
-
-            mission = new Mission { CharacterID = character.CharacterID, MissionTaskID = db.Materials.ToArray()[taskItem].ItemID, MissionTaskNumber = 2, MissionRewardID = buildingMaterials.ToArray()[rewardItem].ItemID, MissionRewardNumber = 1, MissionRewardXP = 10, MissionType = "collection" };
-            db.Missions.Add(mission);
 
             character.DailyMissionDate = DateTime.Now;
 
             db.SaveChanges();
 
+
+
             return Ok();
         }
+
 
 
         //[HttpGet]
@@ -519,6 +532,7 @@ namespace Zombiecalypse.Controllers.api
 
                 zombies.ForEach(x => db.ZombieAttackAdventurers.Remove(x));
                 model.Character.IsOnAdventure = false;
+                model.Character.isWaitingOnAdventure = false;
                 model.Character.FinishAdventure = DateTime.MaxValue;
                 db.SaveChanges();
 

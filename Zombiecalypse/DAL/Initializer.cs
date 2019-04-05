@@ -48,33 +48,33 @@ namespace Zombiecalypse.DAL
 
             var buildings = new List<Building>
                     {
-                new Building{ItemID=1, ItemName="House", BuildingLevel=0, ItemMaxDurability=0, BuildingEnergyCost=0, BuildingMoneyCost=0, ItemPicture="/Content/Pictures/Buildings/House_0.png"},
-                new Building{ItemID=2, ItemName="House", BuildingLevel=1, ItemMaxDurability=5, BuildingEnergyCost=0, BuildingMoneyCost=100, ItemPicture="/Content/Pictures/Buildings/House_1.png"},
-                new Building{ItemID=3, ItemName="House", BuildingLevel=2, ItemMaxDurability=10, BuildingEnergyCost=3, BuildingMoneyCost=200, ItemPicture="/Content/Pictures/Buildings/House_2.png"},
-                new Building{ItemID=4, ItemName="House", BuildingLevel=3, ItemMaxDurability=15, BuildingEnergyCost=4, BuildingMoneyCost=300, ItemPicture="/Content/Pictures/Buildings/House_3.png"},
-                new Building{ItemID=5, ItemName="House", BuildingLevel=4, ItemMaxDurability=20, BuildingEnergyCost=5, BuildingMoneyCost=400, ItemPicture="/Content/Pictures/Buildings/House_4.png"},
-                new Building{ItemID=6, ItemName="House", BuildingLevel=5, ItemMaxDurability=25, BuildingEnergyCost=5, BuildingMoneyCost=400, ItemPicture="/Content/Pictures/Buildings/House_5.png"},
+                new Building{ItemID=1, ItemName="House", BuildingLevel=0, ItemMaxDurability=0, BuildingEnergyCost=0, BuildingMoneyCost=0, ItemPicture="/Content/Pictures/Buildings/1.png"},
+                new Building{ItemID=2, ItemName="House", BuildingLevel=1, ItemMaxDurability=5, BuildingEnergyCost=0, BuildingMoneyCost=100, ItemPicture="/Content/Pictures/Buildings/2.png"},
+                new Building{ItemID=3, ItemName="House", BuildingLevel=2, ItemMaxDurability=10, BuildingEnergyCost=3, BuildingMoneyCost=200, ItemPicture="/Content/Pictures/Buildings/3.png"},
+                new Building{ItemID=4, ItemName="House", BuildingLevel=3, ItemMaxDurability=15, BuildingEnergyCost=4, BuildingMoneyCost=300, ItemPicture="/Content/Pictures/Buildings/4.png"},
+                new Building{ItemID=5, ItemName="House", BuildingLevel=4, ItemMaxDurability=20, BuildingEnergyCost=5, BuildingMoneyCost=400, ItemPicture="/Content/Pictures/Buildings/5.png"},
+                new Building{ItemID=6, ItemName="House", BuildingLevel=5, ItemMaxDurability=25, BuildingEnergyCost=5, BuildingMoneyCost=400, ItemPicture="/Content/Pictures/Buildings/6.png"},
 
-                new Building {ItemID=7, ItemName = "Garage", BuildingLevel = 0, ItemMaxDurability=0, BuildingEnergyCost = 0, BuildingMoneyCost = 0, ItemPicture = "/Content/Pictures/Buildings/Garage_0.png" },
-                new Building {ItemID=8, ItemName = "Garage", BuildingLevel = 1, ItemMaxDurability=5, BuildingEnergyCost = 5, BuildingMoneyCost = 400, ItemPicture = "/Content/Pictures/Buildings/Garage_1.png" },
-                new Building {ItemID=9, ItemName = "Garage", BuildingLevel = 2, ItemMaxDurability=10, BuildingEnergyCost = 5, BuildingMoneyCost = 400, ItemPicture = "/Content/Pictures/Buildings/Garage_2.png" },
-                new Building {ItemID=10, ItemName = "Garage", BuildingLevel = 3, ItemMaxDurability=15, BuildingEnergyCost = 5, BuildingMoneyCost = 400, ItemPicture = "/Content/Pictures/Buildings/Garage_3.png" },
-                new Building {ItemID=11, ItemName = "Garage", BuildingLevel = 4, ItemMaxDurability=20, BuildingEnergyCost = 5, BuildingMoneyCost = 400, ItemPicture = "/Content/Pictures/Buildings/Garage_4.png" },
-                new Building {ItemID=12, ItemName = "Garage", BuildingLevel = 5, ItemMaxDurability=25, BuildingEnergyCost = 5, BuildingMoneyCost = 400, ItemPicture = "/Content/Pictures/Buildings/Garage_5.png" },
+                new Building {ItemID=7, ItemName = "Garage", BuildingLevel = 0, ItemMaxDurability=0, BuildingEnergyCost = 0, BuildingMoneyCost = 0, ItemPicture = "/Content/Pictures/Buildings/7.png" },
+                new Building {ItemID=8, ItemName = "Garage", BuildingLevel = 1, ItemMaxDurability=5, BuildingEnergyCost = 5, BuildingMoneyCost = 400, ItemPicture = "/Content/Pictures/Buildings/8.png" },
+                new Building {ItemID=9, ItemName = "Garage", BuildingLevel = 2, ItemMaxDurability=10, BuildingEnergyCost = 5, BuildingMoneyCost = 400, ItemPicture = "/Content/Pictures/Buildings/9.png" },
+                new Building {ItemID=10, ItemName = "Garage", BuildingLevel = 3, ItemMaxDurability=15, BuildingEnergyCost = 5, BuildingMoneyCost = 400, ItemPicture = "/Content/Pictures/Buildings/10.png" },
+                new Building {ItemID=11, ItemName = "Garage", BuildingLevel = 4, ItemMaxDurability=20, BuildingEnergyCost = 5, BuildingMoneyCost = 400, ItemPicture = "/Content/Pictures/Buildings/11.png" },
+                new Building {ItemID=12, ItemName = "Garage", BuildingLevel = 5, ItemMaxDurability=25, BuildingEnergyCost = 5, BuildingMoneyCost = 400, ItemPicture = "/Content/Pictures/Buildings/12.png" },
 
-                new Building {ItemID=13, ItemName = "Garden shed", BuildingLevel = 0, ItemMaxDurability=0, BuildingEnergyCost = 0, BuildingMoneyCost = 0, ItemPicture = "/Content/Pictures/Buildings/GardenShed_0.png" },
-                new Building {ItemID=14, ItemName = "Garden shed", BuildingLevel = 1, ItemMaxDurability=5, BuildingEnergyCost = 5, BuildingMoneyCost = 400, ItemPicture = "/Content/Pictures/Buildings/GardenShed_1.png" },
-                new Building {ItemID=15, ItemName = "Garden shed", BuildingLevel = 2, ItemMaxDurability=10, BuildingEnergyCost = 5, BuildingMoneyCost = 400, ItemPicture = "/Content/Pictures/Buildings/GardenShed_2.png" },
-                new Building {ItemID=16, ItemName = "Garden shed", BuildingLevel = 3, ItemMaxDurability=15, BuildingEnergyCost = 5, BuildingMoneyCost = 400, ItemPicture = "/Content/Pictures/Buildings/GardenShed_3.png" },
-                new Building {ItemID=17, ItemName = "Garden shed", BuildingLevel = 4, ItemMaxDurability=20, BuildingEnergyCost = 5, BuildingMoneyCost = 400, ItemPicture = "/Content/Pictures/Buildings/GardenShed_4.png" },
-                new Building {ItemID=18, ItemName = "Garden shed", BuildingLevel = 5, ItemMaxDurability=25, BuildingEnergyCost = 5, BuildingMoneyCost = 400, ItemPicture = "/Content/Pictures/Buildings/GardenShed_5.png" },
+                new Building {ItemID=13, ItemName = "Garden shed", BuildingLevel = 0, ItemMaxDurability=0, BuildingEnergyCost = 0, BuildingMoneyCost = 0, ItemPicture = "/Content/Pictures/Buildings/13.png" },
+                new Building {ItemID=14, ItemName = "Garden shed", BuildingLevel = 1, ItemMaxDurability=5, BuildingEnergyCost = 5, BuildingMoneyCost = 400, ItemPicture = "/Content/Pictures/Buildings/14.png" },
+                new Building {ItemID=15, ItemName = "Garden shed", BuildingLevel = 2, ItemMaxDurability=10, BuildingEnergyCost = 5, BuildingMoneyCost = 400, ItemPicture = "/Content/Pictures/Buildings/15.png" },
+                new Building {ItemID=16, ItemName = "Garden shed", BuildingLevel = 3, ItemMaxDurability=15, BuildingEnergyCost = 5, BuildingMoneyCost = 400, ItemPicture = "/Content/Pictures/Buildings/16.png" },
+                new Building {ItemID=17, ItemName = "Garden shed", BuildingLevel = 4, ItemMaxDurability=20, BuildingEnergyCost = 5, BuildingMoneyCost = 400, ItemPicture = "/Content/Pictures/Buildings/17.png" },
+                new Building {ItemID=18, ItemName = "Garden shed", BuildingLevel = 5, ItemMaxDurability=25, BuildingEnergyCost = 5, BuildingMoneyCost = 400, ItemPicture = "/Content/Pictures/Buildings/18.png" },
 
-                new Building {ItemID=19, ItemName = "Tool shed", BuildingLevel = 0, ItemMaxDurability=0, BuildingEnergyCost = 0, BuildingMoneyCost = 0, ItemPicture = "/Content/Pictures/Buildings/ToolShed_0.png" },
-                new Building {ItemID=20, ItemName = "Tool shed", BuildingLevel = 1, ItemMaxDurability=5, BuildingEnergyCost = 5, BuildingMoneyCost = 400, ItemPicture = "/Content/Pictures/Buildings/ToolShed_1.png" },
-                new Building {ItemID=21, ItemName = "Tool shed", BuildingLevel = 2, ItemMaxDurability=10, BuildingEnergyCost = 5, BuildingMoneyCost = 400, ItemPicture = "/Content/Pictures/Buildings/ToolShed_2.png" },
-                new Building {ItemID=22, ItemName = "Tool shed", BuildingLevel = 3, ItemMaxDurability=15, BuildingEnergyCost = 5, BuildingMoneyCost = 400, ItemPicture = "/Content/Pictures/Buildings/ToolShed_3.png" },
-                new Building {ItemID=23, ItemName = "Tool shed", BuildingLevel = 4, ItemMaxDurability=20, BuildingEnergyCost = 5, BuildingMoneyCost = 400, ItemPicture = "/Content/Pictures/Buildings/ToolShed_4.png" },
-                new Building {ItemID=24, ItemName = "Tool shed", BuildingLevel = 5, ItemMaxDurability=25, BuildingEnergyCost = 5, BuildingMoneyCost = 400, ItemPicture = "/Content/Pictures/Buildings/ToolShed_5.png" },
+                new Building {ItemID=19, ItemName = "Tool shed", BuildingLevel = 0, ItemMaxDurability=0, BuildingEnergyCost = 0, BuildingMoneyCost = 0, ItemPicture = "/Content/Pictures/Buildings/19.png" },
+                new Building {ItemID=20, ItemName = "Tool shed", BuildingLevel = 1, ItemMaxDurability=5, BuildingEnergyCost = 5, BuildingMoneyCost = 400, ItemPicture = "/Content/Pictures/Buildings/20.png" },
+                new Building {ItemID=21, ItemName = "Tool shed", BuildingLevel = 2, ItemMaxDurability=10, BuildingEnergyCost = 5, BuildingMoneyCost = 400, ItemPicture = "/Content/Pictures/Buildings/21.png" },
+                new Building {ItemID=22, ItemName = "Tool shed", BuildingLevel = 3, ItemMaxDurability=15, BuildingEnergyCost = 5, BuildingMoneyCost = 400, ItemPicture = "/Content/Pictures/Buildings/22.png" },
+                new Building {ItemID=23, ItemName = "Tool shed", BuildingLevel = 4, ItemMaxDurability=20, BuildingEnergyCost = 5, BuildingMoneyCost = 400, ItemPicture = "/Content/Pictures/Buildings/23.png" },
+                new Building {ItemID=24, ItemName = "Tool shed", BuildingLevel = 5, ItemMaxDurability=25, BuildingEnergyCost = 5, BuildingMoneyCost = 400, ItemPicture = "/Content/Pictures/Buildings/24.png" },
 
                 new Building {ItemID=82, ItemName = "Fence", BuildingLevel = 0, ItemMaxDurability=0, BuildingEnergyCost = 0, BuildingMoneyCost = 0, ItemPicture = "/Content/Pictures/Buildings/82.png" },
                 new Building {ItemID=83, ItemName = "Fence", BuildingLevel = 1, ItemMaxDurability=5, BuildingEnergyCost = 5, BuildingMoneyCost = 400, ItemPicture = "/Content/Pictures/Buildings/83.png" },
@@ -83,14 +83,21 @@ namespace Zombiecalypse.DAL
                 new Building {ItemID=86, ItemName = "Fence", BuildingLevel = 4, ItemMaxDurability=20, BuildingEnergyCost = 5, BuildingMoneyCost = 400, ItemPicture = "/Content/Pictures/Buildings/86.png" },
                 new Building {ItemID=87, ItemName = "Fence", BuildingLevel = 5, ItemMaxDurability=25, BuildingEnergyCost = 5, BuildingMoneyCost = 400, ItemPicture = "/Content/Pictures/Buildings/87.png" },
 
+                new Building {ItemID=88, ItemName = "Car", BuildingLevel = 0, ItemMaxDurability=0, BuildingEnergyCost = 0, BuildingMoneyCost = 0, ItemPicture = "/Content/Pictures/Buildings/88.png" },
+                new Building {ItemID=89, ItemName = "Car", BuildingLevel = 1, ItemMaxDurability=5, BuildingEnergyCost = 5, BuildingMoneyCost = 400, ItemPicture = "/Content/Pictures/Buildings/89.png" },
+                new Building {ItemID=90, ItemName = "Car", BuildingLevel = 2, ItemMaxDurability=10, BuildingEnergyCost = 5, BuildingMoneyCost = 400, ItemPicture = "/Content/Pictures/Buildings/90.png" },
+                new Building {ItemID=91, ItemName = "Car", BuildingLevel = 3, ItemMaxDurability=15, BuildingEnergyCost = 5, BuildingMoneyCost = 400, ItemPicture = "/Content/Pictures/Buildings/91.png" },
+                new Building {ItemID=92, ItemName = "Car", BuildingLevel = 4, ItemMaxDurability=20, BuildingEnergyCost = 5, BuildingMoneyCost = 400, ItemPicture = "/Content/Pictures/Buildings/92.png" },
+                new Building {ItemID=93, ItemName = "Car", BuildingLevel = 5, ItemMaxDurability=25, BuildingEnergyCost = 5, BuildingMoneyCost = 400, ItemPicture = "/Content/Pictures/Buildings/93.png" },
+
 
                     };
             buildings.ForEach(s => context.Buildings.Add(s));
             context.SaveChanges();
 
             var plants = new List<Plant> {
-                        new Plant {ItemID=25,  ItemName="Melon",  PlantMoneyCost=15, PlantGrowTime=5, PlantRewardCoin=30, PlantRewardFood=1, ItemPicture="/Content/Pictures/Fields/MelonFinished.png",  PlantStartPicture= "/Content/Pictures/Fields/MelonStart.png", PlantFinishedPicture="/Content/Pictures/Fields/MelonFinished.png" },
-                        new Plant {ItemID=26,  ItemName="Pepper", PlantMoneyCost=25, PlantGrowTime=15, PlantRewardCoin=45, PlantRewardFood=1,  ItemPicture="/Content/Pictures/Fields/PepperFinished.png",   PlantStartPicture="/Content/Pictures/Fields/PepperStart.png", PlantFinishedPicture="/Content/Pictures/Fields/PepperFinished.png" },
+                        new Plant {ItemID=25,  ItemName="Melon",  PlantMoneyCost=20, PlantGrowTime=5, PlantRewardCoin=30, PlantRewardFood=1, ItemPicture="/Content/Pictures/Fields/MelonFinished.png",  PlantStartPicture= "/Content/Pictures/Fields/MelonStart.png", PlantFinishedPicture="/Content/Pictures/Fields/MelonFinished.png" },
+                        new Plant {ItemID=26,  ItemName="Pepper", PlantMoneyCost=40, PlantGrowTime=15, PlantRewardCoin=45, PlantRewardFood=1,  ItemPicture="/Content/Pictures/Fields/PepperFinished.png",   PlantStartPicture="/Content/Pictures/Fields/PepperStart.png", PlantFinishedPicture="/Content/Pictures/Fields/PepperFinished.png" },
                         new Plant {ItemID=27,  ItemName="Potato", PlantMoneyCost=50, PlantGrowTime=60, PlantRewardCoin=70, PlantRewardFood=1, ItemPicture="/Content/Pictures/Fields/PotatoFinished.png",   PlantStartPicture="/Content/Pictures/Fields/PotatoStart.png", PlantFinishedPicture="/Content/Pictures/Fields/PotatoFinished.png"},
                         new Plant {ItemID=28,  ItemName="Pumpkin",  PlantMoneyCost=100, PlantGrowTime=120, PlantRewardCoin=150, PlantRewardFood=3, ItemPicture="/Content/Pictures/Fields/PumpkinFinished.png",    PlantStartPicture= "/Content/Pictures/Fields/PumpkinStart.png", PlantFinishedPicture="/Content/Pictures/Fields/PumpkinFinished.png" },
                         new Plant {ItemID=29,  ItemName="Strawberry", PlantMoneyCost=110, PlantGrowTime=360, PlantRewardCoin=190, PlantRewardFood=1, ItemPicture="/Content/Pictures/Fields/StrawberryFinished.png",   PlantStartPicture="/Content/Pictures/Fields/StrawberryStart.png", PlantFinishedPicture="/Content/Pictures/Fields/StrawberryFinished.png" },
@@ -121,6 +128,8 @@ namespace Zombiecalypse.DAL
                         new Material {ItemID= 51, ItemName="Battery", ItemPicture="/Content/Pictures/Materials/Battery.png" },
                         new Material {ItemID= 52, ItemName="Rake", ItemPicture="/Content/Pictures/Materials/Rake.png" },
                         new Material {ItemID= 53, ItemName="Hose", ItemPicture="/Content/Pictures/Materials/Hose.png" },
+                        new Material {ItemID= 99, ItemName="Fertilizer", ItemPicture="/Content/Pictures/Materials/Fertilizer.png" },
+                        new Material {ItemID= 100, ItemName="Metal bucket", ItemPicture="/Content/Pictures/Materials/MetalBucket.png" },
 
                         };
             materials.ForEach(s => context.Materials.Add(s));
@@ -133,6 +142,11 @@ namespace Zombiecalypse.DAL
                 new BuildingMaterial {ItemID=56, ItemName="metal sheet", ItemPicture="/Content/Pictures/Items/MetalSheet.PNG"},
                 new BuildingMaterial {ItemID=57, ItemName="roof tile", ItemPicture="/Content/Pictures/Items/RoofTile.PNG"},
                 new BuildingMaterial {ItemID=58, ItemName="screw",  ItemPicture="/Content/Pictures/Items/Screw.PNG"},
+                new BuildingMaterial {ItemID=94, ItemName="brick",  ItemPicture="/Content/Pictures/Items/Brick.PNG"},
+                new BuildingMaterial {ItemID= 95, ItemName="Car wax", ItemPicture="/Content/Pictures/Items/CarWax.png" },
+                new BuildingMaterial {ItemID= 96, ItemName="Spare parts", ItemPicture="/Content/Pictures/Items/SpareParts.png" },
+                new BuildingMaterial {ItemID= 97, ItemName="Spare plugs", ItemPicture="/Content/Pictures/Items/SparePlugs.png" },
+                new BuildingMaterial {ItemID= 98, ItemName="jumper cable", ItemPicture="/Content/Pictures/Items/JumperCable.png" },
                 };
             buildingmaterials.ForEach(s => context.BuildingMaterials.Add(s));
             context.SaveChanges();
@@ -311,12 +325,43 @@ namespace Zombiecalypse.DAL
                                new BuildingBuildingMaterial { BuildingID=87, BuildingMaterialID=54, MaterialPieces=25},
 
 
+                                               //car 0
+                               new BuildingBuildingMaterial { BuildingID=88, BuildingMaterialID=95, MaterialPieces=0},
+                               new BuildingBuildingMaterial { BuildingID=88, BuildingMaterialID=96, MaterialPieces=0},
+                               new BuildingBuildingMaterial { BuildingID=88, BuildingMaterialID=97, MaterialPieces=0},
+                               new BuildingBuildingMaterial { BuildingID=88, BuildingMaterialID=98, MaterialPieces=0},
+                                               //car 1
+                               new BuildingBuildingMaterial { BuildingID=89, BuildingMaterialID=95, MaterialPieces=1},
+                               new BuildingBuildingMaterial { BuildingID=89, BuildingMaterialID=96, MaterialPieces=1},
+                               new BuildingBuildingMaterial { BuildingID=89, BuildingMaterialID=97, MaterialPieces=1},
+                               new BuildingBuildingMaterial { BuildingID=89, BuildingMaterialID=98, MaterialPieces=1},
+                                               //car 2
+                               new BuildingBuildingMaterial { BuildingID=90, BuildingMaterialID=95, MaterialPieces=2},
+                               new BuildingBuildingMaterial { BuildingID=90, BuildingMaterialID=96, MaterialPieces=2},
+                               new BuildingBuildingMaterial { BuildingID=90, BuildingMaterialID=97, MaterialPieces=2},
+                               new BuildingBuildingMaterial { BuildingID=90, BuildingMaterialID=98, MaterialPieces=2},
+                                               //car 3
+                               new BuildingBuildingMaterial { BuildingID=91, BuildingMaterialID=95, MaterialPieces=3},
+                               new BuildingBuildingMaterial { BuildingID=91, BuildingMaterialID=96, MaterialPieces=3},
+                               new BuildingBuildingMaterial { BuildingID=91, BuildingMaterialID=97, MaterialPieces=3},
+                               new BuildingBuildingMaterial { BuildingID=91, BuildingMaterialID=98, MaterialPieces=3},
+                                               //car 4
+                               new BuildingBuildingMaterial { BuildingID=92, BuildingMaterialID=95, MaterialPieces=4},
+                               new BuildingBuildingMaterial { BuildingID=92, BuildingMaterialID=96, MaterialPieces=4},
+                               new BuildingBuildingMaterial { BuildingID=92, BuildingMaterialID=97, MaterialPieces=4},
+                               new BuildingBuildingMaterial { BuildingID=92, BuildingMaterialID=98, MaterialPieces=4},
+                                               //car 5
+                               new BuildingBuildingMaterial { BuildingID=93, BuildingMaterialID=95, MaterialPieces=5},
+                               new BuildingBuildingMaterial { BuildingID=93, BuildingMaterialID=96, MaterialPieces=5},
+                               new BuildingBuildingMaterial { BuildingID=93, BuildingMaterialID=97, MaterialPieces=5},
+                               new BuildingBuildingMaterial { BuildingID=93, BuildingMaterialID=98, MaterialPieces=5},
+
                         };
 
             buildingbuildingmaterials.ForEach(s => context.BuildingBuildingMaterials.Add(s));
             context.SaveChanges();
 
-            var weapon = new Weapon { ItemID = 59, ItemName = "Shovel", ItemMaxDurability = 999, WeaponDamage = 1, ItemPicture = "/Content/Pictures/BuyableWeapons/Shovel.png", IsRanged= false };
+            var weapon = new Weapon { ItemID = 59, ItemName = "Shovel", ItemMaxDurability = 999, WeaponDamage = 1, ItemPicture = "/Content/Pictures/BuyableWeapons/Shovel.png", IsRanged = false };
             context.Weapons.Add(weapon);
             context.SaveChanges();
 
@@ -717,13 +762,227 @@ namespace Zombiecalypse.DAL
             context.SaveChanges();
 
 
-            var dogs = new List<Dog> {
-                 new Dog {  ItemID = 100, ItemName = "dog1", ItemPicture="/Content/Pictures/Dogs/dog1.png", ItemMaxDurability=0},
-                 new Dog {  ItemID = 101, ItemName = "dog2", ItemPicture="/Content/Pictures/Dogs/dog2.png", ItemMaxDurability=0},
-                 new Dog {  ItemID = 102, ItemName = "dog3", ItemPicture="/Content/Pictures/Dogs/dog3.png", ItemMaxDurability=0},
-            };
-            dogs.ForEach(s => context.Dogs.Add(s));
+            //var dogs = new List<Dog> {
+            //     new Dog {  ItemID = 100, ItemName = "dog1", ItemPicture="/Content/Pictures/Dogs/dog1.png", ItemMaxDurability=0},
+            //     new Dog {  ItemID = 101, ItemName = "dog2", ItemPicture="/Content/Pictures/Dogs/dog2.png", ItemMaxDurability=0},
+            //     new Dog {  ItemID = 102, ItemName = "dog3", ItemPicture="/Content/Pictures/Dogs/dog3.png", ItemMaxDurability=0},
+            //};
+            //dogs.ForEach(s => context.Dogs.Add(s));
+            //context.SaveChanges();
+
+
+            var storyMissions = new List<StoryMission> {
+                        new StoryMission { MissionID = 1, MissionName="Rebuild Your House I", RequiredLevel=1, IsNextMission=true, MissionTasks =  new List<MissionTask>{
+                        new CollectMissionTask { MissionTaskID = 1, MissionID = 1, ItemID = 94, ItemPieces = 2, TaskText="Collect 2 bricks!"},
+                        new CollectMissionTask { MissionTaskID = 2, MissionID = 1, ItemID = 2, ItemPieces = 1, TaskText="Build level 1 house!"}
+                    } },
+
+
+                new StoryMission { MissionID = 2, MissionName="Rebuild Your House II", RequiredLevel=3, IsNextMission=true, MissionTasks =  new List<MissionTask>{
+                        new CollectMissionTask { MissionTaskID = 3, MissionID = 2, ItemID = 58, ItemPieces = 2, TaskText="Collect 2 screws!"},
+                        new CollectMissionTask { MissionTaskID = 4, MissionID = 2, ItemID = 55, ItemPieces = 2, TaskText="Collect 2 boards!"},
+                        new CollectMissionTask { MissionTaskID = 5, MissionID = 2, ItemID = 57, ItemPieces = 3, TaskText="Collect 3 roof tiles!"},
+                        new CollectMissionTask { MissionTaskID = 6, MissionID = 2, ItemID = 56, ItemPieces = 3, TaskText="Collect 3 metal sheds!"},
+                    } },
+
+
+               new StoryMission { MissionID = 3, MissionName="Rebuild Your House III", RequiredLevel=5, IsNextMission=true, MissionTasks =  new List<MissionTask>{
+                        new CollectMissionTask { MissionTaskID = 7, MissionID = 3, ItemID = 54, ItemPieces = 2, TaskText="Collect 2 blueprints!"},
+                    } },
+
+               new StoryMission { MissionID = 4, MissionName="Rebuild Your House IV", RequiredLevel=5, IsNextMission=true, MissionTasks =  new List<MissionTask>{
+                        new CollectMissionTask { MissionTaskID = 8, MissionID = 4, ItemID = 54, ItemPieces = 6, TaskText="Collect 6 blueprints!"},
+                        new RepairMissionTask { MissionTaskID = 9, MissionID = 4, ItemID = 2, ItemPieces = 3, TaskText="Repair the house 3 times!"}
+                    } },
+
+               new StoryMission { MissionID = 5, MissionName="Tools for Success I", RequiredLevel=7, IsNextMission=true, MissionTasks =  new List<MissionTask>{
+                        new CollectMissionTask { MissionTaskID = 10, MissionID = 5, ItemID = 20, ItemPieces = 1, TaskText="Build level 1 toolshed!"},
+                        new CollectMissionTask { MissionTaskID = 11, MissionID = 5, ItemID = 94, ItemPieces = 80, TaskText="Collect 80 bricks!"}
+                    } },
+
+               new StoryMission { MissionID = 6, MissionName="Tools for Success II", RequiredLevel=7, IsNextMission=true, MissionTasks =  new List<MissionTask>{
+                        new CollectMissionTask { MissionTaskID = 12, MissionID = 6, ItemID = 99, ItemPieces = 4, TaskText="Collect 4 fertilizer!"},
+                        new CollectMissionTask { MissionTaskID = 13, MissionID = 6, ItemID = 100, ItemPieces = 3, TaskText="Collect 3 metal buckets!"},
+                        new CollectMissionTask { MissionTaskID = 14, MissionID = 6, ItemID = 52, ItemPieces = 2, TaskText="Collect 2 rakes!"},
+                    } },
+
+               new StoryMission { MissionID = 7, MissionName="Tools for Success III", RequiredLevel=7, IsNextMission=true, MissionTasks =  new List<MissionTask>{
+                        new RepairMissionTask { MissionTaskID = 15, MissionID = 7, ItemID = 20, ItemPieces = 6, TaskText="Complete the toolshed!"}, //!!!!!!!!!!!!!!!
+                        new CollectMissionTask { MissionTaskID = 16, MissionID = 7, ItemID = 36, ItemPieces = 50, TaskText="Collect 50 duct tapes!"}
+                    } },
+
+               new StoryMission { MissionID = 8, MissionName="Build Garden shed I", RequiredLevel=7, IsNextMission=true, MissionTasks =  new List<MissionTask>{
+                        new HarvestMissionTask { MissionTaskID = 17, MissionID = 8, ItemID = 26, ItemPieces = 2, TaskText="Harvest 2 peppers!"},
+                        new HarvestMissionTask { MissionTaskID = 18, MissionID = 8, ItemID = 27, ItemPieces = 2, TaskText="Harvest 2 potatoes!"}
+                    } },
+
+               new StoryMission { MissionID = 9, MissionName="Build Garden shed II", RequiredLevel=7, IsNextMission=true, MissionTasks =  new List<MissionTask>{
+                        new CollectMissionTask { MissionTaskID = 19, MissionID = 9, ItemID = 47, ItemPieces = 6, TaskText="Get 6 garden trimmer!"},
+                        new HarvestMissionTask { MissionTaskID = 20, MissionID = 9, ItemID = 29, ItemPieces = 5, TaskText="Harwest 5 strwberries!"}
+                    } },
+
+               new StoryMission { MissionID = 10, MissionName="Dude where is my car? I", RequiredLevel=7, IsNextMission=true, MissionTasks =  new List<MissionTask>{
+                        new CollectMissionTask { MissionTaskID = 21, MissionID = 10, ItemID = 89, ItemPieces = 1, TaskText="Buy 1 old car!"},
+                        new RepairMissionTask { MissionTaskID = 22, MissionID = 10, ItemID = 89, ItemPieces = 50, TaskText="Fix old car 10 times!"}
+                    } },
+
+               new StoryMission { MissionID = 11, MissionName="Dude where is my car? II", RequiredLevel=7, IsNextMission=true, MissionTasks =  new List<MissionTask>{
+                        new KillingMissionTask { MissionTaskID = 23, MissionID = 11, ItemPieces = 20, TaskText="Kill 20 zombies!"}, //!!!!!!!
+                        new CollectMissionTask { MissionTaskID = 24, MissionID = 11, ItemID = 38, ItemPieces = 5, TaskText="Get 5 motor oil!"},
+                        new CollectMissionTask { MissionTaskID = 25, MissionID = 11, ItemID = 51, ItemPieces = 5, TaskText="Find 5 batteries"}
+                    } },
+
+              new StoryMission { MissionID = 12, MissionName="Dude where is my car? III", RequiredLevel=7, IsNextMission=true, MissionTasks =  new List<MissionTask>{
+                        new KillingMissionTask { MissionTaskID = 26, MissionID = 12, ItemID = 1, ItemPieces = 20, TaskText="Kill 20 zombies!"}, //!!!!!!!
+                        new CollectMissionTask { MissionTaskID = 27, MissionID = 12, ItemID = 38, ItemPieces = 5, TaskText="Get 5 motor oil!"}  /////////////
+                    } },
+
+              new StoryMission { MissionID = 13, MissionName="Dude where is my car? IV", RequiredLevel=7, IsNextMission=true, MissionTasks =  new List<MissionTask>{
+                        new CollectMissionTask { MissionTaskID = 28, MissionID = 13, ItemID = 35, ItemPieces = 8, TaskText="Get 8 gasoline cans!"},
+                        new CollectMissionTask { MissionTaskID = 29, MissionID = 13, ItemID = 62, ItemPieces = 5, TaskText="Buy 5 hunting rifles!"}
+                    } },
+
+              new StoryMission { MissionID = 14, MissionName="Dude where is my car? V", RequiredLevel=7, IsNextMission=false, MissionTasks =  new List<MissionTask>{
+                        new CollectMissionTask { MissionTaskID = 30, MissionID = 14, ItemID = 95, ItemPieces = 15, TaskText="Get 15 car waxes!"},
+                        new CollectMissionTask { MissionTaskID = 31, MissionID = 14, ItemID = 96, ItemPieces = 15, TaskText="Get 15 spare parts!"},
+                        new CollectMissionTask { MissionTaskID = 32, MissionID = 14, ItemID = 97, ItemPieces = 15, TaskText="Get 15 spark plugs!"},
+                        new CollectMissionTask { MissionTaskID = 33, MissionID = 14, ItemID = 98, ItemPieces = 15, TaskText="Get 15 jumper cables!" }
+                    } },
+
+        };
+            storyMissions.ForEach(s => context.Missions.Add(s));
             context.SaveChanges();
+
+
+
+
+            var sideMissions = new List<SideMission> {
+
+                new SideMission { MissionID = 15, MissionName="Who's the Boss I", RequiredLevel=1, IsNextMission=true,
+                    MissionTasks =  new List<MissionTask>{
+                        new KillingMissionTask { MissionTaskID = 34, MissionID = 15, ItemID = 1 , ItemPieces = 5, TaskText="Kill 5 basic zombie!"},
+                    } },
+
+
+                new SideMission { MissionID = 16, MissionName="Who's the Boss II", RequiredLevel=3, IsNextMission=true, MissionTasks =  new List<MissionTask>{
+                        new KillingMissionTask { MissionTaskID = 35, MissionID = 16, ItemID = 1, ItemPieces = 2, TaskText="Kill 3 basic zombies!"}, 
+                        new KillingMissionTask { MissionTaskID = 36, MissionID = 16, ItemID = 2, ItemPieces = 2, TaskText="Kill 7 buckethead zombies!"},    
+                    } },
+
+
+               new SideMission { MissionID = 17, MissionName="Who's the Boss III", RequiredLevel=5, IsNextMission=true, MissionTasks =  new List<MissionTask>{
+                        new KillingMissionTask { MissionTaskID = 37, MissionID = 17, ItemID = 2, ItemPieces = 2, TaskText="Kill 10 buckethead zombies!"},
+                    } },
+
+               new SideMission { MissionID = 18, MissionName="Who's the Boss IV", RequiredLevel=7, IsNextMission=true, MissionTasks =  new List<MissionTask>{
+                        new KillingMissionTask { MissionTaskID = 38, MissionID = 18, ItemID = 2, ItemPieces = 15, TaskText="Kill 15 buckethead zombies!"},  
+                        new KillingMissionTask { MissionTaskID = 39, MissionID = 18, ItemID = 1, ItemPieces = 20, TaskText="Kill 20 basic zombies!"}    
+                    } },
+
+               new SideMission { MissionID = 19, MissionName="Who's the Boss V", RequiredLevel=7, IsNextMission=false, MissionTasks =  new List<MissionTask>{
+                        new KillingMissionTask { MissionTaskID = 40, MissionID = 5, ItemID = 1, ItemPieces = 30, TaskText="Kill 30 basic zombies!"}, 
+                        new KillingMissionTask { MissionTaskID = 41, MissionID = 5, ItemID = 3, ItemPieces = 10, TaskText="Kill 10 zonehead zombies!"}       
+                    } },
+
+
+
+
+
+
+                new SideMission { MissionID = 20, MissionName="Winter is coming I", RequiredLevel=1, IsNextMission=true,
+                    MissionTasks =  new List<MissionTask>{
+                        new HarvestMissionTask { MissionTaskID = 42, MissionID = 20, ItemID = 25 , ItemPieces = 10, TaskText="Harvest 10 melons!"},
+                        new HarvestMissionTask { MissionTaskID = 43, MissionID = 20, ItemID = 26 , ItemPieces = 5, TaskText="Harvest 5 peppers!"},
+                    } },
+
+
+                new SideMission { MissionID = 21, MissionName="Winter is coming II", RequiredLevel=1, IsNextMission=true,
+                    MissionTasks =  new List<MissionTask>{
+                        new HarvestMissionTask { MissionTaskID = 44, MissionID = 21, ItemID = 27 , ItemPieces = 25, TaskText="Harvest 25 potatoes!"},
+                        new HarvestMissionTask { MissionTaskID = 45, MissionID = 21, ItemID = 26 , ItemPieces = 50, TaskText="Harvest 50 peppers!"},
+                    } },
+
+                new SideMission { MissionID = 22, MissionName="Winter is coming III", RequiredLevel=1, IsNextMission=false,
+                    MissionTasks =  new List<MissionTask>{
+                        new HarvestMissionTask { MissionTaskID = 46, MissionID = 22, ItemID = 29 , ItemPieces = 30, TaskText="Harvest 30 strawberries!"},
+                    } },
+
+        };
+
+            sideMissions.ForEach(s => context.Missions.Add(s));
+            context.SaveChanges();
+
+
+
+            var dailyMissions = new List<DailyMission> {
+
+                new DailyMission { MissionID = 23, MissionName="Daily mission I", RequiredLevel=1, IsNextMission=false,  MissionTasks =  new List<MissionTask>{
+                        new CollectMissionTask { MissionTaskID = 47, MissionID = 23, ItemID = 55 , ItemPieces = 5, TaskText="Get 5 pieces of boards!"},
+                        new CollectMissionTask { MissionTaskID = 48, MissionID = 23, ItemID = 56 , ItemPieces = 5, TaskText="Get 5 pieces of !"},
+                    } },
+
+                new DailyMission { MissionID = 24, MissionName="Daily mission II", RequiredLevel=1, IsNextMission=false,  MissionTasks =  new List<MissionTask>{
+                        new CollectMissionTask { MissionTaskID = 49, MissionID = 24, ItemID = 55 , ItemPieces = 4, TaskText="Get 4 pieces of boards!"},
+                    } },
+
+                new DailyMission { MissionID = 25, MissionName="Daily mission III", RequiredLevel=1, IsNextMission=false,  MissionTasks =  new List<MissionTask>{
+                        new CollectMissionTask { MissionTaskID = 50, MissionID = 25, ItemID = 56 , ItemPieces = 4, TaskText="Get 4 pieces of!"},
+                    } },
+
+                new DailyMission { MissionID = 26, MissionName="Daily mission IV", RequiredLevel=1, IsNextMission=false,  MissionTasks =  new List<MissionTask>{
+                        new CollectMissionTask { MissionTaskID = 51, MissionID = 26, ItemID = 57 , ItemPieces = 4, TaskText="Get 4 pieces of!"},
+                    } },
+
+            };
+
+
+            dailyMissions.ForEach(s => context.DailyMissions.Add(s));
+            context.SaveChanges();
+
+
+
+
+            //    var sideMission = new List<SideMission> {
+            //            new SideMission { MissionID = 4, MissionName="SideMission", MissionTasks =  new List<MissionTask>{
+            //                    new CollectMissionTask { MissionTaskID = 3, MissionID = 4, ItemID = 57, ItemPieces = 2},
+            //                    new CollectMissionTask { MissionTaskID = 4, MissionID = 4, ItemID = 56, ItemPieces = 3},
+            //                } },
+
+            //    };
+            //    sideMission.ForEach(s => context.SideMissions.Add(s));
+            //    context.SaveChanges();
+
+            //    var collectMissionTask = new List<CollectMissionTask> {
+
+            //            new CollectMissionTask { MissionTaskID = 1, MissionID = 1, ItemID = 88, ItemPieces = 5},
+
+            //            new CollectMissionTask { MissionTaskID = 7, MissionID = 3, ItemID = 56, ItemPieces = 2 },
+            //            new CollectMissionTask { MissionTaskID = 8, MissionID = 3, ItemID = 57, ItemPieces = 3 },
+
+            //    };
+
+            //    collectMissionTask.ForEach(s => context.CollectMissionTasks.Add(s));
+            //    context.SaveChanges();
+
+            //    var harvestMissionTask = new List<HarvestMissionTask> {
+
+
+            //            new HarvestMissionTask { MissionTaskID = 4, MissionID = 2, ItemID = 55, ItemPieces = 1 },
+            //            new HarvestMissionTask { MissionTaskID = 5, MissionID = 2, ItemID = 56, ItemPieces = 2 },
+
+            //            new HarvestMissionTask { MissionTaskID = 6, MissionID = 3, ItemID = 55, ItemPieces = 1 },
+            //            new HarvestMissionTask { MissionTaskID = 7, MissionID = 3, ItemID = 56, ItemPieces = 2 },
+            //            new HarvestMissionTask { MissionTaskID = 8, MissionID = 3, ItemID = 57, ItemPieces = 3 },
+
+            //            new HarvestMissionTask { MissionTaskID = 9, MissionID = 4, ItemID = 55, ItemPieces = 1 },
+            //            new HarvestMissionTask { MissionTaskID = 10, MissionID = 4, ItemID = 56, ItemPieces = 2 },
+
+            //    };
+
+
+            //    harvestMissionTask.ForEach(s => context.HarvestMissionTasks.Add(s));
+            //    context.SaveChanges();
+
 
 
         }
