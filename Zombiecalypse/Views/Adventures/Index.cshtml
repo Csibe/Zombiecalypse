@@ -21,85 +21,254 @@
         else if (Model.Character.IsOnAdventure == false)
         {
 
-            <table id="adventureMap" width="941" height="530" style="background-image: url(/Content/Pictures/Adventures/map.png) ">
-                <tr style="border:solid, black, 1px;">
-                                        @foreach (var adv in Model.Adventures)
-                                        {
-                                            var linkId = "adventureLink" + adv.AdventureID;
-                                            var tableId = "adventureTable" + adv.AdventureID;
-                                            var valtozo = "/Adventures/StartAdventure/" + User.Identity.Name + "?AdId=" + adv.AdventureID;
 
-                                            <td style="border:solid, black, 1px;">
+            <div class="container">
+                <ul class="nav nav-tabs">
+                    <li class="active"><a data-toggle="tab" href="#basic">Field</a></li>
+                    <li><a data-toggle="tab" href="#desert">Desert</a></li>
+                    <li><a data-toggle="tab" href="#pirateisland">Pirate island</a></li>
+                </ul>
 
-                                                @if (Model.Character.CharacterLevel >= adv.CharacterLevelRequired)
-                                                {
-                                                    if (Model.Character.Tolerance > 0)
-                                                    {
-                                                        <a id=@linkId href=@valtozo><img src="~/Content/Pictures/Adventures/rickTeleporter.png" /></a>
-                                                    }
-                                                }
-                                                else
-                                                {
-                                                    <a id=@linkId><img src="~/Content/Pictures/Adventures/rickTeleporter.png" /></a>
-                                                }
+                <div class="tab-content">
+                    <div id="basic" class="tab-pane fade in active">
 
-                            <table id=@tableId style="background-image: url(/Content/Pictures/table2.png);">
-                                <tr>
-                                    <td>
-                                        @adv.AdventureName
-                                    </td>
-                                    <td>
-                                        @adv.AdventureWaitingTime
-                                    </td>
-                                    <td>
-                                        @adv.AdventureSteps
-                                    </td>
-                                    <td>
-                                        @adv.AdventureRequerdEnergy
-                                    </td>
-                                </tr>
-                                @foreach (var drop in Model.AdventureDrops)
+                        <table id="adventureMap" width="941" height="530" style="background-image: url(/Content/Pictures/Adventures/map.png) ">
+                            <tr style="border:solid, black, 1px;">
+                                @foreach (var adv in Model.Adventures.Where(x => x.AdventureType == "Base"))
                                 {
+                                    var linkId = "adventureLink" + adv.AdventureID;
+                                    var tableId = "adventureTable" + adv.AdventureID;
+                                    var valtozo = "/Adventures/StartAdventure/" + User.Identity.Name + "?AdId=" + adv.AdventureID;
 
-                                    <tr>
-                                        @if (drop.AdventureID == adv.AdventureID)
+                                    <td style="border:solid, black, 1px;">
+
+                                        @if (Model.Character.AdventureMapState+1 >= adv.AdventureID && Model.Character.Tolerance > 0)
                                         {
-                                            <td>
-                                                <img width="30" height="30" src=@drop.Item.ItemPicture />
-                                            </td>
-                                            <td>
-                                                @drop.Item.ItemName
-                                            </td>
-                                        }
-                                    </tr>
-                                }
-                                <tr>
-                                    @if (Model.Character.CharacterLevel >= adv.CharacterLevelRequired)
-                                    {
-                                        if (Model.Character.Tolerance > 0)
-                                        {
-                                            <td>
-                                                @Html.ActionLink("Start Adventure", "StartAdventure", "Adventures", new { id = User.Identity.Name, AdId = @adv.AdventureID }, new { @class = "ActionLinkButton" })
-                                            </td>
+                                            <a id=@linkId href=@valtozo><img src="~/Content/Pictures/Adventures/checkPoint.png" />@adv.AdventureID</a>
+
+                                                <table id=@tableId style="background-image: url(/Content/Pictures/table2.png);">
+                                                    <tr>
+                                                        <td>
+                                                            @adv.AdventureName
+                                                        </td>
+                                                        <td>
+                                                            @adv.AdventureWaitingTime
+                                                        </td>
+                                                        <td>
+                                                            @adv.AdventureSteps
+                                                        </td>
+                                                        <td>
+                                                            @adv.AdventureRequerdEnergy
+                                                        </td>
+                                                    </tr>
+                                                    @foreach (var drop in Model.AdventureDrops)
+                                                    {
+
+                                                        <tr>
+                                                            @if (drop.AdventureID == adv.AdventureID)
+                                                            {
+                                                                <td>
+                                                                    <img width="30" height="30" src=@drop.Item.ItemPicture />
+                                                                </td>
+                                                                <td>
+                                                                    @drop.Item.ItemName
+                                                                </td>
+                                                            }
+                                                        </tr>
+                                                    }
+                                                    <tr>
+                                                            @if (Model.Character.Tolerance > 0)
+                                                            {
+                                                            }
+                                                            else
+                                                            {
+                                                                <td><div class="alert-danger"><strong>Not enought tolerance</strong></div></td>
+                                                            }
+                                                    </tr>
+                                                    <tr>
+                                                        @foreach (var zombie in Model.PossibleZombies.Where(x=> x.ZombieRank <= adv.AdventureID).Where(x=> x.ZombiePlaceAppear == adv.AdventureType).Where(x=> x.ZombieRank >= adv.AdventureID-2)) {
+                                                            <td>
+                                                                <img width="20" height="20" src=@zombie.ZombiePicture />
+                                                            </td>
+                                                        }
+                                                    </tr>
+                                                </table>
                                         }
                                         else
                                         {
-                                            <td><div class="alert-danger"><strong>Not enought tolerance</strong></div></td>
+                                            <a id=@linkId><img src="~/Content/Pictures/Adventures/checkPointDisabled.png" />@adv.AdventureID</a>
                                         }
 
-                                    }
-                                    else
-                                    {
-                                        <td>
-                                            Required level @adv.CharacterLevelRequired
-                                        </td>
-                                    }
-                                </tr>
-                            </table>
-                        </td>
-                    }
-                </tr>
-            </table>
+                                    </td>
+                                }
+                            </tr>
+                        </table>
+
+
+
+
+
+                    </div>
+
+
+
+                    <div id="desert" class="tab-pane fade">
+
+
+                        <table id="adventureMap" width="941" height="530" style="background-image: url(/Content/Pictures/Adventures/map.png) ">
+                            <tr style="border:solid, black, 1px;">
+                                @foreach (var adv in Model.Adventures.Where(x => x.AdventureType == "Desert"))
+                                {
+                                    var linkId = "adventureLink" + adv.AdventureID;
+                                    var tableId = "adventureTable" + adv.AdventureID;
+                                    var valtozo = "/Adventures/StartAdventure/" + User.Identity.Name + "?AdId=" + adv.AdventureID;
+
+                                    <td style="border:solid, black, 1px;">
+
+                                        @if (Model.Character.AdventureMapState >= adv.AdventureID && Model.Character.Tolerance > 0)
+                                        {
+                                            <a id=@linkId href=@valtozo><img src="~/Content/Pictures/Adventures/checkPoint.png" />@adv.AdventureID</a>
+
+                                                <table id=@tableId style="background-image: url(/Content/Pictures/table2.png);">
+                                                    <tr>
+                                                        <td>
+                                                            @adv.AdventureName
+                                                        </td>
+                                                        <td>
+                                                            @adv.AdventureWaitingTime
+                                                        </td>
+                                                        <td>
+                                                            @adv.AdventureSteps
+                                                        </td>
+                                                        <td>
+                                                            @adv.AdventureRequerdEnergy
+                                                        </td>
+                                                    </tr>
+                                                    @foreach (var drop in Model.AdventureDrops)
+                                                    {
+
+                                                        <tr>
+                                                            @if (drop.AdventureID == adv.AdventureID)
+                                                            {
+                                                                <td>
+                                                                    <img width="30" height="30" src=@drop.Item.ItemPicture />
+                                                                </td>
+                                                                <td>
+                                                                    @drop.Item.ItemName
+                                                                </td>
+                                                            }
+                                                        </tr>
+                                                    }
+                                                    <tr>
+                                                            @if (Model.Character.Tolerance > 0)
+                                                            {
+                                                            }
+                                                            else
+                                                            {
+                                                                <td><div class="alert-danger"><strong>Not enought tolerance</strong></div></td>
+                                                            }
+                                                    </tr>
+                                                </table>
+                                        }
+                                        else
+                                        {
+                                            <a id=@linkId><img src="~/Content/Pictures/Adventures/checkPointDisabled.png" />@adv.AdventureID</a>
+                                        }
+
+                                    </td>
+                                }
+                            </tr>
+                        </table>
+                    </div>
+
+
+                    <div id="pirateisland" class="tab-pane fade">
+
+
+
+                        <table id="adventureMap" width="941" height="530" style="background-image: url(/Content/Pictures/Adventures/map.png) ">
+                            <tr style="border:solid, black, 1px;">
+                                @foreach (var adv in Model.Adventures.Where(x => x.AdventureType == "Pirate"))
+                                {
+                                    var linkId = "adventureLink" + adv.AdventureID;
+                                    var tableId = "adventureTable" + adv.AdventureID;
+                                    var valtozo = "/Adventures/StartAdventure/" + User.Identity.Name + "?AdId=" + adv.AdventureID;
+
+                                    <td style="border:solid, black, 1px;">
+
+                                        @if (Model.Character.AdventureMapState + 1 >= adv.AdventureID && Model.Character.Tolerance > 0)
+                                        {
+                                            <a id=@linkId href=@valtozo><img src="~/Content/Pictures/Adventures/checkPoint.png" />@adv.AdventureID</a>
+
+                                            <table id=@tableId style="background-image: url(/Content/Pictures/table2.png);">
+                                                <tr>
+                                                    <td>
+                                                        @adv.AdventureName
+                                                    </td>
+                                                    <td>
+                                                        @adv.AdventureWaitingTime
+                                                    </td>
+                                                    <td>
+                                                        @adv.AdventureSteps
+                                                    </td>
+                                                    <td>
+                                                        @adv.AdventureRequerdEnergy
+                                                    </td>
+                                                </tr>
+                                                @foreach (var drop in Model.AdventureDrops)
+                                                {
+
+                                                    <tr>
+                                                        @if (drop.AdventureID == adv.AdventureID)
+                                                        {
+                                                            <td>
+                                                                <img width="30" height="30" src=@drop.Item.ItemPicture />
+                                                            </td>
+                                                                <td>
+                                                                    @drop.Item.ItemName
+                                                                </td>
+                                                        }
+                                                    </tr>
+                                                }
+                                                <tr>
+                                                        @if (Model.Character.Tolerance > 0)
+                                                        {
+                                                            <td>
+                                                                @Html.ActionLink("Start Adventure", "StartAdventure", "Adventures", new { id = User.Identity.Name, AdId = @adv.AdventureID }, new { @class = "ActionLinkButton" })
+                                                            </td>
+                                                        }
+                                                        else
+                                                        {
+                                                            <td><div class="alert-danger"><strong>Not enought tolerance</strong></div></td>
+                                                        }
+                                                </tr>
+                                            </table>
+                                        }
+                                        else
+                                        {
+                                            <a id=@linkId><img src="~/Content/Pictures/Adventures/checkPointDisabled.png" />@adv.AdventureID</a>
+                                        }
+
+                                    </td>
+                                }
+                            </tr>
+                        </table>
+
+
+
+
+
+
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+
         }
 
     </div>

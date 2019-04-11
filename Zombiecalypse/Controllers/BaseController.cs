@@ -30,13 +30,6 @@ namespace Zombiecalypse.Controllers
                 model.AdventureFinishDate = db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault().FinishAdventure;
                 model.LastZombieAttackDate = db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault().LastZombieAttackTime;
                 model.DailyMissionDate = db.Characters.Where(x => x.ApplicationUserID == User.Identity.Name).FirstOrDefault().DailyMissionDate;
-
-
-                if (db.OwnedDogs.Where(x => x.CharacterID == db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault().CharacterID) == null)
-                {
-                    model.EndOfExplore = DateTime.MaxValue;
-                }
-                model.EndOfExplore = DateTime.MaxValue;
             }
 
         }

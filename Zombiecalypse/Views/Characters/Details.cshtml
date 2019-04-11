@@ -32,12 +32,12 @@
 <h2>@Model.Character.CharacterName</h2>
 
 
-@Html.ActionLink("Zombie Damage Base", "ZombieDamageBase", "api/Default", new { id = User.Identity.Name }, null) <br />
+@*@Html.ActionLink("Zombie Damage Base", "ZombieDamageBase", "api/Default", new { id = User.Identity.Name }, null) <br />
 @Html.ActionLink("ManageEnergy", "ManageEnergy", "Characters", new { id = User.Identity.Name, energyCost = 0, returnUrl = this.Request.Url }, null)<br />
 @Html.ActionLink("Zombie Damage Base", "ZombieStartAttackBase", "api/Default", new { id = User.Identity.Name }, null)<br />
 @Html.ActionLink("Generate material collect mission", "GenerateMaterialCollectMission", "Missions", new { id = User.Identity.Name, returnUrl = this.Request.Url }, null)<br />
 @Html.ActionLink("Generate gathering mission", "GenerateGatheringMission", "Missions", new { id = User.Identity.Name, returnUrl = this.Request.Url }, null)<br />
-@Html.ActionLink("GenerateZombieKillingMission", "GenerateZombieKillingMission", "Missions", new { id = User.Identity.Name, returnUrl = this.Request.Url }, null)<br />
+@Html.ActionLink("GenerateZombieKillingMission", "GenerateZombieKillingMission", "Missions", new { id = User.Identity.Name, returnUrl = this.Request.Url }, null)<br />*@
 
 
 
@@ -47,8 +47,8 @@
 
 <div class="container">
     <ul class="nav nav-tabs">
-        <li class="active"><a data-toggle="tab" href="#characterDetails">Character details</a></li>
-        <li><a data-toggle="tab" href="#buildings">Buildings</a></li>
+        <li><a data-toggle="tab" href="#characterDetails">Character details</a></li>
+        <li class="active"><a data-toggle="tab" href="#buildings">Buildings</a></li>
         @*<li><a data-toggle="tab" href="#gathering">Gathering</a></li>*@
         <li><a data-toggle="tab" href="#items">Items</a></li>
         <li><a data-toggle="tab" href="#missions">Missions</a></li>
@@ -56,7 +56,7 @@
     </ul>
 
     <div class="tab-content">
-        <div id="characterDetails" class="tab-pane fade in active">
+        <div id="characterDetails" class="tab-pane">
             <br /><br />
             <table class="characterDetails" border="0" width="1000">
                 <tr>
@@ -64,43 +64,7 @@
                     <td>
                         <img src=@image />
                     </td>
-                    @if (Model.OwnedDog != null)
-                    {
-                        <td>
-                            <table>
-                                <tr>
-                                    <td>
-                                        @Html.DisplayFor(model => model.OwnedDog.OwnedDogID)
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <img src=@Model.OwnedDog.DogPicture />
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        @Html.DisplayFor(model => model.OwnedDog.DogMaxLife) /  @Html.DisplayFor(model => model.OwnedDog.DogCurrentLife)
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        @Html.DisplayFor(model => model.OwnedDog.IsOnExplore)
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        @Html.DisplayFor(model => model.OwnedDog.EndOfExplore)
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        @Html.ActionLink("Send dog explore", "SendDogToExplore", "Dogs", null, new { @class = "ActionLinkButton" })
-                                    </td>
-                                </tr>
-                            </table>
-                        </td>
-                    }
+                   
 
                     <td>
                         <table>
@@ -210,7 +174,7 @@
             </table>
         </div>
 
-        <div align="center" id="buildings" class="tab-pane fade">
+        <div align="center" id="buildings"  class="tab-pane fade in active">
             <br /><br />
     
 
@@ -688,7 +652,7 @@
 
 
 
-                                <br /><br /><br />
+                                @*<br /><br /><br />
                                 <table border="1">
                                     @foreach (var item in Model.Character.Inventory)
                                     {
@@ -718,9 +682,9 @@
                                                             }
 
                                                         }
-                                </table>
+                                </table>*@
 
-
+            @*<br /><br /><br />
                                 <table>
                                     <tr>
                                         <th>InventoryID</th>
@@ -756,7 +720,7 @@
                                     }
                                 </table>
 
-                            </div>
+                            </div>*@
 
                             @*<div id="missions" class="tab-pane fade">
                                 <h3>Missions</h3>

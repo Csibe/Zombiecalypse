@@ -166,7 +166,7 @@ namespace Zombiecalypse.Controllers
             if (ModelState.IsValid)
             {
                 var user = new ApplicationUser { UserName = model.Name, Email = model.Email };
-                var character = new Character { ApplicationUserID = model.Name, CharacterName = model.CharacterName, CharacterType = model.CharacterType, CharacterMoney = 2000000, FinishAdventure = DateTime.MaxValue, IsOnAdventure = false, CurrentEnergy = 14, MaxEnergy = 14, CharacterLevel = 8, EnergyPlusDate = DateTime.MaxValue, LastZombieAttackTime = DateTime.Now, MaxTolerance = 20, Tolerance = 20, DailyMissionDate= DateTime.Now.AddDays(-1) };
+                var character = new Character { ApplicationUserID = model.Name, CharacterName = model.CharacterName, CharacterType = model.CharacterType, CharacterMoney = 2000000, FinishAdventure = DateTime.MaxValue, IsOnAdventure = false, AdventureMapState=0, CurrentEnergy = 14, MaxEnergy = 14, CharacterLevel = 8, EnergyPlusDate = DateTime.MaxValue, LastZombieAttackTime = DateTime.Now, MaxTolerance = 20, Tolerance = 20, DailyMissionDate= DateTime.Now.AddDays(-1) };
 
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)

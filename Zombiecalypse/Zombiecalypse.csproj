@@ -221,7 +221,6 @@
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\BuildingsController.cs" />
     <Compile Include="Controllers\CharactersController.cs" />
-    <Compile Include="Controllers\DogsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\InventoriesController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -237,7 +236,6 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Adventure.cs" />
     <Compile Include="Models\Character.cs" />
-    <Compile Include="Models\Dog.cs" />
     <Compile Include="Models\Home.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Inventory.cs" />
@@ -252,6 +250,8 @@
     <Content Include="Content\Pictures\Adventures\adventureMap3.png" />
     <Content Include="Content\Pictures\Adventures\adventureMap.jpg" />
     <Content Include="Content\Pictures\Adventures\adventureMap2.png" />
+    <Content Include="Content\Pictures\Adventures\checkPoint.png" />
+    <Content Include="Content\Pictures\Adventures\checkPointDisabled.png" />
     <Content Include="Content\Pictures\Adventures\lada1.png" />
     <Content Include="Content\Pictures\Adventures\lada2.png" />
     <Content Include="Content\Pictures\Adventures\map.png" />
@@ -315,6 +315,7 @@
     <Content Include="Content\Pictures\BuyableWeapons\RayGun.png" />
     <Content Include="Content\Pictures\BuyableWeapons\Shotgun.png" />
     <Content Include="Content\Pictures\characterDetailItems.png" />
+    <Content Include="Content\Pictures\characterDetailItems2.png" />
     <Content Include="Content\Pictures\characterDetails.png" />
     <Content Include="Content\Pictures\check.png" />
     <Content Include="Content\Pictures\CraftableWeapons\Pepperspray.png" />
@@ -323,16 +324,33 @@
     <Content Include="Content\Pictures\Dogs\dog1.png" />
     <Content Include="Content\Pictures\Dogs\dog2.png" />
     <Content Include="Content\Pictures\Dogs\dog3.png" />
+    <Content Include="Content\Pictures\Fields\Cacao.png" />
+    <Content Include="Content\Pictures\Fields\Carrot.png" />
+    <Content Include="Content\Pictures\Fields\Coffee_Plant.png" />
+    <Content Include="Content\Pictures\Fields\Corn.png" />
+    <Content Include="Content\Pictures\Fields\Cotton.png" />
+    <Content Include="Content\Pictures\Fields\Jasmine.png" />
     <Content Include="Content\Pictures\Fields\MelonFinished.png" />
     <Content Include="Content\Pictures\Fields\MelonStart.png" />
+    <Content Include="Content\Pictures\Fields\Pepper.png" />
     <Content Include="Content\Pictures\Fields\PepperFinished.png" />
     <Content Include="Content\Pictures\Fields\PepperStart.png" />
+    <Content Include="Content\Pictures\Fields\Pine_Tree.png" />
+    <Content Include="Content\Pictures\Fields\Potato.png" />
     <Content Include="Content\Pictures\Fields\PumpkinFinished.png" />
     <Content Include="Content\Pictures\Fields\PumpkinStart.png" />
+    <Content Include="Content\Pictures\Fields\Rice.png" />
+    <Content Include="Content\Pictures\Fields\Rose.png" />
+    <Content Include="Content\Pictures\Fields\Rubber_Tree.png" />
+    <Content Include="Content\Pictures\Fields\Silk.png" />
+    <Content Include="Content\Pictures\Fields\Strawberry.png" />
     <Content Include="Content\Pictures\Fields\StrawberryFinished.png" />
     <Content Include="Content\Pictures\Fields\StrawberryStart.png" />
+    <Content Include="Content\Pictures\Fields\Sugarcane1.png" />
+    <Content Include="Content\Pictures\Fields\Tomato.png" />
     <Content Include="Content\Pictures\Fields\TomatoFinished.png" />
     <Content Include="Content\Pictures\Fields\TomatoStart.png" />
+    <Content Include="Content\Pictures\Fields\Wheat1.png" />
     <Content Include="Content\Pictures\itembackground.png" />
     <Content Include="Content\Pictures\Items\Board.png" />
     <Content Include="Content\Pictures\Items\Brick.png" />
@@ -432,10 +450,7 @@
     <Content Include="Content\Pictures\Zombies\ZombotSphinxinator.png" />
     <Content Include="Content\Pictures\Zombies\ZombotTuskmaster10000BC.png" />
     <Content Include="Content\Pictures\Zombies\ZombotWarWagon.png" />
-    <Content Include="Scripts\app\AdventureCountdown.js" />
     <Content Include="Scripts\app\Counters.js" />
-    <Content Include="Scripts\app\EnergyCounter.js" />
-    <Content Include="Scripts\app\FieldCountDown.js" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
@@ -520,8 +535,6 @@
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\ai.0.22.9-build00167.js" />
     <Content Include="Scripts\ai.0.22.9-build00167.min.js" />
-    <Content Include="Scripts\app\countdown.js" />
-    <Content Include="Scripts\app\ZombieBaseAttack.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
@@ -613,6 +626,8 @@
     <Content Include="Views\Missions\Index.cshtml" />
     <Content Include="Views\Zombies\CollectReward.cshtml" />
     <Content Include="Views\Adventures\RunningAway.cshtml" />
+    <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Shared\Lockout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

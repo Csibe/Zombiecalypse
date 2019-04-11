@@ -96,12 +96,19 @@ namespace Zombiecalypse.DAL
             context.SaveChanges();
 
             var plants = new List<Plant> {
-                        new Plant {ItemID=25,  ItemName="Melon",  PlantMoneyCost=20, PlantGrowTime=5, PlantRewardCoin=30, PlantRewardFood=1, ItemPicture="/Content/Pictures/Fields/MelonFinished.png",  PlantStartPicture= "/Content/Pictures/Fields/MelonStart.png", PlantFinishedPicture="/Content/Pictures/Fields/MelonFinished.png" },
-                        new Plant {ItemID=26,  ItemName="Pepper", PlantMoneyCost=40, PlantGrowTime=15, PlantRewardCoin=45, PlantRewardFood=1,  ItemPicture="/Content/Pictures/Fields/PepperFinished.png",   PlantStartPicture="/Content/Pictures/Fields/PepperStart.png", PlantFinishedPicture="/Content/Pictures/Fields/PepperFinished.png" },
-                        new Plant {ItemID=27,  ItemName="Potato", PlantMoneyCost=50, PlantGrowTime=60, PlantRewardCoin=70, PlantRewardFood=1, ItemPicture="/Content/Pictures/Fields/PotatoFinished.png",   PlantStartPicture="/Content/Pictures/Fields/PotatoStart.png", PlantFinishedPicture="/Content/Pictures/Fields/PotatoFinished.png"},
-                        new Plant {ItemID=28,  ItemName="Pumpkin",  PlantMoneyCost=100, PlantGrowTime=120, PlantRewardCoin=150, PlantRewardFood=3, ItemPicture="/Content/Pictures/Fields/PumpkinFinished.png",    PlantStartPicture= "/Content/Pictures/Fields/PumpkinStart.png", PlantFinishedPicture="/Content/Pictures/Fields/PumpkinFinished.png" },
-                        new Plant {ItemID=29,  ItemName="Strawberry", PlantMoneyCost=110, PlantGrowTime=360, PlantRewardCoin=190, PlantRewardFood=1, ItemPicture="/Content/Pictures/Fields/StrawberryFinished.png",   PlantStartPicture="/Content/Pictures/Fields/StrawberryStart.png", PlantFinishedPicture="/Content/Pictures/Fields/StrawberryFinished.png" },
-                        new Plant {ItemID=30,  ItemName="Tomato", PlantMoneyCost=350, PlantGrowTime=480, PlantRewardCoin=526, PlantRewardFood=2, ItemPicture="/Content/Pictures/Fields/TomatoFinished.png",   PlantStartPicture="/Content/Pictures/Fields/TomatoStart.png", PlantFinishedPicture="/Content/Pictures/Fields/TomatoFinished.png"},
+                        new Plant {ItemID=25,  ItemName="Melon", RequiredLevel = 1,  PlantMoneyCost=20, PlantGrowTime=5, PlantRewardCoin=30, PlantRewardFood=1, ItemPicture="/Content/Pictures/Fields/MelonFinished.png",  PlantStartPicture= "/Content/Pictures/Fields/MelonStart.png", PlantFinishedPicture="/Content/Pictures/Fields/MelonFinished.png" },
+                        new Plant {ItemID=26,  ItemName="Pepper",  RequiredLevel = 3,  PlantMoneyCost=40, PlantGrowTime=15, PlantRewardCoin=55, PlantRewardFood=1,  ItemPicture="/Content/Pictures/Fields/PepperFinished.png",   PlantStartPicture="/Content/Pictures/Fields/PepperStart.png", PlantFinishedPicture="/Content/Pictures/Fields/PepperFinished.png" },
+                        new Plant {ItemID=27,  ItemName="Potato",  RequiredLevel= 5, PlantMoneyCost=50, PlantGrowTime=60, PlantRewardCoin=70, PlantRewardFood=1, ItemPicture="/Content/Pictures/Fields/PotatoFinished.png",   PlantStartPicture="/Content/Pictures/Fields/PotatoStart.png", PlantFinishedPicture="/Content/Pictures/Fields/PotatoFinished.png"},
+                        new Plant {ItemID=28,  ItemName="Pumpkin",  RequiredLevel= 7, PlantMoneyCost=100, PlantGrowTime=120, PlantRewardCoin=150, PlantRewardFood=3, ItemPicture="/Content/Pictures/Fields/PumpkinFinished.png",    PlantStartPicture= "/Content/Pictures/Fields/PumpkinStart.png", PlantFinishedPicture="/Content/Pictures/Fields/PumpkinFinished.png" },
+                        new Plant {ItemID=29,  ItemName="Strawberry", RequiredLevel= 9, PlantMoneyCost=110, PlantGrowTime=360, PlantRewardCoin=190, PlantRewardFood=1, ItemPicture="/Content/Pictures/Fields/StrawberryFinished.png",   PlantStartPicture="/Content/Pictures/Fields/StrawberryStart.png", PlantFinishedPicture="/Content/Pictures/Fields/StrawberryFinished.png" },
+                        new Plant {ItemID=30,  ItemName="Tomato", RequiredLevel= 11, PlantMoneyCost=350, PlantGrowTime=480, PlantRewardCoin=526, PlantRewardFood=2, ItemPicture="/Content/Pictures/Fields/TomatoFinished.png",   PlantStartPicture="/Content/Pictures/Fields/TomatoStart.png", PlantFinishedPicture="/Content/Pictures/Fields/TomatoFinished.png"},
+                        new Plant {ItemID=101,  ItemName="Carrot", RequiredLevel= 13, PlantMoneyCost=350, PlantGrowTime=480, PlantRewardCoin=526, PlantRewardFood=2, ItemPicture="/Content/Pictures/Fields/Carrot.png",   PlantStartPicture="/Content/Pictures/Fields/Carrot.png", PlantFinishedPicture="/Content/Pictures/Fields/Carrot.png"},
+                        new Plant {ItemID=102,  ItemName="Corn", RequiredLevel= 15, PlantMoneyCost=350, PlantGrowTime=480, PlantRewardCoin=526, PlantRewardFood=2, ItemPicture="/Content/Pictures/Fields/Corn.png",   PlantStartPicture="/Content/Pictures/Fields/Corn.png", PlantFinishedPicture="/Content/Pictures/Fields/Corn.png"},
+                        new Plant {ItemID=103,  ItemName="Rice", RequiredLevel= 17, PlantMoneyCost=350, PlantGrowTime=480, PlantRewardCoin=526, PlantRewardFood=2, ItemPicture="/Content/Pictures/Fields/Rice.png",   PlantStartPicture="/Content/Pictures/Fields/Rice.png", PlantFinishedPicture="/Content/Pictures/Fields/Rice.png"},
+                        new Plant {ItemID=104,  ItemName="Cotton", RequiredLevel= 19, PlantMoneyCost=350, PlantGrowTime=480, PlantRewardCoin=526, PlantRewardFood=2, ItemPicture="/Content/Pictures/Fields/Cotton.png",   PlantStartPicture="/Content/Pictures/Fields/Cotton.png", PlantFinishedPicture="/Content/Pictures/Fields/Cotton.png"},
+                        new Plant {ItemID=105,  ItemName="Coffee", RequiredLevel= 21, PlantMoneyCost=350, PlantGrowTime=480, PlantRewardCoin=526, PlantRewardFood=2, ItemPicture="/Content/Pictures/Fields/Coffee_Plant.png",   PlantStartPicture="/Content/Pictures/Fields/Coffee_Plant.png", PlantFinishedPicture="/Content/Pictures/Fields/Coffee_Plant.png"},
+                        new Plant {ItemID=106,  ItemName="Cacao", RequiredLevel= 23, PlantMoneyCost=350, PlantGrowTime=480, PlantRewardCoin=526, PlantRewardFood=2, ItemPicture="/Content/Pictures/Fields/Cacao.png",   PlantStartPicture="/Content/Pictures/Fields/Cacao.png", PlantFinishedPicture="/Content/Pictures/Fields/Cacao.png"},
+
 
                     };
             plants.ForEach(s => context.Plants.Add(s));
@@ -501,8 +508,8 @@ namespace Zombiecalypse.DAL
 
             var energies = new List<Energy> {
                             new Energy {ItemID=79, PlusEnergy = 3, ItemName = "Small energy pack", ItemMaxDurability=1,  Cost=3, ItemPicture = "/Content/Pictures/EnergyPacks/SmallEnergyPack.png" },
-                            new Energy {ItemID=80, PlusEnergy = 10, ItemName = "Medium energy pack", ItemMaxDurability=1, Cost=5,ItemPicture = "/Content/Pictures/EnergyPacks/MediumEnergyPack.png" },
-                            new Energy {ItemID=81, PlusEnergy = 20, ItemName = "Big energy pack", ItemMaxDurability=1, Cost=7, ItemPicture = "/Content/Pictures/EnergyPacks/BigEnergyPack.png" },
+                            new Energy {ItemID=80, PlusEnergy = 6, ItemName = "Medium energy pack", ItemMaxDurability=1, Cost=5,ItemPicture = "/Content/Pictures/EnergyPacks/MediumEnergyPack.png" },
+                            new Energy {ItemID=81, PlusEnergy = 16, ItemName = "Big energy pack", ItemMaxDurability=1, Cost=10, ItemPicture = "/Content/Pictures/EnergyPacks/BigEnergyPack.png" },
                         };
 
             energies.ForEach(s => context.Energies.Add(s));
@@ -512,26 +519,26 @@ namespace Zombiecalypse.DAL
             var zombies = new List<Zombie> {
                 //Base
                             new Zombie {ZombieID=1, ZombieName="Basic", ZombiePlaceAppear="Base", ZombieLife=1, ZombieRank=1, ZombieDamage=1, RewardCoins=2, RewardXP=1, ZombiePicture="/Content/Pictures/Zombies/BasicZombie.png"},
-                            new Zombie {ZombieID=2, ZombieName="Buckethead", ZombiePlaceAppear="Base", ZombieLife=1, ZombieRank=3, ZombieDamage=1, RewardCoins=2, RewardXP=1, ZombiePicture="/Content/Pictures/Zombies/BucketheadZombie.png"},
-                            new Zombie {ZombieID=3, ZombieName="Conehead", ZombiePlaceAppear="Base", ZombieLife=1, ZombieRank=1, ZombieDamage=1, RewardCoins=2, RewardXP=1, ZombiePicture="/Content/Pictures/Zombies/ConeheadZombie.png"},
-                            new Zombie {ZombieID=4, ZombieName="Flag", ZombiePlaceAppear="Base", ZombieLife=2, ZombieRank=2, ZombieDamage=2, RewardCoins=5, RewardXP=3, ZombiePicture="/Content/Pictures/Zombies/FlagZombie.png"},
-                            new Zombie {ZombieID=5, ZombieName="Vase gargantuar", ZombiePlaceAppear="Base", ZombieLife=5, ZombieRank=5, ZombieDamage=2, RewardCoins=5, RewardXP=3, ZombiePicture="/Content/Pictures/Zombies/VaseGargantuar.png"},
+                            new Zombie {ZombieID=2, ZombieName="Buckethead", ZombiePlaceAppear="Base", ZombieLife=1, ZombieRank=5, ZombieDamage=1, RewardCoins=2, RewardXP=1, ZombiePicture="/Content/Pictures/Zombies/BucketheadZombie.png"},
+                            new Zombie {ZombieID=3, ZombieName="Conehead", ZombiePlaceAppear="Base", ZombieLife=1, ZombieRank=3, ZombieDamage=1, RewardCoins=2, RewardXP=1, ZombiePicture="/Content/Pictures/Zombies/ConeheadZombie.png"},
+                            new Zombie {ZombieID=4, ZombieName="Flag", ZombiePlaceAppear="Base", ZombieLife=2, ZombieRank=3, ZombieDamage=2, RewardCoins=5, RewardXP=3, ZombiePicture="/Content/Pictures/Zombies/FlagZombie.png"},
+                            new Zombie {ZombieID=5, ZombieName="Vase gargantuar", ZombiePlaceAppear="Base", ZombieLife=5, ZombieRank=10, ZombieDamage=2, RewardCoins=5, RewardXP=3, ZombiePicture="/Content/Pictures/Zombies/VaseGargantuar.png"},
 
                 //Desert
                             new Zombie {ZombieID=6, ZombieName="Buckethead", ZombiePlaceAppear="Desert", ZombieLife=1, ZombieRank=1, ZombieDamage=2, RewardCoins=5, RewardXP=4, ZombiePicture="/Content/Pictures/Zombies/BucketheadMummy.png"},
-                            new Zombie {ZombieID=7, ZombieName="Camel", ZombiePlaceAppear="Desert", ZombieLife=1, ZombieRank=1, ZombieDamage=2, RewardCoins=6, RewardXP=6, ZombiePicture="/Content/Pictures/Zombies/CamelZombies.png"},
+                            new Zombie {ZombieID=7, ZombieName="Camel", ZombiePlaceAppear="Desert", ZombieLife=1, ZombieRank=6, ZombieDamage=2, RewardCoins=6, RewardXP=6, ZombiePicture="/Content/Pictures/Zombies/CamelZombies.png"},
                             new Zombie {ZombieID=8, ZombieName="Conehead", ZombiePlaceAppear="Desert", ZombieLife=4, ZombieRank=2, ZombieDamage=3, RewardCoins=8, RewardXP=10, ZombiePicture="/Content/Pictures/Zombies/ConeheadMummy.png"},
-                            new Zombie {ZombieID=9, ZombieName="Egypt rally", ZombiePlaceAppear="Desert", ZombieLife=4, ZombieRank=3, ZombieDamage=3, RewardCoins=8, RewardXP=10, ZombiePicture="/Content/Pictures/Zombies/EgyptRallyZombie.png"},
-                            new Zombie {ZombieID=10, ZombieName="Explorer", ZombiePlaceAppear="Desert", ZombieLife=4, ZombieRank=1, ZombieDamage=3, RewardCoins=8, RewardXP=10, ZombiePicture="/Content/Pictures/Zombies/ExplorerZombie.png"},
-                            new Zombie {ZombieID=11, ZombieName="Flag", ZombiePlaceAppear="Desert", ZombieLife=4, ZombieRank=2, ZombieDamage=2, RewardCoins=8, RewardXP=10, ZombiePicture="/Content/Pictures/Zombies/FlagMummyZombie.png"},
-                            new Zombie {ZombieID=12, ZombieName="Imp", ZombiePlaceAppear="Desert", ZombieLife=4, ZombieRank=1, ZombieDamage=3, RewardCoins=8, RewardXP=10, ZombiePicture="/Content/Pictures/Zombies/ImpMummy.png"},
-                            new Zombie {ZombieID=13, ZombieName="Mummified gargantuar", ZombiePlaceAppear="Desert", ZombieLife=9, ZombieRank=5, ZombieDamage=2, RewardCoins=15, RewardXP=18, ZombiePicture="/Content/Pictures/Zombies/MummifiedGargantuar.png"},
+                            new Zombie {ZombieID=9, ZombieName="Egypt rally", ZombiePlaceAppear="Desert", ZombieLife=4, ZombieRank=5, ZombieDamage=3, RewardCoins=8, RewardXP=10, ZombiePicture="/Content/Pictures/Zombies/EgyptRallyZombie.png"},
+                            new Zombie {ZombieID=10, ZombieName="Explorer", ZombiePlaceAppear="Desert", ZombieLife=4, ZombieRank=9, ZombieDamage=3, RewardCoins=8, RewardXP=10, ZombiePicture="/Content/Pictures/Zombies/ExplorerZombie.png"},
+                            new Zombie {ZombieID=11, ZombieName="Flag", ZombiePlaceAppear="Desert", ZombieLife=4, ZombieRank=1, ZombieDamage=2, RewardCoins=8, RewardXP=10, ZombiePicture="/Content/Pictures/Zombies/FlagMummyZombie.png"},
+                            new Zombie {ZombieID=12, ZombieName="Imp", ZombiePlaceAppear="Desert", ZombieLife=4, ZombieRank=8, ZombieDamage=3, RewardCoins=8, RewardXP=10, ZombiePicture="/Content/Pictures/Zombies/ImpMummy.png"},
+                            new Zombie {ZombieID=13, ZombieName="Mummified gargantuar", ZombiePlaceAppear="Desert", ZombieLife=10, ZombieRank=10, ZombieDamage=2, RewardCoins=15, RewardXP=18, ZombiePicture="/Content/Pictures/Zombies/MummifiedGargantuar.png"},
                             new Zombie {ZombieID=14, ZombieName="Mummy", ZombiePlaceAppear="Desert", ZombieLife=8, ZombieRank=1, ZombieDamage=1, RewardCoins=20, RewardXP=20, ZombiePicture="/Content/Pictures/Zombies/MummyZombie.png"},
-                            new Zombie {ZombieID=15, ZombieName="Pharoh", ZombiePlaceAppear="Desert", ZombieLife=8, ZombieRank=3, ZombieDamage=3, RewardCoins=20, RewardXP=20, ZombiePicture="/Content/Pictures/Zombies/PharaohZombie.png"},
-                            new Zombie {ZombieID=16, ZombieName="Pyramid-head", ZombiePlaceAppear="Desert", ZombieLife=4, ZombieRank=4, ZombieDamage=3, RewardCoins=8, RewardXP=10, ZombiePicture="/Content/Pictures/Zombies/PyramidHeadZombie.png"},
-                            new Zombie {ZombieID=17, ZombieName="Ra", ZombiePlaceAppear="Desert", ZombieLife=9, ZombieRank=2, ZombieDamage=2, RewardCoins=15, RewardXP=18, ZombiePicture="/Content/Pictures/Zombies/RaZombie.png"},
-                            new Zombie {ZombieID=18, ZombieName="Torchlight", ZombiePlaceAppear="Desert", ZombieLife=8, ZombieRank=2, ZombieDamage=3, RewardCoins=20, RewardXP=20, ZombiePicture="/Content/Pictures/Zombies/TorchlightZombie.png"},
-                            new Zombie {ZombieID=19, ZombieName="Zombot sphinxinator", ZombiePlaceAppear="Desert", ZombieLife=5, ZombieRank=5, ZombieDamage=3, RewardCoins=20, RewardXP=20, ZombiePicture="/Content/Pictures/Zombies/ZombotSphinxinator.png"},
+                            new Zombie {ZombieID=15, ZombieName="Pharoh", ZombiePlaceAppear="Desert", ZombieLife=8, ZombieRank=9, ZombieDamage=3, RewardCoins=20, RewardXP=20, ZombiePicture="/Content/Pictures/Zombies/PharaohZombie.png"},
+                            new Zombie {ZombieID=16, ZombieName="Pyramid-head", ZombiePlaceAppear="Desert", ZombieLife=4, ZombieRank=8, ZombieDamage=3, RewardCoins=8, RewardXP=10, ZombiePicture="/Content/Pictures/Zombies/PyramidHeadZombie.png"},
+                            new Zombie {ZombieID=17, ZombieName="Ra", ZombiePlaceAppear="Desert", ZombieLife=9, ZombieRank=1, ZombieDamage=2, RewardCoins=15, RewardXP=18, ZombiePicture="/Content/Pictures/Zombies/RaZombie.png"},
+                            new Zombie {ZombieID=18, ZombieName="Torchlight", ZombiePlaceAppear="Desert", ZombieLife=8, ZombieRank=3, ZombieDamage=3, RewardCoins=20, RewardXP=20, ZombiePicture="/Content/Pictures/Zombies/TorchlightZombie.png"},
+                            new Zombie {ZombieID=19, ZombieName="Zombot sphinxinator", ZombiePlaceAppear="Desert", ZombieLife=20, ZombieRank=10, ZombieDamage=3, RewardCoins=20, RewardXP=20, ZombiePicture="/Content/Pictures/Zombies/ZombotSphinxinator.png"},
 
                 //Pirate Ship
                             new Zombie {ZombieID=20, ZombieName="Barrelhead", ZombieLife=2, ZombiePlaceAppear="Pirate", ZombieRank=3, ZombieDamage=2, RewardCoins=5, RewardXP=4, ZombiePicture="/Content/Pictures/Zombies/BucketheadCowboy.png"},
@@ -600,7 +607,6 @@ namespace Zombiecalypse.DAL
                             new Zombie {ZombieID=77, ZombieName="Turquoise Skull", ZombiePlaceAppear="LostCity", ZombieLife=8, ZombieRank=1, ZombieDamage=3, RewardCoins=20, RewardXP=20, ZombiePicture="/Content/Pictures/Zombies/TurquoiseSkullZombie.png"},
                             new Zombie {ZombieID=78, ZombieName="Zombot aearostatic gondola",ZombiePlaceAppear="LostCity", ZombieLife=8, ZombieRank=1, ZombieDamage=3, RewardCoins=20, RewardXP=20, ZombiePicture="/Content/Pictures/Zombies/ZombotAerostaticGondola.png"},
 
-
             };
             zombies.ForEach(s => context.Zombies.Add(s));
             context.SaveChanges();
@@ -668,6 +674,37 @@ namespace Zombiecalypse.DAL
             };
             zombieDrops.ForEach(s => context.ZombieDrops.Add(s));
             context.SaveChanges();
+
+
+
+            var adventures = new List<Adventure> {
+                 new Adventure { AdventureName="1", AdventureType="Base", AdventureWaitingTime=10, AdventureXPBonus=6, AdventureSteps=3,  AdventureMaxZombiesPerRound=2, AdventureRequerdEnergy=3,},
+                 new Adventure { AdventureName="2", AdventureType="Base", AdventureWaitingTime=15, AdventureXPBonus=10, AdventureSteps=3, AdventureMaxZombiesPerRound=3, AdventureRequerdEnergy=4},
+                 new Adventure { AdventureName="3", AdventureType="Base", AdventureWaitingTime=25, AdventureXPBonus=30, AdventureSteps=3,  AdventureMaxZombiesPerRound=2, AdventureRequerdEnergy=5},
+                 new Adventure { AdventureName="4. ", AdventureType="Base", AdventureWaitingTime=10, AdventureXPBonus=6, AdventureSteps=3, AdventureMaxZombiesPerRound=4, AdventureRequerdEnergy=3},
+                 new Adventure { AdventureName="5. ", AdventureType="Base", AdventureWaitingTime=15, AdventureXPBonus=10, AdventureSteps=4,  AdventureMaxZombiesPerRound=3, AdventureRequerdEnergy=4},
+                 new Adventure { AdventureName="6. ", AdventureType="Base", AdventureWaitingTime=25, AdventureXPBonus=30, AdventureSteps=4, AdventureMaxZombiesPerRound=2, AdventureRequerdEnergy=5},
+                 new Adventure { AdventureName="7. ", AdventureType="Base", AdventureWaitingTime=10, AdventureXPBonus=6, AdventureSteps=4, AdventureMaxZombiesPerRound=4, AdventureRequerdEnergy=3},
+                 new Adventure { AdventureName="8. ", AdventureType="Base", AdventureWaitingTime=15, AdventureXPBonus=10, AdventureSteps=4, AdventureMaxZombiesPerRound=3, AdventureRequerdEnergy=4},
+                 new Adventure { AdventureName="9. ", AdventureType="Base", AdventureWaitingTime=25, AdventureXPBonus=30, AdventureSteps=4,  AdventureMaxZombiesPerRound=2, AdventureRequerdEnergy=5},
+                 new Adventure { AdventureName="10. ", AdventureType="Base", AdventureWaitingTime=10, AdventureXPBonus=6, AdventureSteps=1, AdventureMaxZombiesPerRound=1, AdventureRequerdEnergy=3},
+                 new Adventure { AdventureName="11. ", AdventureType="Desert", AdventureWaitingTime=15, AdventureXPBonus=10, AdventureSteps=4, AdventureMaxZombiesPerRound=3, AdventureRequerdEnergy=4},
+                 new Adventure { AdventureName="12. ", AdventureType="Desert", AdventureWaitingTime=25, AdventureXPBonus=30, AdventureSteps=7, AdventureMaxZombiesPerRound=2, AdventureRequerdEnergy=5},
+                 new Adventure { AdventureName="13. ", AdventureType="Desert", AdventureWaitingTime=25, AdventureXPBonus=30, AdventureSteps=7, AdventureMaxZombiesPerRound=2, AdventureRequerdEnergy=5},
+                 new Adventure { AdventureName="14. ", AdventureType="Desert", AdventureWaitingTime=10, AdventureXPBonus=6, AdventureSteps=3, AdventureMaxZombiesPerRound=4, AdventureRequerdEnergy=3},
+                 new Adventure { AdventureName="15. ", AdventureType="Desert", AdventureWaitingTime=15, AdventureXPBonus=10, AdventureSteps=4, AdventureMaxZombiesPerRound=3, AdventureRequerdEnergy=4},
+                 new Adventure { AdventureName="16. ", AdventureType="Desert", AdventureWaitingTime=25, AdventureXPBonus=30, AdventureSteps=7, AdventureMaxZombiesPerRound=2, AdventureRequerdEnergy=5},
+                 new Adventure { AdventureName="17. ", AdventureType="Desert", AdventureWaitingTime=25, AdventureXPBonus=30, AdventureSteps=7,  AdventureMaxZombiesPerRound=2, AdventureRequerdEnergy=5},
+                 new Adventure { AdventureName="18. ", AdventureType="Desert", AdventureWaitingTime=10, AdventureXPBonus=6, AdventureSteps=3, AdventureMaxZombiesPerRound=4, AdventureRequerdEnergy=3},
+                 new Adventure { AdventureName="19. ", AdventureType="Desert", AdventureWaitingTime=15, AdventureXPBonus=10, AdventureSteps=4, AdventureMaxZombiesPerRound=3, AdventureRequerdEnergy=4},
+                 new Adventure { AdventureName="20. ", AdventureType="Desert", AdventureWaitingTime=25, AdventureXPBonus=30, AdventureSteps=7, AdventureMaxZombiesPerRound=2, AdventureRequerdEnergy=5},
+                 new Adventure { AdventureName="21. ", AdventureType="Pirate", AdventureWaitingTime=25, AdventureXPBonus=30, AdventureSteps=7, AdventureMaxZombiesPerRound=2, AdventureRequerdEnergy=5}
+
+            };
+            adventures.ForEach(s => context.Adventures.Add(s));
+            context.SaveChanges();
+
+
 
             var adventureDrops = new List<AdventureDrop> {
                 new AdventureDrop { AdventureID=1, DropableItemID=34, ItemDroprate= 0.2, ItemMaxDrop=2 },
@@ -741,34 +778,6 @@ namespace Zombiecalypse.DAL
             adventureDrops.ForEach(s => context.AdventureDrops.Add(s));
             context.SaveChanges();
 
-
-            var adventures = new List<Adventure> {
-                 new Adventure { AdventureName="Short adventure", AdventureType="Base", AdventureWaitingTime=10, AdventureXPBonus=6, AdventureSteps=3, AdventureZombieMaxRank=1, AdventureMaxZombiesPerRound=4, AdventureRequerdEnergy=3, CharacterLevelRequired = 1, AdventureCoords="290,125,25" },
-                 new Adventure { AdventureName="Desert adventure 1", AdventureType="Desert", AdventureWaitingTime=15, AdventureXPBonus=10, AdventureSteps=2, AdventureZombieMaxRank=1, AdventureMaxZombiesPerRound=3, AdventureRequerdEnergy=4, CharacterLevelRequired=4, AdventureCoords="50,0,100,50"},
-                 new Adventure { AdventureName="Pirate ship adventure 2", AdventureType="Pirate", AdventureWaitingTime=25, AdventureXPBonus=30, AdventureSteps=7, AdventureZombieMaxRank=1, AdventureMaxZombiesPerRound=2, AdventureRequerdEnergy=5, CharacterLevelRequired=7, AdventureCoords="100,0,150,50"},
-                 new Adventure { AdventureName="4. Adventure", AdventureType="WildWest", AdventureWaitingTime=10, AdventureXPBonus=6, AdventureSteps=3, AdventureZombieMaxRank=1, AdventureMaxZombiesPerRound=4, AdventureRequerdEnergy=3, CharacterLevelRequired=11, AdventureCoords=""},
-                 new Adventure { AdventureName="5. Adventure", AdventureType="Cave", AdventureWaitingTime=15, AdventureXPBonus=10, AdventureSteps=4, AdventureZombieMaxRank=2, AdventureMaxZombiesPerRound=3, AdventureRequerdEnergy=4, CharacterLevelRequired=14, AdventureCoords=""},
-                 new Adventure { AdventureName="6. Adventure", AdventureType="LostCity", AdventureWaitingTime=25, AdventureXPBonus=30, AdventureSteps=7, AdventureZombieMaxRank=3, AdventureMaxZombiesPerRound=2, AdventureRequerdEnergy=5, CharacterLevelRequired=17, AdventureCoords=""},
-                 new Adventure { AdventureName="7. Adventure", AdventureWaitingTime=10, AdventureXPBonus=6, AdventureSteps=3, AdventureZombieMaxRank=1, AdventureMaxZombiesPerRound=4, AdventureRequerdEnergy=3, CharacterLevelRequired=19, AdventureCoords=""},
-                 new Adventure { AdventureName="8. Adventure", AdventureWaitingTime=15, AdventureXPBonus=10, AdventureSteps=4, AdventureZombieMaxRank=2, AdventureMaxZombiesPerRound=3, AdventureRequerdEnergy=4, CharacterLevelRequired=21, AdventureCoords=""},
-                 new Adventure { AdventureName="9. Adventure", AdventureWaitingTime=25, AdventureXPBonus=30, AdventureSteps=7, AdventureZombieMaxRank=3, AdventureMaxZombiesPerRound=2, AdventureRequerdEnergy=5, CharacterLevelRequired=24, AdventureCoords=""},
-                 new Adventure { AdventureName="10. Adventure", AdventureWaitingTime=10, AdventureXPBonus=6, AdventureSteps=3, AdventureZombieMaxRank=1, AdventureMaxZombiesPerRound=4, AdventureRequerdEnergy=3, CharacterLevelRequired=26, AdventureCoords=""},
-                 new Adventure { AdventureName="11. Adventure", AdventureWaitingTime=15, AdventureXPBonus=10, AdventureSteps=4, AdventureZombieMaxRank=2, AdventureMaxZombiesPerRound=3, AdventureRequerdEnergy=4, CharacterLevelRequired=29, AdventureCoords=""},
-                 new Adventure { AdventureName="12. Adventure", AdventureWaitingTime=25, AdventureXPBonus=30, AdventureSteps=7, AdventureZombieMaxRank=3, AdventureMaxZombiesPerRound=2, AdventureRequerdEnergy=5, CharacterLevelRequired=31, AdventureCoords=""},
-                 new Adventure { AdventureName="13. Adventure", AdventureWaitingTime=25, AdventureXPBonus=30, AdventureSteps=7, AdventureZombieMaxRank=3, AdventureMaxZombiesPerRound=2, AdventureRequerdEnergy=5, CharacterLevelRequired=33, AdventureCoords=""}
-
-            };
-            adventures.ForEach(s => context.Adventures.Add(s));
-            context.SaveChanges();
-
-
-            //var dogs = new List<Dog> {
-            //     new Dog {  ItemID = 100, ItemName = "dog1", ItemPicture="/Content/Pictures/Dogs/dog1.png", ItemMaxDurability=0},
-            //     new Dog {  ItemID = 101, ItemName = "dog2", ItemPicture="/Content/Pictures/Dogs/dog2.png", ItemMaxDurability=0},
-            //     new Dog {  ItemID = 102, ItemName = "dog3", ItemPicture="/Content/Pictures/Dogs/dog3.png", ItemMaxDurability=0},
-            //};
-            //dogs.ForEach(s => context.Dogs.Add(s));
-            //context.SaveChanges();
 
 
             var storyMissions = new List<StoryMission> {
@@ -915,74 +924,32 @@ namespace Zombiecalypse.DAL
 
 
             var dailyMissions = new List<DailyMission> {
-
-                new DailyMission { MissionID = 23, MissionName="Daily mission I", RequiredLevel=1, IsNextMission=false,  MissionTasks =  new List<MissionTask>{
+                 
+                new DailyMission { MissionID = 23, MissionName="Daily collect mission I", RequiredLevel=1, IsNextMission=false,  MissionTasks =  new List<MissionTask>{
                         new CollectMissionTask { MissionTaskID = 47, MissionID = 23, ItemID = 55 , ItemPieces = 5, TaskText="Get 5 pieces of boards!"},
                         new CollectMissionTask { MissionTaskID = 48, MissionID = 23, ItemID = 56 , ItemPieces = 5, TaskText="Get 5 pieces of !"},
                     } },
 
-                new DailyMission { MissionID = 24, MissionName="Daily mission II", RequiredLevel=1, IsNextMission=false,  MissionTasks =  new List<MissionTask>{
+                new DailyMission { MissionID = 24, MissionName="Daily collect mission II", RequiredLevel=1, IsNextMission=false,  MissionTasks =  new List<MissionTask>{
                         new CollectMissionTask { MissionTaskID = 49, MissionID = 24, ItemID = 55 , ItemPieces = 4, TaskText="Get 4 pieces of boards!"},
                     } },
 
-                new DailyMission { MissionID = 25, MissionName="Daily mission III", RequiredLevel=1, IsNextMission=false,  MissionTasks =  new List<MissionTask>{
+                new DailyMission { MissionID = 25, MissionName="Daily collect mission III", RequiredLevel=1, IsNextMission=false,  MissionTasks =  new List<MissionTask>{
                         new CollectMissionTask { MissionTaskID = 50, MissionID = 25, ItemID = 56 , ItemPieces = 4, TaskText="Get 4 pieces of!"},
                     } },
 
-                new DailyMission { MissionID = 26, MissionName="Daily mission IV", RequiredLevel=1, IsNextMission=false,  MissionTasks =  new List<MissionTask>{
+                new DailyMission { MissionID = 26, MissionName="Daily collect mission IV", RequiredLevel=1, IsNextMission=false,  MissionTasks =  new List<MissionTask>{
                         new CollectMissionTask { MissionTaskID = 51, MissionID = 26, ItemID = 57 , ItemPieces = 4, TaskText="Get 4 pieces of!"},
+                    } },
+
+                new DailyMission { MissionID = 27, MissionName="Daily AdventureMission I", RequiredLevel=1, IsNextMission=false,  MissionTasks =  new List<MissionTask>{
+                        new AdventureMissionTask { MissionTaskID = 52, MissionID = 27, ItemID = 1 , ItemPieces = 2, TaskText="Complete 2 adventures"},
                     } },
 
             };
 
-
             dailyMissions.ForEach(s => context.DailyMissions.Add(s));
             context.SaveChanges();
-
-
-
-
-            //    var sideMission = new List<SideMission> {
-            //            new SideMission { MissionID = 4, MissionName="SideMission", MissionTasks =  new List<MissionTask>{
-            //                    new CollectMissionTask { MissionTaskID = 3, MissionID = 4, ItemID = 57, ItemPieces = 2},
-            //                    new CollectMissionTask { MissionTaskID = 4, MissionID = 4, ItemID = 56, ItemPieces = 3},
-            //                } },
-
-            //    };
-            //    sideMission.ForEach(s => context.SideMissions.Add(s));
-            //    context.SaveChanges();
-
-            //    var collectMissionTask = new List<CollectMissionTask> {
-
-            //            new CollectMissionTask { MissionTaskID = 1, MissionID = 1, ItemID = 88, ItemPieces = 5},
-
-            //            new CollectMissionTask { MissionTaskID = 7, MissionID = 3, ItemID = 56, ItemPieces = 2 },
-            //            new CollectMissionTask { MissionTaskID = 8, MissionID = 3, ItemID = 57, ItemPieces = 3 },
-
-            //    };
-
-            //    collectMissionTask.ForEach(s => context.CollectMissionTasks.Add(s));
-            //    context.SaveChanges();
-
-            //    var harvestMissionTask = new List<HarvestMissionTask> {
-
-
-            //            new HarvestMissionTask { MissionTaskID = 4, MissionID = 2, ItemID = 55, ItemPieces = 1 },
-            //            new HarvestMissionTask { MissionTaskID = 5, MissionID = 2, ItemID = 56, ItemPieces = 2 },
-
-            //            new HarvestMissionTask { MissionTaskID = 6, MissionID = 3, ItemID = 55, ItemPieces = 1 },
-            //            new HarvestMissionTask { MissionTaskID = 7, MissionID = 3, ItemID = 56, ItemPieces = 2 },
-            //            new HarvestMissionTask { MissionTaskID = 8, MissionID = 3, ItemID = 57, ItemPieces = 3 },
-
-            //            new HarvestMissionTask { MissionTaskID = 9, MissionID = 4, ItemID = 55, ItemPieces = 1 },
-            //            new HarvestMissionTask { MissionTaskID = 10, MissionID = 4, ItemID = 56, ItemPieces = 2 },
-
-            //    };
-
-
-            //    harvestMissionTask.ForEach(s => context.HarvestMissionTasks.Add(s));
-            //    context.SaveChanges();
-
 
 
         }

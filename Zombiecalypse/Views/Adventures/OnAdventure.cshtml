@@ -70,7 +70,7 @@ IsYourTurn: @Model.Character.isYourTurn
                             <div class="tab-pane" role="tabpanel" id=@id>
                                 <h3>Round @counter</h3>
 
-                                @Html.ActionLink("Collect reward", "CollectReward", "Adventures", new { AdId = 1, ChId = User.Identity.Name }, new { @class = "ActionLinkButton" })
+                                @Html.ActionLink("Collect reward", "CollectReward", "Adventures", new { AdId = Model.Adventure.AdventureID, ChId = User.Identity.Name }, new { @class = "ActionLinkButton" })
 
 
                                 @Html.ActionLink("Finish adventure", "StopAdventure", "Adventures", new { AdId = Model.Adventure.AdventureID, ChId = Model.Character.CharacterID, returnUrl = this.Request.Url }, null) <br />
@@ -105,7 +105,7 @@ IsYourTurn: @Model.Character.isYourTurn
                                                                     <table class="table-hover" width="250" cellpadding="10" style="background-image: url(/Content/Pictures/characterDetails.png)">
                                                                         @if (weap.IsRanged == true)
                                                                         {
-                                                                            <tr id=@weaponID onclick="myFunction(@counter, @item.InventoryID, true) ">
+                                                                            <tr id=@weaponID onclick="myFunction(@counter, @item.InventoryID, true)" >
                                                                                 <td>
                                                                                     <table>
                                                                                         <tr>
@@ -124,7 +124,7 @@ IsYourTurn: @Model.Character.isYourTurn
                                                                         else
 
                                                                         {
-                                                                            <tr id=@weaponID onclick="myFunction(@counter, @item.InventoryID, false) ">
+                                                                            <tr id=@weaponID onclick="myFunction(@counter, @item.InventoryID, false)" >
                                                                                 <td>
                                                                                     <table>
                                                                                         <tr>
@@ -163,14 +163,10 @@ IsYourTurn: @Model.Character.isYourTurn
                                                         string attackZombieId = "attackZombieId" + zombie.ZombieAttackAdventurerID;
                                                         if (zombie.State == counter)
                                                         {
+                                                            atadni.Add(zombie.ZombieAttackAdventurerID);
                                                             <td>
 
-                                                                <table align="right" class="zombieTable2" id=@zombieId @*style="background-image: url(/Content/Pictures/zombieBorder.png);"*@>
-                                                                    <tr>
-                                                                        @*<td>
-                                                                                @Html.ActionLink("ZAA", "ZombieAttackAdventurer", "Adventures", new { id = @zombie.ZombieAttackAdventurerID }, null)
-                                                                            </td>*@
-                                                                    </tr>
+                                                                <table align="right" class="zombieTable2" id=@zombieId>
                                                                     <tr>
                                                                         <td>
                                                                             <img src=@zombie.Zombie.ZombiePicture />
@@ -210,11 +206,11 @@ IsYourTurn: @Model.Character.isYourTurn
                                                                                 if (item.ItemPieces > 0)
                                                                                 {
                                                                                     var tdID = "ii" + item.InventoryID + "zi" + zombie.ZombieAttackAdventurerID;
-                                                                                    <td id=@tdID>
+                                                                                    <td style="display:none"  id=@tdID>
                                                                                         <table>
-                                                                                            @*<tr>
-                                                                                                    <td>@Html.ActionLink("Attack", "AttackZombie", new { zAAID = Json.Encode(atadni), InvID = item.InventoryID }, new { @class = "ActionLinkButton" })</td>
-                                                                                                </tr>*@
+                                                                                            <tr>
+                                                                                                    <td>@Html.ActionLink("Attack 1", "AttackZombie", new { zAAID = Json.Encode(atadni), InvID = item.InventoryID }, new { @class = "ActionLinkButton" })</td>
+                                                                                                </tr>
                                                                                         </table>
                                                                                     </td>
                                                                                 }
@@ -223,7 +219,6 @@ IsYourTurn: @Model.Character.isYourTurn
                                                                     </tr>
                                                                 </table>
                                                             </td>
-                                                            atadni.Add(zombie.ZombieAttackAdventurerID);
                                                         }
                                                     }
                                                 </tr>
@@ -239,10 +234,10 @@ IsYourTurn: @Model.Character.isYourTurn
                                                 if (item.ItemPieces > 0)
                                                 {
                                                     var tdID = "ii" + item.InventoryID;
-                                                    <td id=@tdID>
+                                                    <td  style="display:none"  id=@tdID>
                                                         <table>
                                                             <tr>
-                                                                <td>@Html.ActionLink("Attack", "AttackZombie", new { zAAID = Json.Encode(atadni), InvID = item.InventoryID }, new { @class = "ActionLinkButton" })</td>
+                                                                <td>@Html.ActionLink("Attack more", "AttackZombie", new { zAAID = Json.Encode(atadni), InvID = item.InventoryID }, new { @class = "ActionLinkButton" })</td>
                                                             </tr>
                                                         </table>
                                                     </td>
@@ -258,19 +253,13 @@ IsYourTurn: @Model.Character.isYourTurn
                                 </ul>
                             </div>
                         }
-
-                        @*<ul class="list-inline pull-right">
-                                <li><button type="button" class="btn btn-default prev-step">Previous</button></li>
-                                <li><button type="button" class="btn btn-default next-step">Skip</button></li>
-                                <li><button type="button" class="btn btn-primary btn-info-full next-step">Save and continue</button></li>
-                            </ul>*@
                         <div align="center" class="tab-pane" role="tabpanel" id="tabpanelcomplete">
                             <h3>Complete</h3>
                             <p>You have successfully completed all steps.</p>
 
 
                             <img src="~/Content/Pictures/Adventures/lada1.png" /><br />
-                            @Html.ActionLink("Collect reward", "CollectReward", "Adventures", new { AdId = 1, ChId = User.Identity.Name }, new { @class = "ActionLinkButton" })
+                            @Html.ActionLink("Collect reward", "CollectReward", "Adventures", new { AdId = Model.Adventure.AdventureID, ChId = User.Identity.Name }, new { @class = "ActionLinkButton" })
                         </div>
                         <div class="clearfix"></div>
                     </div>
@@ -389,7 +378,6 @@ Adventure ID: @Model.Adventure.AdventureID
     {
         if (Model.ZombiesAttackAdventurer[a].State == Model.Character.AdventureState)
         {
-
             <script>
                 var zombie = @Model.ZombiesAttackAdventurer[a].ZombieAttackAdventurerID;
                 zombies.push(zombie);
@@ -397,17 +385,17 @@ Adventure ID: @Model.Adventure.AdventureID
         }
     }
 
-    if (Model.Character.AdventureState < Model.Adventure.AdventureSteps)
+    if (Model.Character.AdventureState <= Model.Adventure.AdventureSteps)
     {
         <script>
 
             function myFunction(counter, invId, isRanged){
 
-                console.log("count: " +@Model.ZombiesAttackAdventurer.Count +"c: " +counter +",inv " +invId +",rang " +isRanged)
+                console.log("count: " +zombies.Count +"c: " +counter +",inv " +invId +",rang " +isRanged)
 
                 if(isRanged == false){
 
-                    for(var szam = 0; szam <  @Model.ZombiesAttackAdventurer.Count-3; szam++){
+                    for(var szam = 0; szam <  zombies.Count; szam++){
 
                         console.log("szam: " +szam);
                         console.log("zombie: " + zombies[szam]);
@@ -417,8 +405,9 @@ Adventure ID: @Model.Adventure.AdventureID
 
 
                         $(document.getElementById(zombieId).style.border = "");
+                        $(document.getElementById(id).style.display = 'none');
                         $(document.getElementById(zombieId).classList = "zombieTable2");
-                        
+
                     }
 
 
@@ -434,7 +423,7 @@ Adventure ID: @Model.Adventure.AdventureID
                 }
                 else if(isRanged == true){
 
-                    for(var szam = 0; szam <  @Model.ZombiesAttackAdventurer.Count-3; szam++){
+                    for(var szam = 0; szam <  zombies.Count; szam++){
 
                         console.log("szam: " +szam);
                         console.log("zombie: " + zombies[szam]);
@@ -444,10 +433,11 @@ Adventure ID: @Model.Adventure.AdventureID
 
 
                         $(document.getElementById(zombieId).style.border = "");
+                        $(document.getElementById(id).style.display = 'none');
                         $(document.getElementById(zombieId).classList = "zombieTable2");
                     }
 
-                    for(var szam = 0; szam <  @Model.ZombiesAttackAdventurer.Count-3; szam++){
+                    for(var szam = 0; szam <  zombies.Count; szam++){
 
                         console.log("szam2: " +szam);
                         console.log("zombie2: " + zombies[szam]);
@@ -459,10 +449,6 @@ Adventure ID: @Model.Adventure.AdventureID
                         $(document.getElementById(zombieId).style.border = "solid red 1px");
                         $(document.getElementById(zombieId).classList = "selectedZombie");
                     }
-
-
-
-
                 }
                 else{
                     console.log("error");
@@ -474,3 +460,5 @@ Adventure ID: @Model.Adventure.AdventureID
     }
 
 }
+
+@Model.PageUrl

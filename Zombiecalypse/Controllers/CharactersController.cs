@@ -191,9 +191,6 @@ namespace Zombiecalypse.Controllers
 
             model.CharacterBuildings.Add(db.Buildings.Where(x => x.ItemID == model.Fence.ItemID).FirstOrDefault());
 
-            model.OwnedDog = db.OwnedDogs.Where(x => x.CharacterID == model.Character.CharacterID).FirstOrDefault();
-
-
             base.SetModelProperties(model);
             return View(model);
         }

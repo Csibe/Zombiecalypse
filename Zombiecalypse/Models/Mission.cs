@@ -66,6 +66,12 @@ namespace Zombiecalypse.Models
 
     }
 
+    public class AdventureMissionTask : MissionTask
+    {
+
+    }
+    
+
     public class CharacterMissionTask {
 
         public int CharacterMissionTaskID { get; set; }

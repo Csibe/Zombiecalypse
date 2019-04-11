@@ -34,6 +34,7 @@ namespace Zombiecalypse.Models
         [DisplayName("Is on adventure")]
         public int MaxTolerance { get; set; }
         public int Tolerance { get; set; }
+        public int AdventureMapState { get; set; }
         public bool IsOnAdventure { get; set; }
         [DisplayName("Adventure ID")]
         public int AdventureID { get; set; }
@@ -55,9 +56,6 @@ namespace Zombiecalypse.Models
     public class CharacterDetailsViewModel : ViewModelBase
     {
         public int CharacterID { get; set; }
-
-        public virtual Character Character { get; set; }
-        public virtual OwnedDog OwnedDog { get; set; }
 
         [DisplayName("Next level XP")]
         public int CharacterNextLevelXP { get; set; }

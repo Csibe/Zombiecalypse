@@ -9,16 +9,13 @@
 <h3>Missions</h3>
 
 <div>
-    
-    <div id="missionCounter" ></div>
+
+    <div id="missionCounter"></div>
 
     @Html.ActionLink("Start zombie attack1", "ZombieStartAttackBase", "Missions", new { id = 1, userID = User.Identity.Name }, null) <br />
-        @Html.ActionLink("Start zombie attack2", "ZombieStartAttackBase", "Missions", new { id = 2, userID = User.Identity.Name }, null) <br />
-        <br />
-        <br />
-        <br /><br />
-        <br />
-        <br />
+    @Html.ActionLink("Start zombie attack2", "ZombieStartAttackBase", "Missions", new { id = 2, userID = User.Identity.Name }, null) <br />
+    <br />
+    <br />
 
     @*@foreach (var sm in Model.Missions)
         {
@@ -28,562 +25,416 @@
 
 
 
-<div>
-    @if (Model.InProgressMissions.Where(x => x.MissionID == 15).Count() == 0)
-    {    
-        @Html.ActionLink("Start Who's the Boss I", "StartMission", "Missions", new { id = 15, userID = User.Identity.Name }, new { @class = "ActionLinkButton" }) <br />
-    }
+    <div>
+        @if (Model.InProgressMissions.Where(x => x.MissionID == 15).Count() == 0)
+        {
+            @Html.ActionLink("Start Who's the Boss I", "StartMission", "Missions", new { id = 15, userID = User.Identity.Name }, new { @class = "ActionLinkButton" }) <br />
+        }
 
-    @if (Model.InProgressMissions.Where(x => x.MissionID == 20).Count() == 0)
-    {
-        @Html.ActionLink("Start Winter is coming I", "StartMission", "Missions", new { id = 20, userID = User.Identity.Name }, new { @class = "ActionLinkButton" }) <br />
-    }
+        @if (Model.InProgressMissions.Where(x => x.MissionID == 20).Count() == 0)
+        {
+            @Html.ActionLink("Start Winter is coming I", "StartMission", "Missions", new { id = 20, userID = User.Identity.Name }, new { @class = "ActionLinkButton" }) <br />
+        }
+
+    </div>
 
 </div>
 
-    @*<div>
-        @foreach (var inprogressmission in Model.InProgressMissions)
-        {
-            <table>
-                <tr>
-                    <td>
-                        @Html.ActionLink("Check Mission " + inprogressmission.CharacterMissionID, "CheckMission", "Missions", new { id = inprogressmission.CharacterMissionID, userID = User.Identity.Name }, null) <br />
-                    </td>
-                </tr>
-            </table>
-        }
+<div class="container">
+    <ul class="nav nav-tabs">
+        <li class="active"><a data-toggle="tab" href="#daily">Daily missions</a></li>
+        <li><a data-toggle="tab" href="#story">Story missions</a></li>
+        <li><a data-toggle="tab" href="#side">Side missions</a></li>
+    </ul>
+</div>
 
-    </div>*@
-    @*@Html.ActionLink("GenerateDailyMissions", "GenerateDailyMissions", "Missions", new { userID = User.Identity.Name }, null) <br />*@
-
-
-    @*
-
+<div class="tab-content">
+    <div id="daily" class="tab-pane fade in active">
+        
         <br />
-        <br />
-        <br />
-
-        @foreach (var inprogressmission in Model.InProgressMissions)
-        {
-            <table>
-                <tr>
-                    <td>
-                        @inprogressmission.MissionID
-                    </td>
-                    <td>
-                        @Html.ActionLink("Repair Mission " + inprogressmission.CharacterMissionID, "RepairMission", "Missions", new { id = inprogressmission.CharacterMissionID }, null) <br />
-                    </td>
-                </tr>
-            </table>
-        }*@
-
-
-    <div>
-        <h4>Daily missions:</h4>
-
-        @foreach (var inprogressmission in Model.InProgressMissions)
-        {
-            foreach (var mission in Model.Missions.Where(x => x.GetType().Name == "DailyMission"))
+        <div>
+            @foreach (var inprogressmission in Model.InProgressMissions)
             {
-                if (mission.MissionID == inprogressmission.MissionID)
+                foreach (var mission in Model.Missions.Where(x => x.GetType().Name == "DailyMission"))
                 {
-                    <table class="table missiontable">
-                        <tr>
-                            <td>
-                                @inprogressmission.CharacterMissionID
-                            </td>
-                            <td>
-                                @mission.MissionName
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                @foreach (var charTask in inprogressmission.CharacterMissionTasks)
-                                {
-                                    foreach (var task in mission.MissionTasks)
+                    if (mission.MissionID == inprogressmission.MissionID)
+                    {
+                        <table class="table missiontable">
+                            <tr>
+                                <td>
+                                    @inprogressmission.CharacterMissionID
+                                </td>
+                                <td>
+                                    @mission.MissionName
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    @foreach (var charTask in inprogressmission.CharacterMissionTasks)
                                     {
-                                        if (charTask.MissionTaskID == task.MissionTaskID)
+                                        foreach (var task in mission.MissionTasks)
                                         {
-
-                                            if (task.GetType().Name == "KillingMissionTask")
+                                            if (charTask.MissionTaskID == task.MissionTaskID)
                                             {
-                                                foreach (var zombie in Model.Zombies)
+
+                                                if (task.GetType().Name == "KillingMissionTask")
                                                 {
-                                                    if (zombie.ZombieID == task.ItemID)
+                                                    foreach (var zombie in Model.Zombies)
                                                     {
-                                                        <table class="table">
-                                                            <tr>
-                                                                <td>
-                                                                    <img width="30" height="30" src=@zombie.ZombiePicture />
-                                                                </td>
-                                                                <td>
-                                                                    @task.TaskText
-                                                                </td>
-                                                                @if (charTask.TaskProgress >= task.ItemPieces)
-                                                                {
+                                                        if (zombie.ZombieID == task.ItemID)
+                                                        {
+                                                            <table class="table">
+                                                                <tr>
                                                                     <td>
-                                                                        <img width="25" height="25" src="~/Content/Pictures/check.png" />
+                                                                        <img width="30" height="30" src=@zombie.ZombiePicture />
                                                                     </td>
-                                                                }
-                                                                else
-                                                                {
                                                                     <td>
-                                                                        @charTask.TaskProgress / @task.ItemPieces
+                                                                        @task.TaskText
                                                                     </td>
-                                                                }
-                                                            </tr>
-                                                        </table>
+                                                                    @if (charTask.TaskProgress >= task.ItemPieces)
+                                                                    {
+                                                                        <td>
+                                                                            <img width="25" height="25" src="~/Content/Pictures/check.png" />
+                                                                        </td>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <td>
+                                                                            @charTask.TaskProgress / @task.ItemPieces
+                                                                        </td>
+                                                                    }
+                                                                </tr>
+                                                            </table>
+                                                        }
                                                     }
+
                                                 }
 
-                                            }
-
-                                            else
-                                            {
-
-                                                foreach (var item in Model.Items)
+                                                else
                                                 {
-                                                    if (item.ItemID == task.ItemID)
-                                                    {
-                                                        <table class="table">
-                                                            <tr>
-                                                                <td>
-                                                                    <img width="30" height="30" src=@item.ItemPicture />
-                                                                </td>
-                                                                <td>
-                                                                    @task.TaskText
-                                                                </td>
-                                                                @if (charTask.TaskProgress >= task.ItemPieces)
-                                                                {
-                                                                    <td>
-                                                                        <img width="25" height="25" src="~/Content/Pictures/check.png" />
-                                                                    </td>
-                                                                }
-                                                                else
-                                                                {
-                                                                    <td>
-                                                                        @charTask.TaskProgress / @task.ItemPieces
-                                                                    </td>
-                                                                }
 
-                                                            </tr>
-                                                        </table>
+                                                    foreach (var item in Model.Items)
+                                                    {
+                                                        if (item.ItemID == task.ItemID)
+                                                        {
+                                                            <table class="table">
+                                                                <tr>
+                                                                    <td>
+                                                                        <img width="30" height="30" src=@item.ItemPicture />
+                                                                    </td>
+                                                                    <td>
+                                                                        @task.TaskText
+                                                                    </td>
+                                                                    @if (charTask.TaskProgress >= task.ItemPieces)
+                                                                    {
+                                                                        <td>
+                                                                            <img width="25" height="25" src="~/Content/Pictures/check.png" />
+                                                                        </td>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <td>
+                                                                            @charTask.TaskProgress / @task.ItemPieces
+                                                                        </td>
+                                                                    }
+
+                                                                </tr>
+                                                            </table>
+                                                        }
                                                     }
                                                 }
                                             }
                                         }
                                     }
-                                }
-                            </td>
-                        </tr>
-                        <tr>
-
-                            @if (mission.RequiredLevel > Model.Character.CharacterLevel)
-                        {
-                                <td class="alert alert-danger">
-                                    <strong>Required level: @mission.RequiredLevel</strong>
                                 </td>
-                            }
-                            else
-                            {
-                                if (inprogressmission.IsCompleted)
-                                {
-                                    <td>
-                                        @Html.ActionLink("Finish" + inprogressmission.CharacterMissionID, "GetReward", "Missions", new { id = inprogressmission.CharacterMissionID }, new { @class = "ActionLinkButton" })
+                            </tr>
+                            <tr>
+
+                                @if (mission.RequiredLevel > Model.Character.CharacterLevel)
+                        {
+                                    <td class="alert alert-danger">
+                                        <strong>Required level: @mission.RequiredLevel</strong>
                                     </td>
-
                                 }
-                            }
+                                else
+                                {
+                                    if (inprogressmission.IsCompleted)
+                                    {
+                                        <td>
+                                            @Html.ActionLink("Finish" + inprogressmission.CharacterMissionID, "GetReward", "Missions", new { id = inprogressmission.CharacterMissionID }, new { @class = "ActionLinkButton" })
+                                        </td>
 
-                        </tr>
-                    </table>
-                    <br />
+                                    }
+                                }
+
+                            </tr>
+                        </table>
+                        <br />
+                    }
+
                 }
-
             }
-        }
+        </div>
+
     </div>
 
 
-    <br />
-    <br />
+    <div id="story" class="tab-pane fade">
 
+        <div>
+            <br />
 
-
-    <div>
-<h4>Story missions:</h4>
-        <br />
-
-        @foreach (var inprogressmission in Model.InProgressMissions)
-        {
-            foreach (var mission in Model.Missions.Where(x=> x.GetType().Name=="StoryMission"))
+            @foreach (var inprogressmission in Model.InProgressMissions)
             {
-                if (mission.MissionID == inprogressmission.MissionID)
+                foreach (var mission in Model.Missions.Where(x => x.GetType().Name == "StoryMission"))
                 {
-                    <table class="table missiontable">
-                        <tr>
-                            <td>
-                                @inprogressmission.CharacterMissionID
-                            </td>
-                            <td>
-                                @mission.MissionName
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                @foreach (var charTask in inprogressmission.CharacterMissionTasks)
-                                {
-                                    foreach (var task in mission.MissionTasks)
+                    if (mission.MissionID == inprogressmission.MissionID)
+                    {
+                        <table class="table missiontable">
+                            <tr>
+                                <td>
+                                    @inprogressmission.CharacterMissionID
+                                </td>
+                                <td>
+                                    @mission.MissionName
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    @foreach (var charTask in inprogressmission.CharacterMissionTasks)
                                     {
-                                        if (charTask.MissionTaskID == task.MissionTaskID)
+                                        foreach (var task in mission.MissionTasks)
                                         {
-
-                                            if (task.GetType().Name == "KillingMissionTask")
+                                            if (charTask.MissionTaskID == task.MissionTaskID)
                                             {
-                                                foreach (var zombie in Model.Zombies)
+
+                                                if (task.GetType().Name == "KillingMissionTask")
                                                 {
-                                                    if (zombie.ZombieID == task.ItemID)
+                                                    foreach (var zombie in Model.Zombies)
                                                     {
-                                                        <table class="table">
-                                                            <tr>
-                                                                <td>
-                                                                    <img width="30" height="30" src=@zombie.ZombiePicture />
-                                                                </td>
-                                                                <td>
-                                                                    @task.TaskText
-                                                                </td>
-                                                                @if (charTask.TaskProgress >= task.ItemPieces)
-                                                                {
+                                                        if (zombie.ZombieID == task.ItemID)
+                                                        {
+                                                            <table class="table">
+                                                                <tr>
                                                                     <td>
-                                                                        <img width="25" height="25" src="~/Content/Pictures/check.png" />
+                                                                        <img width="30" height="30" src=@zombie.ZombiePicture />
                                                                     </td>
-                                                                }
-                                                                else
-                                                                {
                                                                     <td>
-                                                                        @charTask.TaskProgress / @task.ItemPieces
+                                                                        @task.TaskText
                                                                     </td>
-                                                                }
-                                                            </tr>
-                                                        </table>
+                                                                    @if (charTask.TaskProgress >= task.ItemPieces)
+                                                                    {
+                                                                        <td>
+                                                                            <img width="25" height="25" src="~/Content/Pictures/check.png" />
+                                                                        </td>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <td>
+                                                                            @charTask.TaskProgress / @task.ItemPieces
+                                                                        </td>
+                                                                    }
+                                                                </tr>
+                                                            </table>
+                                                        }
                                                     }
+
                                                 }
 
-                                            }
-
-                                            else
-                                            {
-
-                                                foreach (var item in Model.Items)
+                                                else
                                                 {
-                                                    if (item.ItemID == task.ItemID)
-                                                    {
-                                                        <table class="table">
-                                                            <tr>
-                                                                <td>
-                                                                    <img width="30" height="30" src=@item.ItemPicture />
-                                                                </td>
-                                                                <td>
-                                                                    @task.TaskText
-                                                                </td>
-                                                                @if (charTask.TaskProgress >= task.ItemPieces)
-                                                                {
-                                                                    <td>
-                                                                        <img width="25" height="25" src="~/Content/Pictures/check.png" />
-                                                                    </td>
-                                                                }
-                                                                else
-                                                                {
-                                                                    <td>
-                                                                        @charTask.TaskProgress / @task.ItemPieces
-                                                                    </td>
-                                                                }
 
-                                                            </tr>
-                                                        </table>
+                                                    foreach (var item in Model.Items)
+                                                    {
+                                                        if (item.ItemID == task.ItemID)
+                                                        {
+                                                            <table class="table">
+                                                                <tr>
+                                                                    <td>
+                                                                        <img width="30" height="30" src=@item.ItemPicture />
+                                                                    </td>
+                                                                    <td>
+                                                                        @task.TaskText
+                                                                    </td>
+                                                                    @if (charTask.TaskProgress >= task.ItemPieces)
+                                                                    {
+                                                                        <td>
+                                                                            <img width="25" height="25" src="~/Content/Pictures/check.png" />
+                                                                        </td>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <td>
+                                                                            @charTask.TaskProgress / @task.ItemPieces
+                                                                        </td>
+                                                                    }
+
+                                                                </tr>
+                                                            </table>
+                                                        }
                                                     }
                                                 }
                                             }
                                         }
                                     }
-                                }
-                            </td>
-                        </tr>
-                        <tr>
-
-                            @if (mission.RequiredLevel > Model.Character.CharacterLevel)
-                        {
-                                <td class="alert alert-danger">
-                                    <strong>Required level: @mission.RequiredLevel</strong>
                                 </td>
-                            }
-                            else
-                            {
-                                if (inprogressmission.IsCompleted)
-                                {
-                                    <td>
-                                        @Html.ActionLink("Finish" + inprogressmission.CharacterMissionID, "GetReward", "Missions", new { id = inprogressmission.CharacterMissionID }, new { @class = "ActionLinkButton" })
+                            </tr>
+                            <tr>
+
+                                @if (mission.RequiredLevel > Model.Character.CharacterLevel)
+                        {
+                                    <td class="alert alert-danger">
+                                        <strong>Required level: @mission.RequiredLevel</strong>
                                     </td>
-
                                 }
-                            }
+                                else
+                                {
+                                    if (inprogressmission.IsCompleted)
+                                    {
+                                        <td>
+                                            @Html.ActionLink("Finish" + inprogressmission.CharacterMissionID, "GetReward", "Missions", new { id = inprogressmission.CharacterMissionID }, new { @class = "ActionLinkButton" })
+                                        </td>
 
-                        </tr>
-                    </table>
-                    <br />
+                                    }
+                                }
+
+                            </tr>
+                        </table>
+                                        <br />
+                    }
                 }
-
             }
-        }
+        </div>
+
+
     </div>
 
 
-    <br />
-    <br />
-    <br />
-
-    <div>
-
-        @foreach (var inprogressmission in Model.InProgressMissions)
-        {
-            foreach (var mission in Model.Missions.Where(x => x.GetType().Name == "SideMission"))
+    <div id="side" class="tab-pane fade">
+        <div>
+            <br />
+            @foreach (var inprogressmission in Model.InProgressMissions)
             {
-                if (mission.MissionID == inprogressmission.MissionID)
+                foreach (var mission in Model.Missions.Where(x => x.GetType().Name == "SideMission"))
                 {
-                    <table class="table missiontable">
-                        <tr>
-                            <td>
-                                @inprogressmission.CharacterMissionID
-                            </td>
-                            <td>
-                                @mission.MissionName
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                @foreach (var charTask in inprogressmission.CharacterMissionTasks)
-                                {
-                                    foreach (var task in mission.MissionTasks)
+                    if (mission.MissionID == inprogressmission.MissionID)
+                    {
+                        <table class="table missiontable">
+                            <tr>
+                                <td>
+                                    @inprogressmission.CharacterMissionID
+                                </td>
+                                <td>
+                                    @mission.MissionName
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    @foreach (var charTask in inprogressmission.CharacterMissionTasks)
                                     {
-                                        if (charTask.MissionTaskID == task.MissionTaskID)
+                                        foreach (var task in mission.MissionTasks)
                                         {
-
-                                            if (task.GetType().Name == "KillingMissionTask")
+                                            if (charTask.MissionTaskID == task.MissionTaskID)
                                             {
-                                                foreach (var zombie in Model.Zombies)
+
+                                                if (task.GetType().Name == "KillingMissionTask")
                                                 {
-                                                    if (zombie.ZombieID == task.ItemID)
+                                                    foreach (var zombie in Model.Zombies)
                                                     {
-                                                        <table class="table">
-                                                            <tr>
-                                                                <td>
-                                                                    <img width="30" height="30" src=@zombie.ZombiePicture />
-                                                                </td>
-                                                                <td>
-                                                                    @task.TaskText
-                                                                </td>
-                                                                @if (charTask.TaskProgress >= task.ItemPieces)
-                                                                {
+                                                        if (zombie.ZombieID == task.ItemID)
+                                                        {
+                                                            <table class="table">
+                                                                <tr>
                                                                     <td>
-                                                                        <img width="25" height="25" src="~/Content/Pictures/check.png" />
+                                                                        <img width="30" height="30" src=@zombie.ZombiePicture />
                                                                     </td>
-                                                                }
-                                                                else
-                                                                {
                                                                     <td>
-                                                                        @charTask.TaskProgress / @task.ItemPieces
+                                                                        @task.TaskText
                                                                     </td>
-                                                                }
-                                                            </tr>
-                                                        </table>
+                                                                    @if (charTask.TaskProgress >= task.ItemPieces)
+                                                                    {
+                                                                        <td>
+                                                                            <img width="25" height="25" src="~/Content/Pictures/check.png" />
+                                                                        </td>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <td>
+                                                                            @charTask.TaskProgress / @task.ItemPieces
+                                                                        </td>
+                                                                    }
+                                                                </tr>
+                                                            </table>
+                                                        }
                                                     }
+
                                                 }
 
-                                            }
-
-                                            else
-                                            {
-
-                                                foreach (var item in Model.Items)
+                                                else
                                                 {
-                                                    if (item.ItemID == task.ItemID)
-                                                    {
-                                                        <table class="table">
-                                                            <tr>
-                                                                <td>
-                                                                    <img width="30" height="30" src=@item.ItemPicture />
-                                                                </td>
-                                                                <td>
-                                                                    @task.TaskText
-                                                                </td>
-                                                                @if (charTask.TaskProgress >= task.ItemPieces)
-                                                                {
-                                                                    <td>
-                                                                        <img width="25" height="25" src="~/Content/Pictures/check.png" />
-                                                                    </td>
-                                                                }
-                                                                else
-                                                                {
-                                                                    <td>
-                                                                        @charTask.TaskProgress / @task.ItemPieces
-                                                                    </td>
-                                                                }
 
-                                                            </tr>
-                                                        </table>
+                                                    foreach (var item in Model.Items)
+                                                    {
+                                                        if (item.ItemID == task.ItemID)
+                                                        {
+                                                            <table class="table">
+                                                                <tr>
+                                                                    <td>
+                                                                        <img width="30" height="30" src=@item.ItemPicture />
+                                                                    </td>
+                                                                    <td>
+                                                                        @task.TaskText
+                                                                    </td>
+                                                                    @if (charTask.TaskProgress >= task.ItemPieces)
+                                                                    {
+                                                                        <td>
+                                                                            <img width="25" height="25" src="~/Content/Pictures/check.png" />
+                                                                        </td>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <td>
+                                                                            @charTask.TaskProgress / @task.ItemPieces
+                                                                        </td>
+                                                                    }
+
+                                                                </tr>
+                                                            </table>
+                                                        }
                                                     }
                                                 }
                                             }
                                         }
                                     }
-                                }
-                            </td>
-                        </tr>
-                        <tr>
-
-                            @if (mission.RequiredLevel > Model.Character.CharacterLevel)
-                        {
-                                <td class="alert alert-danger">
-                                    <strong>Required level: @mission.RequiredLevel</strong>
                                 </td>
-                            }
-                            else
-                            {
-                                if (inprogressmission.IsCompleted)
-                                {
-                                    <td>
-                                        @Html.ActionLink("Finish" + inprogressmission.CharacterMissionID, "GetReward", "Missions", new { id = inprogressmission.CharacterMissionID }, new { @class = "ActionLinkButton" })
-                                    </td>
+                            </tr>
+                            <tr>
 
-                                }
-                            }
-
-                        </tr>
-                    </table>
-                    <br />
-                }
-
-            }
-        }
-    </div>
-    <br />
-    <br />
-    <br />
-    <br />
-
-    @*<table class="table">
-
-            @foreach (var mission in Model.Missions)
-                {
-                <tr>
-                    <td>
-                        @mission.MissionID
-                    </td>
-                    <td>
-                        @mission.MissionName
-                    </td>
-                    <td>
-                        @mission.RequiredLevel
-                    </td>
-                    <td>
-                        @mission.IsNextMission
-                    </td>
-                    <td>
-                        @mission.GetType().Name
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        @foreach (var task in mission.MissionTasks)
+                                @if (mission.RequiredLevel > Model.Character.CharacterLevel)
                         {
-                            if (task.GetType().Name == "KillingMissionTask")
-                            {
-                                foreach (var zombie in Model.Zombies)
+                                    <td class="alert alert-danger">
+                                        <strong>Required level: @mission.RequiredLevel</strong>
+                                    </td>
+                                }
+                                else
                                 {
-                                    if (zombie.ZombieID == task.ItemID)
+                                    if (inprogressmission.IsCompleted)
                                     {
-                                        <table class="table">
-                                            <tr>
-                                                <td>
-                                                    <img width="30" height="30" src=@zombie.ZombiePicture />
-                                                </td>
-                                                <td>
-                                                    @task.ItemID
-                                                </td>
-                                                <td>
-                                                    @task.ItemPieces
-                                                </td>
-                                                <td>
-                                                    @task.GetType().Name
-                                                </td>
-                                                <td>
-                                                    @task.TaskText
-                                                </td>
-                                            </tr>
-                                        </table>
+                                        <td>
+                                            @Html.ActionLink("Finish" + inprogressmission.CharacterMissionID, "GetReward", "Missions", new { id = inprogressmission.CharacterMissionID }, new { @class = "ActionLinkButton" })
+                                        </td>
+
                                     }
                                 }
 
-                            }
-                            else
-                            {
+                            </tr>
+                        </table>
+                        <br />
+                    }
 
-                                foreach (var item in Model.Items)
-                                {
-                                    if (item.ItemID == task.ItemID)
-                                    {
-                                        <table class="table">
-                                            <tr>
-                                                <td>
-                                                    <img width="30" height="30" src=@item.ItemPicture />
-                                                </td>
-                                                <td>
-                                                    @task.ItemID
-                                                </td>
-                                                <td>
-                                                    @task.ItemPieces
-                                                </td>
-                                                <td>
-                                                    @task.GetType().Name
-                                                </td>
-                                                <td>
-                                                    @task.TaskText
-                                                </td>
-                                            </tr>
-                                        </table>
-                                    }
-                                }
-
-                            }
-                        }
-                    </td>
-                </tr>
+                }
             }
-
-
-        </table>
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-
-        Daily Missions:
-        <table>
-
-            @foreach (var dailyMission in Model.Missions.Where(x => x.GetType().Name == "DailyMission"))
-            {
-                <tr>
-                    <td>
-                        @dailyMission.MissionName
-                    </td>
-                </tr>
-
-
-            }
-        </table>*@
+        </div>
+    </div>
 
 </div>

@@ -20,7 +20,6 @@ namespace Zombiecalypse.Controllers
             model.Weapons = db.BuyableWeapons.ToList();
             model.Plants = db.Plants.ToList();
             model.Energies = db.Energies.ToList();
-            model.Dogs = db.Dogs.ToList();
 
             base.SetModelProperties(model);
             return View(model);
@@ -52,37 +51,12 @@ namespace Zombiecalypse.Controllers
                 Energy variable = db.Energies.Find(ItemID);
                 price = variable.Cost;
             }
-            else if (item.GetType().Name.Contains("Dog"))
-            {
-                Dog variable = db.Dogs.Find(ItemID);
-                price = variable.Cost;
-            }
             else
             {
                 character.CharacterMoney -= price;
             }
 
 
-
-            if (item.GetType().Name.Contains("Dog"))
-            {
-                OwnedDog dog = new OwnedDog { CharacterID = character.CharacterID, DogLevel = 1, DogMaxLife = 3, DogCurrentLife = 3, DogPicture = item.ItemPicture, DogCurrentEnergy = 5, DogMaxEnergy = 5, EndOfExplore = DateTime.MaxValue, IsOnExplore = false };
-                db.OwnedDogs.Add(dog);
-            }
-            else
-            {
-                if (character.Inventory.Where(x => x.ItemID == ItemID).FirstOrDefault() != null)
-                {
-                    Inventory inventory = character.Inventory.Where(x => x.ItemID == ItemID).FirstOrDefault();
-                    inventory.ItemPieces++;
-                }
-                else
-                {
-                    Inventory inventory = new Inventory { ItemID = ItemID, CharacterID = character.CharacterID, Item = item, ItemPieces = 1, ItemCurrentDurability = item.ItemMaxDurability, ItemMaxDurability = item.ItemMaxDurability };
-                    db.Inventories.Add(inventory);
-                }
-
-            }
 
             db.SaveChanges();
 

@@ -39,24 +39,14 @@ namespace Zombiecalypse.DAL
         public DbSet<StoryMission> StoryMissions { get; set; }
         public DbSet<SideMission> SideMissions { get; set; }
         public DbSet<DailyMission> DailyMissions { get; set; }
-
-        
         public DbSet<MissionTask> MissionTasks { get; set; }
         public DbSet<CollectMissionTask> CollectMissionTasks { get; set; }
         public DbSet<HarvestMissionTask> HarvestMissionTasks { get; set; }
+        public DbSet<AdventureMissionTask> AdventureMissionTasks { get; set; }
         public DbSet<CharacterMissionTask> CharacterMissionTasks { get; set; }
         public DbSet<CharacterMission> CharacterMissions { get; set; }
 
         public DbSet<KillingMissionTask> KillingMissionTasks { get; set; }
-
-
-        //public DbSet<RepairStoryMission> RepairStoryMissions { get; set; }
-        //public DbSet<CollectableRepetableMission> CollectableRepetableMissions { get; set; }
-        //public DbSet<HarvestRepetableMission> HarvestRepetableMissions { get; set; }
-        //public DbSet<RepairRepetableMission> RepairRepetableMissions { get; set; }
-        public DbSet<Dog> Dogs { get; set; }
-
-        public DbSet<OwnedDog> OwnedDogs { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -124,15 +114,6 @@ namespace Zombiecalypse.DAL
                 m.MapInheritedProperties();
                 m.ToTable("Missions");
             });
-
-
-            modelBuilder.Entity<Dog>().Map(m =>
-            {
-                m.MapInheritedProperties();
-                m.ToTable("Dogs");
-            });
-
-
         }
     }
 }

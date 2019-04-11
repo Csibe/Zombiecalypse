@@ -14,22 +14,6 @@ namespace Zombiecalypse.Controllers.api
 
         DataContext db = new DataContext();
 
-        [Route("/api/Default/test")]
-        [HttpGet]
-        public IHttpActionResult test()
-        {
-            return Ok();
-        }
-
-        [Route("/api/Default/test/")]
-        [HttpGet]
-        public IHttpActionResult getTest(int id)
-        {
-            int num = id;
-            return Ok(num);
-        }
-
-
         [HttpGet]
         public IHttpActionResult GrowUpPlant()
         {
@@ -95,7 +79,7 @@ namespace Zombiecalypse.Controllers.api
             Character character = db.Characters.Where(x => x.ApplicationUserID == id).FirstOrDefault();
             TimeSpan distance = DateTime.Now - character.EnergyPlusDate;
 
-            var result = "Character energy: " + character.CurrentEnergy + ",  date: " + character.EnergyPlusDate + ", distance: " + distance + ", hours: "  +distance.Hours +", minutes: " + distance.Minutes + ", seconds: " + distance.Seconds;
+            var result = "";
 
             if (character.CurrentEnergy < character.MaxEnergy && character.EnergyPlusDate.Year == DateTime.MaxValue.Year)
             {
@@ -109,13 +93,13 @@ namespace Zombiecalypse.Controllers.api
             {
                 character.EnergyPlusDate = character.EnergyPlusDate.AddMinutes(1);
                 character.CurrentEnergy++;
+                result += "Energy recoverd!";
 
             }
             else if (character.CurrentEnergy < character.MaxEnergy && character.EnergyPlusDate > DateTime.Now)
             {
             }
 
-            //TimeSpan distance = DateTime.Now - character.EnergyPlusDate;
              db.SaveChanges();
 
             return Ok(result);
@@ -184,14 +168,14 @@ namespace Zombiecalypse.Controllers.api
                     int random;
                     TimeSpan distance = DateTime.Now - zombie.ZombieAttackStart;
 
-                    result += "id:" + zombie.ZombieAttackBaseID + ", name: " + model.Zombie.ZombieName + ", start: " + zombie.ZombieAttackStart + ", distance: " + distance.Hours + ". ";
+                    result += " " + model.Zombie.ZombieName + " attacked " + fence.Item.ItemName + " with " + attackPower + ".";
 
                     if (attackPower <= 0)
                     {
 
-                        result = "Zombie counldn't attack your building";
+                        result = "Zombie couldn't attack your building";
 
-                        zombie.ZombieAttackStart = zombie.ZombieAttackStart.AddMinutes(3);
+                        zombie.ZombieAttackStart = zombie.ZombieAttackStart.AddMinutes(60);
                         db.SaveChanges();
                     }
 
@@ -215,10 +199,10 @@ namespace Zombiecalypse.Controllers.api
                             {
 
                                 invBuilding.ItemCurrentDurability -= attackPower;
-                                zombie.ZombieAttackStart = zombie.ZombieAttackStart.AddMinutes(3);
+                                zombie.ZombieAttackStart = zombie.ZombieAttackStart.AddMinutes(60);
                                 db.SaveChanges();
 
-                                result += "id:" + zombie.ZombieAttackBaseID + ", name: " + model.Zombie.ZombieName +" attacked " +invBuilding.Item.ItemName +" with " +attackPower +".";
+                                result += " " + model.Zombie.ZombieName + " attacked " + fence.Item.ItemName + " with " + attackPower + ".";
 
                             }
 
@@ -232,10 +216,10 @@ namespace Zombiecalypse.Controllers.api
                                 invBuilding.ItemCurrentDurability = newBuilding.ItemMaxDurability;
                                 invBuilding.ItemMaxDurability = newBuilding.ItemMaxDurability;
 
-                                zombie.ZombieAttackStart = zombie.ZombieAttackStart.AddMinutes(3);
+                                zombie.ZombieAttackStart = zombie.ZombieAttackStart.AddMinutes(60);
                                 db.SaveChanges();
 
-                                result += "id:" + zombie.ZombieAttackBaseID + ", name: " + model.Zombie.ZombieName + " attacked " + invBuilding.Item.ItemName + " with " + attackPower +".";
+                                result += " " + model.Zombie.ZombieName + " attacked " + fence.Item.ItemName + " with " + attackPower + ".";
 
 
                             }
@@ -251,10 +235,10 @@ namespace Zombiecalypse.Controllers.api
 
                                 fence.ItemCurrentDurability -= attackPower;
 
-                                zombie.ZombieAttackStart = zombie.ZombieAttackStart.AddMinutes(3);
+                                zombie.ZombieAttackStart = zombie.ZombieAttackStart.AddMinutes(60);
                                 db.SaveChanges();
 
-                                result += "id:" + zombie.ZombieAttackBaseID + ", name: " + model.Zombie.ZombieName + " attacked " + fence.Item.ItemName + " with " + attackPower + ".";
+                                result += " " +model.Zombie.ZombieName + " attacked " + fence.Item.ItemName + " with " + attackPower + ".";
                             }
 
 
@@ -271,10 +255,10 @@ namespace Zombiecalypse.Controllers.api
                                 fence.ItemCurrentDurability = newBuilding.ItemMaxDurability;
                                 fence.ItemMaxDurability = newBuilding.ItemMaxDurability;
 
-                                zombie.ZombieAttackStart = zombie.ZombieAttackStart.AddMinutes(3);
+                                zombie.ZombieAttackStart = zombie.ZombieAttackStart.AddMinutes(60);
                                 db.SaveChanges();
 
-                                result += "id:" + zombie.ZombieAttackBaseID + ", name: " + model.Zombie.ZombieName + " attacked " + fence.Item.ItemName + " with " + attackPower + ".";
+                                result += " " + model.Zombie.ZombieName + " attacked " + fence.Item.ItemName + " with " + attackPower + ".";
 
                             }
                         }
@@ -287,8 +271,6 @@ namespace Zombiecalypse.Controllers.api
                             db.SaveChanges();
 
                         result = "No more buildings!";
-
-//                        return Ok(result);
                     }
                 }
 
@@ -444,21 +426,8 @@ namespace Zombiecalypse.Controllers.api
 
             db.SaveChanges();
 
-
-
             return Ok();
         }
-
-
-
-        //[HttpGet]
-        //public IHttpActionResult AttackZombie(int[] zAAID, int invID)
-        //{
-
-        //    var result = zAAID.ToArray();
-
-        //    return Ok(result);
-        //}
 
 
         [HttpGet]
@@ -469,7 +438,6 @@ namespace Zombiecalypse.Controllers.api
             var result = "";
             if (character.isYourTurn == false)
             {
-                result += "character.isYourTurn == false. ";
                 List<ZombieAttackAdventurer> zombieAttackInThisTurn = new List<ZombieAttackAdventurer>();
 
                 zombieAttackInThisTurn = db.ZombieAttackAdventurers.Where(x => x.CharacterID == character.CharacterID).Where(x => x.State == character.AdventureState).ToList();
@@ -482,9 +450,11 @@ namespace Zombiecalypse.Controllers.api
                         int d = c + 1;
                         zombieAttackInThisTurn.ToArray()[c].isYourTurn = false;
                         zombieAttackInThisTurn.ToArray()[d].isYourTurn = true;
-                        result += new DefaultController().ZombieAttackAdventurer();
-
                         db.SaveChanges();
+                        //  result += " " + zombieAttackInThisTurn.ToArray()[d].ZombieAttackAdventurerID + "is attacking ";
+                        var zombieAttack = new DefaultController().ZombieAttackAdventurer();
+
+
                         break;
                     }
                     else if (zombieAttackInThisTurn.ToArray()[c].isYourTurn == true && c == zombieAttackInThisTurn.Count - 1)
@@ -493,13 +463,12 @@ namespace Zombiecalypse.Controllers.api
                         character.isYourTurn = true;
                     }
 
-                    //     result += " " +zombieAttackInThisTurn.ToArray()[d].ZombieAttackAdventurerID + "is attacking ";
                 }
 
                 db.SaveChanges();
             }
             else {
-                result += "character.isYourTurn == true. ";
+                result += "Your turn!";
             }
 
             return Ok(result);

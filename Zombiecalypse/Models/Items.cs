@@ -29,6 +29,7 @@ namespace Zombiecalypse.Models
         public int PlantRewardFood { get; set; }
         public string PlantStartPicture { get; set; }
         public string PlantFinishedPicture { get; set; }
+        public int RequiredLevel { get; set; }
     }
 
     public class Field : Item
