@@ -166,13 +166,14 @@ namespace Zombiecalypse.Controllers
             if (ModelState.IsValid)
             {
                 var user = new ApplicationUser { UserName = model.Name, Email = model.Email };
-                var character = new Character { ApplicationUserID = model.Name, CharacterName = model.CharacterName, CharacterType = model.CharacterType, CharacterMoney = 2000000, FinishAdventure = DateTime.MaxValue, IsOnAdventure = false, AdventureMapState=0, CurrentEnergy = 14, MaxEnergy = 14, CharacterLevel = 8, EnergyPlusDate = DateTime.MaxValue, LastZombieAttackTime = DateTime.Now, MaxTolerance = 20, Tolerance = 20, DailyMissionDate= DateTime.Now.AddDays(-1) };
+                var character = new Character { ApplicationUserID = model.Name, CharacterName = model.CharacterName, CharacterType = model.CharacterType, CharacterMoney = 0, FinishAdventure = DateTime.MaxValue, IsOnAdventure = false, AdventureMapState=0, CurrentEnergy = 14, MaxEnergy = 14, CharacterLevel = 1, EnergyPlusDate = DateTime.MaxValue, LastZombieAttackTime = DateTime.Now, MaxTolerance = 20, Tolerance = 20, DailyMissionDate= DateTime.Now.AddDays(-1) };
 
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
 
                     db.Characters.Add(character);
+
                     db.SaveChanges();
 
                     var items = new List<Inventory>
@@ -192,6 +193,9 @@ namespace Zombiecalypse.Controllers
                     };
                     items.ForEach(s => db.Inventories.Add(s));
 
+                    db.SaveChanges();
+
+
                     foreach (var item in db.Materials)
                     {
                         var ittem = new Inventory { CharacterID = character.CharacterID, ItemID = item.ItemID, ItemPieces = 0, ItemMaxDurability = item.ItemMaxDurability, ItemCurrentDurability = item.ItemMaxDurability };
@@ -201,15 +205,18 @@ namespace Zombiecalypse.Controllers
 
                     foreach (var item in db.BuildingMaterials)
                     {
-                        var ittem = new Inventory { CharacterID = character.CharacterID, ItemID = item.ItemID, ItemPieces = 200, ItemMaxDurability = item.ItemMaxDurability, ItemCurrentDurability = item.ItemMaxDurability };
+                        var ittem = new Inventory { CharacterID = character.CharacterID, ItemID = item.ItemID, ItemPieces = 0, ItemMaxDurability = item.ItemMaxDurability, ItemCurrentDurability = item.ItemMaxDurability };
                         db.Inventories.Add(ittem);
                     }
 
 
                     var missionStart = new MissionsController().StartMission(1, model.Name);
 
-                    //  items.ForEach(s => db.Inventories.Add(s));
+                    //items.ForEach(s => db.Inventories.Add(s));
+
+
                     db.SaveChanges();
+
                     await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
 
                     // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771

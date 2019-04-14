@@ -14,31 +14,11 @@ namespace Zombiecalypse.Controllers
     public class GatheringController : BaseController
     {
 
-        //public ActionResult GrowUpPlant(int fieldID)
-        //{
-        //    CharacterFieldVM model = new CharacterFieldVM();
-
-        //    model.CharacterField = db.CharacterFields.Find(fieldID);
-        //    model.CharacterField.isFinished = true;
-        //    model.CharacterField.FinishDate = DateTime.MaxValue;
-        //    db.SaveChanges();
-                        
-        //    return RedirectToAction("Details", "Characters", new { id = User.Identity.Name });
-        //}
-
         public ActionResult HarvestField(int fieldID, int plantID, string returnUrl)
         {
             CharacterField field = db.CharacterFields.Find(fieldID);
             Plant plant = db.Plants.Find(plantID);
             Character character = db.Characters.Where(x => x.ApplicationUserID == User.Identity.Name).FirstOrDefault();
-
-            //List<Mission> missions = db.Missions.Where(x => x.CharacterID == field.CharacterID).Where(x=>x.MissionType=="gathering").ToList();
-
-            //foreach (var miss in missions) {
-            //    if (miss.MissionTaskID == plantID) {
-            //        miss.MissionTaskProgress += 1;
-            //    }
-            //}
 
             field.PlantID = 0;
             field.IsEmpty = true;

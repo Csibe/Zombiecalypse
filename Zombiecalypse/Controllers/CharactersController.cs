@@ -32,16 +32,6 @@ namespace Zombiecalypse.Controllers
         }
 
 
-        public ActionResult AddToEnergy()
-        {
-            Character character = db.Characters.Where(x => x.ApplicationUserID == User.Identity.Name).FirstOrDefault();
-            character.CurrentEnergy++;
-            db.SaveChanges();
-
-            return RedirectToAction("Details", "Characters", new { id = User.Identity.Name });
-        }
-
-
         public ActionResult ManageEnergy(string id, int energyCost, string returnUrl)
         {
             Character character = db.Characters.Where(x => x.ApplicationUserID == id).FirstOrDefault();
@@ -117,68 +107,6 @@ namespace Zombiecalypse.Controllers
             model.CharacterFields = db.CharacterFields.Where(x => x.CharacterID == model.Character.CharacterID).ToList();
             model.Adventures = db.Adventures.ToList();
             model.Weapons = db.Weapons.ToList();
-
-
-            //model.Missions = db.Missions.ToList();
-
-            //foreach (var miss in db.Missions)
-            //{
-            //    if (miss.CharacterID == model.Character.CharacterID)
-            //    {
-            //        MissionVM mission = new MissionVM();
-            //        mission.MissionID = miss.MissionID;
-            //        mission.MissionTaskNumber = miss.MissionTaskNumber;
-            //        mission.MissionFinishable = false;
-            //        mission.MissionRewardNumber = miss.MissionRewardNumber;
-
-            //        if (miss.MissionType == "collection") {
-
-            //            mission.CollectionMissionReward = db.BuildingMaterials.Find(miss.MissionRewardID);
-            //            mission.CollectionMissionTask = db.Materials.Find(miss.MissionTaskID);
-            //            mission.MissionType = miss.MissionType;
-                        
-            //            foreach (var item in model.Character.Inventory)
-            //            {
-            //                if (item.ItemID == mission.CollectionMissionTask.ItemID && item.ItemPieces >= mission.MissionTaskNumber)
-            //                {
-            //                    mission.MissionFinishable = true;
-            //                }
-
-            //            }
-            //        }
-
-            //        else if(miss.MissionType == "gathering"){
-
-            //            mission.MissionType = miss.MissionType;
-            //            mission.GatheringMissionReward = db.BuildingMaterials.Find(miss.MissionRewardID);
-            //            mission.GatheringMissionTask = db.Plants.Find(miss.MissionTaskID);
-            //            mission.MissionTaskProgress = miss.MissionTaskProgress;
-            //            foreach (var item in model.Character.Inventory)
-            //            {
-            //                if (item.ItemID == mission.GatheringMissionTask.ItemID && miss.MissionTaskProgress >= mission.MissionTaskNumber)
-            //                {
-            //                    mission.MissionFinishable = true;
-            //                }
-
-            //            }
-            //        }
-            //        else if (miss.MissionType == "zombiekilling")
-            //        {
-
-            //            mission.MissionType = miss.MissionType;
-            //            mission.GatheringMissionReward = db.BuildingMaterials.Find(miss.MissionRewardID);
-            //            mission.MissionTaskProgress = miss.MissionTaskProgress;
-            //                if (miss.MissionTaskProgress >= mission.MissionTaskNumber)
-            //                {
-            //                    mission.MissionFinishable = true;
-            //                }
-            //        }
-
-            //        model.Missions.Add(mission);
-
-            //    }
-            //}
-
 
             model.CharacterNextLevelXP = db.Levels.Where(l => l.LevelID == model.Character.CharacterLevel).FirstOrDefault().LevelMaxXP;
 

@@ -134,10 +134,6 @@ namespace Zombiecalypse.Controllers
         }
 
 
-
-
-
-
         public ActionResult CraftWeapon(int WeaponId, string returnUrl)
         {
 

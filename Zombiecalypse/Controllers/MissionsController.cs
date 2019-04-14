@@ -127,20 +127,13 @@ namespace Zombiecalypse.Controllers
                 {
                     if (mt.MissionTaskID == cmt.MissionTaskID)
                     {
-
-                        foreach (var inv in character.Inventory)
+                        if (cmt.TaskProgress < mt.ItemPieces)
                         {
-                            if (mt.ItemID == inv.ItemID)
-                            {
-                                if (cmt.TaskProgress < mt.ItemPieces)
-                                {
-                                    cmt.IsCompleted = false;
-                                }
-                                else
-                                {
-                                    cmt.IsCompleted = true;
-                                }
-                            }
+                            cmt.IsCompleted = false;
+                        }
+                        else
+                        {
+                            cmt.IsCompleted = true;
                         }
                     }
                 }
@@ -203,8 +196,18 @@ namespace Zombiecalypse.Controllers
                                 {
                                     inv.ItemPieces -= mt.ItemPieces;
                                     db.CharacterMissionTasks.Remove(cmt);
-
+                                    character.CharacterMoney += mission.RewardICoins;
+                                    var resultXP = new CharactersController().ManageXPAndLevelUp(User.Identity.Name, mission.RewardXP, this.Request.FilePath);
                                 }
+                            }
+                        }
+                        if (mt.ItemID == 0)
+                        {
+                            if (cmt.TaskProgress >= mt.ItemPieces)
+                            {
+                                db.CharacterMissionTasks.Remove(cmt);
+                                character.CharacterMoney += mission.RewardICoins;
+                                var resultXP = new CharactersController().ManageXPAndLevelUp(User.Identity.Name, mission.RewardXP, this.Request.FilePath);
                             }
                         }
                     }
@@ -227,6 +230,7 @@ namespace Zombiecalypse.Controllers
             {
                 var result = new MissionsController().StartMission(mission.MissionID + 1, User.Identity.Name);
             }
+
 
             return RedirectToAction("Index", "Missions", new { id = User.Identity.Name });
         }
@@ -363,9 +367,71 @@ namespace Zombiecalypse.Controllers
                         {
                             foreach (var mt in m.MissionTasks)
                             {
-                                if (cmt.MissionTaskID == mt.MissionTaskID)
+                                if (mt.ItemID == 0 && mt.GetType().Name == "KillingMissionTask")
                                 {
-                                    if (mt.ItemID == id)
+                                    cmt.TaskProgress++;
+                                }
+                                else
+                                {
+                                    if (cmt.MissionTaskID == mt.MissionTaskID)
+                                    {
+                                        if (mt.ItemID == id)
+                                        {
+                                            cmt.TaskProgress++;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+
+            db.SaveChanges();
+
+            return RedirectToAction("Index", "Missions", new { id = userID });
+        }
+
+
+
+        public ActionResult AdventureMission(string userID)
+        {
+
+            if (userID == null)
+            {
+                userID = User.Identity.Name;
+            }
+
+            Character character = db.Characters.Where(y => y.ApplicationUserID == userID).FirstOrDefault();
+
+            List<Mission> missions = db.Missions.ToList();
+            List<CharacterMission> inProgressMissions = db.CharacterMissions.Where(x => x.CharacterID == character.CharacterID).ToList();
+
+            foreach (var mission in inProgressMissions)
+            {
+                mission.CharacterMissionTasks = db.CharacterMissionTasks.Where(x => x.CharacterMissionID == mission.CharacterMissionID).ToList();
+            }
+
+            foreach (var mission in missions)
+            {
+                mission.MissionTasks = db.MissionTasks.Where(x => x.MissionID == mission.MissionID).ToList();
+            }
+
+
+            foreach (var cm in inProgressMissions)
+            {
+                foreach (var m in missions)
+                {
+                    if (cm.MissionID == m.MissionID)
+                    {
+                        foreach (var cmt in cm.CharacterMissionTasks)
+                        {
+                            foreach (var mt in m.MissionTasks)
+                            {
+                                if (cmt.MissionTaskID == mt.MissionTaskID && mt.GetType().Name == "AdventureMissionTask")
+                                {
+                                    if (mt.ItemID == 0)
                                     {
                                         cmt.TaskProgress++;
                                     }
@@ -382,98 +448,33 @@ namespace Zombiecalypse.Controllers
             return RedirectToAction("Index", "Missions", new { id = userID });
         }
 
-        //delete
-        public ActionResult ZombieStartAttackBase(int id, string userID)
-        {
 
-            if (userID == null)
-            {
-                userID = User.Identity.Name;
-            }
-
-            Character character = db.Characters.Where(y => y.ApplicationUserID == userID).FirstOrDefault();
-            character.Inventory = db.Inventories.Where(x => x.CharacterID == character.CharacterID).ToList();
-            Zombie zombie = db.Zombies.Find(id);
-
-
-            ZombieAttackBase zab = new ZombieAttackBase { ZombieAttackStart = DateTime.Now, CharacterID = character.CharacterID, ZombieID = zombie.ZombieID, ZombieLife = zombie.ZombieLife };
-            db.ZombieAttackBases.Add(zab);
-            db.SaveChanges();
-
-            return RedirectToAction("Index", "Missions", new { id = userID });
-        }
-
-
-
-
-        //public ActionResult GenerateDailyMissions()
+        //public ActionResult GetReward(string userID)
         //{
 
-
-        //    Character character = db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault();
-
-        //    List<CharacterMission> characterMissions = db.CharacterMissions.Where(x => x.CharacterID == character.CharacterID).ToList();
-
-        //    foreach (var mission in db.DailyMissions)
+        //    if (userID == null)
         //    {
-        //        foreach (var cm in characterMissions)
-        //        {
-        //            if (mission.MissionID == cm.MissionID)
-        //            {
-        //                foreach (var cmt in db.CharacterMissionTasks.Where(x => x.CharacterID == character.CharacterID).Where(x => x.CharacterMissionID == cm.CharacterMissionID).ToList()) {
-        //                    db.CharacterMissionTasks.Remove(cmt);
-        //                }
-        //            }
-        //        }
+        //        userID = User.Identity.Name;
         //    }
 
-        //    db.SaveChanges();
+        //    Character character = db.Characters.Where(y => y.ApplicationUserID == userID).FirstOrDefault();
 
+        //    List<Mission> missions = db.Missions.ToList();
+        //    List<CharacterMission> inProgressMissions = db.CharacterMissions.Where(x => x.CharacterID == character.CharacterID).ToList();
 
-        //    foreach (var mission in db.DailyMissions)
+        //    foreach (var mission in inProgressMissions)
         //    {
-        //        foreach (var cm in characterMissions)
-        //        {
-        //            if (mission.MissionID == cm.MissionID)
-        //            {
-        //                  if (cm.CharacterMissionTasks.Count == 0) {
-        //                        db.CharacterMissions.Remove(cm);
-        //                }
-        //            }
-        //        }
+        //        mission.CharacterMissionTasks = db.CharacterMissionTasks.Where(x => x.CharacterMissionID == mission.CharacterMissionID).ToList();
+        //    }
+
+        //    foreach (var mission in missions)
+        //    {
+        //        mission.MissionTasks = db.MissionTasks.Where(x => x.MissionID == mission.MissionID).ToList();
         //    }
 
 
-        //    db.SaveChanges();
 
-        //    Random rand = new Random();
-        //    List<DailyMission> dailymissions = db.DailyMissions.ToList();
-        //    int missionIndex = rand.Next(0, dailymissions.Count());
-        //    DailyMission selectedMission = dailymissions.ElementAt<DailyMission>(missionIndex);
-
-        //    selectedMission.MissionTasks = db.MissionTasks.Where(x => x.MissionID == selectedMission.MissionID).ToList();
-
-
-        //    CharacterMission charMiss = new CharacterMission { CharacterID = character.CharacterID, MissionID = selectedMission.MissionID, IsCompleted = false };
-
-        //    db.CharacterMissions.Add(charMiss);
-        //    db.SaveChanges();
-
-        //    foreach (var m in selectedMission.MissionTasks)
-        //    {
-        //        CharacterMissionTask characterMissionTask = new CharacterMissionTask { CharacterID = character.CharacterID, MissionTaskID = m.MissionTaskID, CharacterMissionID = charMiss.CharacterMissionID, IsCompleted = false };
-        //        db.CharacterMissionTasks.Add(characterMissionTask);
-        //        db.SaveChanges();
-        //    }
-
-
-        //    character.DailyMissionDate.AddMinutes(2);
-
-        //    db.SaveChanges();
-
-
-
-        //    return RedirectToAction("Index", "Missions", new { });
+        //    return RedirectToAction("Index", "Missions", new { id = userID });
         //}
 
     }

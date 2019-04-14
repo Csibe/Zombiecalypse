@@ -402,9 +402,18 @@ namespace Zombiecalypse.Controllers.api
             db.SaveChanges();
 
             Random rand = new Random();
-            List<DailyMission> dailymissions = db.DailyMissions.ToList();
-            int missionIndex = rand.Next(0, dailymissions.Count());
-            DailyMission selectedMission = dailymissions.ElementAt<DailyMission>(missionIndex);
+            List<DailyMission> dailyCollectMissions = new List<DailyMission>();
+
+            foreach (var mission in db.DailyMissions) {
+                foreach (var task in db.CollectMissionTasks) {
+                    if (task.MissionID == mission.MissionID) {
+                        dailyCollectMissions.Add(mission);
+                    }
+                }
+            }
+
+            int missionIndex = rand.Next(0, dailyCollectMissions.Count());
+            DailyMission selectedMission = dailyCollectMissions.ElementAt<DailyMission>(missionIndex);
 
             selectedMission.MissionTasks = db.MissionTasks.Where(x => x.MissionID == selectedMission.MissionID).ToList();
 
@@ -421,6 +430,48 @@ namespace Zombiecalypse.Controllers.api
                 db.SaveChanges();
             }
 
+
+            selectedMission = db.DailyMissions.Find(27);
+            selectedMission.MissionTasks = db.MissionTasks.Where(x => x.MissionID == selectedMission.MissionID).ToList();
+            charMiss = new CharacterMission { CharacterID = character.CharacterID, MissionID = selectedMission.MissionID, IsCompleted = false };
+
+            db.CharacterMissions.Add(charMiss);
+            db.SaveChanges();
+
+            foreach (var m in selectedMission.MissionTasks)
+            {
+                CharacterMissionTask characterMissionTask = new CharacterMissionTask { CharacterID = character.CharacterID, MissionTaskID = m.MissionTaskID, CharacterMissionID = charMiss.CharacterMissionID, IsCompleted = false };
+                db.CharacterMissionTasks.Add(characterMissionTask);
+                db.SaveChanges();
+            }
+
+            selectedMission = db.DailyMissions.Find(28);
+            selectedMission.MissionTasks = db.MissionTasks.Where(x => x.MissionID == selectedMission.MissionID).ToList();
+            charMiss = new CharacterMission { CharacterID = character.CharacterID, MissionID = selectedMission.MissionID, IsCompleted = false };
+
+            db.CharacterMissions.Add(charMiss);
+            db.SaveChanges();
+
+            foreach (var m in selectedMission.MissionTasks)
+            {
+                CharacterMissionTask characterMissionTask = new CharacterMissionTask { CharacterID = character.CharacterID, MissionTaskID = m.MissionTaskID, CharacterMissionID = charMiss.CharacterMissionID, IsCompleted = false };
+                db.CharacterMissionTasks.Add(characterMissionTask);
+                db.SaveChanges();
+            }
+
+            selectedMission = db.DailyMissions.Find(29);
+            selectedMission.MissionTasks = db.MissionTasks.Where(x => x.MissionID == selectedMission.MissionID).ToList();
+            charMiss = new CharacterMission { CharacterID = character.CharacterID, MissionID = selectedMission.MissionID, IsCompleted = false };
+
+            db.CharacterMissions.Add(charMiss);
+            db.SaveChanges();
+
+            foreach (var m in selectedMission.MissionTasks)
+            {
+                CharacterMissionTask characterMissionTask = new CharacterMissionTask { CharacterID = character.CharacterID, MissionTaskID = m.MissionTaskID, CharacterMissionID = charMiss.CharacterMissionID, IsCompleted = false };
+                db.CharacterMissionTasks.Add(characterMissionTask);
+                db.SaveChanges();
+            }
 
             character.DailyMissionDate = DateTime.Now;
 
@@ -448,17 +499,16 @@ namespace Zombiecalypse.Controllers.api
                     if (zombieAttackInThisTurn.ToArray()[c].isYourTurn == true && c < zombieAttackInThisTurn.Count - 1)
                     {
                         int d = c + 1;
+                        var zombieAttack = new DefaultController().ZombieAttackAdventurer(User.Identity.Name);
                         zombieAttackInThisTurn.ToArray()[c].isYourTurn = false;
                         zombieAttackInThisTurn.ToArray()[d].isYourTurn = true;
                         db.SaveChanges();
-                        //  result += " " + zombieAttackInThisTurn.ToArray()[d].ZombieAttackAdventurerID + "is attacking ";
-                        var zombieAttack = new DefaultController().ZombieAttackAdventurer();
-
-
                         break;
+                        //  result += " " + zombieAttackInThisTurn.ToArray()[d].ZombieAttackAdventurerID + "is attacking ";
                     }
                     else if (zombieAttackInThisTurn.ToArray()[c].isYourTurn == true && c == zombieAttackInThisTurn.Count - 1)
                     {
+                        var zombieAttack = new DefaultController().ZombieAttackAdventurer(User.Identity.Name);
                         zombieAttackInThisTurn.ToArray()[c].isYourTurn = false;
                         character.isYourTurn = true;
                     }
@@ -467,7 +517,8 @@ namespace Zombiecalypse.Controllers.api
 
                 db.SaveChanges();
             }
-            else {
+            else
+            {
                 result += "Your turn!";
             }
 
@@ -476,20 +527,20 @@ namespace Zombiecalypse.Controllers.api
 
 
         [HttpGet]
-        public IHttpActionResult ZombieAttackAdventurer()
+        public IHttpActionResult ZombieAttackAdventurer(string userID)
         {
             ZombieAttackAdventurerVM model = new ZombieAttackAdventurerVM();
 
             var result = "ZombieAttackAdventurer";
 
-            model.Character = db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault();
+            model.Character = db.Characters.Where(y => y.ApplicationUserID == userID).FirstOrDefault();
             model.ZombieAttackAdventurer = db.ZombieAttackAdventurers.Where(x => x.CharacterID == model.Character.CharacterID).Where(x => x.isYourTurn == true).FirstOrDefault();
-            model.ZombieAttackAdventurer.isYourTurn = false;
+          //  model.ZombieAttackAdventurer.isYourTurn = false;
             model.Zombie = db.Zombies.Find(model.ZombieAttackAdventurer.ZombieID);
             model.Adventure = db.Adventures.Find(model.Character.AdventureID);
 
             Random rand = new Random();
-            int attackPower = rand.Next(0, model.Zombie.ZombieDamage + 1);
+            int attackPower = rand.Next(1, model.Zombie.ZombieDamage + 1);
 
             model.Character.Tolerance -= attackPower;
 

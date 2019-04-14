@@ -45,7 +45,6 @@ namespace Zombiecalypse.DAL
         public DbSet<AdventureMissionTask> AdventureMissionTasks { get; set; }
         public DbSet<CharacterMissionTask> CharacterMissionTasks { get; set; }
         public DbSet<CharacterMission> CharacterMissions { get; set; }
-
         public DbSet<KillingMissionTask> KillingMissionTasks { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

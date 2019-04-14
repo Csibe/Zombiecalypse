@@ -138,6 +138,8 @@
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.7\lib\net45\System.Net.Http.Formatting.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -261,6 +263,7 @@
     <Content Include="Content\Pictures\background3.png" />
     <Content Include="Content\Pictures\background4.png" />
     <Content Include="Content\Pictures\background_texture.png" />
+    <Content Include="Content\Pictures\background_texture_small.png" />
     <Content Include="Content\Pictures\Base\base_background.jpg" />
     <Content Include="Content\Pictures\Base\fence.png" />
     <Content Include="Content\Pictures\Base\House0Garage0Garden0Tool0.png" />
@@ -641,6 +644,9 @@
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

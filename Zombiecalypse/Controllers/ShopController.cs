@@ -57,6 +57,18 @@ namespace Zombiecalypse.Controllers
             }
 
 
+            if (character.Inventory.Where(x => x.ItemID == ItemID).FirstOrDefault() != null)
+            {
+                Inventory inventory = character.Inventory.Where(x => x.ItemID == ItemID).FirstOrDefault();
+                inventory.ItemPieces++;
+            }
+            else
+            {
+                Inventory inventory = new Inventory { ItemID = ItemID, CharacterID = character.CharacterID, Item = item, ItemPieces = 1, ItemCurrentDurability = item.ItemMaxDurability, ItemMaxDurability = item.ItemMaxDurability };
+                db.Inventories.Add(inventory);
+            }
+
+
 
             db.SaveChanges();
 

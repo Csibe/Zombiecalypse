@@ -105,7 +105,6 @@ namespace Zombiecalypse.Models
     {
         public virtual Building Building { get; set; }
         public virtual Building NextBuilding { get; set; }
-        public virtual Character Character { get; set; }
         public virtual ICollection<Material> Materials { get; set; }
         public virtual ICollection<BuildingMaterial> NextBuildingMaterials { get; set; }
         public virtual ICollection<BuildingBuildingMaterial> NextBuildingBuildingMaterials { get; set; }

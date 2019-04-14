@@ -21,10 +21,10 @@ var x = setInterval(function () {
     var distanceEnergy = untilEnergy - now;
     var distanceLastZombieStartAttack = now - lastZombieStartAttack;
     var distanceEndOfExplore = endOfExplore - now;
-   
+
 
     var today = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 0, 0, 0, 0);
-    var tomorrow = new Date(now.getFullYear(), now.getMonth(), now.getDate()+1, 0, 0, 0, 0);
+    var tomorrow = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1, 0, 0, 0, 0);
 
     var distanceDailyMission = tomorrow - now;
 
@@ -41,16 +41,15 @@ var x = setInterval(function () {
         window.location.href = '/Adventures/OnAdventure/' + UserName;
     }
 
-    var days = Math.floor(distanceAdventure / (1000 * 60 * 60 * 24));
-    var hours = Math.floor((distanceAdventure % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    var minutes = Math.floor((distanceAdventure % (1000 * 60 * 60)) / (1000 * 60));
-    var seconds = Math.floor((distanceAdventure % (1000 * 60)) / 1000);
+    if (isWaitingOnAdventure == 'True') {
+        var days = Math.floor(distanceAdventure / (1000 * 60 * 60 * 24));
+        var hours = Math.floor((distanceAdventure % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        var minutes = Math.floor((distanceAdventure % (1000 * 60 * 60)) / (1000 * 60));
+        var seconds = Math.floor((distanceAdventure % (1000 * 60)) / 1000);
 
-
+    }
 
     if (isYourTurn == 'False' && isOnAdventure == 'True' && isWaitingOnAdventure == 'False') {
-        console.log("isYourTurn: " + isYourTurn + ", isOnAdventure: " + isOnAdventure + ", isWaitingOnAdventure:" + isWaitingOnAdventure);
-
         clearInterval(x);
 
         var result = '/api/Default/ManageTurns/' + UserName
@@ -146,38 +145,38 @@ var x = setInterval(function () {
         }
     }
 
-        if (distanceAdventure < 0) {
-            clearInterval(x);
+    if (distanceAdventure < 0) {
+        clearInterval(x);
 
-                var result = '/api/Default/CheckAdventure'
-
-
-                $.get(result, function (data) {
-                    toastr.success(data, { timeOut: 10000 })
-                    location.reload();
-                });
-        }
-
-        if (distanceEnergy < 0) {
-            clearInterval(x);
-
-            var result = '/api/Default/ManageEnergy/' + UserName
-
-            $.get(result, function (data) {
-                toastr.success(data, { timeOut: 10000 })
-            });
-        }
-
-        if (distanceLastZombieStartAttack > 10000000) {
-            clearInterval(x);
-
-            var result = '/api/Default/ZombieStartAttackBase/' + UserName
-
-            $.get(result, function () {
-                location.reload();
-            });
-        }
+        var result = '/api/Default/CheckAdventure'
 
 
+        $.get(result, function (data) {
+            toastr.success(data, { timeOut: 10000 })
+            location.reload();
+        });
+    }
 
-    }, 1000);
+    if (distanceEnergy < 0) {
+        clearInterval(x);
+
+        var result = '/api/Default/ManageEnergy/' + UserName
+
+        $.get(result, function (data) {
+            toastr.success(data, { timeOut: 10000 })
+        });
+    }
+
+    if (distanceLastZombieStartAttack > 10000000) {
+        clearInterval(x);
+
+        var result = '/api/Default/ZombieStartAttackBase/' + UserName
+
+        $.get(result, function () {
+            location.reload();
+        });
+    }
+
+
+
+}, 1000);

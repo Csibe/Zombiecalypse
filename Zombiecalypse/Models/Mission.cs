@@ -14,8 +14,8 @@ namespace Zombiecalypse.Models
         public string MissionName { get; set; }
         public List<MissionTask> MissionTasks { get; set; }
         public int RequiredLevel { get; set; }
-        //public int RewardItemID { get; set; }
-        //public int RewardItemPieces { get; set; }
+        public int RewardXP { get; set; }
+        public int RewardICoins { get; set; }
         public bool IsNextMission { get; set; }
     }
 
@@ -82,21 +82,6 @@ namespace Zombiecalypse.Models
         public bool IsCompleted { get; set; }
     }
 
-    //public class Mission
-    //{
-    //    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-    //    public int MissionID { get; set; }
-    //    public string MissonName { get; set; }
-    //    public int CharacterID { get; set; }
-    //    public int MissionTaskID { get; set; }
-    //    public int MissionTaskProgress { get; set; }
-    //    public int MissionTaskNumber { get; set; }
-    //    public int MissionRewardID { get; set; }
-    //    public int MissionRewardNumber { get; set; }
-    //    public int MissionRewardXP { get; set; }
-    //    public string MissionType { get; set; }
-    //}
-
     public class MissionVM : ViewModelBase
     {
         public List<Mission> Missions { get; set; }
@@ -104,32 +89,5 @@ namespace Zombiecalypse.Models
         public List<CharacterMission> InProgressMissions { get; set; }
         public List<Zombie> Zombies { get; set; }
 
-
-        //public List<CollectableStoryMission> CollectableStoryMissions { get; set; }
-        //public List<HarvestStoryMission> HarvestStoryMissions { get; set; }
-        //public List<RepairStoryMission> RepairStoryMissions { get; set; }
-        //public List<CollectableRepetableMission> CollectableRepetableMissions { get; set; }
-        //public List<HarvestRepetableMission> HarvestRepetableMissions { get; set; }
-        //public List<RepairRepetableMission> RepairRepetableMissions { get; set; }
-
-
-        //public int MissionID { get; set; }
-        //public string MissonName { get; set; }
-
-        //public int MissionTaskID { get; set; }
-        //public int MissionTaskProgress { get; set; }
-        //public int MissionTaskNumber { get; set; }
-        //public int MissionRewardID { get; set; }
-        //public int MissionRewardNumber { get; set; }
-        //public bool MissionFinishable { get; set; }
-        //public Material CollectionMissionTask { get; set; }
-        //public Plant GatheringMissionTask { get; set; }
-        //public int MissionRewardXP { get; set; }
-        //public string MissionType { get; set; }
-
-        //public Character Character { get; set; }
-        //public virtual ICollection<MissionVM> Missions { get; set; }
-        //public BuildingMaterial CollectionMissionReward { get; set; }
-        //public BuildingMaterial GatheringMissionReward { get; set; }
     }
 }

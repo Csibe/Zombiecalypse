@@ -160,40 +160,27 @@ namespace Zombiecalypse.DAL
 
             var buildingbuildingmaterials = new List<BuildingBuildingMaterial> {
                 //house 0
-                               new BuildingBuildingMaterial { BuildingID=1, BuildingMaterialID=54, MaterialPieces=0},
-                               new BuildingBuildingMaterial { BuildingID=1, BuildingMaterialID=55, MaterialPieces=0},
-                               new BuildingBuildingMaterial { BuildingID=1, BuildingMaterialID=56, MaterialPieces=0},
-                               new BuildingBuildingMaterial { BuildingID=1, BuildingMaterialID=57, MaterialPieces=0},
-                               new BuildingBuildingMaterial { BuildingID=1, BuildingMaterialID=58, MaterialPieces=0},
+                               new BuildingBuildingMaterial { BuildingID=1, BuildingMaterialID=94, MaterialPieces=0},
                 //house 1
+                               new BuildingBuildingMaterial { BuildingID=2, BuildingMaterialID=94, MaterialPieces=5},
                                new BuildingBuildingMaterial { BuildingID=2, BuildingMaterialID=54, MaterialPieces=1},
-                               new BuildingBuildingMaterial { BuildingID=2, BuildingMaterialID=55, MaterialPieces=1},
-                               new BuildingBuildingMaterial { BuildingID=2, BuildingMaterialID=56, MaterialPieces=1},
-                               new BuildingBuildingMaterial { BuildingID=2, BuildingMaterialID=57, MaterialPieces=1},
-                               new BuildingBuildingMaterial { BuildingID=2, BuildingMaterialID=58, MaterialPieces=1},
                 //house 2
-                               new BuildingBuildingMaterial { BuildingID=3, BuildingMaterialID=54, MaterialPieces=2},
+                               new BuildingBuildingMaterial { BuildingID=3, BuildingMaterialID=94, MaterialPieces=7},
                                new BuildingBuildingMaterial { BuildingID=3, BuildingMaterialID=55, MaterialPieces=2},
-                               new BuildingBuildingMaterial { BuildingID=3, BuildingMaterialID=56, MaterialPieces=2},
-                               new BuildingBuildingMaterial { BuildingID=3, BuildingMaterialID=57, MaterialPieces=2},
-                               new BuildingBuildingMaterial { BuildingID=3, BuildingMaterialID=58, MaterialPieces=2},
+
                 //house 3
-                               new BuildingBuildingMaterial { BuildingID=4, BuildingMaterialID=54, MaterialPieces=3},
-                               new BuildingBuildingMaterial { BuildingID=4, BuildingMaterialID=55, MaterialPieces=3},
+                               new BuildingBuildingMaterial { BuildingID=4, BuildingMaterialID=94, MaterialPieces=10},
+                               new BuildingBuildingMaterial { BuildingID=4, BuildingMaterialID=55, MaterialPieces=5},
                                new BuildingBuildingMaterial { BuildingID=4, BuildingMaterialID=56, MaterialPieces=3},
-                               new BuildingBuildingMaterial { BuildingID=4, BuildingMaterialID=57, MaterialPieces=3},
-                               new BuildingBuildingMaterial { BuildingID=4, BuildingMaterialID=58, MaterialPieces=3},
+
                 //house 4
-                               new BuildingBuildingMaterial { BuildingID=5, BuildingMaterialID=54, MaterialPieces=4},
-                               new BuildingBuildingMaterial { BuildingID=5, BuildingMaterialID=55, MaterialPieces=4},
-                               new BuildingBuildingMaterial { BuildingID=5, BuildingMaterialID=56, MaterialPieces=4},
-                               new BuildingBuildingMaterial { BuildingID=5, BuildingMaterialID=57, MaterialPieces=4},
-                               new BuildingBuildingMaterial { BuildingID=5, BuildingMaterialID=58, MaterialPieces=4},
+                               new BuildingBuildingMaterial { BuildingID=5, BuildingMaterialID=94, MaterialPieces=15},
+                               new BuildingBuildingMaterial { BuildingID=5, BuildingMaterialID=55, MaterialPieces=7},
+                               new BuildingBuildingMaterial { BuildingID=5, BuildingMaterialID=56, MaterialPieces=5},
+
                 //house 5
-                               new BuildingBuildingMaterial { BuildingID=6, BuildingMaterialID=54, MaterialPieces=5},
-                               new BuildingBuildingMaterial { BuildingID=6, BuildingMaterialID=55, MaterialPieces=5},
-                               new BuildingBuildingMaterial { BuildingID=6, BuildingMaterialID=56, MaterialPieces=5},
-                               new BuildingBuildingMaterial { BuildingID=6, BuildingMaterialID=57, MaterialPieces=5},
+                               new BuildingBuildingMaterial { BuildingID=6, BuildingMaterialID=94, MaterialPieces=23},
+                               new BuildingBuildingMaterial { BuildingID=6, BuildingMaterialID=57, MaterialPieces=11},
                                new BuildingBuildingMaterial { BuildingID=6, BuildingMaterialID=58, MaterialPieces=5},
                 //garage 0
                                new BuildingBuildingMaterial { BuildingID=7, BuildingMaterialID=54, MaterialPieces=0},
@@ -707,15 +694,12 @@ namespace Zombiecalypse.DAL
 
 
             var adventureDrops = new List<AdventureDrop> {
-                new AdventureDrop { AdventureID=1, DropableItemID=34, ItemDroprate= 0.2, ItemMaxDrop=2 },
-                new AdventureDrop { AdventureID=1, DropableItemID=35, ItemDroprate= 0.1, ItemMaxDrop=3 },
-                new AdventureDrop { AdventureID=1, DropableItemID=36, ItemDroprate= 0.3, ItemMaxDrop=2 },
-                new AdventureDrop { AdventureID=1, DropableItemID=54, ItemDroprate= 0.2, ItemMaxDrop=1 },
+                new AdventureDrop { AdventureID=1, DropableItemID=94, ItemDroprate= 0.5, ItemMaxDrop=2 },
+                new AdventureDrop { AdventureID=1, DropableItemID=54, ItemDroprate= 0.3, ItemMaxDrop=3 },
 
-                new AdventureDrop { AdventureID=2, DropableItemID=35, ItemDroprate= 0.25, ItemMaxDrop=2 },
-                new AdventureDrop { AdventureID=2, DropableItemID=36, ItemDroprate= 0.18, ItemMaxDrop=3 },
-                new AdventureDrop { AdventureID=2, DropableItemID=37, ItemDroprate= 0.25, ItemMaxDrop=2 },
-                new AdventureDrop { AdventureID=2, DropableItemID=55, ItemDroprate= 0.2, ItemMaxDrop=1 },
+                new AdventureDrop { AdventureID=2, DropableItemID=94, ItemDroprate= 0.75, ItemMaxDrop=2 },
+                new AdventureDrop { AdventureID=2, DropableItemID=54, ItemDroprate= 0.5, ItemMaxDrop=3 },
+
 
                 new AdventureDrop { AdventureID=3, DropableItemID=36, ItemDroprate= 0.3, ItemMaxDrop=2 },
                 new AdventureDrop { AdventureID=3, DropableItemID=37, ItemDroprate= 0.2, ItemMaxDrop=3 },
@@ -781,13 +765,13 @@ namespace Zombiecalypse.DAL
 
 
             var storyMissions = new List<StoryMission> {
-                        new StoryMission { MissionID = 1, MissionName="Rebuild Your House I", RequiredLevel=1, IsNextMission=true, MissionTasks =  new List<MissionTask>{
+                        new StoryMission { MissionID = 1, MissionName="Rebuild Your House I", RequiredLevel=1, RewardXP=100, RewardICoins=100, IsNextMission=true, MissionTasks =  new List<MissionTask>{
                         new CollectMissionTask { MissionTaskID = 1, MissionID = 1, ItemID = 94, ItemPieces = 2, TaskText="Collect 2 bricks!"},
                         new CollectMissionTask { MissionTaskID = 2, MissionID = 1, ItemID = 2, ItemPieces = 1, TaskText="Build level 1 house!"}
                     } },
 
 
-                new StoryMission { MissionID = 2, MissionName="Rebuild Your House II", RequiredLevel=3, IsNextMission=true, MissionTasks =  new List<MissionTask>{
+                new StoryMission { MissionID = 2, MissionName="Rebuild Your House II", RequiredLevel=3, RewardXP=150, RewardICoins=150, IsNextMission=true, MissionTasks =  new List<MissionTask>{
                         new CollectMissionTask { MissionTaskID = 3, MissionID = 2, ItemID = 58, ItemPieces = 2, TaskText="Collect 2 screws!"},
                         new CollectMissionTask { MissionTaskID = 4, MissionID = 2, ItemID = 55, ItemPieces = 2, TaskText="Collect 2 boards!"},
                         new CollectMissionTask { MissionTaskID = 5, MissionID = 2, ItemID = 57, ItemPieces = 3, TaskText="Collect 3 roof tiles!"},
@@ -795,63 +779,63 @@ namespace Zombiecalypse.DAL
                     } },
 
 
-               new StoryMission { MissionID = 3, MissionName="Rebuild Your House III", RequiredLevel=5, IsNextMission=true, MissionTasks =  new List<MissionTask>{
+               new StoryMission { MissionID = 3, MissionName="Rebuild Your House III", RequiredLevel=5, RewardXP=200, RewardICoins=200, IsNextMission=true, MissionTasks =  new List<MissionTask>{
                         new CollectMissionTask { MissionTaskID = 7, MissionID = 3, ItemID = 54, ItemPieces = 2, TaskText="Collect 2 blueprints!"},
                     } },
 
-               new StoryMission { MissionID = 4, MissionName="Rebuild Your House IV", RequiredLevel=5, IsNextMission=true, MissionTasks =  new List<MissionTask>{
+               new StoryMission { MissionID = 4, MissionName="Rebuild Your House IV", RequiredLevel=5, RewardXP=200, RewardICoins=200,  IsNextMission=true, MissionTasks =  new List<MissionTask>{
                         new CollectMissionTask { MissionTaskID = 8, MissionID = 4, ItemID = 54, ItemPieces = 6, TaskText="Collect 6 blueprints!"},
                         new RepairMissionTask { MissionTaskID = 9, MissionID = 4, ItemID = 2, ItemPieces = 3, TaskText="Repair the house 3 times!"}
                     } },
 
-               new StoryMission { MissionID = 5, MissionName="Tools for Success I", RequiredLevel=7, IsNextMission=true, MissionTasks =  new List<MissionTask>{
+               new StoryMission { MissionID = 5, MissionName="Tools for Success I", RequiredLevel=7, RewardXP=250, RewardICoins=250, IsNextMission=true, MissionTasks =  new List<MissionTask>{
                         new CollectMissionTask { MissionTaskID = 10, MissionID = 5, ItemID = 20, ItemPieces = 1, TaskText="Build level 1 toolshed!"},
                         new CollectMissionTask { MissionTaskID = 11, MissionID = 5, ItemID = 94, ItemPieces = 80, TaskText="Collect 80 bricks!"}
                     } },
 
-               new StoryMission { MissionID = 6, MissionName="Tools for Success II", RequiredLevel=7, IsNextMission=true, MissionTasks =  new List<MissionTask>{
+               new StoryMission { MissionID = 6, MissionName="Tools for Success II", RequiredLevel=7,  RewardXP=300, RewardICoins=200,  IsNextMission=true, MissionTasks =  new List<MissionTask>{
                         new CollectMissionTask { MissionTaskID = 12, MissionID = 6, ItemID = 99, ItemPieces = 4, TaskText="Collect 4 fertilizer!"},
                         new CollectMissionTask { MissionTaskID = 13, MissionID = 6, ItemID = 100, ItemPieces = 3, TaskText="Collect 3 metal buckets!"},
                         new CollectMissionTask { MissionTaskID = 14, MissionID = 6, ItemID = 52, ItemPieces = 2, TaskText="Collect 2 rakes!"},
                     } },
 
-               new StoryMission { MissionID = 7, MissionName="Tools for Success III", RequiredLevel=7, IsNextMission=true, MissionTasks =  new List<MissionTask>{
+               new StoryMission { MissionID = 7, MissionName="Tools for Success III", RequiredLevel=7, RewardXP=150, RewardICoins=150,  IsNextMission=true, MissionTasks =  new List<MissionTask>{
                         new RepairMissionTask { MissionTaskID = 15, MissionID = 7, ItemID = 20, ItemPieces = 6, TaskText="Complete the toolshed!"}, //!!!!!!!!!!!!!!!
                         new CollectMissionTask { MissionTaskID = 16, MissionID = 7, ItemID = 36, ItemPieces = 50, TaskText="Collect 50 duct tapes!"}
                     } },
 
-               new StoryMission { MissionID = 8, MissionName="Build Garden shed I", RequiredLevel=7, IsNextMission=true, MissionTasks =  new List<MissionTask>{
+               new StoryMission { MissionID = 8, MissionName="Build Garden shed I", RequiredLevel=7, RewardXP=150, RewardICoins=150,  IsNextMission=true, MissionTasks =  new List<MissionTask>{
                         new HarvestMissionTask { MissionTaskID = 17, MissionID = 8, ItemID = 26, ItemPieces = 2, TaskText="Harvest 2 peppers!"},
                         new HarvestMissionTask { MissionTaskID = 18, MissionID = 8, ItemID = 27, ItemPieces = 2, TaskText="Harvest 2 potatoes!"}
                     } },
 
-               new StoryMission { MissionID = 9, MissionName="Build Garden shed II", RequiredLevel=7, IsNextMission=true, MissionTasks =  new List<MissionTask>{
+               new StoryMission { MissionID = 9, MissionName="Build Garden shed II", RequiredLevel=7, RewardXP=150, RewardICoins=150,  IsNextMission=true, MissionTasks =  new List<MissionTask>{
                         new CollectMissionTask { MissionTaskID = 19, MissionID = 9, ItemID = 47, ItemPieces = 6, TaskText="Get 6 garden trimmer!"},
                         new HarvestMissionTask { MissionTaskID = 20, MissionID = 9, ItemID = 29, ItemPieces = 5, TaskText="Harwest 5 strwberries!"}
                     } },
 
-               new StoryMission { MissionID = 10, MissionName="Dude where is my car? I", RequiredLevel=7, IsNextMission=true, MissionTasks =  new List<MissionTask>{
+               new StoryMission { MissionID = 10, MissionName="Dude where is my car? I", RequiredLevel=7, RewardXP=150, RewardICoins=150,  IsNextMission=true, MissionTasks =  new List<MissionTask>{
                         new CollectMissionTask { MissionTaskID = 21, MissionID = 10, ItemID = 89, ItemPieces = 1, TaskText="Buy 1 old car!"},
                         new RepairMissionTask { MissionTaskID = 22, MissionID = 10, ItemID = 89, ItemPieces = 50, TaskText="Fix old car 10 times!"}
                     } },
 
-               new StoryMission { MissionID = 11, MissionName="Dude where is my car? II", RequiredLevel=7, IsNextMission=true, MissionTasks =  new List<MissionTask>{
+               new StoryMission { MissionID = 11, MissionName="Dude where is my car? II", RequiredLevel=7, RewardXP=150, RewardICoins=150,  IsNextMission=true, MissionTasks =  new List<MissionTask>{
                         new KillingMissionTask { MissionTaskID = 23, MissionID = 11, ItemPieces = 20, TaskText="Kill 20 zombies!"}, //!!!!!!!
                         new CollectMissionTask { MissionTaskID = 24, MissionID = 11, ItemID = 38, ItemPieces = 5, TaskText="Get 5 motor oil!"},
                         new CollectMissionTask { MissionTaskID = 25, MissionID = 11, ItemID = 51, ItemPieces = 5, TaskText="Find 5 batteries"}
                     } },
 
-              new StoryMission { MissionID = 12, MissionName="Dude where is my car? III", RequiredLevel=7, IsNextMission=true, MissionTasks =  new List<MissionTask>{
+              new StoryMission { MissionID = 12, MissionName="Dude where is my car? III", RequiredLevel=7, RewardXP=150, RewardICoins=150,  IsNextMission=true, MissionTasks =  new List<MissionTask>{
                         new KillingMissionTask { MissionTaskID = 26, MissionID = 12, ItemID = 1, ItemPieces = 20, TaskText="Kill 20 zombies!"}, //!!!!!!!
                         new CollectMissionTask { MissionTaskID = 27, MissionID = 12, ItemID = 38, ItemPieces = 5, TaskText="Get 5 motor oil!"}  /////////////
                     } },
 
-              new StoryMission { MissionID = 13, MissionName="Dude where is my car? IV", RequiredLevel=7, IsNextMission=true, MissionTasks =  new List<MissionTask>{
+              new StoryMission { MissionID = 13, MissionName="Dude where is my car? IV", RequiredLevel=7, RewardXP=150, RewardICoins=150,  IsNextMission=true, MissionTasks =  new List<MissionTask>{
                         new CollectMissionTask { MissionTaskID = 28, MissionID = 13, ItemID = 35, ItemPieces = 8, TaskText="Get 8 gasoline cans!"},
                         new CollectMissionTask { MissionTaskID = 29, MissionID = 13, ItemID = 62, ItemPieces = 5, TaskText="Buy 5 hunting rifles!"}
                     } },
 
-              new StoryMission { MissionID = 14, MissionName="Dude where is my car? V", RequiredLevel=7, IsNextMission=false, MissionTasks =  new List<MissionTask>{
+              new StoryMission { MissionID = 14, MissionName="Dude where is my car? V", RequiredLevel=7, RewardXP=150, RewardICoins=150,  IsNextMission=false, MissionTasks =  new List<MissionTask>{
                         new CollectMissionTask { MissionTaskID = 30, MissionID = 14, ItemID = 95, ItemPieces = 15, TaskText="Get 15 car waxes!"},
                         new CollectMissionTask { MissionTaskID = 31, MissionID = 14, ItemID = 96, ItemPieces = 15, TaskText="Get 15 spare parts!"},
                         new CollectMissionTask { MissionTaskID = 32, MissionID = 14, ItemID = 97, ItemPieces = 15, TaskText="Get 15 spark plugs!"},
@@ -867,56 +851,52 @@ namespace Zombiecalypse.DAL
 
             var sideMissions = new List<SideMission> {
 
-                new SideMission { MissionID = 15, MissionName="Who's the Boss I", RequiredLevel=1, IsNextMission=true,
-                    MissionTasks =  new List<MissionTask>{
-                        new KillingMissionTask { MissionTaskID = 34, MissionID = 15, ItemID = 1 , ItemPieces = 5, TaskText="Kill 5 basic zombie!"},
-                    } },
+                    new SideMission { MissionID = 15, MissionName="Who's the Boss I", RewardXP=150, RewardICoins=150,  RequiredLevel=1, IsNextMission=true,
+                        MissionTasks =  new List<MissionTask>{
+                            new KillingMissionTask { MissionTaskID = 34, MissionID = 15, ItemID = 1 , ItemPieces = 5, TaskText="Kill 5 basic zombie!"},
+                        } },
 
 
-                new SideMission { MissionID = 16, MissionName="Who's the Boss II", RequiredLevel=3, IsNextMission=true, MissionTasks =  new List<MissionTask>{
-                        new KillingMissionTask { MissionTaskID = 35, MissionID = 16, ItemID = 1, ItemPieces = 2, TaskText="Kill 3 basic zombies!"}, 
-                        new KillingMissionTask { MissionTaskID = 36, MissionID = 16, ItemID = 2, ItemPieces = 2, TaskText="Kill 7 buckethead zombies!"},    
-                    } },
+                    new SideMission { MissionID = 16, MissionName="Who's the Boss II",RewardXP=150, RewardICoins=150, RequiredLevel=3, IsNextMission=true, MissionTasks =  new List<MissionTask>{
+                            new KillingMissionTask { MissionTaskID = 35, MissionID = 16, ItemID = 1, ItemPieces = 2, TaskText="Kill 3 basic zombies!"},
+                            new KillingMissionTask { MissionTaskID = 36, MissionID = 16, ItemID = 2, ItemPieces = 2, TaskText="Kill 7 buckethead zombies!"},
+                        } },
 
 
-               new SideMission { MissionID = 17, MissionName="Who's the Boss III", RequiredLevel=5, IsNextMission=true, MissionTasks =  new List<MissionTask>{
-                        new KillingMissionTask { MissionTaskID = 37, MissionID = 17, ItemID = 2, ItemPieces = 2, TaskText="Kill 10 buckethead zombies!"},
-                    } },
+                   new SideMission { MissionID = 17, MissionName="Who's the Boss III", RewardXP=150, RewardICoins=150, RequiredLevel=5, IsNextMission=true, MissionTasks =  new List<MissionTask>{
+                            new KillingMissionTask { MissionTaskID = 37, MissionID = 17, ItemID = 2, ItemPieces = 2, TaskText="Kill 10 buckethead zombies!"},
+                        } },
 
-               new SideMission { MissionID = 18, MissionName="Who's the Boss IV", RequiredLevel=7, IsNextMission=true, MissionTasks =  new List<MissionTask>{
-                        new KillingMissionTask { MissionTaskID = 38, MissionID = 18, ItemID = 2, ItemPieces = 15, TaskText="Kill 15 buckethead zombies!"},  
-                        new KillingMissionTask { MissionTaskID = 39, MissionID = 18, ItemID = 1, ItemPieces = 20, TaskText="Kill 20 basic zombies!"}    
-                    } },
+                   new SideMission { MissionID = 18, MissionName="Who's the Boss IV", RewardXP=150, RewardICoins=150, RequiredLevel=7, IsNextMission=true, MissionTasks =  new List<MissionTask>{
+                            new KillingMissionTask { MissionTaskID = 38, MissionID = 18, ItemID = 2, ItemPieces = 15, TaskText="Kill 15 buckethead zombies!"},
+                            new KillingMissionTask { MissionTaskID = 39, MissionID = 18, ItemID = 1, ItemPieces = 20, TaskText="Kill 20 basic zombies!"}
+                        } },
 
-               new SideMission { MissionID = 19, MissionName="Who's the Boss V", RequiredLevel=7, IsNextMission=false, MissionTasks =  new List<MissionTask>{
-                        new KillingMissionTask { MissionTaskID = 40, MissionID = 5, ItemID = 1, ItemPieces = 30, TaskText="Kill 30 basic zombies!"}, 
-                        new KillingMissionTask { MissionTaskID = 41, MissionID = 5, ItemID = 3, ItemPieces = 10, TaskText="Kill 10 zonehead zombies!"}       
-                    } },
-
-
+                   new SideMission { MissionID = 19, MissionName="Who's the Boss V", RewardXP=150, RewardICoins=150, RequiredLevel=7, IsNextMission=false, MissionTasks =  new List<MissionTask>{
+                            new KillingMissionTask { MissionTaskID = 40, MissionID = 5, ItemID = 1, ItemPieces = 30, TaskText="Kill 30 basic zombies!"},
+                            new KillingMissionTask { MissionTaskID = 41, MissionID = 5, ItemID = 3, ItemPieces = 10, TaskText="Kill 10 zonehead zombies!"}
+                        } },
 
 
+                    new SideMission { MissionID = 20, MissionName="Winter is coming I", RewardXP=150, RewardICoins=150, RequiredLevel=1, IsNextMission=true,
+                        MissionTasks =  new List<MissionTask>{
+                            new HarvestMissionTask { MissionTaskID = 42, MissionID = 20, ItemID = 25 , ItemPieces = 10, TaskText="Harvest 10 melons!"},
+                            new HarvestMissionTask { MissionTaskID = 43, MissionID = 20, ItemID = 26 , ItemPieces = 5, TaskText="Harvest 5 peppers!"},
+                        } },
 
 
-                new SideMission { MissionID = 20, MissionName="Winter is coming I", RequiredLevel=1, IsNextMission=true,
-                    MissionTasks =  new List<MissionTask>{
-                        new HarvestMissionTask { MissionTaskID = 42, MissionID = 20, ItemID = 25 , ItemPieces = 10, TaskText="Harvest 10 melons!"},
-                        new HarvestMissionTask { MissionTaskID = 43, MissionID = 20, ItemID = 26 , ItemPieces = 5, TaskText="Harvest 5 peppers!"},
-                    } },
+                    new SideMission { MissionID = 21, MissionName="Winter is coming II", RewardXP=150, RewardICoins=150, RequiredLevel=1, IsNextMission=true,
+                        MissionTasks =  new List<MissionTask>{
+                            new HarvestMissionTask { MissionTaskID = 44, MissionID = 21, ItemID = 27 , ItemPieces = 25, TaskText="Harvest 25 potatoes!"},
+                            new HarvestMissionTask { MissionTaskID = 45, MissionID = 21, ItemID = 26 , ItemPieces = 50, TaskText="Harvest 50 peppers!"},
+                        } },
 
+                    new SideMission { MissionID = 22, MissionName="Winter is coming III", RewardXP=150, RewardICoins=150, RequiredLevel=1, IsNextMission=false,
+                        MissionTasks =  new List<MissionTask>{
+                            new HarvestMissionTask { MissionTaskID = 46, MissionID = 22, ItemID = 29 , ItemPieces = 30, TaskText="Harvest 30 strawberries!"},
+                        } },
 
-                new SideMission { MissionID = 21, MissionName="Winter is coming II", RequiredLevel=1, IsNextMission=true,
-                    MissionTasks =  new List<MissionTask>{
-                        new HarvestMissionTask { MissionTaskID = 44, MissionID = 21, ItemID = 27 , ItemPieces = 25, TaskText="Harvest 25 potatoes!"},
-                        new HarvestMissionTask { MissionTaskID = 45, MissionID = 21, ItemID = 26 , ItemPieces = 50, TaskText="Harvest 50 peppers!"},
-                    } },
-
-                new SideMission { MissionID = 22, MissionName="Winter is coming III", RequiredLevel=1, IsNextMission=false,
-                    MissionTasks =  new List<MissionTask>{
-                        new HarvestMissionTask { MissionTaskID = 46, MissionID = 22, ItemID = 29 , ItemPieces = 30, TaskText="Harvest 30 strawberries!"},
-                    } },
-
-        };
+            };
 
             sideMissions.ForEach(s => context.Missions.Add(s));
             context.SaveChanges();
@@ -924,29 +904,36 @@ namespace Zombiecalypse.DAL
 
 
             var dailyMissions = new List<DailyMission> {
-                 
-                new DailyMission { MissionID = 23, MissionName="Daily collect mission I", RequiredLevel=1, IsNextMission=false,  MissionTasks =  new List<MissionTask>{
-                        new CollectMissionTask { MissionTaskID = 47, MissionID = 23, ItemID = 55 , ItemPieces = 5, TaskText="Get 5 pieces of boards!"},
-                        new CollectMissionTask { MissionTaskID = 48, MissionID = 23, ItemID = 56 , ItemPieces = 5, TaskText="Get 5 pieces of !"},
-                    } },
 
-                new DailyMission { MissionID = 24, MissionName="Daily collect mission II", RequiredLevel=1, IsNextMission=false,  MissionTasks =  new List<MissionTask>{
-                        new CollectMissionTask { MissionTaskID = 49, MissionID = 24, ItemID = 55 , ItemPieces = 4, TaskText="Get 4 pieces of boards!"},
-                    } },
+                    new DailyMission { MissionID = 23, MissionName="Daily collect mission I", RewardXP=150, RewardICoins=150, RequiredLevel=1, IsNextMission=false,  MissionTasks =  new List<MissionTask>{
+                            new CollectMissionTask { MissionTaskID = 47, MissionID = 23, ItemID = 55 , ItemPieces = 5, TaskText="Get 5 pieces of boards!"},
+                        } },
 
-                new DailyMission { MissionID = 25, MissionName="Daily collect mission III", RequiredLevel=1, IsNextMission=false,  MissionTasks =  new List<MissionTask>{
-                        new CollectMissionTask { MissionTaskID = 50, MissionID = 25, ItemID = 56 , ItemPieces = 4, TaskText="Get 4 pieces of!"},
-                    } },
+                    new DailyMission { MissionID = 24, MissionName="Daily collect mission II", RewardXP=150, RewardICoins=150, RequiredLevel=1, IsNextMission=false,  MissionTasks =  new List<MissionTask>{
+                            new CollectMissionTask { MissionTaskID = 48, MissionID = 24, ItemID = 55 , ItemPieces = 4, TaskText="Get 4 pieces of boards!"},
+                        } },
 
-                new DailyMission { MissionID = 26, MissionName="Daily collect mission IV", RequiredLevel=1, IsNextMission=false,  MissionTasks =  new List<MissionTask>{
-                        new CollectMissionTask { MissionTaskID = 51, MissionID = 26, ItemID = 57 , ItemPieces = 4, TaskText="Get 4 pieces of!"},
-                    } },
+                    new DailyMission { MissionID = 25, MissionName="Daily collect mission III", RewardXP=150, RewardICoins=150, RequiredLevel=1, IsNextMission=false,  MissionTasks =  new List<MissionTask>{
+                            new CollectMissionTask { MissionTaskID = 49, MissionID = 25, ItemID = 56 , ItemPieces = 4, TaskText="Get 4 pieces of!"},
+                        } },
 
-                new DailyMission { MissionID = 27, MissionName="Daily AdventureMission I", RequiredLevel=1, IsNextMission=false,  MissionTasks =  new List<MissionTask>{
-                        new AdventureMissionTask { MissionTaskID = 52, MissionID = 27, ItemID = 1 , ItemPieces = 2, TaskText="Complete 2 adventures"},
-                    } },
+                    new DailyMission { MissionID = 26, MissionName="Daily collect mission IV", RewardXP=150, RewardICoins=150, RequiredLevel=1, IsNextMission=false,  MissionTasks =  new List<MissionTask>{
+                            new CollectMissionTask { MissionTaskID = 50, MissionID = 26, ItemID = 57 , ItemPieces = 4, TaskText="Get 4 pieces of!"},
+                        } },
 
-            };
+                    new DailyMission { MissionID = 27, MissionName="Daily AdventureMission I", RewardXP=150, RewardICoins=150, RequiredLevel=1, IsNextMission=false,  MissionTasks =  new List<MissionTask>{
+                            new AdventureMissionTask { MissionTaskID = 51, MissionID = 27, ItemID = 0 , ItemPieces = 2, TaskText="Complete 2 adventures"},
+                        } },
+
+                    new DailyMission { MissionID = 28, MissionName="Daily HarvestMission I", RewardXP=150, RewardICoins=150, RequiredLevel=1, IsNextMission=false,  MissionTasks =  new List<MissionTask>{
+                            new HarvestMissionTask { MissionTaskID = 52, MissionID = 28, ItemID = 0 , ItemPieces = 2, TaskText="Harvest 2 fields!"},
+                        } },
+
+                    new DailyMission { MissionID = 29, MissionName="Daily killing mission I", RewardXP=150, RewardICoins=150, RequiredLevel=1, IsNextMission=false,  MissionTasks =  new List<MissionTask>{
+                            new KillingMissionTask { MissionTaskID = 53, MissionID = 29, ItemID = 0 , ItemPieces = 2, TaskText="Kill 2 zombies"},
+                        } },
+
+                };
 
             dailyMissions.ForEach(s => context.DailyMissions.Add(s));
             context.SaveChanges();

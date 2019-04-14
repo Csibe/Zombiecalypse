@@ -83,13 +83,6 @@ namespace Zombiecalypse.Controllers
             {
 
                 var result = new MissionsController().KillingMission(model.Zombie.ZombieID, User.Identity.Name);
-                //List<Mission> zombieMission = db.Missions.Where(x => x.CharacterID == model.Character.CharacterID).Where(x => x.MissionType == "zombiekilling").ToList();
-               
-                //if (zombieMission != null) {
-                //    foreach (var mission in zombieMission) {
-                //        mission.MissionTaskProgress++;
-                //    }
-                //}
 
                 db.SaveChanges();
 
