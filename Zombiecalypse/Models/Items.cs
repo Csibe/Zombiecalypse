@@ -38,6 +38,7 @@ namespace Zombiecalypse.Models
 
     public class Building : Item
     {
+       
         [DisplayName("Level")]
         public int BuildingLevel { get; set; }
         [DisplayName("Energy cost")]
@@ -57,7 +58,7 @@ namespace Zombiecalypse.Models
     public class BuildingBuildingMaterial
     {
         public int BuildingBuildingMaterialID { get; set; }
-        public int BuildingID { get; set; }
+        public int ItemID { get; set; }
         public int BuildingMaterialID { get; set; }
         public int MaterialPieces { get; set; }
     }

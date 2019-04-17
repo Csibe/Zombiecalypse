@@ -20,6 +20,7 @@ namespace Zombiecalypse.Models
         public ICollection<ZombieAttackBase> AttackingZombies { get; set; }
         public DateTime EndOfExplore { get; set; }
         public DateTime DailyMissionDate { get; set; }
+        public DateTime ToleranceFinishDate { get; set; }
 
     }
 

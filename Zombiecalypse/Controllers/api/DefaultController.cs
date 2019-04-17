@@ -106,6 +106,42 @@ namespace Zombiecalypse.Controllers.api
         }
 
 
+
+        [HttpGet]
+        public IHttpActionResult ManageTolerance(string id)
+        {
+
+            Character character = db.Characters.Where(x => x.ApplicationUserID == id).FirstOrDefault();
+            TimeSpan distance = DateTime.Now - character.TolerancePlusDate;
+
+            var result = "";
+            if (character.IsOnAdventure == false) {
+                if (character.Tolerance < character.MaxTolerance && character.TolerancePlusDate.Year == DateTime.MaxValue.Year)
+                {
+                    character.TolerancePlusDate = DateTime.Now.AddSeconds(20);
+                }
+                else if (character.Tolerance == character.MaxTolerance && character.TolerancePlusDate.Year < DateTime.MaxValue.Year)
+                {
+                    character.TolerancePlusDate = DateTime.MaxValue;
+                }
+                else if (character.Tolerance < character.MaxTolerance && character.TolerancePlusDate <= DateTime.Now)
+                {
+                    character.TolerancePlusDate = character.TolerancePlusDate.AddMinutes(1);
+                    character.Tolerance++;
+                    result += "Energy recoverd!";
+
+                }
+                else if (character.Tolerance < character.MaxTolerance && character.TolerancePlusDate > DateTime.Now)
+                {
+                }
+
+                db.SaveChanges();
+            }
+            return Ok(result);
+        }
+
+
+
         [HttpGet]
         public IHttpActionResult ZombieDamageBase()
         {
@@ -531,7 +567,7 @@ namespace Zombiecalypse.Controllers.api
         {
             ZombieAttackAdventurerVM model = new ZombieAttackAdventurerVM();
 
-            var result = "ZombieAttackAdventurer";
+            var result = "Zombie attacked adventurer";
 
             model.Character = db.Characters.Where(y => y.ApplicationUserID == userID).FirstOrDefault();
             model.ZombieAttackAdventurer = db.ZombieAttackAdventurers.Where(x => x.CharacterID == model.Character.CharacterID).Where(x => x.isYourTurn == true).FirstOrDefault();
@@ -554,6 +590,7 @@ namespace Zombiecalypse.Controllers.api
                 model.Character.IsOnAdventure = false;
                 model.Character.isWaitingOnAdventure = false;
                 model.Character.FinishAdventure = DateTime.MaxValue;
+                model.Character.TolerancePlusDate = DateTime.Now.AddMinutes(5);
                 db.SaveChanges();
 
             }

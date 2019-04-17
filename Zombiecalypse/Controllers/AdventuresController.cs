@@ -140,7 +140,6 @@ namespace Zombiecalypse.Controllers
                     if (zAA.Count() != 0) {
                         zAA.ToArray()[0].isYourTurn = true;
                     }
-                    //var turnManager = new DefaultController().ManageTurns(User.Identity.Name);
                     db.SaveChanges();
 
                 }
@@ -287,6 +286,8 @@ namespace Zombiecalypse.Controllers
 
                 character.IsOnAdventure = false;
                 character.FinishAdventure = DateTime.MaxValue;
+                character.TolerancePlusDate = DateTime.Now.AddMinutes(5);
+
 
                 var result = new MissionsController().AdventureMission(User.Identity.Name);
 

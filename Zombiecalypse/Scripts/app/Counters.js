@@ -5,9 +5,10 @@ var isOnAdventure = IsOnAdventure;
 var untilAdventure = AdventureFinishDate;
 var untilEnergy = EnergyPlusDate;
 var lastZombieStartAttack = LastZombieStartAttack;
-var endOfExplore = EndOfExplore;
 var isWaitingOnAdventure = IsWaitingOnAdventure
 var dailyMissionDate = DailyMissionDate;
+var untilTolerance = ToleranceFinishDate;
+
 
 var fieldFinishDate = FieldFinishDate;
 var fieldID = FieldID;
@@ -20,7 +21,7 @@ var x = setInterval(function () {
     var distanceAdventure = untilAdventure - now;
     var distanceEnergy = untilEnergy - now;
     var distanceLastZombieStartAttack = now - lastZombieStartAttack;
-    var distanceEndOfExplore = endOfExplore - now;
+    var distanceTolerance = untilTolerance - now;
 
 
     var today = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 0, 0, 0, 0);
@@ -161,6 +162,16 @@ var x = setInterval(function () {
         clearInterval(x);
 
         var result = '/api/Default/ManageEnergy/' + UserName
+
+        $.get(result, function (data) {
+            toastr.success(data, { timeOut: 10000 })
+        });
+    }
+
+    if (distanceToelrance < 0 && isOnAdventure == "False") {
+        clearInterval(x);
+
+        var result = '/api/Default/ManageTolerance/' + UserName
 
         $.get(result, function (data) {
             toastr.success(data, { timeOut: 10000 })

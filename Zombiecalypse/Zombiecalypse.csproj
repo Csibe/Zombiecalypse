@@ -372,7 +372,6 @@
     <Content Include="Content\Pictures\table.png" />
     <Content Include="Content\Pictures\table2.png" />
     <Content Include="Content\Pictures\table3.png" />
-    <Content Include="Content\Pictures\zombie.jpg" />
     <Content Include="Content\Pictures\Zombie1plant.png" />
     <Content Include="Content\Pictures\zombieBorder.png" />
     <Content Include="Content\Pictures\Zombies\AdventurerZombie.png" />

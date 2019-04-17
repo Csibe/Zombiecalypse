@@ -40,7 +40,7 @@ namespace Zombiecalypse.Controllers
             string buildingName = building.ItemName;
 
             Building newBuilding = db.Buildings.Where(x => x.ItemName == buildingName).Where(x => x.BuildingLevel == newBuildingLevel).FirstOrDefault();
-            List<BuildingBuildingMaterial> newBuildingBuildingMaterials = db.BuildingBuildingMaterials.Where(x => x.BuildingID == newBuilding.ItemID).ToList();
+            List<BuildingBuildingMaterial> newBuildingBuildingMaterials = db.BuildingBuildingMaterials.Where(x => x.ItemID == newBuilding.ItemID).ToList();
 
             int counter = 0;
 
@@ -104,7 +104,7 @@ namespace Zombiecalypse.Controllers
             string buildingName = fence.ItemName;
 
             Building newBuilding = db.Buildings.Where(x => x.ItemName == buildingName).Where(x => x.BuildingLevel == newBuildingLevel).FirstOrDefault();
-            BuildingBuildingMaterial newBuildingBuildingMaterial = db.BuildingBuildingMaterials.Where(x => x.BuildingID == newBuilding.ItemID).FirstOrDefault();
+            BuildingBuildingMaterial newBuildingBuildingMaterial = db.BuildingBuildingMaterials.Where(x => x.ItemID == newBuilding.ItemID).FirstOrDefault();
 
 
             foreach (var invMat in characterInventory)

@@ -32,7 +32,6 @@ namespace Zombiecalypse.Models
         public bool isFinished { get; set; }
         public bool IsEmpty { get; set; }
         public DateTime FinishDate { get; set; }
-      //  public virtual Plant Plant { get; set; }
     }
 
     public class CharacterFieldVM : ViewModelBase

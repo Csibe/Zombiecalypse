@@ -49,6 +49,8 @@ namespace Zombiecalypse.Models
         public DateTime EnergyPlusDate { get; set; }
         [DataType(DataType.DateTime)]
         public DateTime LastZombieAttackTime { get; set; }
+        [DataType(DataType.DateTime)]
+        public DateTime TolerancePlusDate { get; set; }
         public virtual ICollection<Inventory> Inventory { get; set; }
         public DateTime DailyMissionDate { get; set; }
     }

@@ -20,10 +20,6 @@ namespace Zombiecalypse.Controllers
         {
             BuildingDetailViewModel model = new BuildingDetailViewModel();
 
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
 
             model.Building = db.Buildings.Find(id);
 
@@ -75,13 +71,13 @@ namespace Zombiecalypse.Controllers
                 {
                     id += 1;
                     model.NextBuilding = db.Buildings.Find(id);
-                    model.NextBuildingBuildingMaterials = db.BuildingBuildingMaterials.Where(x => x.BuildingID == id).ToList();
+                    model.NextBuildingBuildingMaterials = db.BuildingBuildingMaterials.Where(x => x.ItemID == id).ToList();
                     model.NextBuildingMaterials = db.BuildingMaterials.ToList();
                 }
                 else
                 {
                     model.NextBuilding = db.Buildings.Find(id);
-                    model.NextBuildingBuildingMaterials = db.BuildingBuildingMaterials.Where(x => x.BuildingID == id).ToList();
+                    model.NextBuildingBuildingMaterials = db.BuildingBuildingMaterials.Where(x => x.ItemID == id).ToList();
                     model.NextBuildingMaterials = db.BuildingMaterials.ToList();
                 }
             }
