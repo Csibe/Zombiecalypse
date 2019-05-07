@@ -158,202 +158,202 @@ namespace Zombiecalypse.DAL
             buildingmaterials.ForEach(s => context.BuildingMaterials.Add(s));
             context.SaveChanges();
 
-            //var buildingbuildingmaterials = new List<BuildingBuildingMaterial> {
-            //    //house 0
-            //                   new BuildingBuildingMaterial { ItemID=1, BuildingMaterialID=94, MaterialPieces=0},
-            //    //house 1
-            //                   new BuildingBuildingMaterial { ItemID=2, BuildingMaterialID=94, MaterialPieces=5},
-            //                   new BuildingBuildingMaterial { ItemID=2, BuildingMaterialID=54, MaterialPieces=1},
-            //    //house 2
-            //                   new BuildingBuildingMaterial { ItemID=3, BuildingMaterialID=94, MaterialPieces=7},
-            //                   new BuildingBuildingMaterial { ItemID=3, BuildingMaterialID=55, MaterialPieces=2},
+            var buildingbuildingmaterials = new List<BuildingBuildingMaterial> {
+                //house 0
+                               new BuildingBuildingMaterial { ItemID=1, BuildingMaterialID=94, MaterialPieces=0},
+                //house 1
+                               new BuildingBuildingMaterial { ItemID=2, BuildingMaterialID=94, MaterialPieces=5},
+                               new BuildingBuildingMaterial { ItemID=2, BuildingMaterialID=54, MaterialPieces=1},
+                //house 2
+                               new BuildingBuildingMaterial { ItemID=3, BuildingMaterialID=94, MaterialPieces=7},
+                               new BuildingBuildingMaterial { ItemID=3, BuildingMaterialID=55, MaterialPieces=2},
 
-            //    //house 3
-            //                   new BuildingBuildingMaterial { ItemID=4, BuildingMaterialID=94, MaterialPieces=10},
-            //                   new BuildingBuildingMaterial { ItemID=4, BuildingMaterialID=55, MaterialPieces=5},
-            //                   new BuildingBuildingMaterial { ItemID=4, BuildingMaterialID=56, MaterialPieces=3},
+                //house 3
+                               new BuildingBuildingMaterial { ItemID=4, BuildingMaterialID=94, MaterialPieces=10},
+                               new BuildingBuildingMaterial { ItemID=4, BuildingMaterialID=55, MaterialPieces=5},
+                               new BuildingBuildingMaterial { ItemID=4, BuildingMaterialID=56, MaterialPieces=3},
 
-            //    //house 4
-            //                   new BuildingBuildingMaterial { ItemID=5, BuildingMaterialID=94, MaterialPieces=15},
-            //                   new BuildingBuildingMaterial { ItemID=5, BuildingMaterialID=55, MaterialPieces=7},
-            //                   new BuildingBuildingMaterial { ItemID=5, BuildingMaterialID=56, MaterialPieces=5},
+                //house 4
+                               new BuildingBuildingMaterial { ItemID=5, BuildingMaterialID=94, MaterialPieces=15},
+                               new BuildingBuildingMaterial { ItemID=5, BuildingMaterialID=55, MaterialPieces=7},
+                               new BuildingBuildingMaterial { ItemID=5, BuildingMaterialID=56, MaterialPieces=5},
 
-            //    //house 5
-            //                   new BuildingBuildingMaterial { ItemID=6, BuildingMaterialID=94, MaterialPieces=23},
-            //                   new BuildingBuildingMaterial { ItemID=6, BuildingMaterialID=57, MaterialPieces=11},
-            //                   new BuildingBuildingMaterial { ItemID=6, BuildingMaterialID=58, MaterialPieces=5},
-            //    //garage 0
-            //                   new BuildingBuildingMaterial { ItemID=7, BuildingMaterialID=54, MaterialPieces=0},
-            //                   new BuildingBuildingMaterial { ItemID=7, BuildingMaterialID=55, MaterialPieces=0},
-            //                   new BuildingBuildingMaterial { ItemID=7, BuildingMaterialID=56, MaterialPieces=0},
-            //                   new BuildingBuildingMaterial { ItemID=7, BuildingMaterialID=57, MaterialPieces=0},
-            //                   new BuildingBuildingMaterial { ItemID=7, BuildingMaterialID=58, MaterialPieces=0},
+                //house 5
+                               new BuildingBuildingMaterial { ItemID=6, BuildingMaterialID=94, MaterialPieces=23},
+                               new BuildingBuildingMaterial { ItemID=6, BuildingMaterialID=57, MaterialPieces=11},
+                               new BuildingBuildingMaterial { ItemID=6, BuildingMaterialID=58, MaterialPieces=5},
+                //garage 0
+                               new BuildingBuildingMaterial { ItemID=7, BuildingMaterialID=54, MaterialPieces=0},
+                               new BuildingBuildingMaterial { ItemID=7, BuildingMaterialID=55, MaterialPieces=0},
+                               new BuildingBuildingMaterial { ItemID=7, BuildingMaterialID=56, MaterialPieces=0},
+                               new BuildingBuildingMaterial { ItemID=7, BuildingMaterialID=57, MaterialPieces=0},
+                               new BuildingBuildingMaterial { ItemID=7, BuildingMaterialID=58, MaterialPieces=0},
 
-            //   //garage 1
-            //                   new BuildingBuildingMaterial { ItemID=8, BuildingMaterialID=54, MaterialPieces=1},
-            //                   new BuildingBuildingMaterial { ItemID=8, BuildingMaterialID=55, MaterialPieces=1},
-            //                   new BuildingBuildingMaterial { ItemID=8, BuildingMaterialID=56, MaterialPieces=1},
-            //                   new BuildingBuildingMaterial { ItemID=8, BuildingMaterialID=57, MaterialPieces=1},
-            //                   new BuildingBuildingMaterial { ItemID=8, BuildingMaterialID=58, MaterialPieces=1},
+               //garage 1
+                               new BuildingBuildingMaterial { ItemID=8, BuildingMaterialID=54, MaterialPieces=1},
+                               new BuildingBuildingMaterial { ItemID=8, BuildingMaterialID=55, MaterialPieces=1},
+                               new BuildingBuildingMaterial { ItemID=8, BuildingMaterialID=56, MaterialPieces=1},
+                               new BuildingBuildingMaterial { ItemID=8, BuildingMaterialID=57, MaterialPieces=1},
+                               new BuildingBuildingMaterial { ItemID=8, BuildingMaterialID=58, MaterialPieces=1},
 
-            //   //garage 2
-            //                   new BuildingBuildingMaterial { ItemID=9, BuildingMaterialID=54, MaterialPieces=2},
-            //                   new BuildingBuildingMaterial { ItemID=9, BuildingMaterialID=55, MaterialPieces=2},
-            //                   new BuildingBuildingMaterial { ItemID=9, BuildingMaterialID=56, MaterialPieces=2},
-            //                   new BuildingBuildingMaterial { ItemID=9, BuildingMaterialID=57, MaterialPieces=2},
-            //                   new BuildingBuildingMaterial { ItemID=9, BuildingMaterialID=58, MaterialPieces=2},
-            //    //garage 3
-            //                   new BuildingBuildingMaterial { ItemID=10, BuildingMaterialID=54, MaterialPieces=3},
-            //                   new BuildingBuildingMaterial { ItemID=10, BuildingMaterialID=55, MaterialPieces=3},
-            //                   new BuildingBuildingMaterial { ItemID=10, BuildingMaterialID=56, MaterialPieces=3},
-            //                   new BuildingBuildingMaterial { ItemID=10, BuildingMaterialID=57, MaterialPieces=3},
-            //                   new BuildingBuildingMaterial { ItemID=10, BuildingMaterialID=58, MaterialPieces=3},
-            //    //garage 4
-            //                   new BuildingBuildingMaterial { ItemID=11, BuildingMaterialID=54, MaterialPieces=4},
-            //                   new BuildingBuildingMaterial { ItemID=11, BuildingMaterialID=55, MaterialPieces=4},
-            //                   new BuildingBuildingMaterial { ItemID=11, BuildingMaterialID=56, MaterialPieces=4},
-            //                   new BuildingBuildingMaterial { ItemID=11, BuildingMaterialID=57, MaterialPieces=4},
-            //                   new BuildingBuildingMaterial { ItemID=11, BuildingMaterialID=58, MaterialPieces=4},
-            //    //garage  5
-            //                   new BuildingBuildingMaterial { ItemID=12, BuildingMaterialID=54, MaterialPieces=5},
-            //                   new BuildingBuildingMaterial { ItemID=12, BuildingMaterialID=55, MaterialPieces=5},
-            //                   new BuildingBuildingMaterial { ItemID=12, BuildingMaterialID=56, MaterialPieces=5},
-            //                   new BuildingBuildingMaterial { ItemID=12, BuildingMaterialID=57, MaterialPieces=5},
-            //                   new BuildingBuildingMaterial { ItemID=12, BuildingMaterialID=58, MaterialPieces=5},
-            //   //garden shed 0
-            //                   new BuildingBuildingMaterial { ItemID=13, BuildingMaterialID=54, MaterialPieces=0},
-            //                   new BuildingBuildingMaterial { ItemID=13, BuildingMaterialID=55, MaterialPieces=0},
-            //                   new BuildingBuildingMaterial { ItemID=13, BuildingMaterialID=56, MaterialPieces=0},
-            //                   new BuildingBuildingMaterial { ItemID=13, BuildingMaterialID=57, MaterialPieces=0},
-            //                   new BuildingBuildingMaterial { ItemID=13, BuildingMaterialID=58, MaterialPieces=0},
+               //garage 2
+                               new BuildingBuildingMaterial { ItemID=9, BuildingMaterialID=54, MaterialPieces=2},
+                               new BuildingBuildingMaterial { ItemID=9, BuildingMaterialID=55, MaterialPieces=2},
+                               new BuildingBuildingMaterial { ItemID=9, BuildingMaterialID=56, MaterialPieces=2},
+                               new BuildingBuildingMaterial { ItemID=9, BuildingMaterialID=57, MaterialPieces=2},
+                               new BuildingBuildingMaterial { ItemID=9, BuildingMaterialID=58, MaterialPieces=2},
+                //garage 3
+                               new BuildingBuildingMaterial { ItemID=10, BuildingMaterialID=54, MaterialPieces=3},
+                               new BuildingBuildingMaterial { ItemID=10, BuildingMaterialID=55, MaterialPieces=3},
+                               new BuildingBuildingMaterial { ItemID=10, BuildingMaterialID=56, MaterialPieces=3},
+                               new BuildingBuildingMaterial { ItemID=10, BuildingMaterialID=57, MaterialPieces=3},
+                               new BuildingBuildingMaterial { ItemID=10, BuildingMaterialID=58, MaterialPieces=3},
+                //garage 4
+                               new BuildingBuildingMaterial { ItemID=11, BuildingMaterialID=54, MaterialPieces=4},
+                               new BuildingBuildingMaterial { ItemID=11, BuildingMaterialID=55, MaterialPieces=4},
+                               new BuildingBuildingMaterial { ItemID=11, BuildingMaterialID=56, MaterialPieces=4},
+                               new BuildingBuildingMaterial { ItemID=11, BuildingMaterialID=57, MaterialPieces=4},
+                               new BuildingBuildingMaterial { ItemID=11, BuildingMaterialID=58, MaterialPieces=4},
+                //garage  5
+                               new BuildingBuildingMaterial { ItemID=12, BuildingMaterialID=54, MaterialPieces=5},
+                               new BuildingBuildingMaterial { ItemID=12, BuildingMaterialID=55, MaterialPieces=5},
+                               new BuildingBuildingMaterial { ItemID=12, BuildingMaterialID=56, MaterialPieces=5},
+                               new BuildingBuildingMaterial { ItemID=12, BuildingMaterialID=57, MaterialPieces=5},
+                               new BuildingBuildingMaterial { ItemID=12, BuildingMaterialID=58, MaterialPieces=5},
+               //garden shed 0
+                               new BuildingBuildingMaterial { ItemID=13, BuildingMaterialID=54, MaterialPieces=0},
+                               new BuildingBuildingMaterial { ItemID=13, BuildingMaterialID=55, MaterialPieces=0},
+                               new BuildingBuildingMaterial { ItemID=13, BuildingMaterialID=56, MaterialPieces=0},
+                               new BuildingBuildingMaterial { ItemID=13, BuildingMaterialID=57, MaterialPieces=0},
+                               new BuildingBuildingMaterial { ItemID=13, BuildingMaterialID=58, MaterialPieces=0},
 
-            //   //garden shed 1
-            //                   new BuildingBuildingMaterial { ItemID=14, BuildingMaterialID=54, MaterialPieces=1},
-            //                   new BuildingBuildingMaterial { ItemID=14, BuildingMaterialID=55, MaterialPieces=1},
-            //                   new BuildingBuildingMaterial { ItemID=14, BuildingMaterialID=56, MaterialPieces=1},
-            //                   new BuildingBuildingMaterial { ItemID=14, BuildingMaterialID=57, MaterialPieces=1},
-            //                   new BuildingBuildingMaterial { ItemID=14, BuildingMaterialID=58, MaterialPieces=1},
+               //garden shed 1
+                               new BuildingBuildingMaterial { ItemID=14, BuildingMaterialID=54, MaterialPieces=1},
+                               new BuildingBuildingMaterial { ItemID=14, BuildingMaterialID=55, MaterialPieces=1},
+                               new BuildingBuildingMaterial { ItemID=14, BuildingMaterialID=56, MaterialPieces=1},
+                               new BuildingBuildingMaterial { ItemID=14, BuildingMaterialID=57, MaterialPieces=1},
+                               new BuildingBuildingMaterial { ItemID=14, BuildingMaterialID=58, MaterialPieces=1},
 
-            //  //garden shed 2
-            //                   new BuildingBuildingMaterial { ItemID=15, BuildingMaterialID=54, MaterialPieces=2},
-            //                   new BuildingBuildingMaterial { ItemID=15, BuildingMaterialID=55, MaterialPieces=2},
-            //                   new BuildingBuildingMaterial { ItemID=15, BuildingMaterialID=56, MaterialPieces=2},
-            //                   new BuildingBuildingMaterial { ItemID=15, BuildingMaterialID=57, MaterialPieces=2},
-            //                   new BuildingBuildingMaterial { ItemID=15, BuildingMaterialID=58, MaterialPieces=2},
-            //   //garden shed 3
-            //                   new BuildingBuildingMaterial { ItemID=16, BuildingMaterialID=54, MaterialPieces=3},
-            //                   new BuildingBuildingMaterial { ItemID=16, BuildingMaterialID=55, MaterialPieces=3},
-            //                   new BuildingBuildingMaterial { ItemID=16, BuildingMaterialID=56, MaterialPieces=3},
-            //                   new BuildingBuildingMaterial { ItemID=16, BuildingMaterialID=57, MaterialPieces=3},
-            //                   new BuildingBuildingMaterial { ItemID=16, BuildingMaterialID=58, MaterialPieces=3},
-            //  //garden shed 4
-            //                   new BuildingBuildingMaterial { ItemID=17, BuildingMaterialID=54, MaterialPieces=4},
-            //                   new BuildingBuildingMaterial { ItemID=17, BuildingMaterialID=55, MaterialPieces=4},
-            //                   new BuildingBuildingMaterial { ItemID=17, BuildingMaterialID=56, MaterialPieces=4},
-            //                   new BuildingBuildingMaterial { ItemID=17, BuildingMaterialID=57, MaterialPieces=4},
-            //                   new BuildingBuildingMaterial { ItemID=17, BuildingMaterialID=58, MaterialPieces=4},
-            //    //garden shed 5
-            //                   new BuildingBuildingMaterial { ItemID=18, BuildingMaterialID=54, MaterialPieces=5},
-            //                   new BuildingBuildingMaterial { ItemID=18, BuildingMaterialID=55, MaterialPieces=5},
-            //                   new BuildingBuildingMaterial { ItemID=18, BuildingMaterialID=56, MaterialPieces=5},
-            //                   new BuildingBuildingMaterial { ItemID=18, BuildingMaterialID=57, MaterialPieces=5},
-            //                   new BuildingBuildingMaterial { ItemID=18, BuildingMaterialID=58, MaterialPieces=5},
-
-
-            //    //tool shed 0
-            //                   new BuildingBuildingMaterial { ItemID=19, BuildingMaterialID=54, MaterialPieces=0},
-            //                   new BuildingBuildingMaterial { ItemID=19, BuildingMaterialID=55, MaterialPieces=0},
-            //                   new BuildingBuildingMaterial { ItemID=19, BuildingMaterialID=56, MaterialPieces=0},
-            //                   new BuildingBuildingMaterial { ItemID=19, BuildingMaterialID=57, MaterialPieces=0},
-            //                   new BuildingBuildingMaterial { ItemID=19, BuildingMaterialID=58, MaterialPieces=0},
-
-            //   //tool shed 1
-            //                   new BuildingBuildingMaterial { ItemID=20, BuildingMaterialID=54, MaterialPieces=1},
-            //                   new BuildingBuildingMaterial { ItemID=20, BuildingMaterialID=55, MaterialPieces=1},
-            //                   new BuildingBuildingMaterial { ItemID=20, BuildingMaterialID=56, MaterialPieces=1},
-            //                   new BuildingBuildingMaterial { ItemID=20, BuildingMaterialID=57, MaterialPieces=1},
-            //                   new BuildingBuildingMaterial { ItemID=20, BuildingMaterialID=58, MaterialPieces=1},
-
-            //  //tool shed 2
-            //                   new BuildingBuildingMaterial { ItemID=21, BuildingMaterialID=54, MaterialPieces=2},
-            //                   new BuildingBuildingMaterial { ItemID=21, BuildingMaterialID=55, MaterialPieces=2},
-            //                   new BuildingBuildingMaterial { ItemID=21, BuildingMaterialID=56, MaterialPieces=2},
-            //                   new BuildingBuildingMaterial { ItemID=21, BuildingMaterialID=57, MaterialPieces=2},
-            //                   new BuildingBuildingMaterial { ItemID=21, BuildingMaterialID=58, MaterialPieces=2},
-            //   //tool shed 3
-            //                   new BuildingBuildingMaterial { ItemID=22, BuildingMaterialID=54, MaterialPieces=3},
-            //                   new BuildingBuildingMaterial { ItemID=22, BuildingMaterialID=55, MaterialPieces=3},
-            //                   new BuildingBuildingMaterial { ItemID=22, BuildingMaterialID=56, MaterialPieces=3},
-            //                   new BuildingBuildingMaterial { ItemID=22, BuildingMaterialID=57, MaterialPieces=3},
-            //                   new BuildingBuildingMaterial { ItemID=22, BuildingMaterialID=58, MaterialPieces=3},
-            //  //tool shed 4
-            //                   new BuildingBuildingMaterial { ItemID=23, BuildingMaterialID=54, MaterialPieces=4},
-            //                   new BuildingBuildingMaterial { ItemID=23, BuildingMaterialID=55, MaterialPieces=4},
-            //                   new BuildingBuildingMaterial { ItemID=23, BuildingMaterialID=56, MaterialPieces=4},
-            //                   new BuildingBuildingMaterial { ItemID=23, BuildingMaterialID=57, MaterialPieces=4},
-            //                   new BuildingBuildingMaterial { ItemID=23, BuildingMaterialID=58, MaterialPieces=4},
-            //    //tool shed 5
-            //                   new BuildingBuildingMaterial { ItemID=24, BuildingMaterialID=54, MaterialPieces=5},
-            //                   new BuildingBuildingMaterial { ItemID=24, BuildingMaterialID=55, MaterialPieces=5},
-            //                   new BuildingBuildingMaterial { ItemID=24, BuildingMaterialID=56, MaterialPieces=5},
-            //                   new BuildingBuildingMaterial { ItemID=24, BuildingMaterialID=57, MaterialPieces=5},
-            //                   new BuildingBuildingMaterial { ItemID=24, BuildingMaterialID=58, MaterialPieces=5},
-
-            //                                   //fence 1
-            //                   new BuildingBuildingMaterial { ItemID=83, BuildingMaterialID=54, MaterialPieces=5},
+              //garden shed 2
+                               new BuildingBuildingMaterial { ItemID=15, BuildingMaterialID=54, MaterialPieces=2},
+                               new BuildingBuildingMaterial { ItemID=15, BuildingMaterialID=55, MaterialPieces=2},
+                               new BuildingBuildingMaterial { ItemID=15, BuildingMaterialID=56, MaterialPieces=2},
+                               new BuildingBuildingMaterial { ItemID=15, BuildingMaterialID=57, MaterialPieces=2},
+                               new BuildingBuildingMaterial { ItemID=15, BuildingMaterialID=58, MaterialPieces=2},
+               //garden shed 3
+                               new BuildingBuildingMaterial { ItemID=16, BuildingMaterialID=54, MaterialPieces=3},
+                               new BuildingBuildingMaterial { ItemID=16, BuildingMaterialID=55, MaterialPieces=3},
+                               new BuildingBuildingMaterial { ItemID=16, BuildingMaterialID=56, MaterialPieces=3},
+                               new BuildingBuildingMaterial { ItemID=16, BuildingMaterialID=57, MaterialPieces=3},
+                               new BuildingBuildingMaterial { ItemID=16, BuildingMaterialID=58, MaterialPieces=3},
+              //garden shed 4
+                               new BuildingBuildingMaterial { ItemID=17, BuildingMaterialID=54, MaterialPieces=4},
+                               new BuildingBuildingMaterial { ItemID=17, BuildingMaterialID=55, MaterialPieces=4},
+                               new BuildingBuildingMaterial { ItemID=17, BuildingMaterialID=56, MaterialPieces=4},
+                               new BuildingBuildingMaterial { ItemID=17, BuildingMaterialID=57, MaterialPieces=4},
+                               new BuildingBuildingMaterial { ItemID=17, BuildingMaterialID=58, MaterialPieces=4},
+                //garden shed 5
+                               new BuildingBuildingMaterial { ItemID=18, BuildingMaterialID=54, MaterialPieces=5},
+                               new BuildingBuildingMaterial { ItemID=18, BuildingMaterialID=55, MaterialPieces=5},
+                               new BuildingBuildingMaterial { ItemID=18, BuildingMaterialID=56, MaterialPieces=5},
+                               new BuildingBuildingMaterial { ItemID=18, BuildingMaterialID=57, MaterialPieces=5},
+                               new BuildingBuildingMaterial { ItemID=18, BuildingMaterialID=58, MaterialPieces=5},
 
 
-            //                                   //fence 2
-            //                   new BuildingBuildingMaterial { ItemID=84, BuildingMaterialID=54, MaterialPieces=10},
+                //tool shed 0
+                               new BuildingBuildingMaterial { ItemID=19, BuildingMaterialID=54, MaterialPieces=0},
+                               new BuildingBuildingMaterial { ItemID=19, BuildingMaterialID=55, MaterialPieces=0},
+                               new BuildingBuildingMaterial { ItemID=19, BuildingMaterialID=56, MaterialPieces=0},
+                               new BuildingBuildingMaterial { ItemID=19, BuildingMaterialID=57, MaterialPieces=0},
+                               new BuildingBuildingMaterial { ItemID=19, BuildingMaterialID=58, MaterialPieces=0},
+
+               //tool shed 1
+                               new BuildingBuildingMaterial { ItemID=20, BuildingMaterialID=54, MaterialPieces=1},
+                               new BuildingBuildingMaterial { ItemID=20, BuildingMaterialID=55, MaterialPieces=1},
+                               new BuildingBuildingMaterial { ItemID=20, BuildingMaterialID=56, MaterialPieces=1},
+                               new BuildingBuildingMaterial { ItemID=20, BuildingMaterialID=57, MaterialPieces=1},
+                               new BuildingBuildingMaterial { ItemID=20, BuildingMaterialID=58, MaterialPieces=1},
+
+              //tool shed 2
+                               new BuildingBuildingMaterial { ItemID=21, BuildingMaterialID=54, MaterialPieces=2},
+                               new BuildingBuildingMaterial { ItemID=21, BuildingMaterialID=55, MaterialPieces=2},
+                               new BuildingBuildingMaterial { ItemID=21, BuildingMaterialID=56, MaterialPieces=2},
+                               new BuildingBuildingMaterial { ItemID=21, BuildingMaterialID=57, MaterialPieces=2},
+                               new BuildingBuildingMaterial { ItemID=21, BuildingMaterialID=58, MaterialPieces=2},
+               //tool shed 3
+                               new BuildingBuildingMaterial { ItemID=22, BuildingMaterialID=54, MaterialPieces=3},
+                               new BuildingBuildingMaterial { ItemID=22, BuildingMaterialID=55, MaterialPieces=3},
+                               new BuildingBuildingMaterial { ItemID=22, BuildingMaterialID=56, MaterialPieces=3},
+                               new BuildingBuildingMaterial { ItemID=22, BuildingMaterialID=57, MaterialPieces=3},
+                               new BuildingBuildingMaterial { ItemID=22, BuildingMaterialID=58, MaterialPieces=3},
+              //tool shed 4
+                               new BuildingBuildingMaterial { ItemID=23, BuildingMaterialID=54, MaterialPieces=4},
+                               new BuildingBuildingMaterial { ItemID=23, BuildingMaterialID=55, MaterialPieces=4},
+                               new BuildingBuildingMaterial { ItemID=23, BuildingMaterialID=56, MaterialPieces=4},
+                               new BuildingBuildingMaterial { ItemID=23, BuildingMaterialID=57, MaterialPieces=4},
+                               new BuildingBuildingMaterial { ItemID=23, BuildingMaterialID=58, MaterialPieces=4},
+                //tool shed 5
+                               new BuildingBuildingMaterial { ItemID=24, BuildingMaterialID=54, MaterialPieces=5},
+                               new BuildingBuildingMaterial { ItemID=24, BuildingMaterialID=55, MaterialPieces=5},
+                               new BuildingBuildingMaterial { ItemID=24, BuildingMaterialID=56, MaterialPieces=5},
+                               new BuildingBuildingMaterial { ItemID=24, BuildingMaterialID=57, MaterialPieces=5},
+                               new BuildingBuildingMaterial { ItemID=24, BuildingMaterialID=58, MaterialPieces=5},
+
+                                               //fence 1
+                               new BuildingBuildingMaterial { ItemID=83, BuildingMaterialID=54, MaterialPieces=5},
 
 
-            //                                   //fence 3
-            //                   new BuildingBuildingMaterial { ItemID=85, BuildingMaterialID=54, MaterialPieces=15},
+                                               //fence 2
+                               new BuildingBuildingMaterial { ItemID=84, BuildingMaterialID=54, MaterialPieces=10},
 
 
-            //                                   //fence 4
-            //                   new BuildingBuildingMaterial { ItemID=86, BuildingMaterialID=54, MaterialPieces=20},
+                                               //fence 3
+                               new BuildingBuildingMaterial { ItemID=85, BuildingMaterialID=54, MaterialPieces=15},
 
 
-            //                                   //fence 5
-            //                   new BuildingBuildingMaterial { ItemID=87, BuildingMaterialID=54, MaterialPieces=25},
+                                               //fence 4
+                               new BuildingBuildingMaterial { ItemID=86, BuildingMaterialID=54, MaterialPieces=20},
 
 
-            //                                   //car 0
-            //                   new BuildingBuildingMaterial { ItemID=88, BuildingMaterialID=95, MaterialPieces=0},
-            //                   new BuildingBuildingMaterial { ItemID=88, BuildingMaterialID=96, MaterialPieces=0},
-            //                   new BuildingBuildingMaterial { ItemID=88, BuildingMaterialID=97, MaterialPieces=0},
-            //                   new BuildingBuildingMaterial { ItemID=88, BuildingMaterialID=98, MaterialPieces=0},
-            //                                   //car 1
-            //                   new BuildingBuildingMaterial { ItemID=89, BuildingMaterialID=95, MaterialPieces=1},
-            //                   new BuildingBuildingMaterial { ItemID=89, BuildingMaterialID=96, MaterialPieces=1},
-            //                   new BuildingBuildingMaterial { ItemID=89, BuildingMaterialID=97, MaterialPieces=1},
-            //                   new BuildingBuildingMaterial { ItemID=89, BuildingMaterialID=98, MaterialPieces=1},
-            //                                   //car 2
-            //                   new BuildingBuildingMaterial { ItemID=90, BuildingMaterialID=95, MaterialPieces=2},
-            //                   new BuildingBuildingMaterial { ItemID=90, BuildingMaterialID=96, MaterialPieces=2},
-            //                   new BuildingBuildingMaterial { ItemID=90, BuildingMaterialID=97, MaterialPieces=2},
-            //                   new BuildingBuildingMaterial { ItemID=90, BuildingMaterialID=98, MaterialPieces=2},
-            //                                   //car 3
-            //                   new BuildingBuildingMaterial { ItemID=91, BuildingMaterialID=95, MaterialPieces=3},
-            //                   new BuildingBuildingMaterial { ItemID=91, BuildingMaterialID=96, MaterialPieces=3},
-            //                   new BuildingBuildingMaterial { ItemID=91, BuildingMaterialID=97, MaterialPieces=3},
-            //                   new BuildingBuildingMaterial { ItemID=91, BuildingMaterialID=98, MaterialPieces=3},
-            //                                   //car 4
-            //                   new BuildingBuildingMaterial { ItemID=92, BuildingMaterialID=95, MaterialPieces=4},
-            //                   new BuildingBuildingMaterial { ItemID=92, BuildingMaterialID=96, MaterialPieces=4},
-            //                   new BuildingBuildingMaterial { ItemID=92, BuildingMaterialID=97, MaterialPieces=4},
-            //                   new BuildingBuildingMaterial { ItemID=92, BuildingMaterialID=98, MaterialPieces=4},
-            //                                   //car 5
-            //                   new BuildingBuildingMaterial { ItemID=93, BuildingMaterialID=95, MaterialPieces=5},
-            //                   new BuildingBuildingMaterial { ItemID=93, BuildingMaterialID=96, MaterialPieces=5},
-            //                   new BuildingBuildingMaterial { ItemID=93, BuildingMaterialID=97, MaterialPieces=5},
-            //                   new BuildingBuildingMaterial { ItemID=93, BuildingMaterialID=98, MaterialPieces=5},
+                                               //fence 5
+                               new BuildingBuildingMaterial { ItemID=87, BuildingMaterialID=54, MaterialPieces=25},
 
-            //            };
 
-            //buildingbuildingmaterials.ForEach(s => context.BuildingBuildingMaterials.Add(s));
-            //context.SaveChanges();
+                                               //car 0
+                               new BuildingBuildingMaterial { ItemID=88, BuildingMaterialID=95, MaterialPieces=0},
+                               new BuildingBuildingMaterial { ItemID=88, BuildingMaterialID=96, MaterialPieces=0},
+                               new BuildingBuildingMaterial { ItemID=88, BuildingMaterialID=97, MaterialPieces=0},
+                               new BuildingBuildingMaterial { ItemID=88, BuildingMaterialID=98, MaterialPieces=0},
+                                               //car 1
+                               new BuildingBuildingMaterial { ItemID=89, BuildingMaterialID=95, MaterialPieces=1},
+                               new BuildingBuildingMaterial { ItemID=89, BuildingMaterialID=96, MaterialPieces=1},
+                               new BuildingBuildingMaterial { ItemID=89, BuildingMaterialID=97, MaterialPieces=1},
+                               new BuildingBuildingMaterial { ItemID=89, BuildingMaterialID=98, MaterialPieces=1},
+                                               //car 2
+                               new BuildingBuildingMaterial { ItemID=90, BuildingMaterialID=95, MaterialPieces=2},
+                               new BuildingBuildingMaterial { ItemID=90, BuildingMaterialID=96, MaterialPieces=2},
+                               new BuildingBuildingMaterial { ItemID=90, BuildingMaterialID=97, MaterialPieces=2},
+                               new BuildingBuildingMaterial { ItemID=90, BuildingMaterialID=98, MaterialPieces=2},
+                                               //car 3
+                               new BuildingBuildingMaterial { ItemID=91, BuildingMaterialID=95, MaterialPieces=3},
+                               new BuildingBuildingMaterial { ItemID=91, BuildingMaterialID=96, MaterialPieces=3},
+                               new BuildingBuildingMaterial { ItemID=91, BuildingMaterialID=97, MaterialPieces=3},
+                               new BuildingBuildingMaterial { ItemID=91, BuildingMaterialID=98, MaterialPieces=3},
+                                               //car 4
+                               new BuildingBuildingMaterial { ItemID=92, BuildingMaterialID=95, MaterialPieces=4},
+                               new BuildingBuildingMaterial { ItemID=92, BuildingMaterialID=96, MaterialPieces=4},
+                               new BuildingBuildingMaterial { ItemID=92, BuildingMaterialID=97, MaterialPieces=4},
+                               new BuildingBuildingMaterial { ItemID=92, BuildingMaterialID=98, MaterialPieces=4},
+                                               //car 5
+                               new BuildingBuildingMaterial { ItemID=93, BuildingMaterialID=95, MaterialPieces=5},
+                               new BuildingBuildingMaterial { ItemID=93, BuildingMaterialID=96, MaterialPieces=5},
+                               new BuildingBuildingMaterial { ItemID=93, BuildingMaterialID=97, MaterialPieces=5},
+                               new BuildingBuildingMaterial { ItemID=93, BuildingMaterialID=98, MaterialPieces=5},
+
+                        };
+
+            buildingbuildingmaterials.ForEach(s => context.BuildingBuildingMaterials.Add(s));
+            context.SaveChanges();
 
             var weapon = new Weapon { ItemID = 59, ItemName = "Shovel", ItemMaxDurability = 999, WeaponDamage = 1, ItemPicture = "/Content/Pictures/BuyableWeapons/Shovel.png", IsRanged = false };
             context.Weapons.Add(weapon);
@@ -619,15 +619,16 @@ namespace Zombiecalypse.DAL
                             new ZombieDrop {ZombieID= 4, MaterialID= 35, MaterialPieces=2},
                             new ZombieDrop {ZombieID= 4, MaterialID= 53, MaterialPieces=2},
 
-                            new ZombieDrop {ZombieID= 5, MaterialID= 45, MaterialPieces=2},
-                            new ZombieDrop {ZombieID= 5, MaterialID= 46, MaterialPieces=2},
-                            new ZombieDrop {ZombieID= 5, MaterialID= 54, MaterialPieces=2},
+                            new ZombieDrop {ZombieID= 5, MaterialID= 95, MaterialPieces=2},
+                            new ZombieDrop {ZombieID= 5, MaterialID= 96, MaterialPieces=2},
+                            new ZombieDrop {ZombieID= 5, MaterialID= 97, MaterialPieces=2},
+                            new ZombieDrop {ZombieID= 5, MaterialID= 98, MaterialPieces=2},
 
                             new ZombieDrop {ZombieID= 6, MaterialID= 49, MaterialPieces=2},
                             new ZombieDrop {ZombieID= 6, MaterialID= 48, MaterialPieces=2},
                             new ZombieDrop {ZombieID= 6, MaterialID= 43, MaterialPieces=2},
 
-                           //SEMMI
+
                             new ZombieDrop {ZombieID= 7, MaterialID= 49, MaterialPieces=2},
                             new ZombieDrop {ZombieID= 7, MaterialID= 48, MaterialPieces=2},
                             new ZombieDrop {ZombieID= 7, MaterialID= 43, MaterialPieces=2},
@@ -639,21 +640,21 @@ namespace Zombiecalypse.DAL
                             new ZombieDrop {ZombieID= 9, MaterialID= 50, MaterialPieces=2},
                             new ZombieDrop {ZombieID= 9, MaterialID= 44, MaterialPieces=2},
 
-                            //SEMMI
+
                             new ZombieDrop {ZombieID= 10, MaterialID= 50, MaterialPieces=2},
                             new ZombieDrop {ZombieID= 10, MaterialID= 44, MaterialPieces=2},
 
                             new ZombieDrop {ZombieID=11, MaterialID= 51, MaterialPieces=2},
 
-                            //SEMMI
+
                             new ZombieDrop {ZombieID= 12, MaterialID= 50, MaterialPieces=2},
                             new ZombieDrop {ZombieID= 12, MaterialID= 44, MaterialPieces=2},
 
-                            //SEMMI
+
                             new ZombieDrop {ZombieID= 13, MaterialID= 50, MaterialPieces=2},
                             new ZombieDrop {ZombieID= 13, MaterialID= 44, MaterialPieces=2},
 
-                            //SEMMI
+
                             new ZombieDrop {ZombieID= 14, MaterialID= 50, MaterialPieces=2},
                             new ZombieDrop {ZombieID= 14, MaterialID= 44, MaterialPieces=2},
 
@@ -800,7 +801,7 @@ namespace Zombiecalypse.DAL
                     } },
 
                new StoryMission { MissionID = 7, MissionName="Tools for Success III", RequiredLevel=7, RewardXP=150, RewardICoins=150,  IsNextMission=true, MissionTasks =  new List<MissionTask>{
-                        new RepairMissionTask { MissionTaskID = 15, MissionID = 7, ItemID = 20, ItemPieces = 6, TaskText="Complete the toolshed!"}, //!!!!!!!!!!!!!!!
+                        new RepairMissionTask { MissionTaskID = 15, MissionID = 7, ItemID = 20, ItemPieces = 6, TaskText="Complete the toolshed!"},
                         new CollectMissionTask { MissionTaskID = 16, MissionID = 7, ItemID = 36, ItemPieces = 50, TaskText="Collect 50 duct tapes!"}
                     } },
 
@@ -816,18 +817,18 @@ namespace Zombiecalypse.DAL
 
                new StoryMission { MissionID = 10, MissionName="Dude where is my car? I", RequiredLevel=7, RewardXP=150, RewardICoins=150,  IsNextMission=true, MissionTasks =  new List<MissionTask>{
                         new CollectMissionTask { MissionTaskID = 21, MissionID = 10, ItemID = 89, ItemPieces = 1, TaskText="Buy 1 old car!"},
-                        new RepairMissionTask { MissionTaskID = 22, MissionID = 10, ItemID = 89, ItemPieces = 50, TaskText="Fix old car 10 times!"}
+                        new RepairMissionTask { MissionTaskID = 22, MissionID = 10, ItemID = 89, ItemPieces = 5, TaskText="Fix old car 5 times!"}
                     } },
 
                new StoryMission { MissionID = 11, MissionName="Dude where is my car? II", RequiredLevel=7, RewardXP=150, RewardICoins=150,  IsNextMission=true, MissionTasks =  new List<MissionTask>{
-                        new KillingMissionTask { MissionTaskID = 23, MissionID = 11, ItemPieces = 20, TaskText="Kill 20 zombies!"}, //!!!!!!!
+                        new KillingMissionTask { MissionTaskID = 23, MissionID = 11, ItemID = 0, ItemPieces = 20, TaskText="Kill 20 zombies!"},
                         new CollectMissionTask { MissionTaskID = 24, MissionID = 11, ItemID = 38, ItemPieces = 5, TaskText="Get 5 motor oil!"},
                         new CollectMissionTask { MissionTaskID = 25, MissionID = 11, ItemID = 51, ItemPieces = 5, TaskText="Find 5 batteries"}
                     } },
 
               new StoryMission { MissionID = 12, MissionName="Dude where is my car? III", RequiredLevel=7, RewardXP=150, RewardICoins=150,  IsNextMission=true, MissionTasks =  new List<MissionTask>{
-                        new KillingMissionTask { MissionTaskID = 26, MissionID = 12, ItemID = 1, ItemPieces = 20, TaskText="Kill 20 zombies!"}, //!!!!!!!
-                        new CollectMissionTask { MissionTaskID = 27, MissionID = 12, ItemID = 38, ItemPieces = 5, TaskText="Get 5 motor oil!"}  /////////////
+                        new KillingMissionTask { MissionTaskID = 26, MissionID = 12,  ItemID = 0, ItemPieces = 20, TaskText="Kill 20 zombies!"},
+                        new CollectMissionTask { MissionTaskID = 27, MissionID = 12, ItemID = 38, ItemPieces = 5, TaskText="Get 5 motor oil!"}
                     } },
 
               new StoryMission { MissionID = 13, MissionName="Dude where is my car? IV", RequiredLevel=7, RewardXP=150, RewardICoins=150,  IsNextMission=true, MissionTasks =  new List<MissionTask>{

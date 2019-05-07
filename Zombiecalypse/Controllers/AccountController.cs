@@ -188,7 +188,6 @@ namespace Zombiecalypse.Controllers
 
 
                     new Inventory{ CharacterID=character.CharacterID, ItemID=59, ItemPieces=1, ItemMaxDurability=999, ItemCurrentDurability=999},
-                    new Inventory{ CharacterID=character.CharacterID, ItemID=69, ItemPieces=1, ItemMaxDurability=2, ItemCurrentDurability=2},
 
                     };
                     items.ForEach(s => db.Inventories.Add(s));
@@ -211,8 +210,6 @@ namespace Zombiecalypse.Controllers
 
 
                     var missionStart = new MissionsController().StartMission(1, model.Name);
-
-                    //items.ForEach(s => db.Inventories.Add(s));
 
 
                     db.SaveChanges();

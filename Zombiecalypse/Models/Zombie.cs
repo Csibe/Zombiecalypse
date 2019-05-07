@@ -29,6 +29,7 @@ namespace Zombiecalypse.Models
         public int ZombieID { get; set; }
         public int MaterialID { get; set; }
         public int MaterialPieces { get; set; }
+        public Zombie Zombie { get; set; }
     }
 
     public class ZombieAttackBase

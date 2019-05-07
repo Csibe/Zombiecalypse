@@ -49,6 +49,11 @@ namespace Zombiecalypse.DAL
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            //modelBuilder.Entity<Item>().Map(m =>
+            //{
+            //    m.MapInheritedProperties();
+            //    m.ToTable("Items");
+            //});
 
             modelBuilder.Entity<Item>()
             .Property(p => p.ItemID)

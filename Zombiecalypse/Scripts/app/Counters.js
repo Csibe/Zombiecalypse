@@ -86,7 +86,7 @@ var x = setInterval(function () {
     }
 
     if (document.getElementById("counter")) {
-        document.getElementById("counter").innerHTML = days + " nap " + hours + " óra " + minutes + " perc " + seconds + " másodperc ";
+        document.getElementById("counter").innerHTML = days + " day(s) " + hours + " hour(s) " + minutes + " minute(s) " + seconds + " second(s) ";
     }
 
 
@@ -168,7 +168,7 @@ var x = setInterval(function () {
         });
     }
 
-    if (distanceToelrance < 0 && isOnAdventure == "False") {
+    if (distanceTolerance < 0 && isOnAdventure == "False") {
         clearInterval(x);
 
         var result = '/api/Default/ManageTolerance/' + UserName

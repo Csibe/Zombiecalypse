@@ -34,27 +34,27 @@ namespace Zombiecalypse.Controllers
 
             List<CraftableWeapon> craftableWeapons = new List<CraftableWeapon>();
             List<CraftableWeaponMaterial> craftableWeaponMaterials = new List<CraftableWeaponMaterial>();
-
-            foreach (var weapon in selectBuilding)
+            if (craftableWeapons.Count > 0)
             {
-                foreach (var weaponMaterial in db.CraftableWeaponMaterials)
+                foreach (var weapon in selectBuilding)
                 {
-                    if (weapon.WeaponID == weaponMaterial.WeaponID)
+                    foreach (var weaponMaterial in db.CraftableWeaponMaterials)
                     {
-                        if (craftableWeapons.Contains<CraftableWeapon>(db.CraftableWeapons.Find(weapon.WeaponID)))
+                        if (weapon.WeaponID == weaponMaterial.WeaponID)
                         {
+                            if (craftableWeapons.Contains<CraftableWeapon>(db.CraftableWeapons.Find(weapon.WeaponID)))
+                            {
 
+                            }
+                            else
+                            {
+                                craftableWeapons.Add(db.CraftableWeapons.Find(weapon.WeaponID));
+                            }
+                            craftableWeaponMaterials.Add(weaponMaterial);
                         }
-                        else
-                        {
-                            craftableWeapons.Add(db.CraftableWeapons.Find(weapon.WeaponID));
-                        }
-                        craftableWeaponMaterials.Add(weaponMaterial);
                     }
                 }
             }
-
-
             model.NextBuilding = db.Buildings.Find(id + 1);
             model.CraftableWeapons = craftableWeapons;
             model.ComponentOfCraftableWeapon = craftableWeaponMaterials;

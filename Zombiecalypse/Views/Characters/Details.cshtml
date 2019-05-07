@@ -32,15 +32,6 @@
 <h2>@Model.Character.CharacterName</h2>
 
 
-@*@Html.ActionLink("Zombie Damage Base", "ZombieDamageBase", "api/Default", new { id = User.Identity.Name }, null) <br />
-@Html.ActionLink("ManageEnergy", "ManageEnergy", "Characters", new { id = User.Identity.Name, energyCost = 0, returnUrl = this.Request.Url }, null)<br />
-@Html.ActionLink("Zombie Damage Base", "ZombieStartAttackBase", "api/Default", new { id = User.Identity.Name }, null)<br />
-@Html.ActionLink("Generate material collect mission", "GenerateMaterialCollectMission", "Missions", new { id = User.Identity.Name, returnUrl = this.Request.Url }, null)<br />
-@Html.ActionLink("Generate gathering mission", "GenerateGatheringMission", "Missions", new { id = User.Identity.Name, returnUrl = this.Request.Url }, null)<br />
-@Html.ActionLink("GenerateZombieKillingMission", "GenerateZombieKillingMission", "Missions", new { id = User.Identity.Name, returnUrl = this.Request.Url }, null)<br />*@
-
-
-
 <h1 class="FoodCounter"><img src="~/Content/Pictures/Food.png" />@Model.Character.CharacterFood</h1>
 
 
@@ -49,7 +40,6 @@
     <ul class="nav nav-tabs">
         <li><a data-toggle="tab" href="#characterDetails">Character details</a></li>
         <li class="active"><a data-toggle="tab" href="#buildings">Buildings</a></li>
-        @*<li><a data-toggle="tab" href="#gathering">Gathering</a></li>*@
         <li><a data-toggle="tab" href="#items">Items</a></li>
         <li><a data-toggle="tab" href="#missions">Missions</a></li>
 
@@ -90,11 +80,6 @@
                                 </td>
                                 <td>
                                     @Html.DisplayFor(model => model.Character.Tolerance) / @Html.DisplayFor(model => model.Character.MaxTolerance)
-                                </td>
-                                <td>
-                                    @Html.ActionLink("Add to tolerance", "AddToTolerance", "Adventures", new { id = User.Identity.Name, returnUrl = "/Details/" + User.Identity.Name }, new { @class = "ActionLinkButton" })
-
-
                                 </td>
                             </tr>
                             <tr>
@@ -161,11 +146,6 @@
                                 </td>
                                 <td>
                                     @Html.DisplayFor(model => model.Character.CharacterFood) <img width="25" height="25" src="~/Content/Pictures/Food.png" />
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    @Html.ActionLink("Add to energy", "AddToEnergy", null, new { @class = "ActionLinkButton" })
                                 </td>
                             </tr>
                         </table>
@@ -408,11 +388,11 @@
                                                 </td>
                                             </tr>
 
-                                            <tr>
+                                            @*<tr>
                                                 <td>
                                                     @Html.ActionLink("Zombie attack", "ZombieAttackBase", "Zombies", new { ZabID = @zombies.ZombieAttackBaseID }, new { @class = "ActionLinkButton" })
                                                 </td>
-                                            </tr>
+                                            </tr>*@
                                         </table>
                                     </td>
                                 }
@@ -649,187 +629,4 @@
                                                             }
                                     </tr>
                                 </table>
-
-
-
-                                @*<br /><br /><br />
-                                <table border="1">
-                                    @foreach (var item in Model.Character.Inventory)
-                                    {
-                                        if (item.ItemID > 24 && item.ItemPieces > 0)
-                                        {
-                                            <td>
-                                                <table style="background-image: url(/Content/Pictures/itembackground.png); background-size:50%" border="1">
-                                                    <td><img width="75" height="75" src=@item.Item.ItemPicture /></td>
-                                                    <tr></tr>
-                                                    <td>@item.Item.ItemName</td>
-                                                    <tr></tr>
-                                                    <td>pieces: @item.ItemPieces</td>
-                                                    <tr></tr>
-                                                    @if (item.ItemMaxDurability > 0)
-                                                    {
-                                                        <td>durability: @item.ItemMaxDurability/@item.ItemCurrentDurability</td>
-                                                    }
-
-                                                    @{counter = counter + 1;}
-                                                </table>
-                                            </td>
-                                                        if (@counter % 25 == 0)
-                                                        {
-                                                            <tr></tr>
-                                                                }
-
-                                                            }
-
-                                                        }
-                                </table>*@
-
-            @*<br /><br /><br />
-                                <table>
-                                    <tr>
-                                        <th>InventoryID</th>
-                                        <th>ItemID</th>
-                                        <th>ItemName</th>
-                                        <th>ItemPieces</th>
-                                    </tr>
-                                    @foreach (var item in Model.Character.Inventory)
-                                    {
-                                        <tr>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.InventoryID)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.Item.ItemID)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.Item.ItemName)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.ItemPieces)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.ItemMaxDurability)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.ItemCurrentDurability)
-                                            </td>
-                                            <td>
-                                                @Html.ActionLink("Add to item", "AddToItem", "Inventories", new { itemId = item.InventoryID }, new { @class = "ActionLinkButton" })
-                                            </td>
-                                        </tr>
-                                    }
-                                </table>
-
-                            </div>*@
-
-                            @*<div id="missions" class="tab-pane fade">
-                                <h3>Missions</h3>
-
-
-                                @if (Model.Missions.Count() > 0)
-            {
-                foreach (var mission in Model.Missions)
-                {
-                                        <table class="missiontable" border="1">
-                                            <tr>
-                                                @if (mission.MissionType == "collection")
-                                                {
-                                                    <td>Collect </td>
-                                                }
-                                                else if (mission.MissionType == "gathering")
-                                                {
-                                                    <td>Harvest </td>
-                                                }
-                                                else if (mission.MissionType == "zombiekilling")
-                                                {
-                                                    <td>Kill </td>
-                                                }
-                                                <td>@mission.MissionTaskNumber x</td>
-                                                <td>
-                                                    <table>
-                                                        @if (mission.MissionType == "collection")
-                                                        {
-                                                            <td><img src=@mission.CollectionMissionTask.ItemPicture /></td>
-                                                            <tr></tr>
-                                                                <td>@mission.CollectionMissionTask.ItemName</td>
-                                                        }
-                                                        else if (mission.MissionType == "gathering")
-                                                        {
-                                                            <td><img src=@mission.GatheringMissionTask.ItemPicture /></td>
-                                                            <tr></tr>
-                                                                <td>@mission.GatheringMissionTask.ItemName</td>
-                                                        }
-                                                        else if (mission.MissionType == "zombiekilling")
-                                                        {
-                                                            <td>Zombies</td>
-                                                        }
-                                                    </table>
-                                                </td>
-                                                <td>Reward:</td>
-                                                <td>@mission.MissionRewardNumber x</td>
-                                                <td>
-                                                    <table>
-                                                        @if (mission.MissionType == "collection")
-                                                        {
-                                                            <td><img src=@mission.CollectionMissionReward.ItemPicture /></td>
-                                                            <tr></tr>
-                                                                <td>@mission.CollectionMissionReward.ItemName</td>
-                                                        }
-                                                        else if (mission.MissionType == "gathering")
-                                                        {
-                                                            <td><img src=@mission.GatheringMissionReward.ItemPicture /></td>
-                                                            <tr></tr>
-                                                                <td>@mission.GatheringMissionReward.ItemName</td>
-                                                        }
-                                                        else if (mission.MissionType == "zombiekilling")
-                                                        {
-                                                            <td><img src=@mission.GatheringMissionReward.ItemPicture /></td>
-                                                            <tr></tr>
-                                                                <td>@mission.GatheringMissionReward.ItemName</td>
-                                                        }
-                                                    </table>
-                                                </td>
-                                                <td>@mission.MissionFinishable</td>
-                                                @if (mission.MissionFinishable == true)
-                                                {
-                                                    <td>@Html.ActionLink("Get mission reward", "GetMissionReward", "Missions", new { Id = mission.MissionID }, new { @class = "ActionLinkButton" })</td>
-                                                }
-                                                else if (mission.MissionFinishable == false)
-                                                {
-
-                                                    if (mission.MissionType == "gathering")
-                                                    {
-                                                        <td> @mission.MissionTaskProgress / @mission.MissionTaskNumber </td>
-                                                    }
-                                                    else if (mission.MissionType == "collection")
-                                                    {
-                                                        if (mission.CollectionMissionTask != null)
-                                                        {
-                                                            foreach (var item in Model.Character.Inventory)
-                                                            {
-                                                                if (item.ItemID == mission.CollectionMissionTask.ItemID)
-                                                                {
-                                                                    <td> @item.ItemPieces / @mission.MissionTaskNumber </td>
-                                                                }
-                                                            }
-                                                        }
-                                                    }
-                                                    else if (mission.MissionType == "zombiekilling")
-                                                    {
-
-                                                        <td>@mission.MissionTaskProgress / @mission.MissionTaskNumber </td>
-                                                    }
-
-
-                                                }
-
-                                            </tr>
-                                        </table>
-                                        <br />
-                                            <br />
-                                    }
-                                }
-
-                            </div>*@
-
                         </div>

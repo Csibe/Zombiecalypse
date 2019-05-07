@@ -448,34 +448,5 @@ namespace Zombiecalypse.Controllers
             return RedirectToAction("Index", "Missions", new { id = userID });
         }
 
-
-        //public ActionResult GetReward(string userID)
-        //{
-
-        //    if (userID == null)
-        //    {
-        //        userID = User.Identity.Name;
-        //    }
-
-        //    Character character = db.Characters.Where(y => y.ApplicationUserID == userID).FirstOrDefault();
-
-        //    List<Mission> missions = db.Missions.ToList();
-        //    List<CharacterMission> inProgressMissions = db.CharacterMissions.Where(x => x.CharacterID == character.CharacterID).ToList();
-
-        //    foreach (var mission in inProgressMissions)
-        //    {
-        //        mission.CharacterMissionTasks = db.CharacterMissionTasks.Where(x => x.CharacterMissionID == mission.CharacterMissionID).ToList();
-        //    }
-
-        //    foreach (var mission in missions)
-        //    {
-        //        mission.MissionTasks = db.MissionTasks.Where(x => x.MissionID == mission.MissionID).ToList();
-        //    }
-
-
-
-        //    return RedirectToAction("Index", "Missions", new { id = userID });
-        //}
-
     }
 }

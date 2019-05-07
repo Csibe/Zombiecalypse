@@ -402,14 +402,14 @@ namespace Zombiecalypse.Controllers.api
             Character character = db.Characters.Where(y => y.ApplicationUserID == User.Identity.Name).FirstOrDefault();
 
             List<CharacterMission> characterMissions = db.CharacterMissions.Where(x => x.CharacterID == character.CharacterID).ToList();
-
+            List<CharacterMissionTask> characterMissionTasks = db.CharacterMissionTasks.Where(x => x.CharacterID == character.CharacterID).ToList();
             foreach (var mission in db.DailyMissions)
             {
                 foreach (var cm in characterMissions)
                 {
                     if (mission.MissionID == cm.MissionID)
                     {
-                        foreach (var cmt in db.CharacterMissionTasks.Where(x => x.CharacterID == character.CharacterID).Where(x => x.CharacterMissionID == cm.CharacterMissionID).ToList())
+                        foreach (var cmt in characterMissionTasks.Where(x => x.CharacterMissionTaskID == cm.CharacterMissionID).ToList())
                         {
                             db.CharacterMissionTasks.Remove(cmt);
                         }
@@ -439,10 +439,14 @@ namespace Zombiecalypse.Controllers.api
 
             Random rand = new Random();
             List<DailyMission> dailyCollectMissions = new List<DailyMission>();
+            List<CollectMissionTask> dailyCollectMissionTasks = db.CollectMissionTasks.ToList();
 
-            foreach (var mission in db.DailyMissions) {
-                foreach (var task in db.CollectMissionTasks) {
-                    if (task.MissionID == mission.MissionID) {
+            foreach (var mission in db.DailyMissions)
+            {
+                foreach (var taskk in dailyCollectMissionTasks)
+                {
+                    if (taskk.MissionID == mission.MissionID)
+                    {
                         dailyCollectMissions.Add(mission);
                     }
                 }
@@ -540,7 +544,6 @@ namespace Zombiecalypse.Controllers.api
                         zombieAttackInThisTurn.ToArray()[d].isYourTurn = true;
                         db.SaveChanges();
                         break;
-                        //  result += " " + zombieAttackInThisTurn.ToArray()[d].ZombieAttackAdventurerID + "is attacking ";
                     }
                     else if (zombieAttackInThisTurn.ToArray()[c].isYourTurn == true && c == zombieAttackInThisTurn.Count - 1)
                     {
@@ -571,7 +574,6 @@ namespace Zombiecalypse.Controllers.api
 
             model.Character = db.Characters.Where(y => y.ApplicationUserID == userID).FirstOrDefault();
             model.ZombieAttackAdventurer = db.ZombieAttackAdventurers.Where(x => x.CharacterID == model.Character.CharacterID).Where(x => x.isYourTurn == true).FirstOrDefault();
-          //  model.ZombieAttackAdventurer.isYourTurn = false;
             model.Zombie = db.Zombies.Find(model.ZombieAttackAdventurer.ZombieID);
             model.Adventure = db.Adventures.Find(model.Character.AdventureID);
 

@@ -18,13 +18,13 @@
 </style>
 
 
-<h2>Your adventure</h2>
-@Html.ActionLink("Finish adventure", "StopAdventure", "Adventures", new { id = User.Identity.Name }, null)
+@*<h2>Your adventure</h2>
+    @Html.ActionLink("Finish adventure", "StopAdventure", "Adventures", new { id = User.Identity.Name }, null)
 
-Whos turn:  @ViewBag.WhosTurn
-Manage turns: @Html.ActionLink("Manage turn", "ManageTurns", "Adventures", new { id = User.Identity.Name, returnUrl = "/AdventureZombieAttack/" + User.Identity.Name }, null) <br />
-IsYourTurn: @Model.Character.isYourTurn
-<br />
+
+    Manage turns: @Html.ActionLink("Manage turn", "ManageTurns", "Adventures", new { id = User.Identity.Name, returnUrl = "/AdventureZombieAttack/" + User.Identity.Name }, null) <br />
+    IsYourTurn: @Model.Character.isYourTurn
+    <br />*@
 
 @{
     List<int> atadni = new List<int>();
@@ -70,12 +70,9 @@ IsYourTurn: @Model.Character.isYourTurn
                             <div class="tab-pane" role="tabpanel" id=@id>
                                 <h3>Round @counter</h3>
 
-                                @Html.ActionLink("Collect reward", "CollectReward", "Adventures", new { AdId = Model.Adventure.AdventureID, ChId = User.Identity.Name }, new { @class = "ActionLinkButton" })
-
-
-                                @Html.ActionLink("Finish adventure", "StopAdventure", "Adventures", new { AdId = Model.Adventure.AdventureID, ChId = Model.Character.CharacterID, returnUrl = this.Request.Url }, null) <br />
-
-
+                                <h2 align="center">
+                                    IT'S @ViewBag.WhosTurn
+                                </h2>
 
                                 <table align="center">
                                     <tr>
@@ -93,6 +90,7 @@ IsYourTurn: @Model.Character.isYourTurn
                                                 </tr>
                                                 <tr>
                                                     <td>
+                                                        Weapons:
                                                         @foreach (var item in Model.Character.Inventory)
                                                         {
                                                             if (item.Item.GetType().Name.Contains("Weapon"))
@@ -105,42 +103,62 @@ IsYourTurn: @Model.Character.isYourTurn
                                                                     <table class="table-hover" width="250" cellpadding="10" style="background-image: url(/Content/Pictures/characterDetails.png)">
                                                                         @if (weap.IsRanged == true)
                                                                         {
-                                                                            <tr id=@weaponID onclick="myFunction(@counter, @item.InventoryID, true)" >
+                                                                            <tr id=@weaponID onclick="myFunction(@counter, @item.InventoryID, true)">
                                                                                 <td>
                                                                                     <table>
                                                                                         <tr>
                                                                                             <td><img src=@item.Item.ItemPicture /></td>
                                                                                         </tr>
+                                                                                    </table>
+                                                                                </td>
+                                                                                <td>
+                                                                                    <table>
                                                                                         <tr>
                                                                                             <td>@item.Item.ItemName</td>
                                                                                         </tr>
+                                                                                        <tr>
+                                                                                            <td>Durability: @item.ItemCurrentDurability / @item.ItemMaxDurability</td>
+                                                                                        </tr>
+                                                                                        <tr>
+                                                                                            <td>Ranged: yes</td>
+                                                                                        </tr>
+                                                                                        <tr>
+                                                                                            <td><img width="15" height="15" src="~/Content/Pictures/damage.png" /> @weap.WeaponDamage</td>
+                                                                                        </tr>
                                                                                     </table>
                                                                                 </td>
-                                                                                <td>durability: @item.ItemCurrentDurability / @item.ItemMaxDurability</td>
-                                                                                <td>@weap.IsRanged</td>
-                                                                                <td>damage: @weap.WeaponDamage</td>
+
                                                                             </tr>
                                                                         }
                                                                         else
 
                                                                         {
-                                                                            <tr id=@weaponID onclick="myFunction(@counter, @item.InventoryID, false)" >
+                                                                            <tr id=@weaponID onclick="myFunction(@counter, @item.InventoryID, false)">
                                                                                 <td>
                                                                                     <table>
                                                                                         <tr>
                                                                                             <td><img src=@item.Item.ItemPicture /></td>
                                                                                         </tr>
+                                                                                    </table>
+                                                                                </td>
+                                                                                <td>
+                                                                                    <table>
                                                                                         <tr>
                                                                                             <td>@item.Item.ItemName</td>
                                                                                         </tr>
+                                                                                        <tr>
+                                                                                            <td>Durability: @item.ItemCurrentDurability / @item.ItemMaxDurability</td>
+                                                                                        </tr>
+                                                                                        <tr>
+                                                                                            <td>Ranged: no</td>
+                                                                                        </tr>
+                                                                                        <tr>
+                                                                                            <td><img width="15" height="15" src="~/Content/Pictures/damage.png" /> @weap.WeaponDamage</td>
+                                                                                        </tr>
                                                                                     </table>
                                                                                 </td>
-                                                                                <td>durability: @item.ItemCurrentDurability / @item.ItemMaxDurability</td>
-                                                                                <td>@weap.IsRanged</td>
-                                                                            
-                                                                                <td>damage: @weap.WeaponDamage</td>
-                                                                            
                                                                             </tr>
+
                                                                         }
                                                                     </table>
                                                                     <br />
@@ -192,12 +210,6 @@ IsYourTurn: @Model.Character.isYourTurn
                                                                             Damage: @zombie.Zombie.ZombieDamage
                                                                         </td>
                                                                     </tr>
-
-                                                                    <tr>
-                                                                        <td>
-                                                                            yourTurn:@zombie.isYourTurn
-                                                                        </td>
-                                                                    </tr>
                                                                     <tr>
                                                                         @foreach (var item in Model.Character.Inventory)
                                                                         {
@@ -206,11 +218,11 @@ IsYourTurn: @Model.Character.isYourTurn
                                                                                 if (item.ItemPieces > 0)
                                                                                 {
                                                                                     var tdID = "ii" + item.InventoryID + "zi" + zombie.ZombieAttackAdventurerID;
-                                                                                    <td style="display:none"  id=@tdID>
+                                                                                    <td style="display:none" id=@tdID>
                                                                                         <table>
                                                                                             <tr>
-                                                                                                    <td>@Html.ActionLink("Attack 1", "AttackZombie", new { zAAID = Json.Encode(atadni), InvID = item.InventoryID }, new { @class = "ActionLinkButton" })</td>
-                                                                                                </tr>
+                                                                                                <td>@Html.ActionLink("Attack 1", "AttackZombie", new { zAAID = Json.Encode(atadni), InvID = item.InventoryID }, new { @class = "ActionLinkButton" })</td>
+                                                                                            </tr>
                                                                                         </table>
                                                                                     </td>
                                                                                 }
@@ -222,29 +234,32 @@ IsYourTurn: @Model.Character.isYourTurn
                                                         }
                                                     }
                                                 </tr>
-                                            </table>
-                                        </td>
+                                                <tr>
+                                                    @foreach (var item in Model.Character.Inventory)
+                                                    {
+                                                        if (item.Item.GetType().Name.Contains("Weapon"))
+                                                        {
+                                                            Weapon weap = Model.Weapons.Where(x => x.ItemID == item.ItemID).FirstOrDefault();
+                                                            if (item.ItemPieces > 0 && weap.IsRanged == true)
+                                                            {
 
+                                                                var tdID = "ii" + item.InventoryID;
+                                                                <td style="display:compact" id=@tdID>
+                                                                    <table>
+                                                                        <tr>
+                                                                            <td>@Html.ActionLink("Attack more", "AttackZombie", new { zAAID = Json.Encode(atadni), InvID = item.InventoryID }, new { @class = "ActionLinkButton" })</td>
+                                                                        </tr>
+                                                                    </table>
+                                                                </td>
+                                                            }
+                                                        }
+                                                    }
+                                                </tr>
+                                            </table>
+
+                                        </td>
                                     </tr>
-                                    <tr>
-                                        @foreach (var item in Model.Character.Inventory)
-                                        {
-                                            if (item.Item.GetType().Name.Contains("Weapon"))
-                                            {
-                                                if (item.ItemPieces > 0)
-                                                {
-                                                    var tdID = "ii" + item.InventoryID;
-                                                    <td  style="display:none"  id=@tdID>
-                                                        <table>
-                                                            <tr>
-                                                                <td>@Html.ActionLink("Attack more", "AttackZombie", new { zAAID = Json.Encode(atadni), InvID = item.InventoryID }, new { @class = "ActionLinkButton" })</td>
-                                                            </tr>
-                                                        </table>
-                                                    </td>
-                                                }
-                                            }
-                                        }
-                                    </tr>
+
                                 </table>
 
 
@@ -255,7 +270,7 @@ IsYourTurn: @Model.Character.isYourTurn
                         }
                         <div align="center" class="tab-pane" role="tabpanel" id="tabpanelcomplete">
                             <h3>Complete</h3>
-                            <p>You have successfully completed all steps.</p>
+                            <p>You have successfully survived all rounds.</p>
 
 
                             <img src="~/Content/Pictures/Adventures/lada1.png" /><br />
@@ -267,25 +282,11 @@ IsYourTurn: @Model.Character.isYourTurn
             </div>
         </section>
     </div>
+    @Html.ActionLink("Escape from adventure", "StopAdventure", "Adventures", new { CAdId = Model.Adventure.AdventureID, ChId = Model.Character.CharacterID, returnUrl = this.Request.Url }, new { @class = "ActionLinkButton" })
+
 </div>
-CharacterID: @Model.Character.CharacterID <br />
-Adventure state: @Model.Character.AdventureState <br />
-Is on adventure: @Model.Character.IsOnAdventure <br />
-Finish adventure: @Model.Character.FinishAdventure <br />
-Adventure ID: @Model.Adventure.AdventureID
-
 <br />
 
-@Html.ActionLink("Exit adventure", "StopAdventure", "Adventures", new { ChId = User.Identity.Name }, null)
-
-<br />
-@for (var k = 0; k <= Model.Adventure.AdventureSteps; k++)
-{
-    <div>
-        counter @k: @Model.ZombiesAttackAdventurer.Where(x => x.State == k).Count()
-    </div>
-
-}
 
 
 @for (var i = 1; i <= Model.Adventure.AdventureSteps; i++)
@@ -295,8 +296,8 @@ Adventure ID: @Model.Adventure.AdventureID
     string nameplus = "tabpanelstep" + j;
 
     <script>
-        console.log("Model.Adventure.AdventureSteps: " +@Model.Adventure.AdventureSteps);
-        console.log("counter:" +@i);
+        @*console.log("Model.Adventure.AdventureSteps: " +@Model.Adventure.AdventureSteps);
+        console.log("counter:" +@i);*@
 
 
         $(document).ready(function () {
@@ -370,6 +371,8 @@ Adventure ID: @Model.Adventure.AdventureID
 
 
     </script>
+
+
     <script>
         var zombies = [];
     </script>
@@ -379,37 +382,30 @@ Adventure ID: @Model.Adventure.AdventureID
         if (Model.ZombiesAttackAdventurer[a].State == Model.Character.AdventureState)
         {
             <script>
-                var zombie = @Model.ZombiesAttackAdventurer[a].ZombieAttackAdventurerID;
+                var zombie = @Model.ZombiesAttackAdventurer[a].ZombieAttackAdventurerID;;
                 zombies.push(zombie);
             </script>
         }
     }
 
-    if (Model.Character.AdventureState <= Model.Adventure.AdventureSteps)
+    if (@Model.Character.AdventureState <= Model.Adventure.AdventureSteps)
     {
         <script>
 
             function myFunction(counter, invId, isRanged){
 
-                console.log("count: " +zombies.Count +"c: " +counter +",inv " +invId +",rang " +isRanged)
+                for (var szam = 0; szam < zombies.length; szam++) {
 
-                if(isRanged == false){
+                    var id = "ii" + invId + "zi" + zombies[szam];
+                    var zombieId = "zombieId" + zombies[szam];
 
-                    for(var szam = 0; szam <  zombies.Count; szam++){
-
-                        console.log("szam: " +szam);
-                        console.log("zombie: " + zombies[szam]);
-
-                        var id = "ii"+invId;
-                        var zombieId = "zombieId" +zombies[szam];
+                    $(document.getElementById(zombieId).style.border = "");
+                    $(document.getElementById(id).style.display = 'none');
+                    $(document.getElementById(zombieId).classList = "zombieTable2");
+                }
 
 
-                        $(document.getElementById(zombieId).style.border = "");
-                        $(document.getElementById(id).style.display = 'none');
-                        $(document.getElementById(zombieId).classList = "zombieTable2");
-
-                    }
-
+                if (isRanged == false) {
 
                     var fistZombie = @Model.ZombiesAttackAdventurer.Where(x => x.State == Model.Character.AdventureState).FirstOrDefault().ZombieAttackAdventurerID;
 
@@ -421,26 +417,10 @@ Adventure ID: @Model.Adventure.AdventureID
                     $(document.getElementById(zombieId).classList = "selectedZombie");
 
                 }
-                else if(isRanged == true){
 
-                    for(var szam = 0; szam <  zombies.Count; szam++){
+                else if (isRanged == true) {
 
-                        console.log("szam: " +szam);
-                        console.log("zombie: " + zombies[szam]);
-
-                        var id = "ii"+invId;
-                        var zombieId = "zombieId" +zombies[szam];
-
-
-                        $(document.getElementById(zombieId).style.border = "");
-                        $(document.getElementById(id).style.display = 'none');
-                        $(document.getElementById(zombieId).classList = "zombieTable2");
-                    }
-
-                    for(var szam = 0; szam <  zombies.Count; szam++){
-
-                        console.log("szam2: " +szam);
-                        console.log("zombie2: " + zombies[szam]);
+                    for (var szam = 0; szam < zombies.length; szam++){
 
                         var id = "ii"+invId;
                         var zombieId = "zombieId" +zombies[szam];
@@ -457,8 +437,9 @@ Adventure ID: @Model.Adventure.AdventureID
             };
 
         </script>
+
+
     }
 
-}
 
-@Model.PageUrl
+}

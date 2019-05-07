@@ -9,15 +9,16 @@
 <div>
 
     <h4>Collect reward</h4>
-    <hr />
-    <dl class="dl-horizontal">
 
         Rewards:
         <br />
         <div align="center">
             <img src="~/Content/Pictures/Adventures/lada2.png" />
         </div>
-            <table align="center" class="table">
+
+        <table align="center">
+            <tr>
+                <td>
                     @foreach (var reward in Model.Rewards)
                     {
                         foreach (var item in Model.ItemList)
@@ -25,30 +26,33 @@
                             if (item.ItemID == reward.ItemID)
                             {
                                 <table align="center" border="1">
-                                    <td>
-                                        <img src=@item.ItemPicture />
-                                    </td>
-                                    <tr></tr>
-                                    <td>
-                                        @item.ItemName
-                                    </td>
-                                    <tr></tr>
-                                    <td>
-                                        @reward.ItemPieces x
-                                    </td>
-                                    <tr></tr>
+                                    <tr>
+                                        <td>
+                                            <img src=@item.ItemPicture />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            @item.ItemName
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            @reward.ItemPieces x
+                                        </td>
+                                    </tr>
                                 </table>
-                                <br />
-
                             }
                         }
                     }
-                <tr></tr>
+                </td>
+            </tr>
+            <tr>
                 <td> XP reward: @Model.AdventureXPReward</td>
-                       
-                </table>
+            </tr>
+        </table>
+
         <div>
             @Html.ActionLink("Back to base", "Details", "Characters", new { id = User.Identity.Name }, new { @class = "ActionLinkButton" })
         </div>
-        </dl>
-    </div>
+</div>

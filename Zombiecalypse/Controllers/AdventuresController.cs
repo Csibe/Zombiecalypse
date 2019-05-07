@@ -160,14 +160,14 @@ namespace Zombiecalypse.Controllers
             zombieAttackInThisTurn = db.ZombieAttackAdventurers.Where(x => x.CharacterID == character.CharacterID).Where(x => x.State == character.AdventureState).ToList();
 
 
-            string result = "characters turn";
+            string result = "YOUR TURN";
 
             for (int c = 0; c < zombieAttackInThisTurn.Count; c++)
             {
 
                 if (zombieAttackInThisTurn.ToArray()[c].isYourTurn == true)
                 {
-                    result = "zombies turn: " + zombieAttackInThisTurn.ToArray()[c].ZombieAttackAdventurerID;
+                    result = "ZOMBIES TURN";
                     break;
                 }
             }

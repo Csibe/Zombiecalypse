@@ -49,16 +49,22 @@
                                                 <table id=@tableId style="background-image: url(/Content/Pictures/table2.png);">
                                                     <tr>
                                                         <td>
-                                                            @adv.AdventureName
+                                                            Waiting time:@adv.AdventureWaitingTime
                                                         </td>
+                                                    </tr>
+                                                    <tr>
                                                         <td>
-                                                            @adv.AdventureWaitingTime
+                                                            Rounds: @adv.AdventureSteps
                                                         </td>
+                                                    </tr>
+                                                    <tr>
                                                         <td>
-                                                            @adv.AdventureSteps
+                                                           Max zombies: @adv.AdventureMaxZombiesPerRound
                                                         </td>
+                                                    </tr>
+                                                    <tr>
                                                         <td>
-                                                            @adv.AdventureRequerdEnergy
+                                                            <img width="15" height="15" src="~/Content/Pictures/Energy.png" /> @adv.AdventureRequerdEnergy
                                                         </td>
                                                     </tr>
                                                     @foreach (var drop in Model.AdventureDrops)

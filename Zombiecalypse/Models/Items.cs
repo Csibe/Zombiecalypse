@@ -8,7 +8,7 @@ using System.ComponentModel;
 
 namespace Zombiecalypse.Models
 {
-    public abstract class Item
+    public class Item
     {
         public int ItemID { get; set; }
         [DisplayName("Name")]

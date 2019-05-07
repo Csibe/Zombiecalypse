@@ -21,7 +21,7 @@
             <table>
                 <tr>
                     @foreach (var w in Model.Weapons)
-            {
+                    {
                         <td>
                             <table class="shopWeaponTable">
                                 <tr>
@@ -39,11 +39,22 @@
                                 </tr>
 
                                 <tr>
-                                    <td>Damage: @w.WeaponDamage</td>
+                                    <td><img width="15" height="15" src="~/Content/Pictures/damage.png" /> @w.WeaponDamage</td>
+                                </tr>
+                                <tr>
+                                    @if (@w.IsRanged)
+                                    {
+                                        <td>Ranged: yes</td>
+                                    }
+                                    else
+                                    {
+                                        <td>Ranged: no</td>
+                                    }
+
                                 </tr>
 
                                 <tr>
-                                    <td>cost: @w.Cost</td>
+                                    <td>Cost: @w.Cost</td>
                                 </tr>
                                 <tr>
                                     @if (Model.Character.CharacterMoney >= w.Cost)
@@ -64,161 +75,161 @@
                             </table>
                         </td>
 
-                                    if (@counter % 6 == 0)
-                                    {
-                                    <tr>
-                                        <td></td>
-                                    </tr>
-                                        }
+                        if (@counter % 6 == 0)
+                        {
+                        <tr>
+                            <td></td>
+                        </tr>
+                    }
 
-                                    }
+                }
                 </table>
             </div>
-        @{counter = 0;}
+            @{counter = 0;}
             <div id="plans" class="tab-pane fade">
                 <h3>Gathering</h3>
 
-                    <table>
-                        <tr>
+                <table>
+                    <tr>
+                        <td>
+                            <table class="shopWeaponTable">
+                                <tr>
+                                    <td>
+                                        <img src="~/Content/Pictures/Fields/FieldEmpty.png" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Cost: 300
+                                    </td>
+                                </tr>
+                                <tr>
+                                    @if (Model.Character.CharacterMoney >= 300)
+                                    {
+                                        <td>
+                                            @Html.ActionLink("Buy", "BuyField", "Shop", new { id = User.Identity.Name, returnUrl = this.Request.Url }, new { @class = "ActionLinkButton" })
+                                        </td>
+                                    }
+                                    else
+                                    {
+                                        <td>
+                                            <div class="alert alert-danger">
+                                                <strong>Not enought money</strong>
+                                            </div>
+                                        </td>
+                                    }
+                                </tr>
+                                <tr></tr>
+                            </table>
+                        </td>
+                        @foreach (var p in Model.Plants)
+                        {
                             <td>
                                 <table class="shopWeaponTable">
+
                                     <tr>
-                                        <td>
-                                            <img src="~/Content/Pictures/Fields/FieldEmpty.png" />
-                                        </td>
+                                        <td><img width="70" height="70" src=@p.ItemPicture /></td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>@p.ItemName</td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>Cost: @p.PlantMoneyCost</td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>Grow time: @p.PlantGrowTime</td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>Reward coin: @p.PlantRewardCoin</td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>Reward food: @p.PlantRewardFood</td>
                                     </tr>
                                     <tr>
-                                        <td>
-                                            Cost: 300
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        @if (Model.Character.CharacterMoney >= 300)
+                                        @if (Model.Character.CharacterLevel >= p.RequiredLevel)
                                         {
-                                            <td>
-                                                @Html.ActionLink("Buy", "BuyField", "Shop", new { id = User.Identity.Name, returnUrl = this.Request.Url }, new { @class = "ActionLinkButton" })
-                                            </td>
-                                        }
-                                        else
-                                        {
-                                            <td>
-                                                <div class="alert alert-danger">
-                                                    <strong>Not enought money</strong>
-                                                </div>
-                                            </td>
-                                        }
-                                    </tr>
-                                    <tr></tr>
-                                </table>
-                            </td>
-                            @foreach (var p in Model.Plants)
-                            {
-                                <td>
-                                    <table class="shopWeaponTable">
 
-                                        <tr>
-                                            <td><img width="70" height="70" src=@p.ItemPicture /></td>
-                                        </tr>
-
-                                        <tr>
-                                            <td>@p.ItemName</td>
-                                        </tr>
-
-                                        <tr>
-                                            <td>Cost: @p.PlantMoneyCost</td>
-                                        </tr>
-
-                                        <tr>
-                                            <td>Grow time: @p.PlantGrowTime</td>
-                                        </tr>
-
-                                        <tr>
-                                            <td>Reward coin: @p.PlantRewardCoin</td>
-                                        </tr>
-
-                                        <tr>
-                                            <td>Reward food: @p.PlantRewardFood</td>
-                                        </tr>
-                                        <tr>
-                                            @if (Model.Character.CharacterLevel >= p.RequiredLevel)
+                                            if (Model.Character.CharacterMoney >= p.PlantMoneyCost)
                                             {
-
-                                                if (Model.Character.CharacterMoney >= p.PlantMoneyCost)
-                                                {
-                                                    <td>@Html.ActionLink("Buy", "Buy", "Shop", new { id = User.Identity.Name, ItemID = @p.ItemID, returnUrl = this.Request.Url }, new { @class = "ActionLinkButton" })</td>
-                                                }
-                                                else
-                                                {
-                                                    <td>
-                                                        <div class="alert alert-danger">
-                                                            <strong>Not enought money</strong>
-                                                        </div>
-                                                    </td>
-                                                }
+                                                <td>@Html.ActionLink("Buy", "Buy", "Shop", new { id = User.Identity.Name, ItemID = @p.ItemID, returnUrl = this.Request.Url }, new { @class = "ActionLinkButton" })</td>
                                             }
                                             else
                                             {
                                                 <td>
                                                     <div class="alert alert-danger">
-                                                        <strong>Required level: @p.RequiredLevel</strong>
+                                                        <strong>Not enought money</strong>
                                                     </div>
                                                 </td>
                                             }
-                                            @{counter = counter + 1;}
+                                        }
+                                        else
+                                        {
+                                            <td>
+                                                <div class="alert alert-danger">
+                                                    <strong>Required level: @p.RequiredLevel</strong>
+                                                </div>
+                                            </td>
+                                        }
+                                        @{counter = counter + 1;}
+                                </table>
+                            </td>
+
+                            if (@counter % 6 == 0)
+                            {
+                            <tr>
+                                <td></td>
+                            </tr>
+                        }
+                    }
+                    </table>
+                </div>
+
+
+
+                <div id="energy" class="tab-pane fade">
+                    <h3>Energy</h3>
+
+
+                    <table>
+                        <tr>
+                            @foreach (var e in Model.Energies)
+                            {
+                                <td>
+                                    <table class="shopWeaponTable">
+                                        <tr>
+                                            <td><img width="70" height="70" src=@e.ItemPicture /></td>
+                                        </tr>
+                                        <tr>
+                                            <td>@e.ItemName</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Cost: @e.Cost <img width="25" height="25" src="~/Content/Pictures/Food.png" /></td>
+                                        </tr>
+                                        <tr>
+                                            @if (Model.Character.CharacterFood >= e.Cost)
+                                            {
+                                                <td>@Html.ActionLink("Buy", "Buy", "Shop", new { id = User.Identity.Name, ItemID = @e.ItemID, returnUrl = this.Request.Url }, new { @class = "ActionLinkButton" })</td>
+                                            }
+                                            else
+                                            {
+                                                <td>
+                                                    <div class="alert alert-danger">
+                                                        <strong>Not enought food</strong>
+                                                    </div>
+                                                </td>
+                                            }
+                                        </tr>
                                     </table>
                                 </td>
-
-                                                if (@counter % 6 == 0)
-                                                {
-                                                <tr>
-                                                    <td></td>
-                                                </tr>
-                                                    }
-                                                }
-                        </table>
-                    </div>
-
-
-
-                    <div id="energy" class="tab-pane fade">
-                        <h3>Energy</h3>
-
-
-                        <table>
-                            <tr>
-                                @foreach (var e in Model.Energies)
-                                {
-                                    <td>
-                                        <table class="shopWeaponTable">
-                                            <tr>
-                                                <td><img width="70" height="70" src=@e.ItemPicture /></td>
-                                            </tr>
-                                            <tr>
-                                                <td>@e.ItemName</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Cost: @e.Cost <img width="25" height="25" src="~/Content/Pictures/Food.png" /></td>
-                                            </tr>
-                                            <tr>
-                                                @if (Model.Character.CharacterFood >= e.Cost)
-                                                {
-                                                    <td>@Html.ActionLink("Buy", "Buy", "Shop", new { id = User.Identity.Name, ItemID = @e.ItemID, returnUrl = this.Request.Url }, new { @class = "ActionLinkButton" })</td>
-                                                }
-                                                else
-                                                {
-                                                    <td>
-                                                        <div class="alert alert-danger">
-                                                            <strong>Not enought food</strong>
-                                                        </div>
-                                                    </td>
-                                                }
-                                            </tr>
-                                        </table>
-                                    </td>
-                                }
-                            </tr>
-                        </table>
-                    </div>
+                            }
+                        </tr>
+                    </table>
+                </div>
             </div>
             <div>
                 <br />
